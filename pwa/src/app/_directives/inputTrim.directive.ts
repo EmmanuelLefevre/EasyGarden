@@ -1,18 +1,18 @@
-import { Directive, HostListener, ElementRef } from '@angular/core';
+// import { Directive, HostListener, ElementRef } from '@angular/core';
 
-@Directive({
-  selector: '[inputTrim]'
-})
+// @Directive({
+//   selector: '[inputTrim]'
+// })
 
-export class InputTrimDirective {
+// export class InputTrimDirective {
 
-  constructor(private el: ElementRef) { }
+//   constructor(private el: ElementRef) { }
 
-  @HostListener('change') onChange() {
-    this.el.nativeElement.value = this.el.nativeElement.value.trim();
-  }
+//   @HostListener('change') onChange() {
+//     this.el.nativeElement.value = this.el.nativeElement.value.trim();
+//   }
 
-}
+// }
 
 // import { Directive, HostListener, ElementRef } from '@angular/core';
 
