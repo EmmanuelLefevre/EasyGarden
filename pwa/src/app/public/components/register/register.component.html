@@ -19,6 +19,7 @@
       <form [formGroup]="registerForm" 
             #ngForm="ngForm"
             (ngSubmit)="onSubmit()">
+        <label class="visually-hidden" for="name">Email</label>
         <input formControlName="email" 
           name="email" 
           type="email" 
@@ -33,6 +34,7 @@
           </div>
         </div>
         <div class="div-password-icon">
+          <label class="visually-hidden" for="name">Mot de passe</label>
           <input formControlName="password"
             name="password" 
             [type]=" visible ? 'text' : 'password' "
@@ -54,6 +56,7 @@
           </div>
         </div>
         <div class="div-password-icon">
+          <label class="visually-hidden" for="name">Confirmer mot de passe</label>
           <input formControlName="confirmPassword"
             name="password" 
             [type]=" visible ? 'text' : 'password' "
@@ -68,6 +71,7 @@
             </div>
           </div>
         </div>
+        <label class="visually-hidden" for="name">Nom</label>
         <input formControlName="lastName" 
           name="lastName" 
           type="text" 
@@ -86,6 +90,7 @@
           Le nom ne peut contenir que des lettres, seuls le tiret et l'espace sont acceptés!
           </div>
         </div>
+        <label class="visually-hidden" for="name">Prénom</label>
         <input formControlName="firstName" 
           name="firstName" 
           type="text" 
@@ -104,6 +109,7 @@
           Le prénom ne peut contenir que des lettres, seuls le tiret et l'espace sont acceptés!
           </div>
         </div>
+        <label class="visually-hidden" for="name">Pseudonyme</label>
         <input formControlName="pseudo" 
           name="pseudo" 
           type="text" 
@@ -122,6 +128,7 @@
           Le pseudo ne peut contenir que des chiffres et lettres!
           </div>
         </div>
+        <label class="visually-hidden" for="name">Téléphone</label>
         <input formControlName="phoneNumber" 
           name="phoneNumber" 
           type="tel" 

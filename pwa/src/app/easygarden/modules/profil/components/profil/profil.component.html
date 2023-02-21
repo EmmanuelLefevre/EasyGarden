@@ -22,6 +22,7 @@
           <div *ngIf="emailValue" class="div-form">
             <form class="form-shadow" [formGroup]="emailForm" (ngSubmit)="emailSubmit(user.id)">
               <div>
+                <label class="visually-hidden" for="name">Email</label>
                 <input formControlName="email" 
                         name="email" 
                         type="email" 
@@ -38,6 +39,7 @@
                 </div>
               </div>
               <div class="div-password-icon">
+                <label class="visually-hidden" for="name">Mot de passe</label>
                 <input formControlName="password"
                         name="password" 
                         type="password"
@@ -77,6 +79,7 @@
           <div *ngIf="lastNameValue === true" class="div-form">
             <form class="form-shadow" [formGroup]="lastNameForm" (ngSubmit)="lastNameSubmit(user.id)">
               <div>
+                <label class="visually-hidden" for="name">Nom</label>
                 <input formControlName="lastName" 
                         name="lastName" 
                         type="text" 
@@ -98,6 +101,7 @@
                 </div>
               </div>
               <div class="div-password-icon">
+                <label class="visually-hidden" for="name">Mot de passe</label>
                 <input formControlName="password"
                         name="password" 
                         type="password"
@@ -137,6 +141,7 @@
           <div *ngIf="firstNameValue" class="div-form">
             <form class="form-shadow" [formGroup]="firstNameForm" (ngSubmit)="firstNameSubmit(user.id)">
               <div>
+                <label class="visually-hidden" for="name">Prénom</label>
                 <input formControlName="firstName" 
                         name="firstName" 
                         type="text" 
@@ -158,6 +163,7 @@
                 </div>
                 </div>
               <div class="div-password-icon">
+                <label class="visually-hidden" for="name">Mot de passe</label>
                 <input formControlName="password"
                         name="password" 
                         type="password"
@@ -197,6 +203,7 @@
           <div *ngIf="pseudoValue" class="div-form">
             <form class="form-shadow" [formGroup]="pseudoForm" (ngSubmit)="pseudoSubmit(user.id)">
               <div>
+                <label class="visually-hidden" for="name">Pseudonyme</label>
                 <input formControlName="pseudo" 
                         name="pseudo" 
                         type="text" 
@@ -218,6 +225,7 @@
                 </div>
               </div>
               <div class="div-password-icon">
+                <label class="visually-hidden" for="name">Mot de passe</label>
                 <input formControlName="password"
                         name="password" 
                         type="password"
@@ -257,6 +265,7 @@
           <div *ngIf="phoneNumberValue" class="div-form">
             <form class="form-shadow" [formGroup]="phoneNumberForm" (ngSubmit)="phoneNumberSubmit(user.id)">
               <div>
+                <label class="visually-hidden" for="name">Téléphone</label>
                 <input formControlName="phoneNumber" 
                         name="phoneNumber" 
                         type="tel" 
@@ -272,6 +281,7 @@
                 </div>
                 </div>
               <div class="div-password-icon">
+                <label class="visually-hidden" for="name">Mot de passe</label>
                 <input formControlName="password"
                         name="password" 
                         type="password"
