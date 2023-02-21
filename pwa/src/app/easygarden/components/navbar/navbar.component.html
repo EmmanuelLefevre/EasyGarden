@@ -1,0 +1,39 @@
+<header>
+  <nav>
+    <div>
+      <div>
+        <ul>
+          <div class="nav-logo" [routerLink]="['./']">
+            <img width=50 height=50 src="assets/img/easygarden.png" alt="logo">   
+          </div>
+          <li class="border-bottom" [routerLinkActive]="['active-link']">
+            <a [routerLink]="['watering']">Arrosage</a>
+          </li>
+          <li class="border-bottom" [routerLinkActive]="['active-link']">
+            <a [routerLink]="['lightning']">Eclairage</a>
+          </li>
+          <li class="border-bottom" [routerLinkActive]="['active-link']">
+            <a [routerLink]="['pool']">Bassin</a>
+          </li>
+          <li class="border-bottom" [routerLinkActive]="['active-link']">
+            <a [routerLink]="['lawnmower']">Tondeuse</a>
+          </li>
+          <li class="border-bottom" [routerLinkActive]="['active-link']">
+            <a [routerLink]="['portal']">Portail</a>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <ul>
+          <li class="border-bottom" [routerLinkActive]="['active-link']">
+            <a [routerLink]="['profil']">Profil</a>
+          </li>
+          <button type="button" 
+                  (click)="logOut()" 
+                  class="button-shadow">Déconnexion
+          </button>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

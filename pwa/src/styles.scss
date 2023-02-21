@@ -1,0 +1,388 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$easygardenAngular-primary: mat.define-palette(mat.$green-palette, 800);
+$easygardenAngular-accent: mat.define-palette(mat.$purple-palette, 200, 100, 400);
+
+// The warn palette is optional (defaults to red).
+$easygardenAngular-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$easygardenAngular-theme: mat.define-light-theme((
+  color: (
+    primary: $easygardenAngular-primary,
+    accent: $easygardenAngular-accent,
+    warn: $easygardenAngular-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($easygardenAngular-theme);
+
+/*------Color-Palette------*/
+:root {
+  /*------Main Colors------*/
+  --ang-color-green: #95cb11;
+  --ang-color-green-rgba: rgba(149,203,17,0.55);
+  --ang-color-white: #ffffff;
+  --ang-color-grey: #666666;
+  --ang-color-alert: #ff0f0f;
+  --ang-color-alert-rgba: rgb(255,143,0,1);
+  --ang-color-alert2: #eb8100;
+  --ang-color-focus: #2fa6ff;
+  --ang-color-background: #e5e5e5;
+  
+  /*------Background------*/
+  --bg-cancel-button: #f6f6f6;
+  --bg-color: var(--ang-color-background);
+
+  /*------Text------*/
+  --ang-color-text-dark: #000000;
+  --ang-color-text-white: #ffffff;
+  --ang-color-text-light: rgba(60, 60, 60, 0.66);
+  --color-heading: var(--ang-color-text-light);
+  --color-text: var(--ang-color-text-dark);
+
+  /*------Buttons------*/
+  --ang-color-text-button: #c1c1c1;
+  --ang-color-border-button: #C4F253;
+
+  /*------Title------*/
+  --ang-color-title-tab-rgba: rgba(0,0,0,0.5);
+
+  /*------Hovers------*/
+  --ang-color-input-hover: #e1ff95;
+  --ang-color-table-hover: #e0f7a1;
+  --color-border-hover: var(--ang-color-green);
+
+  /*------Shadows------*/
+  --ang-color-title-form-shadow: #858585;
+  --ang-color-button-shadow-rgba: rgba(0,0,0,0.4);
+  --ang-color-form-shadow-rgba: rgba(0,0,0,0.3);
+  
+  /*------Borders------*/
+  --color-border: var(--ang-color-border-button);
+
+  /*------Dividers/HR------*/
+  --ang-color-divider-light: rgba(0, 0, 0, 0.29);
+}
+
+/*------Semantic Fonts------*/
+:root {
+  /*------Roboto------*/
+  --ang-font-body-text: 'roboto';
+  --ang-body-font-weight-thin: 100;
+  --ang-body-font-weight-light: 300;
+  --ang-body-font-weight-regular: 400;
+  --ang-body-font-weight-medium: 500;
+  --ang-body-font-weight-bold: 700;
+
+  /*------Roboto Condensed------*/
+  --ang-font-button-text: 'roboto condensed', sans-serif;
+  --ang-button-font-weight-light: 300;
+  --ang-button-font-weight-regular: 400;
+  --ang-button-font-weight-bold: 700;
+
+  /*------Roboto Serif------*/
+  --ang-font-serif-text: 'roboto serif', serif;
+  --ang-serif-font-weight-thin: 100;
+  --ang-serif-font-weight-extra-light: 200;
+  --ang-serif-font-weight-light: 300;
+  --ang-serif-font-weight-regular: 400;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:wght@100;300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Serif:opsz,wght@8..144,100;8..144,200;8..144,300;8..144,400&display=swap');
+
+@font-face {
+  font-family: "Charlotte Southern";
+  src: url("assets/fonts/Southern/Southern.ttf") format("ttf");
+}
+
+/*------Reset------*/
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/*------Body------*/
+body {
+  height:100%;
+  color: var(--color-text);
+  font-family: var(--ang-font-body-text);
+  font-weight: var(--ang-body-font-weight-light);
+  font-size: 15px;
+  line-height: 1.6;
+  background: var(--color-background);
+  transition: color 0.5s, background-color 0.5s;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden; 
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  .container-custom {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  /*------Text------*/
+  .text-alert {
+    color: var(--ang-color-alert);
+    padding: 0px 1.5rem;
+    text-align: center;
+  }
+  /*------Title------*/
+  h1 {
+    font-size: 2.5rem;
+    line-height: 1.2;
+    letter-spacing: 1.4px;
+  }
+  .form-title {
+    font-family: "Charlotte Southern";
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: var(--ang-color-green);
+    margin-bottom: 1.5rem;
+  }
+  .form-title-content {
+    position: relative;
+    color: var(--ang-color-green);
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--ang-color-green);
+    top: -2.2rem;
+    .p-form-title-content {
+      font-family: "Charlotte Southern";
+      font-size: 1.7rem;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      padding-bottom: 2rem;
+    }
+  }
+  /*------Button------*/
+  button {
+    font-family: var(--ang-font-button-text);
+    font-weight: var(--ang-button-font-weight-regular);
+    color: var(--ang-color-white);
+    background-color: var(--ang-color-green);
+    margin: 20px 0px 20px 0px;
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--color-border);
+    border-radius: 4px;
+    cursor: pointer;
+    &:hover {
+      color: var(--ang-color-green);
+      background-color: var(--ang-color-white);
+      border-color: var(--ang-color-green);
+    }
+  }
+  .div-form-button {
+    display: flex;
+    justify-content: space-evenly;
+    button.cancel {
+      color: var(--ang-color-green);
+      background-color: var(--bg-cancel-button);
+      &:hover {
+        color: var(--ang-color-alert);
+        border-color: var(--ang-color-alert);
+      }
+    }
+  }
+  .div-button-close {
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+    top: -3rem;
+    right: 1.5rem;
+    .button-circle {
+      font-size: 3rem;
+      color: var(--ang-color-white);
+      border: 2px solid var(--ang-color-green);
+      border-radius: 50%;
+      margin: 0;
+      padding: 0;
+      &:hover {
+        color: var(--ang-color-white);
+        background: rgba(255, 15, 15, 0.7);
+        border: 2px solid rgba(255, 15, 15, 0.5);
+        -webkit-animation: bounce 1.9s infinite;
+        animation: bounce 1.9s infinite;
+        -webkit-transform-origin: center bottom;
+        transform-origin: center bottom;
+      }
+      fa-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+  /*------Border------*/
+  .form-border {
+    border: 2px solid var(--ang-color-green);
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+  }
+  /*------Shadows------*/
+  .button-shadow{
+    box-shadow: 0 8px 10px -6px var(--ang-color-button-shadow-rgba);
+    -webkit-box-shadow: 0 8px 10px -6px var(--ang-color-button-shadow-rgba);
+    &:hover {
+      box-shadow: 0 8px 20px -3px var(--ang-color-button-shadow-rgba);
+      -webkit-box-shadow: 0 8px 20px -3px var(--ang-color-button-shadow-rgba);
+    }
+  }
+  .input-inset-shadow{
+    box-shadow: inset 0 0px 20px 7px var(--ang-color-green-rgba);
+    -webkit-box-shadow: inset 0 0px 20px 7px var(--ang-color-green-rgba);
+  }
+  .title-form-shadow {
+    text-shadow: 0px 5px 20px var(--ang-color-title-form-shadow);
+    letter-spacing: -0.05em;
+    user-select: none;
+    transition: all 0.25s ease-out;
+    &:hover {
+      text-shadow: 0px 5px 20px var(--ang-color-green);
+    }
+  }
+  .form-shadow {
+    -webkit-box-shadow: 0 30px 60px 0 var(--ang-color-form-shadow-rgba);
+    box-shadow: 0 30px 60px 0 var(--ang-color-form-shadow-rgba);
+  }
+  /*------Form------*/
+  .form-content {
+    color: var(--ang-color-grey);
+    background: var(--ang-color-white);
+    padding: 20px 0px;
+    width: 75%;
+    max-width: 400px;
+    position: relative;
+    text-align: center;
+  }
+  /*------Wrapper------*/
+  .div-wrapper {
+    display: flex;
+    align-items: center;
+    flex-direction: column; 
+    justify-content: center;
+    width: 100%;
+    padding: 20px;
+  }
+  /*------Wrapper-Table------*/
+  .table-wrapper {
+    background-image: url("./assets/img/garden.png");
+    background-size: cover;
+    height: 82vh;
+  }
+  /*------Input------*/
+  input {
+    margin: 20px 0px 20px 0px;
+    padding: 15px;
+  }
+  .div-password-icon {
+    position: relative;
+    fa-icon {
+      color: var(--ang-color-green);
+      font-size: 1.5rem;
+      position: absolute;
+      top: 28px; 
+      right: 50px; 
+      cursor: pointer;
+    }
+  }
+  input[type=email], 
+  input[type=password], 
+  input[type=text], 
+  input[type=tel] {
+    background-color: var(--ang-color-white);
+    color: var(--ang-color-text-dark);
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    width: 80%;
+    border: 2px solid var(--ang-color-green);
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+  }
+  input[type=email]:hover, 
+  input[type=password]:hover, 
+  input[type=text]:hover, 
+  input[type=tel]:hover {
+    background-color: var(--ang-color-input-hover);
+  }
+  input[type=email]:focus, 
+  input[type=password]:focus, 
+  input[type=text]:focus, 
+  input[type=tel]:focus {
+    background-color: var(--ang-color-white);
+    border-bottom: 2px solid var(--ang-color-focus);
+    outline: none;
+  }
+  input:placeholder {
+    color: var(--ang-color-text-ligh);
+  }
+  /*------Invalid-Input------*/
+  .invalid-feedback {
+    box-shadow: inset 0 0px 10px 2px var(--ang-color-alert);
+    -webkit-box-shadow: inset 0 0px 10px 2px var(--ang-color-alert);
+    border: 2px solid var(--ang-color-alert) !important;
+    background-color: var(--ang-color-white) !important;
+  }
+  /*------Label------*/
+  .visually-hidden {
+    position: absolute;
+    border-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    clip-path: rect(1px, 1px, 1px, 1px);
+    height: 1px;
+    width: 1px;
+    padding: 0;
+  }
+  /*------Select------*/
+  mat-form-field {
+    width: 80%;
+    border: 2px solid var(--ang-color-green);
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    margin: 20px 0px 20px 0px;
+    .mat-form-field-wrapper {
+      padding-bottom: 0;
+    }
+    div {
+      .mat-form-field-underline {
+        display: none;
+      }
+    }
+    option {
+      color: var(--ang-color-grey);
+    }
+  }
+  .display-none-select {
+    display: none;
+  }
+
+}

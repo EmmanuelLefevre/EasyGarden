@@ -1,0 +1,60 @@
+/*------Snackbar------*/
+snack-bar-container {
+  -webkit-animation: fadeInUp 1.5s;
+  animation: fadeInUp 1.5s;
+  text-align: center;
+  margin: 0 0 13vh 6vh !important;
+  color: var(--ang-color-white);
+  border: 2px solid var(--ang-color-border-button);
+  background-color: #292929;
+  position: relative;
+  overflow: hidden;
+  &::before {
+    content: "";
+    width: 22vh;
+    height: 90px;
+    background-color: var(--ang-color-green);
+    position: absolute;
+    left: -40px;
+    z-index: -1;
+    top: -10px;
+    filter: blur(56px);
+  }
+}
+
+snack-bar-container.modified {
+  &::before {
+    background-color: rgb(255, 255, 9);
+  }
+}
+
+snack-bar-container.deleted {
+  &::before {
+    background-color: var(--ang-color-alert);
+  }
+}
+
+snack-bar-container.logIn-logOut {
+  -webkit-animation: fadeInRight 1.5s;
+  animation: fadeInRight 1.5s;
+  text-align: center;
+  margin: 12vh 6vh !important;
+  color: var(--ang-color-white);
+  border: 2px solid var(--ang-color-border-button);
+  background-color: var(--ang-color-green);
+  position: relative;
+  overflow: hidden;
+}
+
+snack-bar-container.register {
+  -webkit-animation: fadeInRight 1.5s;
+  animation: fadeInRight 1.5s;
+  text-align: center;
+  margin: 5vh 2vh !important;
+  color: var(--ang-color-white);
+  border: 2px solid var(--ang-color-border-button);
+  background-color: var(--ang-color-green);
+  position: relative;
+  overflow: hidden;
+  white-space: pre-line;
+}

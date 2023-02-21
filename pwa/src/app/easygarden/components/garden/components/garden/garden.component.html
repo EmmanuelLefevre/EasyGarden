@@ -1,0 +1,91 @@
+<app-navbar></app-navbar>
+<router-outlet></router-outlet>
+<div *ngIf="router.url === '/easygarden'" 
+      class="div-wrapper table-wrapper"
+      (click)="clearInput()">
+
+  <div>
+    <h1>{{title}}</h1>
+    <div class="iconContainer">
+      <div class="circle"></div>
+      <fa-icon [icon]="faTree" class="iconCategory"></fa-icon>
+    </div>
+
+    <div *ngIf="gardens.length > 5">
+      <div class="divSearch">
+        <div class="inputSearch">
+          <input id="inputSearch"
+                 type="text"
+                 [(ngModel)]="searchInput.name"
+                 placeholder="Rechercher...">
+          <fa-icon [icon]="faSearch" class="icon"></fa-icon>
+        </div>
+      </div>
+    </div>
+
+    <div class="table form-border form-shadow">
+      <table class="t-hover">
+  
+        <thead>             
+          <tr>
+            <th (click)="sort('name')" class="order">Nom 
+              <fa-icon [icon]="faSort"></fa-icon>
+            </th>
+            <th>Action</th>                   
+          </tr>
+        </thead>
+  
+        <tbody>
+          <tr *ngFor="let garden of gardens
+              | orderBy: orderHeader: isDescOrder
+              | filterBy: searchInput
+              | paginate: { itemsPerPage: 5, currentPage: p }">
+            <td>{{ garden.name }}</td>
+            <td>
+              <button type="button"
+                      aria-label="Modifier"
+                      matTooltip="Modifier"
+                      matTooltipPosition="before"
+                      matTooltipShowDelay="500"
+                      routerLink="/easygarden/garden/{{garden.id}}"
+                      [state]="{data: {id: garden.id, name: garden.name}}">
+                <fa-icon [icon]="faPen"></fa-icon>
+              </button>
+              <button type="submit" class="trash"
+                      aria-label="Supprimer"                  
+                      matTooltip="Supprimer"
+                      matTooltipPosition="after"
+                      matTooltipShowDelay="500"
+                      (click)="confirmDialog(garden.id, garden.name)">
+                <fa-icon [icon]="faTrash"></fa-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+        
+      </table>
+      <div *ngIf="gardens.length > 5">
+        <div class="no-search-match" *ngIf="(gardens | filterBy: searchInput).length === 0">
+          Aucune correspondance trouvée..
+        </div>
+      </div>
+    </div>
+    <div class="pagination">
+      <pagination-controls (pageChange)="p = $event" 
+                            previousLabel="" 
+                            nextLabel=""
+                            [autoHide]="true"
+                            [responsive]="true"
+                            aria-label="Pagination">
+      </pagination-controls>
+    </div>
+  </div>
+
+  <div class="submit">
+    <button type="button" 
+            id="submit" 
+            class="button-shadow"
+            [routerLink]="['/easygarden/add']">Ajouter
+    </button>
+  </div>
+</div>

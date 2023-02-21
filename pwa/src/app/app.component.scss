@@ -1,0 +1,22 @@
+.loaderIcon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 82vh;
+  margin-top: 8vh;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.8);
+  .iconContainer {
+    -webkit-animation: iconCategorySpin 4s linear infinite;
+    animation: iconCategorySpin 4s linear infinite;
+    fa-icon {
+      margin-top: 0;
+    }
+  }
+}

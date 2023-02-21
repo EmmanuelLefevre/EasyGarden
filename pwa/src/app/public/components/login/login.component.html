@@ -1,0 +1,61 @@
+<div class="div-wrapper animate__animated animate__fadeInDown" id="form-login">
+  <div>
+    <img width=150 height=150 src="assets/img/easygarden.png" alt="logo">
+  </div>
+  <h2 class="form-title title-form-shadow">{{title}}</h2>
+  <div class="div-wrapper">
+    <div class="form-content form-border form-shadow">
+      <div class="div-button-close">
+        <button type="button"
+          aria-label="Fermer" 
+          [routerLink]="['/']" 
+          class="button-circle button-shadow">
+          <fa-icon [icon]="faCircleXmark"></fa-icon>
+        </button>
+      </div>
+      <div class="form-title-content">
+        <p class="p-form-title-content">LOGIN</p>
+      </div>
+      <form [formGroup]="loginForm" 
+            #ngForm="ngForm"
+            (ngSubmit)="onSubmit()">
+        <input formControlName="email" 
+               name="email"
+               id="email"
+               type="email"
+               placeholder="Email"
+               class="input-inset-shadow"
+               [ngClass]="{ 'invalid-feedback': ngForm.submitted && f['email'].errors }">
+        <div *ngIf="ngForm.submitted && f['email'].errors">
+          <div class="text-alert" *ngIf="f['email'].errors['required']">Veuillez saisir un email!</div>
+          <div class="text-alert" *ngIf="f['email'].errors['email']">Format d'email invalide!</div>
+          <div class="text-alert" *ngIf="f['email'].errors['validEmail']">
+          L'email doit contenir un "." + nom de domaine!
+          </div>
+        </div>
+        <div class="div-password-icon">
+          <input formControlName="password"
+                 name="password"
+                 id="password"
+                 [type]=" visible ? 'text' : 'password' "
+                 placeholder="Password"
+                 class="input-inset-shadow"
+                 [ngClass]="{ 'invalid-feedback': ngForm.submitted && f['password'].errors }">
+          <fa-icon [icon]="visible ? faEyeSlash : faEye" aria-hidden="true" (click)="toggle()"></fa-icon>
+          <div *ngIf="ngForm.submitted && f['password'].errors">
+            <div class="text-alert" *ngIf="f['password'].errors['required']">Veuillez saisir un mot de passe!</div>
+          </div>
+        </div>
+        <div class="div-form-button">
+          <button type="submit" 
+            class="button-shadow">Connexion
+          </button>
+          <button type="button" 
+            (click)="onReset()" 
+            class="button-shadow cancel">Annuler
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

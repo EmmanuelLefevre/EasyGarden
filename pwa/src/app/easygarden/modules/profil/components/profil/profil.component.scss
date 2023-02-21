@@ -1,0 +1,86 @@
+div.wrapper {
+  background-image: url("../../../../../../assets/img/garden.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  flex-direction: column; 
+  justify-content: center;
+  width: 100%;
+  padding: 6vh 6vh 8vh 6vh;
+  h1 {
+    font-size: 2.5vh;
+    font-family: var(--ang-font-serif-text);
+    font-weight: var(--ang-body-font-weight-thin);
+    color: var(--ang-color-green);
+  }
+  .div-profil {
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    width: 100%;
+    padding: 3vh;
+    .div-container {
+      width: 100%;
+      padding: 3vh 2.5vh;
+      background-color: var(--ang-color-white);
+      .div-label {
+        font-size: 2vh;
+        font-family: var(--ang-font-serif-text);
+        font-weight: var(--ang-body-font-weight-medium);
+        color: var(--ang-color-green);
+        border-bottom: 1px solid var(--ang-color-green);
+      }
+      .input-profil {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+        .container {
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-start;
+          align-items: center;
+          width: 50%;
+        }
+        button.pen {
+          margin-left: 1.5vh;
+          &:hover {
+            color: var(--ang-color-title-form-shadow);
+          }
+        }
+        .div-form {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          width: 100%;
+          padding: 3vh 3vh;
+          form {
+            width: 100%;
+            border: 1px solid var(--ang-color-green);
+            border-radius: 10px;
+            -webkit-border-radius: 10px;
+            div {
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+            }
+          }
+        }
+      }
+      .div-delete {
+        display: flex;
+        justify-content: center;
+        margin-top: 1.5vh;
+        button {
+          &:hover {
+            color: var(--ang-color-alert);
+            background-color: var(--ang-color-white);
+            border-color: var(--ang-color-alert);
+          }
+        }
+      }
+    }
+  }
+}

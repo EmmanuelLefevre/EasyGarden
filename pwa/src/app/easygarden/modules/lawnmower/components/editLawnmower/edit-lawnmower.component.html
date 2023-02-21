@@ -1,0 +1,51 @@
+<div class="div-wrapper table-wrapper">
+  <div>
+    <img width=150 height=150 src="assets/img/easygarden.png" alt="logo">
+  </div>
+  <h2 class="form-title title-form-shadow">{{title}}</h2>
+  <div class="form-content form-border form-shadow animate__animated animate__fadeInDown">
+    <div class="div-button-close">
+      <button type="button" 
+              aria-label="Fermer"
+              (click)="goBack()" 
+              class="button-circle button-shadow">
+        <fa-icon [icon]="faCircleXmark"></fa-icon>
+      </button>
+    </div>
+    <div class="form-title-content">
+      <p class="p-form-title-content">MODIFIER</p>
+    </div>
+    <form [formGroup]="editLawnmowerForm" 
+          #ngForm="ngForm"
+          (ngSubmit)="onSubmit()">
+      <input formControlName="name"
+              name="name"
+              id="name"
+              type="text"
+              class="input-inset-shadow"
+              [ngClass]="{ 'invalid-feedback': ngForm.submitted && f['name'].errors }"
+              value={{value}}>
+      <div *ngIf="ngForm.submitted && f['name'].errors">
+        <div class="text-alert" *ngIf="f['name'].errors['required']">Veuillez saisir un nom!</div>
+        <div class="text-alert" *ngIf="f['name'].errors['minlength']">
+          Le nom doit contenir au minimum 3 caractères.
+        </div>
+        <div class="text-alert" *ngIf="f['name'].errors['maxlength']">
+          Le nom doit contenir au maximum 20 caractères.
+        </div>
+        <div class="text-alert" *ngIf="f['name'].errors['validEquipmentName']">
+          Le nom ne peut contenir de caractères spéciaux!
+        </div>
+      </div>
+      <div class="div-form-button">
+        <button type="submit"
+                class="button-shadow">Modifier
+        </button>
+        <button type="button" 
+                (click)="onReset()" 
+                class="button-shadow cancel">Annuler
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

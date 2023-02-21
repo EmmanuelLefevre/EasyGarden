@@ -1,0 +1,15 @@
+api_platform:
+    title: 'EasyGarden API'
+    description: 'API to deal with Angular13'
+    version: '1.0'
+    # Araignée specs APi_Platform   https://127.0.0.1:8000/api
+    show_webby: false
+    mapping:
+        paths: ['%kernel.project_dir%/src/Entity']
+    patch_formats:
+        json: ['application/merge-patch+json']
+    swagger:
+        versions: [3]
+    # eager_loading:
+    #     force_eager: false
+    #     fetch_partial: true
