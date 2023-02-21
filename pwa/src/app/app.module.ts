@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
@@ -12,14 +12,11 @@ import { Error404Component } from './_services/utils/components/error/error404.c
 
 import { JWTInterceptorProvider } from './_services/utils/jwt.interceptor';
 
-import { InputTrimDirective } from './_directives/inputTrim.directive';
-
 @NgModule({
     declarations: [
         AppComponent,
         FooterComponent,
-        Error404Component,
-        InputTrimDirective
+        Error404Component
     ],
     imports: [
         BrowserModule,
@@ -32,6 +29,7 @@ import { InputTrimDirective } from './_directives/inputTrim.directive';
     providers: [
         JWTInterceptorProvider
     ],
+    schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
     bootstrap: [AppComponent]
 })
 
