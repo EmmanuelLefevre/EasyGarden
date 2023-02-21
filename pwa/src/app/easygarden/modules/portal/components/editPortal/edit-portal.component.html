@@ -18,6 +18,7 @@
     <form [formGroup]="editPortalForm" 
           #ngForm="ngForm"
           (ngSubmit)="onSubmit()">
+      <label class="visually-hidden" for="name">Nom</label>
       <input formControlName="name"
               name="name"
               id="name"

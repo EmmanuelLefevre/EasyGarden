@@ -19,6 +19,7 @@
       <form [formGroup]="loginForm" 
             #ngForm="ngForm"
             (ngSubmit)="onSubmit()">
+        <label class="visually-hidden" for="name">Email</label>
         <input formControlName="email" 
                name="email"
                id="email"
@@ -34,6 +35,7 @@
           </div>
         </div>
         <div class="div-password-icon">
+          <label class="visually-hidden" for="name">Mot de passe</label>
           <input formControlName="password"
                  name="password"
                  id="password"
