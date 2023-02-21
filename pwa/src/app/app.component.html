@@ -1,0 +1,10 @@
+<router-outlet>
+  <div *ngIf="loading | async" class="loaderIcon">
+    <div class="iconContainer">
+      <div class="circle">
+        <fa-icon [icon]="faLeaf" class="iconCategory"></fa-icon>
+      </div>
+    </div>
+  </div>
+</router-outlet>
+<app-footer></app-footer>

@@ -1,0 +1,67 @@
+security:
+    # https://symfony.com/doc/current/security/experimental_authenticators.html
+    enable_authenticator_manager: true
+    # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
+    password_hashers:
+        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
+        App\Entity\User:
+            algorithm: auto
+            cost: 20
+
+    # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
+    providers:
+        # used to reload user from session & other features (e.g. switch_user)
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: email
+                
+    firewalls:
+        registration:
+            pattern: ^/api/users
+            stateless: true
+            methods: [POST]
+        login:
+            pattern: ^/api/login
+            stateless: true
+            provider: app_user_provider
+            json_login:
+                check_path: /api/login_check
+                username_path: email
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure       
+        api:
+            pattern:   ^/api
+            stateless: true
+            jwt: ~  
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+        - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/users, roles: PUBLIC_ACCESS,
+            methods: [POST] }
+        - { path: ^/api/users, roles: IS_AUTHENTICATED_FULLY,
+                methods: [GET, PUT, PATCH, DELETE] }
+        - { path: ^/api/gardens, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/lawnmowers, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/lightnings, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/pools, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/portals, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/waterings, roles: IS_AUTHENTICATED_FULLY }
+
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER
+        
+when@test:
+    security:
+        password_hashers:
+            # By default, password hashers are resource intensive and take time. This is
+            # important to generate secure password hashes. In tests however, secure hashes
+            # are not important, waste resources and increase test times. The following
+            # reduces the work factor to the lowest possible values.
+            Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface:
+                algorithm: auto
+                cost: 4 # Lowest possible value for bcrypt
+                time_cost: 3 # Lowest possible value for argon
+                memory_cost: 10 # Lowest possible value for argon

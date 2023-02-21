@@ -1,0 +1,308 @@
+<div class="wrapper">
+  <h1>{{title}}</h1>
+  <div class="div-profil">
+    <div class="form-shadow form-border form-shadow div-container">
+      <ng-container *ngFor="let user of users">
+
+        <!------ Email Form ------>
+        <div class="div-label">Email</div>
+        <div class="input-profil">
+          <div class="container">
+            <p>{{ user.email }}</p>
+            <button type="button"
+                    class="button-shadow pen"
+                    aria-label="Modifier"
+                    matTooltip="Modifier"
+                    matTooltipPosition="after"
+                    matTooltipShowDelay="500"
+                    (click)="emailInput()">
+              <fa-icon [icon]="faPen"></fa-icon>
+            </button>
+          </div>
+          <div *ngIf="emailValue" class="div-form">
+            <form class="form-shadow" [formGroup]="emailForm" (ngSubmit)="emailSubmit(user.id)">
+              <div>
+                <input formControlName="email" 
+                        name="email" 
+                        type="email" 
+                        placeholder="Email"
+                        class="input-inset-shadow"
+                        [(ngModel)]="user.email"
+                        [ngClass]="{ 'invalid-feedback': submitted && email['email'].errors }">
+                <div *ngIf="submitted && email['email'].errors">
+                  <div class="text-alert" *ngIf="email['email'].errors['required']">Veuillez saisir un email!</div>
+                  <div class="text-alert" *ngIf="email['email'].errors['email']">Format d'email invalide!</div>
+                  <div class="text-alert" *ngIf="email['email'].errors['validEmail']">
+                  L'email doit contenir un "." + nom de domaine!
+                  </div>
+                </div>
+              </div>
+              <div class="div-password-icon">
+                <input formControlName="password"
+                        name="password" 
+                        type="password"
+                        [type]=" visible ? 'text' : 'password' "
+                        placeholder="Password"
+                        class="input-inset-shadow"
+                        [ngClass]="{ 'invalid-feedback': submitted && email['password'].errors }">
+                <fa-icon [icon]="visible ? faEyeSlash : faEye" aria-hidden="true" (click)="toggle()"></fa-icon>
+                <div *ngIf="submitted && email['password'].errors">
+                  <div class="text-alert" *ngIf="email['password'].errors['required']">Veuillez saisir un mot de passe!</div>
+                </div>
+              </div>
+              <div>
+                <button type="submit" 
+                        class="button-shadow">Modifier
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!------ Lastname Form ------>
+        <div class="div-label">Nom</div>
+        <div class="input-profil">
+          <div class="container">
+            <p>{{ user.lastName }}</p>
+            <button type="button"
+                    class="button-shadow pen"
+                    aria-label="Modifier"
+                    matTooltip="Modifier"
+                    matTooltipPosition="after"
+                    matTooltipShowDelay="500"
+                    (click)="lastNameInput()">
+              <fa-icon [icon]="faPen"></fa-icon>
+            </button>
+          </div>
+          <div *ngIf="lastNameValue === true" class="div-form">
+            <form class="form-shadow" [formGroup]="lastNameForm" (ngSubmit)="lastNameSubmit(user.id)">
+              <div>
+                <input formControlName="lastName" 
+                        name="lastName" 
+                        type="text" 
+                        placeholder="Nom"
+                        class="input-inset-shadow"
+                        [(ngModel)]="user.lastName"
+                        [ngClass]="{ 'invalid-feedback': submitted && lastName['lastName'].errors }">
+                <div *ngIf="submitted && lastName['lastName'].errors">
+                  <div class="text-alert" *ngIf="lastName['lastName'].errors['required']">Nom requis!</div>
+                  <div class="text-alert" *ngIf="lastName['lastName'].errors['minlength']">
+                  Le nom doit contenir 3 caractères minimum.
+                  </div>
+                  <div class="text-alert" *ngIf="lastName['lastName'].errors['maxlength']">
+                  Le nom ne peut excéder 20 caractères.
+                  </div>
+                  <div class="text-alert" *ngIf="lastName['lastName'].errors['validName']">
+                  Le nom ne peut contenir que des lettres, seuls le tiret et l'espace sont acceptés!
+                  </div>
+                </div>
+              </div>
+              <div class="div-password-icon">
+                <input formControlName="password"
+                        name="password" 
+                        type="password"
+                        [type]=" visible ? 'text' : 'password' "
+                        placeholder="Password"
+                        class="input-inset-shadow"
+                        [ngClass]="{ 'invalid-feedback': submitted && lastName['password'].errors }">
+                  <fa-icon [icon]="visible ? faEyeSlash : faEye" aria-hidden="true" (click)="toggle()"></fa-icon>
+                <div *ngIf="submitted && lastName['password'].errors">
+                  <div class="text-alert" *ngIf="lastName['password'].errors['required']">Veuillez saisir un mot de passe!</div>
+                </div>
+              </div>
+              <div>
+                <button type="submit" 
+                        class="button-shadow">Modifier
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+        
+        <!------ Firstname Form ------>
+        <div class="div-label">Prénom</div>
+        <div class="input-profil">
+          <div class="container">
+            <p>{{ user.firstName }}</p>
+            <button type="button"   
+                    class="button-shadow pen"
+                    aria-label="Modifier"
+                    matTooltip="Modifier"
+                    matTooltipPosition="after"
+                    matTooltipShowDelay="500"
+                    (click)="firstNameInput()">
+              <fa-icon [icon]="faPen"></fa-icon>
+            </button>
+          </div>
+          <div *ngIf="firstNameValue" class="div-form">
+            <form class="form-shadow" [formGroup]="firstNameForm" (ngSubmit)="firstNameSubmit(user.id)">
+              <div>
+                <input formControlName="firstName" 
+                        name="firstName" 
+                        type="text" 
+                        placeholder="Prénom"
+                        class="input-inset-shadow"
+                        [(ngModel)]="user.firstName"
+                        [ngClass]="{ 'invalid-feedback': submitted && firstName['firstName'].errors }">
+                <div *ngIf="submitted && firstName['firstName'].errors">
+                  <div class="text-alert" *ngIf="firstName['firstName'].errors['required']">Prénom requis!</div>
+                  <div class="text-alert" *ngIf="firstName['firstName'].errors['minlength']">
+                  Le prénom doit contenir 3 caractères minimum.
+                  </div>
+                  <div class="text-alert" *ngIf="firstName['firstName'].errors['maxlength']">
+                  Le prénom ne peut excéder 20 caractères.
+                  </div>
+                  <div class="text-alert" *ngIf="firstName['firstName'].errors['validName']">
+                  Le prénom ne peut contenir que des lettres, seuls le tiret et l'espace sont acceptés!
+                  </div>
+                </div>
+                </div>
+              <div class="div-password-icon">
+                <input formControlName="password"
+                        name="password" 
+                        type="password"
+                        [type]=" visible ? 'text' : 'password' " 
+                        placeholder="Password"
+                        class="input-inset-shadow"
+                        [ngClass]="{ 'invalid-feedback': submitted && firstName['password'].errors }">
+                  <fa-icon [icon]="visible ? faEyeSlash : faEye" aria-hidden="true" (click)="toggle()"></fa-icon>
+                <div *ngIf="submitted && firstName['password'].errors">
+                  <div class="text-alert" *ngIf="firstName['password'].errors['required']">Veuillez saisir un mot de passe!</div>
+                </div>
+              </div>
+              <div>
+                <button type="submit" 
+                        class="button-shadow">Modifier
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!------ Pseudo Form ------>
+        <div class="div-label">Pseudo</div>
+        <div class="input-profil">
+          <div class="container">
+            <p>{{ user.pseudo }}</p>
+            <button type="button"
+                    class="button-shadow pen"
+                    aria-label="Modifier"
+                    matTooltip="Modifier"
+                    matTooltipPosition="after"
+                    matTooltipShowDelay="500"
+                    (click)="pseudoInput()">
+              <fa-icon [icon]="faPen"></fa-icon>
+            </button>
+          </div>
+          <div *ngIf="pseudoValue" class="div-form">
+            <form class="form-shadow" [formGroup]="pseudoForm" (ngSubmit)="pseudoSubmit(user.id)">
+              <div>
+                <input formControlName="pseudo" 
+                        name="pseudo" 
+                        type="text" 
+                        placeholder="Pseudonyme" 
+                        class="input-inset-shadow"
+                        [(ngModel)]="user.pseudo"
+                        [ngClass]="{ 'invalid-feedback': submitted && pseudo['pseudo'].errors }">
+                <div *ngIf="submitted && pseudo['pseudo'].errors">
+                  <div class="text-alert" *ngIf="pseudo['pseudo'].errors['required']">Pseudo requis!</div>
+                  <div class="text-alert" *ngIf="pseudo['pseudo'].errors['minlength']">
+                  Le pseudo doit contenir 3 caractères minimum.
+                  </div>
+                  <div class="text-alert" *ngIf="pseudo['pseudo'].errors['maxlength']">
+                  Le pseudo ne peut excéder 10 caractères.
+                  </div>
+                  <div class="text-alert" *ngIf="pseudo['pseudo'].errors['validPseudo']">
+                  Le pseudo ne peut contenir que des chiffres et lettres!
+                  </div>
+                </div>
+              </div>
+              <div class="div-password-icon">
+                <input formControlName="password"
+                        name="password" 
+                        type="password"
+                        [type]=" visible ? 'text' : 'password' "
+                        placeholder="Password"
+                        class="input-inset-shadow"
+                        [ngClass]="{ 'invalid-feedback': submitted && pseudo['password'].errors }">
+                  <fa-icon [icon]="visible ? faEyeSlash : faEye" aria-hidden="true" (click)="toggle()"></fa-icon>
+                <div *ngIf="submitted && pseudo['password'].errors">
+                  <div class="text-alert" *ngIf="pseudo['password'].errors['required']">Veuillez saisir un mot de passe!</div>
+                </div>
+              </div>
+              <div>
+                <button type="submit" 
+                        class="button-shadow">Modifier
+                </button>
+              </div>
+            </form>           
+          </div>
+        </div>
+
+        <!------ Phone Number Form ------>
+        <div class="div-label">Téléphone</div>
+        <div class="input-profil">
+          <div class="container">
+            <p>{{ user.phoneNumber }}</p>
+            <button type="button"
+                    class="button-shadow pen"
+                    aria-label="Modifier"
+                    matTooltip="Modifier"
+                    matTooltipPosition="after"
+                    matTooltipShowDelay="500"
+                    (click)="phoneNumberInput()">
+              <fa-icon [icon]="faPen"></fa-icon>
+            </button>
+          </div>
+          <div *ngIf="phoneNumberValue" class="div-form">
+            <form class="form-shadow" [formGroup]="phoneNumberForm" (ngSubmit)="phoneNumberSubmit(user.id)">
+              <div>
+                <input formControlName="phoneNumber" 
+                        name="phoneNumber" 
+                        type="tel" 
+                        placeholder="Téléphone"
+                        class="input-inset-shadow"
+                        [(ngModel)]="user.phoneNumber" 
+                        [ngClass]="{ 'invalid-feedback': submitted && phoneNumber['phoneNumber'].errors }">
+                <div *ngIf="submitted && phoneNumber['phoneNumber'].errors">
+                  <div class="text-alert" *ngIf="phoneNumber['phoneNumber'].errors['required']">Numéro de téléphone requis!</div>
+                  <div class="text-alert" *ngIf="phoneNumber['phoneNumber'].errors['validPhoneNumber']">
+                  Format de numéro de téléphone invalide!
+                  </div>
+                </div>
+                </div>
+              <div class="div-password-icon">
+                <input formControlName="password"
+                        name="password" 
+                        type="password"
+                        [type]=" visible ? 'text' : 'password' " 
+                        placeholder="Password"
+                        class="input-inset-shadow"
+                        [ngClass]="{ 'invalid-feedback': submitted && phoneNumber['password'].errors }">
+                  <fa-icon [icon]="visible ? faEyeSlash : faEye" aria-hidden="true" (click)="toggle()"></fa-icon>
+                <div *ngIf="submitted && phoneNumber['password'].errors">
+                  <div class="text-alert" *ngIf="phoneNumber['password'].errors['required']">Veuillez saisir un mot de passe!</div>
+                </div>
+              </div>
+              <div>
+                <button type="submit" 
+                        class="button-shadow">Modifier
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!------ Delete Account ------>
+        <div class="div-label"></div>
+        <div class="div-delete">
+          <button type="submit" 
+                  class="button-shadow"
+                  (click)="confirmDialog(user.id, user.firstName)">Supprimer votre compte
+          </button>
+        </div>
+        
+      </ng-container>
+    </div>
+  </div>
+</div>
