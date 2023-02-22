@@ -1,6 +1,5 @@
 import { IGarden } from "../../components/garden/IGarden";
 
-
 export interface IWatering {
   id: number,
   name: string,
