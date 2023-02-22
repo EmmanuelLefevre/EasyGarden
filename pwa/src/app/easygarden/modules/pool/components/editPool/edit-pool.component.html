@@ -20,12 +20,14 @@
           (ngSubmit)="onSubmit()">
       <label class="visually-hidden" for="name">Nom</label>
       <input formControlName="name"
-              name="name"
-              id="name"
-              type="text"
-              class="input-inset-shadow"
-              [ngClass]="{ 'invalid-feedback': ngForm.submitted && f['name'].errors }"
-              value={{value}}>
+             name="name"
+             id="name"
+             type="text"
+             spellcheck="false"
+             autocomplete="off"
+             class="input-inset-shadow"
+             [ngClass]="{ 'invalid-feedback': ngForm.submitted && f['name'].errors }"
+             value={{value}}>
       <div *ngIf="ngForm.submitted && f['name'].errors">
         <div class="text-alert" *ngIf="f['name'].errors['required']">Veuillez saisir un nom!</div>
         <div class="text-alert" *ngIf="f['name'].errors['minlength']">

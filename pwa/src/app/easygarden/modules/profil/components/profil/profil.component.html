@@ -24,12 +24,13 @@
               <div>
                 <label class="visually-hidden" for="name">Email</label>
                 <input formControlName="email" 
-                        name="email" 
-                        type="email" 
-                        placeholder="Email"
-                        class="input-inset-shadow"
-                        [(ngModel)]="user.email"
-                        [ngClass]="{ 'invalid-feedback': submitted && email['email'].errors }">
+                       name="email" 
+                       type="email" 
+                       placeholder="Email"
+                       spellcheck="false"
+                       class="input-inset-shadow"
+                       [(ngModel)]="user.email"
+                       [ngClass]="{ 'invalid-feedback': submitted && email['email'].errors }">
                 <div *ngIf="submitted && email['email'].errors">
                   <div class="text-alert" *ngIf="email['email'].errors['required']">Veuillez saisir un email!</div>
                   <div class="text-alert" *ngIf="email['email'].errors['email']">Format d'email invalide!</div>
@@ -41,12 +42,14 @@
               <div class="div-password-icon">
                 <label class="visually-hidden" for="name">Mot de passe</label>
                 <input formControlName="password"
-                        name="password" 
-                        type="password"
-                        [type]=" visible ? 'text' : 'password' "
-                        placeholder="Password"
-                        class="input-inset-shadow"
-                        [ngClass]="{ 'invalid-feedback': submitted && email['password'].errors }">
+                       name="password" 
+                       type="password"
+                       [type]=" visible ? 'text' : 'password' "
+                       placeholder="Password"
+                       spellcheck="false"
+                       autocomplete="off"
+                       class="input-inset-shadow"
+                       [ngClass]="{ 'invalid-feedback': submitted && email['password'].errors }">
                 <fa-icon [icon]="visible ? faEyeSlash : faEye" aria-hidden="true" (click)="toggle()"></fa-icon>
                 <div *ngIf="submitted && email['password'].errors">
                   <div class="text-alert" *ngIf="email['password'].errors['required']">Veuillez saisir un mot de passe!</div>
@@ -81,12 +84,14 @@
               <div>
                 <label class="visually-hidden" for="name">Nom</label>
                 <input formControlName="lastName" 
-                        name="lastName" 
-                        type="text" 
-                        placeholder="Nom"
-                        class="input-inset-shadow"
-                        [(ngModel)]="user.lastName"
-                        [ngClass]="{ 'invalid-feedback': submitted && lastName['lastName'].errors }">
+                       name="lastName" 
+                       type="text" 
+                       placeholder="Nom"
+                       spellcheck="false"
+                       autocomplete="off"
+                       class="input-inset-shadow"
+                       [(ngModel)]="user.lastName"
+                       [ngClass]="{ 'invalid-feedback': submitted && lastName['lastName'].errors }">
                 <div *ngIf="submitted && lastName['lastName'].errors">
                   <div class="text-alert" *ngIf="lastName['lastName'].errors['required']">Nom requis!</div>
                   <div class="text-alert" *ngIf="lastName['lastName'].errors['minlength']">
@@ -103,12 +108,14 @@
               <div class="div-password-icon">
                 <label class="visually-hidden" for="name">Mot de passe</label>
                 <input formControlName="password"
-                        name="password" 
-                        type="password"
-                        [type]=" visible ? 'text' : 'password' "
-                        placeholder="Password"
-                        class="input-inset-shadow"
-                        [ngClass]="{ 'invalid-feedback': submitted && lastName['password'].errors }">
+                       name="password" 
+                       type="password"
+                       [type]=" visible ? 'text' : 'password' "
+                       placeholder="Password"
+                       spellcheck="false"
+                       autocomplete="off"
+                       class="input-inset-shadow"
+                       [ngClass]="{ 'invalid-feedback': submitted && lastName['password'].errors }">
                   <fa-icon [icon]="visible ? faEyeSlash : faEye" aria-hidden="true" (click)="toggle()"></fa-icon>
                 <div *ngIf="submitted && lastName['password'].errors">
                   <div class="text-alert" *ngIf="lastName['password'].errors['required']">Veuillez saisir un mot de passe!</div>
@@ -143,12 +150,14 @@
               <div>
                 <label class="visually-hidden" for="name">Prénom</label>
                 <input formControlName="firstName" 
-                        name="firstName" 
-                        type="text" 
-                        placeholder="Prénom"
-                        class="input-inset-shadow"
-                        [(ngModel)]="user.firstName"
-                        [ngClass]="{ 'invalid-feedback': submitted && firstName['firstName'].errors }">
+                       name="firstName" 
+                       type="text" 
+                       placeholder="Prénom"
+                       spellcheck="false"
+                       autocomplete="off"
+                       class="input-inset-shadow"
+                       [(ngModel)]="user.firstName"
+                       [ngClass]="{ 'invalid-feedback': submitted && firstName['firstName'].errors }">
                 <div *ngIf="submitted && firstName['firstName'].errors">
                   <div class="text-alert" *ngIf="firstName['firstName'].errors['required']">Prénom requis!</div>
                   <div class="text-alert" *ngIf="firstName['firstName'].errors['minlength']">
@@ -165,12 +174,14 @@
               <div class="div-password-icon">
                 <label class="visually-hidden" for="name">Mot de passe</label>
                 <input formControlName="password"
-                        name="password" 
-                        type="password"
-                        [type]=" visible ? 'text' : 'password' " 
-                        placeholder="Password"
-                        class="input-inset-shadow"
-                        [ngClass]="{ 'invalid-feedback': submitted && firstName['password'].errors }">
+                       name="password" 
+                       type="password"
+                       [type]=" visible ? 'text' : 'password' " 
+                       placeholder="Password"
+                       spellcheck="false"
+                       autocomplete="off"
+                       class="input-inset-shadow"
+                       [ngClass]="{ 'invalid-feedback': submitted && firstName['password'].errors }">
                   <fa-icon [icon]="visible ? faEyeSlash : faEye" aria-hidden="true" (click)="toggle()"></fa-icon>
                 <div *ngIf="submitted && firstName['password'].errors">
                   <div class="text-alert" *ngIf="firstName['password'].errors['required']">Veuillez saisir un mot de passe!</div>
@@ -205,12 +216,14 @@
               <div>
                 <label class="visually-hidden" for="name">Pseudonyme</label>
                 <input formControlName="pseudo" 
-                        name="pseudo" 
-                        type="text" 
-                        placeholder="Pseudonyme" 
-                        class="input-inset-shadow"
-                        [(ngModel)]="user.pseudo"
-                        [ngClass]="{ 'invalid-feedback': submitted && pseudo['pseudo'].errors }">
+                       name="pseudo" 
+                       type="text" 
+                       placeholder="Pseudonyme" 
+                       spellcheck="false"
+                       autocomplete="off"
+                       class="input-inset-shadow"
+                       [(ngModel)]="user.pseudo"
+                       [ngClass]="{ 'invalid-feedback': submitted && pseudo['pseudo'].errors }">
                 <div *ngIf="submitted && pseudo['pseudo'].errors">
                   <div class="text-alert" *ngIf="pseudo['pseudo'].errors['required']">Pseudo requis!</div>
                   <div class="text-alert" *ngIf="pseudo['pseudo'].errors['minlength']">
@@ -227,12 +240,14 @@
               <div class="div-password-icon">
                 <label class="visually-hidden" for="name">Mot de passe</label>
                 <input formControlName="password"
-                        name="password" 
-                        type="password"
-                        [type]=" visible ? 'text' : 'password' "
-                        placeholder="Password"
-                        class="input-inset-shadow"
-                        [ngClass]="{ 'invalid-feedback': submitted && pseudo['password'].errors }">
+                       name="password" 
+                       type="password"
+                       [type]=" visible ? 'text' : 'password' "
+                       placeholder="Password"
+                       spellcheck="false"
+                       autocomplete="off"
+                       class="input-inset-shadow"
+                       [ngClass]="{ 'invalid-feedback': submitted && pseudo['password'].errors }">
                   <fa-icon [icon]="visible ? faEyeSlash : faEye" aria-hidden="true" (click)="toggle()"></fa-icon>
                 <div *ngIf="submitted && pseudo['password'].errors">
                   <div class="text-alert" *ngIf="pseudo['password'].errors['required']">Veuillez saisir un mot de passe!</div>
@@ -267,12 +282,14 @@
               <div>
                 <label class="visually-hidden" for="name">Téléphone</label>
                 <input formControlName="phoneNumber" 
-                        name="phoneNumber" 
-                        type="tel" 
-                        placeholder="Téléphone"
-                        class="input-inset-shadow"
-                        [(ngModel)]="user.phoneNumber" 
-                        [ngClass]="{ 'invalid-feedback': submitted && phoneNumber['phoneNumber'].errors }">
+                       name="phoneNumber" 
+                       type="tel" 
+                       placeholder="Téléphone"
+                       spellcheck="false"
+                       autocomplete="off"
+                       class="input-inset-shadow"
+                       [(ngModel)]="user.phoneNumber" 
+                       [ngClass]="{ 'invalid-feedback': submitted && phoneNumber['phoneNumber'].errors }">
                 <div *ngIf="submitted && phoneNumber['phoneNumber'].errors">
                   <div class="text-alert" *ngIf="phoneNumber['phoneNumber'].errors['required']">Numéro de téléphone requis!</div>
                   <div class="text-alert" *ngIf="phoneNumber['phoneNumber'].errors['validPhoneNumber']">
@@ -283,12 +300,14 @@
               <div class="div-password-icon">
                 <label class="visually-hidden" for="name">Mot de passe</label>
                 <input formControlName="password"
-                        name="password" 
-                        type="password"
-                        [type]=" visible ? 'text' : 'password' " 
-                        placeholder="Password"
-                        class="input-inset-shadow"
-                        [ngClass]="{ 'invalid-feedback': submitted && phoneNumber['password'].errors }">
+                       name="password" 
+                       type="password"
+                       [type]=" visible ? 'text' : 'password' " 
+                       placeholder="Password"
+                       spellcheck="false"
+                       autocomplete="off"
+                       class="input-inset-shadow"
+                       [ngClass]="{ 'invalid-feedback': submitted && phoneNumber['password'].errors }">
                   <fa-icon [icon]="visible ? faEyeSlash : faEye" aria-hidden="true" (click)="toggle()"></fa-icon>
                 <div *ngIf="submitted && phoneNumber['password'].errors">
                   <div class="text-alert" *ngIf="phoneNumber['password'].errors['required']">Veuillez saisir un mot de passe!</div>

@@ -29,12 +29,14 @@
       </div>
       <label class="visually-hidden" for="name">Name</label>
       <input formControlName="name"
-              name="name"
-              id="name"
-              type="text"
-              placeholder="Nom"
-              class="input-inset-shadow"
-              [ngClass]="{ 'invalid-feedback': ngForm.submitted && f['name'].errors }">
+             name="name"
+             id="name"
+             type="text"
+             placeholder="Nom"
+             spellcheck="false"
+             autocomplete="off"
+             class="input-inset-shadow"
+             [ngClass]="{ 'invalid-feedback': ngForm.submitted && f['name'].errors }">
       <div *ngIf="ngForm.submitted && f['name'].errors">
         <div class="text-alert" *ngIf="f['name'].errors['required']">Veuillez saisir un nom!</div>
         <div class="text-alert" *ngIf="f['name'].errors['minlength']">
