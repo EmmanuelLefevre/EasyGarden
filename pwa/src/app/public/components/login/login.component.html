@@ -25,6 +25,7 @@
                id="email"
                type="email"
                placeholder="Email"
+               spellcheck="false"
                class="input-inset-shadow"
                [ngClass]="{ 'invalid-feedback': ngForm.submitted && f['email'].errors }">
         <div *ngIf="ngForm.submitted && f['email'].errors">
@@ -41,6 +42,8 @@
                  id="password"
                  [type]=" visible ? 'text' : 'password' "
                  placeholder="Password"
+                 spellcheck="false"
+                 autocomplete="off"
                  class="input-inset-shadow"
                  [ngClass]="{ 'invalid-feedback': ngForm.submitted && f['password'].errors }">
           <fa-icon [icon]="visible ? faEyeSlash : faEye" aria-hidden="true" (click)="toggle()"></fa-icon>
