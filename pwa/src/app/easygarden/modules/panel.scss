@@ -42,21 +42,18 @@ div {
       input[type=text] {
         width: 20vh;
         margin: 0 2px 6px 0;
-        padding: 6px;
+        padding: 6px 0;
+        padding-left: 30px;
         text-align: left;
         font-size: 15px;
         color: var(--ang-color-green);
         background-color: var(--ang-color-white);
         &::placeholder {
-          padding-left: 22px;
           color: var(--ang-color-green);
         }
       }
       input[type=text]:focus {
         border-bottom: 2px solid var(--ang-color-green);
-      }
-      input[type=text]:focus + fa-icon {
-        display: none;
       }
     }
   }
