@@ -28,6 +28,9 @@ export const environment = {
     },
     watering: {
       url: 'http://localhost:8000/api/waterings'
+    },
+    mailing: {
+      url: 'https://formspree.io/f/xjvdwjee'
     }
   }
 };
