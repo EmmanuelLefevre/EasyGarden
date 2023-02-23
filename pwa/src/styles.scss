@@ -311,7 +311,8 @@ body {
   input[type=email], 
   input[type=password], 
   input[type=text], 
-  input[type=tel] {
+  input[type=tel],
+  input[type=search] {
     background-color: var(--ang-color-white);
     color: var(--ang-color-text-dark);
     text-align: center;
@@ -330,13 +331,15 @@ body {
   input[type=email]:hover, 
   input[type=password]:hover, 
   input[type=text]:hover, 
-  input[type=tel]:hover {
+  input[type=tel]:hover,
+  input[type=search]:hover {
     background-color: var(--ang-color-input-hover);
   }
   input[type=email]:focus, 
   input[type=password]:focus, 
   input[type=text]:focus, 
-  input[type=tel]:focus {
+  input[type=tel]:focus,
+  input[type=search]:focus {
     background-color: var(--ang-color-white);
     border-bottom: 2px solid var(--ang-color-focus);
     outline: none;
