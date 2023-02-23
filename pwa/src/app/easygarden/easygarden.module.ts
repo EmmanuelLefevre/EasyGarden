@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { EasygardenRoutingModule } from './easygarden-routing.module';
-import { ConfirmDialogModule } from './components/confirmDialog/confirmDialogModule/confirm-dialog.module';
+import { ConfirmDialogModule } from './components/confirmDialog/confirm-dialog.module';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { OrderModule } from 'ngx-order-pipe';
