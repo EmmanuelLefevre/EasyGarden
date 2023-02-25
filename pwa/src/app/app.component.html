@@ -2,7 +2,10 @@
   <div *ngIf="loading | async" class="loaderIcon">
     <div class="iconContainer">
       <div class="circle">
-        <fa-icon [icon]="faLeaf" class="iconCategory"></fa-icon>
+        <fa-icon [icon]="faLeaf" 
+                 aria-label="Icône de chargement de page"
+                 class="iconCategory">
+        </fa-icon>
       </div>
     </div>
   </div>
