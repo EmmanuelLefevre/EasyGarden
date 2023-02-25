@@ -3,13 +3,13 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { AbstractControl, UntypedFormBuilder, Validators } from '@angular/forms';
 import { faCircleXmark, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { environment } from '../../../../environments/environment';
 
 import { AuthService } from '../../../_services/auth/auth.service';
 import { FormValidationService } from '../../../_services/service/form-validation.service';
 import { TokenService } from '../../../_services/auth/token.service';
 import { DecodedTokenService } from 'src/app/_services/service/decoded-token.service';
 import { SnackbarService } from 'src/app/_services/service/snackbar.service';
-import { environment } from '../../../../environments/environment';
 
 import { ICredentials } from '../../../_interfaces/ICredentials';
 
