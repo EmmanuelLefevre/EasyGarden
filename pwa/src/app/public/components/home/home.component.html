@@ -1,23 +1,28 @@
 <div id="homePage">
   <div class="connexion">
     <div class="icon">
-      <button type="button" 
+      <button [routerLink]="['login']"
+              type="button" 
+              aria-label="Bouton vers le formulaire de connexion"
               class="button-circle"
-              [routerLink]="['login']">
-        <fa-icon [icon]="faUserCircle"></fa-icon>
+              matTooltip="Connexion"
+              matTooltipPosition="left"
+              matTooltipShowDelay="200"
+              matTooltipClass="'mat-tooltip'">
+        <fa-icon [icon]="faUserCircle"
+                 aria-label="Icône vers le formulaire de connexion"></fa-icon>
       </button>
       <p>Log In</p>
     </div>
   </div>
-  <div class="logo">
-    {{title}}
-  </div>
+  <div class="logo">{{name}}</div>
   <div class="resume">
     Easy Garden l'application qui vous facilite la gestion de vos équipements de parcs et jardins.
     Une application all-in-one pour gérer tout les équipements tels que vos systèmes d'arrosage
     intégrés, vos jeux de lumières, l'ouverture de votre portail, votre tondeuse intelligente et bien plus encore!<br>
-    <button type="button"
-            [routerLink]="['register']">Inscription
+    <button [routerLink]="['register']"
+            type="button"           
+            aria-label="Bouton vers le formulaire d'inscription">Inscription
     </button>
   </div>
 </div>
