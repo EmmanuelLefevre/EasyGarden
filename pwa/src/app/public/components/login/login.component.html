@@ -11,12 +11,12 @@
       <div class="div-button-close">
         <button [routerLink]="['/']"
                 type="button"
-                aria-label="Bouton permettant de fermer le formulaire de connexion" 
-                class="button-circle button-shadow"
+                aria-label="Bouton permettant de fermer le formulaire de connexion"
                 matTooltip="Retour accueil"
                 matTooltipPosition="right"
                 matTooltipShowDelay="400"
-                matTooltipClass="'mat-tooltip'">
+                matTooltipClass="'mat-tooltip'"
+                class="button-circle button-shadow">
           <fa-icon [icon]="faCircleXmark"
                    aria-label="Icône permettant de fermer le formulaire de connexion"></fa-icon>
         </button>
@@ -24,6 +24,7 @@
       <div class="form-title-content">
         <p class="p-form-title-content">Connexion</p>
       </div>
+
       <form [formGroup]="loginForm" 
             #ngForm="ngForm"
             (ngSubmit)="onSubmit()"
@@ -36,13 +37,17 @@
                spellcheck="false"
                class="input-inset-shadow"
                [ngClass]="{ 'invalid-feedback': ngForm.submitted && f['email'].errors }">
-        <div *ngIf="ngForm.submitted && f['email'].errors">
-          <div class="text-alert" *ngIf="f['email'].errors['required']">Veuillez saisir un email!</div>
-          <div class="text-alert" *ngIf="f['email'].errors['email']">Format d'email invalide!</div>
-          <div class="text-alert" *ngIf="f['email'].errors['validEmail']">
-            L'email doit contenir un "." + nom de domaine!
-          </div>
-        </div>
+        <ng-container *ngIf="ngForm.submitted && f['email'].errors">
+          <ng-container class="text-alert" 
+                        *ngIf="f['email'].errors['required']">Veuillez saisir un email!
+          </ng-container>
+          <ng-container class="text-alert" 
+                        *ngIf="f['email'].errors['email']">Format d'email invalide!
+          </ng-container>
+          <ng-container class="text-alert" 
+                        *ngIf="f['email'].errors['validEmail']">L'email doit contenir un "." + nom de domaine!
+          </ng-container>
+        </ng-container>
         <div class="div-password-icon">
           <label class="visually-hidden" for="name">Mot de passe</label>
           <input formControlName="password"
@@ -54,9 +59,11 @@
                  class="input-inset-shadow"
                  [ngClass]="{ 'invalid-feedback': ngForm.submitted && f['password'].errors }">
           <fa-icon [icon]="visible ? faEyeSlash : faEye" aria-hidden="true" (click)="toggle()"></fa-icon>
-          <div *ngIf="ngForm.submitted && f['password'].errors">
-            <div class="text-alert" *ngIf="f['password'].errors['required']">Veuillez saisir un mot de passe!</div>
-          </div>
+          <ng-container *ngIf="ngForm.submitted && f['password'].errors">
+            <ng-container class="text-alert" 
+                          *ngIf="f['password'].errors['required']">Veuillez saisir un mot de passe!
+            </ng-container>
+          </ng-container>
         </div>
         <div class="div-form-button">
           <button type="submit" 
@@ -70,6 +77,7 @@
           </button>
         </div>
       </form>
+
     </div>
   </div>
 </div>

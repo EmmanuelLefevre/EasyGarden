@@ -6,6 +6,7 @@
   </div>
   <h1 class="form-title title-form-shadow">{{name}}</h1>
   <h2 class="visually-hidden">Formulaire de création de compte utilisateur</h2>
+
   <div class=" animate__animated animate__fadeInDown div-wrapper">
     <div class="form-content form-border form-shadow">
       <div class="div-button-close">
@@ -24,6 +25,7 @@
       <div class="form-title-content">
         <p class="p-form-title-content">S'enregistrer</p>
       </div>
+
       <form [formGroup]="registerForm" 
             #ngForm="ngForm"
             (ngSubmit)="onSubmit()"         
@@ -37,13 +39,17 @@
                spellcheck="false"
                class="input-inset-shadow"
                [ngClass]="{ 'invalid-feedback': ngForm.submitted && f['email'].errors }">
-        <div *ngIf="ngForm.submitted && f['email'].errors">
-          <div class="text-alert" *ngIf="f['email'].errors['required']">Veuillez saisir un email!</div>
-          <div class="text-alert" *ngIf="f['email'].errors['email']">Format d'email invalide!</div>
-          <div class="text-alert" *ngIf="f['email'].errors['validEmail']">
-            L'email doit contenir un "." + nom de domaine!
-          </div>
-        </div>
+        <ng-container *ngIf="ngForm.submitted && f['email'].errors">
+          <ng-container class="text-alert" 
+                        *ngIf="f['email'].errors['required']">Veuillez saisir un email!
+          </ng-container>
+          <ng-container class="text-alert" 
+                        *ngIf="f['email'].errors['email']">Format d'email invalide!
+          </ng-container>
+          <ng-container class="text-alert" 
+                        *ngIf="f['email'].errors['validEmail']">L'email doit contenir un "." + nom de domaine!
+          </ng-container>
+        </ng-container>
         <div class="div-password-icon">
           <label class="visually-hidden" for="name">Mot de passe</label>
           <input formControlName="password"
@@ -55,18 +61,21 @@
                  class="input-inset-shadow"
                  [ngClass]="{ 'invalid-feedback': ngForm.submitted && f['password'].errors }">
           <fa-icon [icon]="visible ? faEyeSlash : faEye" aria-hidden="true" (click)="toggle()"></fa-icon>
-          <div *ngIf="ngForm.submitted && f['password'].errors">
-              <div class="text-alert" *ngIf="f['password'].errors['required']">Veuillez saisir un mot de passe!</div>
-              <div class="text-alert" *ngIf="f['password'].errors['minlength']">
-              Le mot de passe doit contenir 8 caractères minimum.
-              </div>
-              <div class="text-alert" *ngIf="f['password'].errors['maxlength']">
-              Le mot de passe ne peut excéder 40 caractères.
-              </div>
-              <div class="text-alert" *ngIf="f['password'].errors['strongPassword']">
+          <ng-container *ngIf="ngForm.submitted && f['password'].errors">
+            <ng-container class="text-alert" 
+                          *ngIf="f['password'].errors['required']">Veuillez saisir un mot de passe!
+            </ng-container>
+            <ng-container class="text-alert" 
+                          *ngIf="f['password'].errors['minlength']">Le mot de passe doit contenir 8 caractères minimum.
+            </ng-container>
+            <ng-container class="text-alert" 
+                          *ngIf="f['password'].errors['maxlength']">Le mot de passe ne peut excéder 40 caractères.
+            </ng-container>
+            <ng-container class="text-alert" 
+                          *ngIf="f['password'].errors['strongPassword']">
               Le mot de passe doit contenir une majuscule, une minuscule, un nombre et un caractère spécial.
-              </div>
-          </div>
+            </ng-container>
+          </ng-container>
         </div>
         <div class="div-password-icon">
           <label class="visually-hidden" for="name">Confirmer mot de passe</label>
@@ -79,12 +88,14 @@
                  class="input-inset-shadow"
                  [ngClass]="{ 'invalid-feedback': ngForm.submitted && f['confirmPassword'].errors }">
           <fa-icon [icon]="visible ? faEyeSlash : faEye" aria-hidden="true" (click)="toggle()"></fa-icon>
-          <div *ngIf="ngForm.submitted && f['confirmPassword'].errors">
-            <div class="text-alert" *ngIf="f['confirmPassword'].errors['required']">Veuillez confirmer le mot de passe!</div>
-            <div class="text-alert" *ngIf="f['confirmPassword'].errors['passwordMismatch']">
-            Le mot de passe n'est pas identique!
-            </div>
-          </div>
+          <ng-container *ngIf="ngForm.submitted && f['confirmPassword'].errors">
+            <ng-container class="text-alert" 
+                          *ngIf="f['confirmPassword'].errors['required']">Veuillez confirmer le mot de passe!
+            </ng-container>
+            <ng-container class="text-alert" 
+                          *ngIf="f['confirmPassword'].errors['passwordMismatch']">Le mot de passe n'est pas identique!
+            </ng-container>
+          </ng-container>
         </div>
         <label class="visually-hidden" for="name">Nom</label>
         <input formControlName="lastName" 
@@ -95,18 +106,21 @@
                autocomplete="off"
                class="input-inset-shadow"
                [ngClass]="{ 'invalid-feedback': ngForm.submitted && f['lastName'].errors }">
-        <div *ngIf="ngForm.submitted && f['lastName'].errors">
-          <div class="text-alert" *ngIf="f['lastName'].errors['required']">Nom requis!</div>
-          <div class="text-alert" *ngIf="f['lastName'].errors['minlength']">
-          Le nom doit contenir 3 caractères minimum.
-          </div>
-          <div class="text-alert" *ngIf="f['lastName'].errors['maxlength']">
-          Le nom ne peut excéder 20 caractères.
-          </div>
-          <div class="text-alert" *ngIf="f['lastName'].errors['validName']">
-          Le nom ne peut contenir que des lettres, seuls le tiret et l'espace sont acceptés!
-          </div>
-        </div>
+        <ng-container *ngIf="ngForm.submitted && f['lastName'].errors">
+          <ng-container class="text-alert" 
+                        *ngIf="f['lastName'].errors['required']">Nom requis!
+          </ng-container>
+          <ng-container class="text-alert" 
+                        *ngIf="f['lastName'].errors['minlength']">Le nom doit contenir 3 caractères minimum.
+          </ng-container>
+          <ng-container class="text-alert" 
+                        *ngIf="f['lastName'].errors['maxlength']">Le nom ne peut excéder 20 caractères.
+          </ng-container>
+          <ng-container class="text-alert" 
+                        *ngIf="f['lastName'].errors['validName']">
+            Le nom ne peut contenir que des lettres, seuls le tiret et l'espace sont acceptés!
+          </ng-container>
+        </ng-container>
         <label class="visually-hidden" for="name">Prénom</label>
         <input formControlName="firstName" 
                name="firstName" 
@@ -116,18 +130,21 @@
                autocomplete="off"
                class="input-inset-shadow" 
                [ngClass]="{ 'invalid-feedback': ngForm.submitted && f['firstName'].errors }">
-        <div *ngIf="ngForm.submitted && f['firstName'].errors">
-          <div class="text-alert" *ngIf="f['firstName'].errors['required']">Prénom requis!</div>
-          <div class="text-alert" *ngIf="f['firstName'].errors['minlength']">
-          Le prénom doit contenir 3 caractères minimum.
-          </div>
-          <div class="text-alert" *ngIf="f['firstName'].errors['maxlength']">
-          Le prénom ne peut excéder 20 caractères.
-          </div>
-          <div class="text-alert" *ngIf="f['firstName'].errors['validName']">
-          Le prénom ne peut contenir que des lettres, seuls le tiret et l'espace sont acceptés!
-          </div>
-        </div>
+        <ng-container *ngIf="ngForm.submitted && f['firstName'].errors">
+          <ng-container class="text-alert" 
+                        *ngIf="f['firstName'].errors['required']">Prénom requis!
+          </ng-container>
+          <ng-container class="text-alert" 
+                        *ngIf="f['firstName'].errors['minlength']">Le prénom doit contenir 3 caractères minimum.
+          </ng-container>
+          <ng-container class="text-alert" 
+                        *ngIf="f['firstName'].errors['maxlength']">Le prénom ne peut excéder 20 caractères.
+          </ng-container>
+          <ng-container class="text-alert" 
+                        *ngIf="f['firstName'].errors['validName']">
+            Le prénom ne peut contenir que des lettres, seuls le tiret et l'espace sont acceptés!
+          </ng-container>
+        </ng-container>
         <label class="visually-hidden" for="name">Pseudonyme</label>
         <input formControlName="pseudo" 
                name="pseudo" 
@@ -137,18 +154,20 @@
                autocomplete="off"
                class="input-inset-shadow"
                [ngClass]="{ 'invalid-feedback': ngForm.submitted && f['pseudo'].errors }">
-        <div *ngIf="ngForm.submitted && f['pseudo'].errors">
-          <div class="text-alert" *ngIf="f['pseudo'].errors['required']">Pseudo requis!</div>
-          <div class="text-alert" *ngIf="f['pseudo'].errors['minlength']">
-          Le pseudo doit contenir 3 caractères minimum.
-          </div>
-          <div class="text-alert" *ngIf="f['pseudo'].errors['maxlength']">
-          Le pseudo ne peut excéder 10 caractères.
-          </div>
-          <div class="text-alert" *ngIf="f['pseudo'].errors['validPseudo']">
-          Le pseudo ne peut contenir que des chiffres et lettres!
-          </div>
-        </div>
+        <ng-container *ngIf="ngForm.submitted && f['pseudo'].errors">
+          <ng-container class="text-alert" 
+                        *ngIf="f['pseudo'].errors['required']">Pseudo requis!
+          </ng-container>
+          <ng-container class="text-alert" 
+                        *ngIf="f['pseudo'].errors['minlength']">Le pseudo doit contenir 3 caractères minimum.
+          </ng-container>
+          <ng-container class="text-alert" 
+                        *ngIf="f['pseudo'].errors['maxlength']">Le pseudo ne peut excéder 10 caractères.
+          </ng-container>
+          <ng-container class="text-alert" 
+                        *ngIf="f['pseudo'].errors['validPseudo']">Le pseudo ne peut contenir que des chiffres et lettres!
+          </ng-container>
+        </ng-container>
         <label class="visually-hidden" for="name">Téléphone</label>
         <input formControlName="phoneNumber" 
                name="phoneNumber" 
@@ -158,12 +177,14 @@
                autocomplete="off"
                class="input-inset-shadow" 
                [ngClass]="{ 'invalid-feedback': ngForm.submitted && f['phoneNumber'].errors }">
-        <div *ngIf="ngForm.submitted && f['phoneNumber'].errors">
-          <div class="text-alert" *ngIf="f['phoneNumber'].errors['required']">Numéro de téléphone requis!</div>
-          <div class="text-alert" *ngIf="f['phoneNumber'].errors['validPhoneNumber']">
-          Format de numéro de téléphone invalide!
-          </div>
-        </div>
+        <ng-container *ngIf="ngForm.submitted && f['phoneNumber'].errors">
+          <ng-container class="text-alert" 
+                        *ngIf="f['phoneNumber'].errors['required']">Numéro de téléphone requis!
+          </ng-container>
+          <ng-container class="text-alert" 
+                        *ngIf="f['phoneNumber'].errors['validPhoneNumber']">Format de numéro de téléphone invalide!
+          </ng-container>
+        </ng-container>
         <div class="div-form-button">
           <button type="submit"
                   aria-label="Bouton s'inscrire'"
@@ -176,6 +197,7 @@
           </button>
         </div>
       </form>
+
     </div>
   </div>
 </div>
