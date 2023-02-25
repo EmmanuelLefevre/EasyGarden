@@ -1,6 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
+// Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip in style.scss
 import { faPen, faTrash, faSort, faSearch, faTree } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 import { GardenService } from '../../garden.service';
 import { IGarden, IGardenFilter } from '../../IGarden';
@@ -12,18 +14,21 @@ import { DecodedTokenService } from 'src/app/_services/service/decoded-token.ser
 
 @Component({
   selector: 'app-garden',
-  templateUrl: './garden.component.html'
+  templateUrl: './garden.component.html',
+  encapsulation: ViewEncapsulation.None
 })
 
 export class GardenComponent implements OnInit {
 
-  id: String = '';
-  title = "Jardin";
   faPen = faPen;
   faTrash = faTrash;
   faSort = faSort;
   faSearch = faSearch;
   faTree = faTree;
+
+  name = environment.application.name;
+  id: String = '';
+  title = "Jardin";
 
   // Confirm Dialog this.result = boolean
   result: boolean | undefined;
