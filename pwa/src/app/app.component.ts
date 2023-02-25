@@ -12,8 +12,6 @@ import { filter, mapTo, merge, Observable } from 'rxjs';
 })
 
 export class AppComponent implements OnInit {
-  
-  title = 'Easy Garden';
 
   // Loader
   faLeaf = faLeaf;
