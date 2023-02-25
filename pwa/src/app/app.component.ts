@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ResolveStart, ResolveEnd, NavigationStart, NavigationCancel, NavigationEnd, NavigationError } from '@angular/router';
+import { Router, ResolveStart, ResolveEnd } from '@angular/router';
 
 import { faLeaf } from '@fortawesome/free-solid-svg-icons';
 import { filter, mapTo, merge, Observable } from 'rxjs';
