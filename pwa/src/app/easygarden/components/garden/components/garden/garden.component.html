@@ -61,7 +61,7 @@
                 | paginate: { itemsPerPage: 5, currentPage: p }">
               <td>{{ garden.name }}</td>
               <td>
-                <button routerLink="/easygarden/garden/{{garden.id}}"
+                <button routerLink="/easygarden/garden/edit/{{garden.id}}"
                         type="button"
                         aria-label="Bouton permettant de modifier le nom du jardin"
                         matTooltip="Modifier"
@@ -105,7 +105,7 @@
     </div>
   
     <div class="submit">
-      <button [routerLink]="['/easygarden/add']"
+      <button [routerLink]="['/easygarden/garden/add']"
               type="button" 
               id="submit" 
               class="button-shadow"

@@ -34,8 +34,8 @@ const routes: Routes = [
           .then(module => module.LawnmowerModule)
       },
       
-      { path: 'garden/:id', component: EditGardenComponent },
-      { path: 'add', component: AddGardenComponent },
+      { path: 'garden/edit/:id', component: EditGardenComponent },
+      { path: 'garden/add', component: AddGardenComponent },
     ]
   }
 ];
