@@ -9,12 +9,15 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 8vh;
     ul {
       display: flex;
       align-items: center;
       list-style-type: none;
       .nav-logo {
-        margin: 0rem 1rem;
+        display: flex;
+        align-items: center;
+        margin: 0 1rem;
         cursor: pointer;
         &:hover {
           -webkit-animation: spin 3.5s linear 0s infinite reverse;
