@@ -1,11 +1,12 @@
-<div class="div-wrapper animate__animated animate__fadeInDown" id="form-login">
+<div class="div-wrapper ambiance-bg" 
+     id="login-component">
   <div>
     <img width=150 height=150 src="assets/img/easygarden.png" 
          alt="Logo de EasyGarden">
   </div>
   <h1 class="form-title title-form-shadow">{{name}}</h1>
   <h2 class="visually-hidden">Formulaire de connexion</h2>
-  <div class="div-wrapper">
+  <div class="animate__animated animate__fadeInDown div-wrapper">
     <div class="form-content form-border form-shadow">
       <div class="div-button-close">
         <button [routerLink]="['/']"
@@ -14,7 +15,7 @@
                 class="button-circle button-shadow"
                 matTooltip="Retour accueil"
                 matTooltipPosition="right"
-                matTooltipShowDelay="200"
+                matTooltipShowDelay="400"
                 matTooltipClass="'mat-tooltip'">
           <fa-icon [icon]="faCircleXmark"
                    aria-label="Icône permettant de fermer le formulaire de connexion"></fa-icon>
