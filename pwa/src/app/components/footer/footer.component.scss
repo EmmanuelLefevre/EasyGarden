@@ -7,6 +7,7 @@ footer {
   .owner {
     color: var(--ang-color-green);
     font-size: 16px;
+    text-decoration: none;
   }
   div .border-custom {
     margin-top: 1vh;
@@ -14,7 +15,8 @@ footer {
       display: inline;
       margin-right: 0.5rem;
       margin-left: 0.5rem;
-      font-size:25px;
+      font-size: 25px;
+      cursor: pointer;
       fa-icon {
         color: var(--ang-color-green);
         &:hover {

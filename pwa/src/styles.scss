@@ -354,17 +354,24 @@ body {
     border: 2px solid var(--ang-color-alert) !important;
     background-color: var(--ang-color-white) !important;
   }
-  /*------Label------*/
+  /*------Visually Hiden------*/
   .visually-hidden {
     position: absolute;
     border-width: 0;
     overflow: hidden;
     white-space: nowrap;
-    clip-path: rect(1px, 1px, 1px, 1px);
     height: 1px;
     width: 1px;
     padding: 0;
   }
+  /*------Tooltip------*/
+  .mat-tooltip {
+    font-size: 11px !important;
+    color: var(--ang-color-white);
+    background-color: var(--ang-color-green);
+    border: 2px solid var(--ang-color-border-button);
+  }
+
   /*------Select------*/
   mat-form-field {
     width: 80%;
@@ -383,9 +390,6 @@ body {
     option {
       color: var(--ang-color-grey);
     }
-  }
-  .display-none-select {
-    display: none;
   }
 
 }
