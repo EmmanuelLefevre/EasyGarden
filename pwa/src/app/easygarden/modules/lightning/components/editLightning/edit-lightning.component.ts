@@ -23,16 +23,15 @@ export class EditLightningComponent implements OnInit {
 
   // EditLightningForm Group
   editLightningForm = this.formBuilder.group({
-    name: [
+    name:
       [
         null as ILightning | null,
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(20),
         this.customValidator.validEquipmentName()
-      ]
-    ],
-    nonNullable: true
+      ],
+      nonNullable: true
   });
 
   value = '';

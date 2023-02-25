@@ -25,10 +25,10 @@ export class EditGardenComponent implements OnInit {
     name:
     [
       null as IGarden | null,
-      Validators.required,
+      [Validators.required,
       Validators.minLength(3),
       Validators.maxLength(20),
-      this.customValidator.validEquipmentName()
+      this.customValidator.validEquipmentName()]
     ],
     nonNullable: true
   })
