@@ -71,7 +71,7 @@ export class EditLightningComponent implements OnInit {
     this.lightningService.updateLightning(formValue, id).subscribe(
       () => {
         const newName = formValue.name;
-        this.router.navigate(['/easygarden']);
+        this.router.navigate(['/easygarden/lightning']);
         this.snackbarService.showNotification(`L\'éclairage "${this.value}" a bien 
           été renommé en "${newName}".`, 'modified');
       }
