@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-// Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip-social in style.scss
+// Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip in style.scss
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { environment } from '../../../../environments/environment';
 
