@@ -2,23 +2,30 @@
   <div>
     <img width=150 height=150 src="assets/img/easygarden.png" alt="logo">
   </div>
-  <h2 class="form-title title-form-shadow">{{title}}</h2>
+  <h1 class="form-title title-form-shadow">{{name}}</h1>
+  <h2 class="visually-hidden">Formulaire de connexion</h2>
   <div class="div-wrapper">
     <div class="form-content form-border form-shadow">
       <div class="div-button-close">
-        <button type="button"
-          aria-label="Fermer" 
-          [routerLink]="['/']" 
-          class="button-circle button-shadow">
-          <fa-icon [icon]="faCircleXmark"></fa-icon>
+        <button [routerLink]="['/']"
+                type="button"
+                aria-label="Bouton permettant de fermer le formulaire de connexion" 
+                class="button-circle button-shadow"
+                matTooltip="Retour accueil"
+                matTooltipPosition="right"
+                matTooltipShowDelay="200"
+                matTooltipClass="'mat-tooltip'">
+          <fa-icon [icon]="faCircleXmark"
+                   aria-label="Icône permettant de fermer le formulaire de connexion"></fa-icon>
         </button>
       </div>
       <div class="form-title-content">
-        <p class="p-form-title-content">LOGIN</p>
+        <p class="p-form-title-content">Connexion</p>
       </div>
       <form [formGroup]="loginForm" 
             #ngForm="ngForm"
-            (ngSubmit)="onSubmit()">
+            (ngSubmit)="onSubmit()"
+            aria-label="Formulaire de saisie utilisateur">
         <label class="visually-hidden" for="name">Email</label>
         <input formControlName="email" 
                name="email"
@@ -32,7 +39,7 @@
           <div class="text-alert" *ngIf="f['email'].errors['required']">Veuillez saisir un email!</div>
           <div class="text-alert" *ngIf="f['email'].errors['email']">Format d'email invalide!</div>
           <div class="text-alert" *ngIf="f['email'].errors['validEmail']">
-          L'email doit contenir un "." + nom de domaine!
+            L'email doit contenir un "." + nom de domaine!
           </div>
         </div>
         <div class="div-password-icon">
@@ -53,11 +60,13 @@
         </div>
         <div class="div-form-button">
           <button type="submit" 
-            class="button-shadow">Connexion
+                  aria-label="Bouton se connecter"
+                  class="button-shadow">Connexion
           </button>
           <button type="button" 
-            (click)="onReset()" 
-            class="button-shadow cancel">Annuler
+                  (click)="onReset()"
+                  aria-label="Bouton effacer le formulaire" 
+                  class="button-shadow cancel">Annuler
           </button>
         </div>
       </form>

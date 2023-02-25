@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
+// Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip in style.scss
 import { Router } from '@angular/router';
 import { AbstractControl, UntypedFormBuilder, Validators } from '@angular/forms';
 import { faCircleXmark, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
@@ -8,6 +9,7 @@ import { FormValidationService } from '../../../_services/service/form-validatio
 import { TokenService } from '../../../_services/auth/token.service';
 import { DecodedTokenService } from 'src/app/_services/service/decoded-token.service';
 import { SnackbarService } from 'src/app/_services/service/snackbar.service';
+import { environment } from '../../../../environments/environment';
 
 import { ICredentials } from '../../../_interfaces/ICredentials';
 
@@ -15,15 +17,16 @@ import { ICredentials } from '../../../_interfaces/ICredentials';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 
 export class LoginComponent {
 
-  title = 'Easy Garden';
   faCircleXmark = faCircleXmark;
   faEye = faEye;
   faEyeSlash = faEyeSlash;
+  name = environment.application.name;
 
   // Toggle faEyeSlash
   visible: boolean = false;
