@@ -71,7 +71,7 @@ export class EditLawnmowerComponent implements OnInit {
     this.lawnmowerService.updateLawnmower(formValue, id).subscribe(
       () => {
         const newName = formValue.name;
-        this.router.navigate(['/easygarden']);
+        this.router.navigate(['/easygarden/lawnmower']);
         this.snackbarService.showNotification(`La tondeuse "${this.value}" a bien 
           été renommée en "${newName}".`, 'modified');
       }

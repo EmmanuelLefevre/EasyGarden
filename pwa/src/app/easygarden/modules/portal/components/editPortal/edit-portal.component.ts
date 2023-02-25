@@ -71,7 +71,7 @@ export class EditPortalComponent implements OnInit {
     this.portalService.updatePortal(formValue, id).subscribe(
       () => {
         const newName = formValue.name;
-        this.router.navigate(['/easygarden']);
+        this.router.navigate(['/easygarden/portal']);
         this.snackbarService.showNotification(`Le portail "${this.value}" a bien 
           été renommé en "${newName}".`, 'modified');
       }

@@ -71,7 +71,7 @@ export class EditWateringComponent implements OnInit {
     this.wateringService.updateWatering(formValue, id).subscribe(
       () => {
         const newName = formValue.name;
-        this.router.navigate(['/easygarden']);
+        this.router.navigate(['/easygarden/watering']);
         this.snackbarService.showNotification(`L\'arrosage "${this.value}" a bien 
           été renommé en "${newName}".`, 'modified');
       }

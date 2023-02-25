@@ -71,7 +71,7 @@ export class EditPoolComponent implements OnInit {
     this.poolService.updatePool(formValue, id).subscribe(
       () => {
         const newName = formValue.name;
-        this.router.navigate(['/easygarden']);
+        this.router.navigate(['/easygarden/pool']);
         this.snackbarService.showNotification(`L\'équipement "${this.value}" a bien 
           été renommé en "${newName}".`, 'modified');
       }
