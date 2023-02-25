@@ -5,6 +5,7 @@ import { environment } from '../../../../environments/environment';
 
 import { SeoService } from 'src/app/_services/service/seo.service';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -21,6 +22,7 @@ export class HomeComponent implements OnInit {
   colorTheme = environment.application.colorTheme;
 
   constructor(private seoService: SeoService) {
+
     const description = `${this.name} Application de Parcs et Jardins`;
     const keywords = `Arrosage Eclairage Bassin Tondeuse Portail Profil`;
     const name = `Emmanuel Lefevre développeur applicatif`;
@@ -32,6 +34,7 @@ export class HomeComponent implements OnInit {
     this.seoService.setMetaName(name);
     this.seoService.setMetaColorTheme(colorValue);
     this.seoService.setMetaTitle(title);
+
   }
   
   ngOnInit(): void {}
