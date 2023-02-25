@@ -3,16 +3,57 @@
     <div class="border-custom">
       <ul>
         <li>
-          <a href='https://www.linkedin.com/in/emmanuel-l-06350b167/' target="new"><fa-icon [icon]="faLinkedin"></fa-icon></a>
+          <a href='https://www.linkedin.com/in/emmanuel-l-06350b167/' 
+             type="button"
+             target="new"
+             rel="noopener noreferrer"
+             aria-label="Lien menant vers le profil Linkedin de Emmanuel Lefevre"
+             matTooltip="Lien Linkedin"
+             matTooltipPosition="above"
+             matTooltipShowDelay="200"
+             matTooltipClass="'mat-tooltip'">
+            <fa-icon [icon]="faLinkedin"
+                     alt="Icône menant vers le profil Linkedin de Emmanuel Lefevre"></fa-icon>
+          </a>
         </li>
         <li>
-          <a href='https://github.com/EmmanuelLefevre' target="new"><fa-icon [icon]="faGithub"></fa-icon></a>
+          <a href='https://github.com/EmmanuelLefevre'
+             type="button"
+             target="new"
+             rel="noopener noreferrer"
+             aria-label="Lien menant vers le Github de Emmanuel Lefevre"
+             matTooltip="Lien Github"
+             matTooltipPosition="above"
+             matTooltipShowDelay="200"
+             matTooltipClass="'mat-tooltip'">
+            <fa-icon [icon]="faGithub"
+                     alt="Icône menant vers le Github de Emmanuel Lefevre"></fa-icon></a>
         </li>
         <li>
-          <a href='' target="new"><fa-icon [icon]="faEnvelope"></fa-icon></a>
+          <a [routerLink]=""
+             type="button"
+             aria-label="Lien menant vers le formulaire de contact EasyGarden"
+             matTooltip="Lien Contact"
+             matTooltipPosition="above"
+             matTooltipShowDelay="200"
+             matTooltipClass="'mat-tooltip'">
+            <fa-icon [icon]="faEnvelope"
+                     aria-label="Icône menant vers le formulaire de contact EasyGarden"></fa-icon>
+          </a>
         </li>
       </ul>
     </div>
   </div>
-  <a>©2022 <a class="owner">LEFEVRE Emmanuel</a> - All rights reserved.</a>
+  <p>©2022 
+    <a href="https://www.emmanuellefevre.com/" 
+       type="button"
+       target="new"
+       rel="noopener noreferrer"
+       aria-label="Lien vers le portfolio du développeur du site"
+       matTooltip="Portfolio Emmanuel Lefevre"
+       matTooltipPosition="left"
+       matTooltipShowDelay="200"
+       matTooltipClass="'mat-tooltip'"
+       class="owner">LEFEVRE Emmanuel</a> - All rights reserved.
+  </p>
 </footer>
