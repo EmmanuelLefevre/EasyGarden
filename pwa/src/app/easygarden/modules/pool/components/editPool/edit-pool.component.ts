@@ -23,16 +23,15 @@ export class EditPoolComponent implements OnInit {
 
   // EditPoolForm Group
   editPoolForm = this.formBuilder.group({
-    name: [
+    name:
       [
         null as IPool| null,
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(20),
         this.customValidator.validEquipmentName()
-      ]
-    ],
-    nonNullable: true
+      ],
+      nonNullable: true
   });
 
   value = '';

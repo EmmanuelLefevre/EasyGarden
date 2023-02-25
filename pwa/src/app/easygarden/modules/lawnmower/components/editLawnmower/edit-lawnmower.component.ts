@@ -23,16 +23,15 @@ export class EditLawnmowerComponent implements OnInit {
 
   // EditLawnmowerForm Group
   editLawnmowerForm = this.formBuilder.group({
-    name: [
+    name:
       [
         null as ILawnmower | null,
-        Validators.required,
+        [Validators.required,
         Validators.minLength(3),
         Validators.maxLength(20),
-        this.customValidator.validEquipmentName()
-      ]
-    ],
-    nonNullable: true
+        this.customValidator.validEquipmentName()]
+      ],
+      nonNullable: true
   });
 
   value = '';

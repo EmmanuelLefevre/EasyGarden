@@ -23,16 +23,15 @@ export class EditWateringComponent implements OnInit {
 
   // EditWateringForm Group
   editWateringForm = this.formBuilder.group({
-    name: [
+    name:
       [
         null as IWatering | null,
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(20),
         this.customValidator.validEquipmentName()
-      ]
-    ],
-    nonNullable: true
+      ],
+      nonNullable: true
   });
 
   value = '';
