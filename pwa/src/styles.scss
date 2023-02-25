@@ -286,10 +286,13 @@ body {
     width: 100%;
     padding: 20px;
   }
-  /*------Wrapper-Table------*/
-  .table-wrapper {
+  /*------Ambiance Background------*/
+  .ambiance-bg {
     background-image: url("./assets/img/garden.png");
-    background-size: cover;
+    // background-size: cover;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-attachment: fixed;
     height: 82vh;
   }
   /*------Input------*/
