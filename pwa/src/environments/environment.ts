@@ -32,6 +32,10 @@ export const environment = {
     mailing: {
       url: 'https://formspree.io/f/xjvdwjee'
     }
+  },
+  application: {
+    name: 'Easy Garden',
+    colorTheme: '#95cb11'
   }
 };
 
