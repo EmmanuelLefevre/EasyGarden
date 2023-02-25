@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 // Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip in style.scss
 import { faPen, faTrash, faSort, faSearch, faTree } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
@@ -28,7 +28,7 @@ export class GardenComponent implements OnInit {
 
   name = environment.application.name;
   id: String = '';
-  title = "Jardin";
+  title = "Tableau des jardins";
 
   // Confirm Dialog this.result = boolean
   result: boolean | undefined;
