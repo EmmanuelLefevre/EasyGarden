@@ -32,9 +32,9 @@ ang-stop: ## Stop Angular local server
 	cd pwa && $(MAKE) stop
 .PHONY: ang-stop
 
-stop-serv: ## Stop EasyGarden local server
+stop-servs: ## Stop EasyGarden local server
 	make -j 2 ang-stop sf-stop
-.PHONY: stop-serv
+.PHONY: stop-servs
 
 
 ## ============ INSTALL ============
