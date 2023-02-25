@@ -28,7 +28,7 @@ export class GardenComponent implements OnInit {
 
   name = environment.application.name;
   id: String = '';
-  title = "Tableau des jardins";
+  title = "Tableau jardin";
 
   // Confirm Dialog this.result = boolean
   result: boolean | undefined;
