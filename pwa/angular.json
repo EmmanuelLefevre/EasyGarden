@@ -49,7 +49,9 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "src/assets"
+              "src/assets",
+              "src/sitemap.xml",
+              "src/robots.txt"
             ],
             "styles": [
               "src/assets/scss/responsive.scss",
