@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+// Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip-social in style.scss
 import { faPowerOff, faPen, faTrash, faSort, faSearch, faDroplet } from '@fortawesome/free-solid-svg-icons';
+import { environment } from 'src/environments/environment';
 
 import { MatDialog } from '@angular/material/dialog';
 import { IConfirmDialog, ConfirmDialogComponent } from 'src/app/easygarden/components/confirmDialog/confirmDialogComponent/confirm-dialog.component';
@@ -11,18 +13,21 @@ import { IWatering, IWateringFilter } from '../../IWatering';
 
 @Component({
   selector: 'app-watering',
-  templateUrl: './watering.component.html'
+  templateUrl: './watering.component.html',
+  encapsulation: ViewEncapsulation.None
 })
 
 export class WateringComponent implements OnInit {
 
-  title = 'Easy Garden Arrosage Liste';
   faPowerOff = faPowerOff;
   faPen = faPen;
   faTrash = faTrash;
   faSort = faSort;
   faSearch = faSearch;
   faDroplet = faDroplet;
+
+  name = environment.application.name;
+  title = "Tableau arrosage";
 
   // Confirm Dialog this.result = boolean
   result: boolean | undefined;
@@ -33,7 +38,7 @@ export class WateringComponent implements OnInit {
   // Ngx-paginator
   p: number = 1;
   // Ngx-order
-  orderHeader: String = '';
+  orderHeader: String = 'name';
   isDescOrder: boolean = true;
   sort(headerName:String) {
     this.isDescOrder = !this.isDescOrder;

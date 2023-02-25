@@ -1,107 +1,136 @@
-<div class="div-wrapper table-wrapper"
-     (click)="clearInput()">
+<main aria-label="Contenu principal de la page">
+  <div (click)="clearInput()"
+       class="div-wrapper ambiance-bg">
+  
+    <div class="animate__animated animate__jackInTheBox">
+      <h1 class="visually-hidden">{{name}}</h1>
+      <h2 class="visually-hidden">{{title}}</h2>
+      <div class="iconContainer">
+        <div class="circle"></div>
+        <fa-icon [icon]="faFish" 
+                 class="iconCategory">
+        </fa-icon>
+      </div>
 
-  <div class="animate__animated animate__jackInTheBox">
-    <h1>{{title}}</h1>
-    <div class="iconContainer">
-      <div class="circle"></div>
-      <fa-icon [icon]="faFish" class="iconCategory"></fa-icon>
-    </div>
-    <div *ngIf="pools.length > 5">
-      <div class="divSearch">
-        <div class="inputSearch">
-          <label class="visually-hidden" for="name">Barre de recherche</label>
-          <input id="inputSearch"
-                 type="search"
-                 aria-label="Champ de saisie afin de rechercher dans le tableau"
-                 [(ngModel)]="searchInput.name"
-                 autocomplete="off"
-                 placeholder="Rechercher...">
-          <fa-icon [icon]="faSearch" class="icon"></fa-icon>
+      <ng-container *ngIf="pools.length > 5">
+        <div class="divSearch">
+          <div class="inputSearch">
+            <label class="visually-hidden" for="name">Barre de recherche</label>
+            <input id="inputSearch"
+                   type="search"
+                   aria-label="Champ de saisie afin de rechercher dans le tableau"
+                   [(ngModel)]="searchInput.name"
+                   autocomplete="off"
+                   placeholder="Rechercher...">
+            <fa-icon [icon]="faSearch" class="icon"></fa-icon>
+          </div>
         </div>
+      </ng-container>
+  
+      <div class="table form-border form-shadow">
+        <table class="t-hover" aria-label="Tableau des équipements de bassin">
+    
+          <thead>             
+            <tr>
+              <th (click)="sort('status')" 
+                  matTooltip="Trier"
+                  matTooltipPosition="above"
+                  matTooltipShowDelay="800"
+                  matTooltipClass="'mat-tooltip'"
+                  class="power order">On/Off 
+                <fa-icon [icon]="faSort"></fa-icon>
+              </th>
+              <th (click)="sort('name')"  
+                  matTooltip="Trier"
+                  matTooltipPosition="above"
+                  matTooltipShowDelay="800"
+                  matTooltipClass="'mat-tooltip'"
+                  class="order">Nom 
+                <fa-icon [icon]="faSort"></fa-icon>
+              </th>
+              <th>Action</th>                   
+            </tr>
+          </thead>
+    
+          <tbody>
+            <tr *ngFor="let pool of pools 
+                | orderBy: orderHeader: isDescOrder
+                | filterBy: searchInput
+                | paginate: { itemsPerPage: 5, currentPage: p }">
+              <td class="power">
+                <button (click)="updateStatus(pool.id, pool.status)"
+                        *ngIf="pool.status === true"
+                        type="submit"
+                        aria-label="Eteindre l'équipement de bassin'"
+                        matTooltip="Eteindre"
+                        matTooltipPosition="left"
+                        matTooltipShowDelay="1000"
+                        matTooltipClass="'mat-tooltip'">
+                  <fa-icon [icon]="faPowerOff"></fa-icon>
+                </button>
+                <button (click)="updateStatus(pool.id, pool.status)"
+                        *ngIf="pool.status === false"
+                        type="submit"
+                        aria-label="Allumer l'équipent de bassin"
+                        matTooltip="Allumer"
+                        matTooltipPosition="left"
+                        matTooltipShowDelay="1000"
+                        matTooltipClass="'mat-tooltip'"
+                        class="btn-off">
+                  <fa-icon [icon]="faPowerOff"></fa-icon>
+                </button>
+              </td>
+              <td>{{ pool.name }}</td>
+              <td>
+                <button routerLink="/easygarden/pool/edit/{{pool.id}}"
+                        type="button"
+                        aria-label="Bouton permettant de modifier le nom de l'équipement de bassin"
+                        matTooltip="Modifier"
+                        matTooltipPosition="before"
+                        matTooltipShowDelay="500"
+                        matTooltipClass="'mat-tooltip'">
+                  <fa-icon [icon]="faPen"></fa-icon>
+                </button>
+                <button (click)="confirmDialog(pool.id, pool.name)"
+                        type="submit"
+                        aria-label="Bouton permettant de supprimer l'équipement de bassin"
+                        matTooltip="Supprimer"
+                        matTooltipPosition="after"
+                        matTooltipShowDelay="500"
+                        matTooltipClass="'mat-tooltip'"
+                        class="trash">
+                  <fa-icon [icon]="faTrash"></fa-icon>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+          
+        </table>
+        <ng-container *ngIf="pools.length > 5">
+          <ng-container class="no-search-match" 
+                        *ngIf="(pools | filterBy: searchInput).length === 0">
+            Aucune correspondance trouvée..
+          </ng-container>
+        </ng-container>
       </div>
     </div>
-
-    <div class="table form-border form-shadow">
-      <table class="t-hover">
   
-        <thead>             
-          <tr>
-            <th (click)="sort('status')" class="power order">On/Off 
-              <fa-icon [icon]="faSort"></fa-icon>
-            </th>
-            <th (click)="sort('name')" class="order">Nom 
-              <fa-icon [icon]="faSort"></fa-icon>
-            </th>
-            <th>Action</th>                   
-          </tr>
-        </thead>
+    <div class="pagination">
+      <pagination-controls (pageChange)="p = $event" 
+                           previousLabel="" 
+                           nextLabel=""
+                           [autoHide]="true"
+                           [responsive]="true"
+                           aria-label="Pagination">
+      </pagination-controls>
+    </div>
   
-        <tbody>
-          <tr *ngFor="let pool of pools 
-              | orderBy: orderHeader: isDescOrder
-              | filterBy: searchInput
-              | paginate: { itemsPerPage: 5, currentPage: p }">
-            <td class="power">
-              <button type="submit"
-                      aria-label="On" 
-                      *ngIf="pool.status === true"
-                      (click)="updateStatus(pool.id, pool.status)">
-                <fa-icon [icon]="faPowerOff"></fa-icon>
-              </button>
-              <button type="submit" class="btn-off" 
-                      aria-label="Off"
-                      *ngIf="pool.status === false"
-                      (click)="updateStatus(pool.id, pool.status)">
-                <fa-icon [icon]="faPowerOff"></fa-icon>
-              </button>
-            </td>
-            <td>{{ pool.name }}</td>
-            <td>
-              <button type="button"
-                      aria-label="Modifier"
-                      matTooltip="Modifier"
-                      matTooltipPosition="before"
-                      matTooltipShowDelay="500"
-                      routerLink="/easygarden/pool/edit/{{pool.id}}">
-                <fa-icon [icon]="faPen"></fa-icon>
-              </button>
-              <button type="submit" class="trash"
-                      aria-label="Supprimer"
-                      matTooltip="Supprimer"
-                      matTooltipPosition="after"
-                      matTooltipShowDelay="500"
-                      (click)="confirmDialog(pool.id, pool.name)">
-                <fa-icon [icon]="faTrash"></fa-icon>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-        
-      </table>
-      <div *ngIf="pools.length > 5">
-        <div class="no-search-match" *ngIf="(pools | filterBy: searchInput).length === 0">
-          Aucune correspondance trouvée..
-        </div>
-      </div>
+    <div class="submit">
+      <button routerLink="/easygarden/pool/add"
+              type="button" 
+              id="submit" 
+              class="button-shadow">Ajouter
+      </button>
     </div>
   </div>
-
-  <div class="pagination">
-    <pagination-controls (pageChange)="p = $event" 
-                         previousLabel="" 
-                         nextLabel=""
-                         [autoHide]="true"
-                         [responsive]="true"
-                         aria-label="Pagination">
-    </pagination-controls>
-  </div>
-
-  <div class="submit">
-    <button type="button" 
-            id="submit" 
-            class="button-shadow"
-            routerLink="/easygarden/pool/add">Ajouter
-    </button>
-  </div>
-</div>
+</main>
