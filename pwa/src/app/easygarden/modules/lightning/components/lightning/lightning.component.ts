@@ -1,5 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+// Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip-social in style.scss
 import { faPowerOff, faPen, faTrash, faSort, faSearch, faLightbulb } from '@fortawesome/free-solid-svg-icons';
+import { environment } from 'src/environments/environment';
 
 import { MatDialog } from '@angular/material/dialog';
 import { IConfirmDialog, ConfirmDialogComponent } from 'src/app/easygarden/components/confirmDialog/confirmDialogComponent/confirm-dialog.component';
@@ -11,18 +13,21 @@ import { ILightning, ILightningFilter } from '../../ILightning';
 
 @Component({
   selector: 'app-lightning',
-  templateUrl: './lightning.component.html'
+  templateUrl: './lightning.component.html',
+  encapsulation: ViewEncapsulation.None
 })
 
 export class LightningComponent implements OnInit {
 
-  title = "Eclairage";
   faPowerOff = faPowerOff;
   faPen = faPen;
   faTrash = faTrash;
   faSort = faSort;
   faSearch = faSearch;
   faLightbulb = faLightbulb;
+
+  name = environment.application.name;
+  title = "Tableau éclairage";
 
   // Confirm Dialog this.result = boolean
   result: boolean | undefined;
@@ -33,7 +38,7 @@ export class LightningComponent implements OnInit {
   // Ngx-paginator
   p: number = 1;
   // Ngx-order
-  orderHeader: String = '';
+  orderHeader: String = 'name';
   isDescOrder: boolean = true;
   sort(headerName:String) {
     this.isDescOrder = !this.isDescOrder;

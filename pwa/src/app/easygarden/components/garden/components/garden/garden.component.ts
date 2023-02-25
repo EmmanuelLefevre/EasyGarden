@@ -36,7 +36,7 @@ export class GardenComponent implements OnInit {
   // Ngx-paginator
   p: number = 1;
   // Ngx-order
-  orderHeader: String = '';
+  orderHeader: String = 'name';
   isDescOrder: boolean = true;
   sort(headerName:String) {
     this.isDescOrder = !this.isDescOrder;
