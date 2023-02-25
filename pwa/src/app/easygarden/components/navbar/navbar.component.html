@@ -3,18 +3,20 @@
     <div>
       <div>
         <ul>
-          <a [routerLink]="['./']"
-             type="button"
-             aria-label="Bouton vers la page accueil"
-             class="nav-logo">
-            <img src="assets/img/easygarden.png" 
-                 alt="Logo EasyGarden"
-                 width=50 height=50 
-                 matTooltip="Lien accueil"
-                 matTooltipPosition="above"
-                 matTooltipShowDelay="500"
-                 matTooltipClass="'mat-tooltip'">   
-          </a>
+          <li>
+            <a [routerLink]="['./']"
+               type="button"
+               aria-label="Bouton vers la page accueil"
+               class="nav-logo">
+              <img src="assets/img/easygarden.png" 
+                   alt="Logo EasyGarden"
+                   width=50 height=50 
+                   matTooltip="Lien accueil"
+                   matTooltipPosition="above"
+                   matTooltipShowDelay="500"
+                   matTooltipClass="'mat-tooltip'">   
+            </a>
+          </li>
           <li [routerLinkActive]="['active-link']"
               class="border-bottom">
             <a [routerLink]="['watering']"
@@ -61,11 +63,13 @@
                aria-label="Bouton vers la page de compte utilisateur">Profil
             </a>
           </li>
-          <button type="button" 
-                  (click)="logOut()" 
-                  aria-label="Bouton de déconnexion"
-                  class="button-shadow">Déconnexion
-          </button>
+          <li>
+            <button type="button" 
+                    (click)="logOut()" 
+                    aria-label="Bouton de déconnexion"
+                    class="button-shadow">Déconnexion
+            </button>
+          </li>
         </ul>
       </div>
     </div>
