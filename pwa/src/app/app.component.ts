@@ -24,7 +24,6 @@ export class AppComponent implements OnInit {
 
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
-              private titleService: Title,
               private metaService: Meta,
               private seoService: SeoService) {}
 
