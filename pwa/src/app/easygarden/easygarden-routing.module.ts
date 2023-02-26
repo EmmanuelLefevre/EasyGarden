@@ -35,7 +35,7 @@ const routes: Routes = [
       },
       
       { path: 'garden/edit/:id', component: EditGardenComponent },
-      { path: 'garden/add', component: AddGardenComponent },
+      { path: 'garden/add', component: AddGardenComponent }
     ]
   }
 ];
