@@ -29,13 +29,15 @@ export class AddPoolComponent implements OnInit {
 
   // addPoolForm Group
   addPoolForm = this.formBuilder.group({
-    name:
+    name:[
+      '',
       [
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(20),
         this.customValidator.validEquipmentName()
-      ],
+      ]
+    ],
     garden:
       this.formBuilder.control<IGarden | null>(null, Validators.required)
   })
