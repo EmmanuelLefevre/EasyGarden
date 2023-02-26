@@ -221,10 +221,10 @@ body {
       padding: 0;
       &:hover {
         color: var(--ang-color-white);
-        background: rgba(255, 15, 15, 0.7);
-        border: 2px solid rgba(255, 15, 15, 0.5);
-        -webkit-animation: bounce 1.9s infinite;
-        animation: bounce 1.9s infinite;
+        background: rgba(253, 4, 4, 0.9);
+        border: 2px solid rgba(253, 4, 4, 0.9);
+        -webkit-animation: bounce 2.5s infinite;
+        animation: bounce 2.5s infinite;
         -webkit-transform-origin: center bottom;
         transform-origin: center bottom;
       }
