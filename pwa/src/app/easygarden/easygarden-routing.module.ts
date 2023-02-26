@@ -1,14 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 import { GardenComponent } from './components/garden/components/garden/garden.component';
 import { EditGardenComponent } from './components/garden/components/editGarden/edit-garden.component';
 import { AddGardenComponent } from './components/garden/components/addGarden/add-garden.component';
 
+const name = environment.application.name;
+
 const routes: Routes = [
   {
-    path: '', component: GardenComponent, children: [
-      
+    path: '', component: GardenComponent,
+      data: {
+        ogTitle: `Page jardin de l'application ${name}`
+      }, 
+    children: [
       {
         path: 'profil', loadChildren: () => import('./modules/profil/profil.module')
           .then(module => module.ProfilModule)
@@ -34,8 +40,16 @@ const routes: Routes = [
           .then(module => module.LawnmowerModule)
       },
       
-      { path: 'garden/edit/:id', component: EditGardenComponent },
-      { path: 'garden/add', component: AddGardenComponent }
+      { path: 'garden/edit/:id', component: EditGardenComponent,
+        data: {
+          ogTitle: `Page modifier jardin de l'application ${name}`
+        } 
+      },
+      { path: 'garden/add', component: AddGardenComponent,
+        data: {
+          ogTitle: `Page ajouter jardin de l'application ${name}`
+        } 
+      }
     ]
   }
 ];
