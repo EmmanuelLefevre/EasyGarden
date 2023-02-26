@@ -16,9 +16,9 @@ ang-serv: ## Launch Angular local server
 	cd pwa && $(MAKE) ang
 .PHONY: ang-serv
 
-serv: ## Launch EasyGarden local server
+servs: ## Launch EasyGarden local server
 	make -j 2 ang-serv sf-serv
-.PHONY: serv
+.PHONY: servs
 
 servx: ## Relaunch Angular with clear cache
 	cd pwa && $(MAKE) ang-relaunch
