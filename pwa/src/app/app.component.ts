@@ -5,7 +5,7 @@ import { Router, ResolveStart, ResolveEnd, ActivatedRoute, NavigationEnd } from 
 import { faLeaf } from '@fortawesome/free-solid-svg-icons';
 import { filter, mapTo, merge, Observable } from 'rxjs';
 
-import { SeoService } from './_services/seo.service';
+import { SeoService } from './_services/service/seo.service';
 
 
 @Component({
