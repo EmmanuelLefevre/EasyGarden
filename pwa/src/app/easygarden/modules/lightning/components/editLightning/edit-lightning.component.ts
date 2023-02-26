@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+// Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip in style.scss
 import { AbstractControl, UntypedFormBuilder, Validators } from '@angular/forms';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 import { FormValidationService } from '../../../../../_services/service/form-validation.service';
 import { LightningService } from '../../lightning.service';
@@ -13,23 +15,25 @@ import { ILightning } from '../../ILightning';
 
 @Component({
   selector: 'app-edit-lightning',
-  templateUrl: './edit-lightning.component.html'
+  templateUrl: './edit-lightning.component.html',
+  encapsulation: ViewEncapsulation.None
 })
 
 export class EditLightningComponent implements OnInit {
 
-  title = 'Easy Garden';
   faCircleXmark = faCircleXmark;
+  name = environment.application.name;
+  title = "Modifier nom de l'éclairage'";
 
   // EditLightningForm Group
   editLightningForm = this.formBuilder.group({
     name:
       [
         null as ILightning | null,
-        Validators.required,
+        [Validators.required,
         Validators.minLength(3),
         Validators.maxLength(20),
-        this.customValidator.validEquipmentName()
+        this.customValidator.validEquipmentName()]
       ],
       nonNullable: true
   });

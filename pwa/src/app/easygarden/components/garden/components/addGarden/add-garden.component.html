@@ -1,54 +1,73 @@
-<div class="div-wrapper ambiance-bg">
-  <div>
-    <img width=150 height=150 src="assets/img/easygarden.png" alt="logo">
-  </div>
-  <h2 class="form-title title-form-shadow">{{title}}</h2>
-  <div class="form-content form-border form-shadow animate__animated animate__fadeInDown">
-    <div class="div-button-close">
-      <button type="button" 
-              (click)="goBack()" 
-              class="button-circle button-shadow">
-        <fa-icon [icon]="faCircleXmark"></fa-icon>
-      </button>
+<main>
+  <div class="div-wrapper ambiance-bg">
+    <div>
+      <img src="assets/img/easygarden.png"
+           width=150 
+           height=150
+           alt="logo de EasyGarden">
     </div>
-    <div class="form-title-content">
-      <p class="p-form-title-content">AJOUTER</p>
-    </div>
-    <form [formGroup]="addGardenForm" 
-          #ngForm="ngForm"
-          (ngSubmit)="onSubmit()">
-      <label class="visually-hidden" for="name">Nom</label>
-      <input formControlName="name"
-             name="name"
-             id="name"
-             type="text"
-             placeholder="Nom"
-             spellcheck="false"
-             autocomplete="off"
-             class="input-inset-shadow"
-             [ngClass]="{ 'invalid-feedback': ngForm.submitted && f['name'].errors }"
-             inputTrim>
-      <div *ngIf="ngForm.submitted && f['name'].errors">
-        <div class="text-alert" *ngIf="f['name'].errors['required']">Veuillez saisir un nom!</div>
-        <div class="text-alert" *ngIf="f['name'].errors['minlength']">
-          Le nom doit contenir au minimum 3 caractères.
-        </div>
-        <div class="text-alert" *ngIf="f['name'].errors['maxlength']">
-          Le nom doit contenir au maximum 20 caractères.
-        </div>
-        <div class="text-alert" *ngIf="f['name'].errors['validEquipmentName']">
-          Le nom ne peut contenir de caractères spéciaux!
-        </div>
-      </div>
-      <div class="div-form-button">
-        <button type="submit"
-                class="button-shadow">Ajouter
-        </button>
-        <button type="button" 
-                (click)="onReset()" 
-                class="button-shadow cancel">Annuler
+    <h1 class="form-title title-form-shadow">{{name}}</h1>
+    <h2 class="visually-hidden">{{title}}</h2>
+
+    <div class="form-content form-border form-shadow animate__animated animate__fadeInDown">
+      <div class="div-button-close">
+        <button (click)="goBack()"
+                type="button"
+                aria-label="Bouton permettant de fermer le formulaire"
+                matTooltip="Fermer formulaire"
+                matTooltipPosition="right"
+                matTooltipShowDelay="400"
+                matTooltipClass="'mat-tooltip'"
+                class="button-circle button-shadow">
+          <fa-icon [icon]="faCircleXmark"
+                   aria-label="Icône permettant de fermer le formulaire"></fa-icon>
         </button>
       </div>
-    </form>
+      <div class="form-title-content">
+        <p class="p-form-title-content">AJOUTER</p>
+      </div>
+
+      <form [formGroup]="addGardenForm"
+            (ngSubmit)="onSubmit()"
+            #ngForm="ngForm"
+            aria-label="Formulaire de saisie utilisateur">
+        <label class="visually-hidden" for="name">Nom</label>
+        <input formControlName="name"
+               name="name"
+               id="name"
+               type="text"
+               placeholder="Nom"
+               spellcheck="false"
+               autocomplete="off"
+               class="input-inset-shadow"
+               [ngClass]="{ 'invalid-feedback': ngForm.submitted && f['name'].errors }">
+        <ng-container *ngIf="ngForm.submitted && f['name'].errors">
+          <ng-container class="text-alert" 
+                        *ngIf="f['name'].errors['required']">Veuillez saisir un nom!
+          </ng-container>
+          <ng-container class="text-alert" 
+                        *ngIf="f['name'].errors['minlength']">Le nom doit contenir au minimum 3 caractères.
+          </ng-container>
+          <ng-container class="text-alert" 
+                        *ngIf="f['name'].errors['maxlength']">Le nom doit contenir au maximum 20 caractères.
+          </ng-container>
+          <ng-container class="text-alert" 
+                        *ngIf="f['name'].errors['validEquipmentName']">Le nom ne peut contenir de caractères spéciaux!
+          </ng-container>
+        </ng-container>
+        <div class="div-form-button">
+          <button type="submit"
+                  class="button-shadow"
+                  aria-label="Bouton ajouter un jardin">Ajouter
+          </button>
+          <button (click)="onReset()"
+                  type="button"  
+                  aria-label="Bouton effacer le formulaire"
+                  class="button-shadow cancel">Annuler
+          </button>
+        </div>
+      </form>
+
+    </div>
   </div>
-</div>
+</main>

@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+// Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip in style.scss
 import { AbstractControl, UntypedFormBuilder, Validators } from '@angular/forms';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 import { PoolService } from '../../pool.service';
 import { FormValidationService } from '../../../../../_services/service/form-validation.service';
@@ -13,23 +15,25 @@ import { IPool } from '../../IPool';
 
 @Component({
   selector: 'app-edit-pool',
-  templateUrl: './edit-pool.component.html'
+  templateUrl: './edit-pool.component.html',
+  encapsulation: ViewEncapsulation.None
 })
 
 export class EditPoolComponent implements OnInit {
 
-  title = 'Easy Garden';
   faCircleXmark = faCircleXmark;
+  name = environment.application.name;
+  title = "Modifier nom de l'équipement de bassin";
 
   // EditPoolForm Group
   editPoolForm = this.formBuilder.group({
     name:
       [
         null as IPool| null,
-        Validators.required,
+        [Validators.required,
         Validators.minLength(3),
         Validators.maxLength(20),
-        this.customValidator.validEquipmentName()
+        this.customValidator.validEquipmentName()]
       ],
       nonNullable: true
   });

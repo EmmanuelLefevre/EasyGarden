@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+// Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip in style.scss
 import { AbstractControl, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 import { FormValidationService } from '../../../../../_services/service/form-validation.service';
 import { GardenService } from 'src/app/easygarden/components/garden/garden.service';
@@ -15,25 +17,25 @@ import { IAddPortal } from '../../IPortal';
 
 @Component({
   selector: 'app-add-portal',
-  templateUrl: './add-portal.component.html'
+  templateUrl: './add-portal.component.html',
+  encapsulation: ViewEncapsulation.None
 })
 
 export class AddPortalComponent implements OnInit {
 
-  title = 'Easy Garden';
   faCircleXmark = faCircleXmark;
+  name = environment.application.name;
+  title = "Modifier nom de l'arrosage";
 
   // addPortalForm Group
   addPortalForm = this.formBuilder.group({
-    name: [
-      '',
+    name:
       [
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(20),
         this.customValidator.validEquipmentName()
-      ]
-    ],
+      ],
     garden:
       this.formBuilder.control<IGarden | null>(null, Validators.required)
   })
