@@ -1,6 +1,6 @@
 {
   "name": "easygarden-angular",
-  "version": "0.0.0",
+  "version": "15.1.5",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
