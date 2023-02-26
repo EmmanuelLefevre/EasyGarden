@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+// Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip in style.scss
 import { AbstractControl, UntypedFormBuilder, Validators } from '@angular/forms';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 import { FormValidationService } from '../../../../../_services/service/form-validation.service';
 import { SnackbarService } from 'src/app/_services/service/snackbar.service';
@@ -13,23 +15,25 @@ import { IWatering } from '../../IWatering';
 
 @Component({
   selector: 'app-edit-watering',
-  templateUrl: './edit-watering.component.html'
+  templateUrl: './edit-watering.component.html',
+  encapsulation: ViewEncapsulation.None
 })
 
 export class EditWateringComponent implements OnInit {
 
-  title = 'Easy Garden';
   faCircleXmark = faCircleXmark;
+  name = environment.application.name;
+  title = "Modifier nom de l'arrosage";
 
   // EditWateringForm Group
   editWateringForm = this.formBuilder.group({
     name:
       [
         null as IWatering | null,
-        Validators.required,
+        [Validators.required,
         Validators.minLength(3),
         Validators.maxLength(20),
-        this.customValidator.validEquipmentName()
+        this.customValidator.validEquipmentName()]
       ],
       nonNullable: true
   });

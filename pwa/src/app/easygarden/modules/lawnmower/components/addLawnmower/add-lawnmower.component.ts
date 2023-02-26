@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+// Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip in style.scss
 import { AbstractControl, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 import { FormValidationService } from '../../../../../_services/service/form-validation.service';
 import { GardenService } from 'src/app/easygarden/components/garden/garden.service';
@@ -15,13 +17,15 @@ import { IAddLawnmower } from '../../ILawnmower';
 
 @Component({
   selector: 'app-add-lawnmower',
-  templateUrl: './add-lawnmower.component.html'
+  templateUrl: './add-lawnmower.component.html',
+  encapsulation: ViewEncapsulation.None
 })
 
 export class AddLawnmowerComponent implements OnInit {
 
-  title = 'Easy Garden';
   faCircleXmark = faCircleXmark;
+  name = environment.application.name;
+  title = "Modifier nom de la tondeuse";
 
   // addLawnmowerForm Group
   addLawnmowerForm = this.formBuilder.group({

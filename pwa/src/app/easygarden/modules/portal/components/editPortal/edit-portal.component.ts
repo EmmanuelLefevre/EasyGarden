@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+// Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip in style.scss
 import { AbstractControl, UntypedFormBuilder, Validators } from '@angular/forms';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 import { FormValidationService } from '../../../../../_services/service/form-validation.service';
 import { PortalService } from '../../portal.service';
@@ -13,23 +15,25 @@ import { IPortal } from '../../IPortal';
 
 @Component({
   selector: 'app-edit-portal',
-  templateUrl: './edit-portal.component.html'
+  templateUrl: './edit-portal.component.html',
+  encapsulation: ViewEncapsulation.None
 })
 
 export class EditPortalComponent implements OnInit {
 
-  title = 'Easy Garden';
   faCircleXmark = faCircleXmark;
+  name = environment.application.name;
+  title = "Modifier nom du portail";
 
   // EditPoolForm Group
   editPortalForm = this.formBuilder.group({
     name:
       [
         null as IPortal | null,
-        Validators.required,
+        [Validators.required,
         Validators.minLength(3),
         Validators.maxLength(20),
-        this.customValidator.validEquipmentName()
+        this.customValidator.validEquipmentName()]
       ],
       nonNullable: true
   });
