@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 
+
 @Component({
   selector: 'app-error',
   templateUrl: './error404.component.html',
