@@ -70,8 +70,9 @@ export class AddGardenComponent implements OnInit {
   }
 
   // Cancel button
-  onReset(): void {
+  onReset(formDirective: any): void {
     this.addGardenForm.reset();
+    formDirective.resetForm();
   }
 
   // Close component
