@@ -27,6 +27,7 @@
 
       <form [formGroup]="registerForm" 
             #ngForm="ngForm"
+            #formDirective="ngForm"
             (ngSubmit)="onSubmit()"         
             aria-label="Formulaire de saisie utilisateur">
         <label class="visually-hidden" for="name">Email</label>
@@ -189,9 +190,9 @@
                   aria-label="Bouton s'inscrire'"
                   class="button-shadow">S'inscrire
           </button>
-          <button type="button" 
-                  (click)="onReset()" 
-                  aria-label="Bouton effacer le formulaire"
+          <button (click)="onReset(formDirective)"
+                  type="button"
+                  aria-label="Bouton effacer le formulaire" 
                   class="button-shadow cancel">Annuler
           </button>
         </div>
