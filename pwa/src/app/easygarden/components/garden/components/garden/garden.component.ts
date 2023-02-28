@@ -19,6 +19,7 @@ import { IGarden, IGardenFilter } from '../../IGarden';
 })
 
 export class GardenComponent implements OnInit {
+  
   faPen = faPen;
   faTrash = faTrash;
   faSort = faSort;
