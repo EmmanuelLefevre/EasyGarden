@@ -26,6 +26,7 @@
 
       <form [formGroup]="loginForm" 
             #ngForm="ngForm"
+            #formDirective="ngForm"
             (ngSubmit)="onSubmit()"
             aria-label="Formulaire de saisie utilisateur">
         <label class="visually-hidden" for="name">Email</label>
@@ -69,8 +70,8 @@
                   aria-label="Bouton se connecter"
                   class="button-shadow">Connexion
           </button>
-          <button type="button" 
-                  (click)="onReset()"
+          <button (click)="onReset(formDirective)"
+                  type="button"
                   aria-label="Bouton effacer le formulaire" 
                   class="button-shadow cancel">Annuler
           </button>

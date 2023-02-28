@@ -76,8 +76,9 @@ export class LoginComponent {
     )
   }
 
-  onReset(): void {
+  onReset(formDirective: any): void {
     this.loginForm.reset();
+    formDirective.resetForm();
   }
 
 }
