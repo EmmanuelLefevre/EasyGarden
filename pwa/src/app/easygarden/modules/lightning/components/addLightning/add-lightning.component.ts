@@ -86,8 +86,9 @@ export class AddLightningComponent implements OnInit {
   }
 
   // Cancel button
-  onReset(): void {
+  onReset(formDirective: any): void {
     this.addLightningForm.reset();
+    formDirective.resetForm();
   }
 
   // Close component
