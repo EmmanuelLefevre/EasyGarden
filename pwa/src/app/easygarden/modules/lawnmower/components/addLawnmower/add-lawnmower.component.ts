@@ -87,8 +87,9 @@ export class AddLawnmowerComponent implements OnInit {
   }
 
   // Cancel button
-  onReset(): void {
+  onReset(formDirective: any): void {
     this.addLawnmowerForm.reset();
+    formDirective.resetForm();
   }
 
   // Close component
