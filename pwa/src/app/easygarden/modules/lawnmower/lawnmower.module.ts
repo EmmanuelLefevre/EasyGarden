@@ -7,7 +7,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { OrderModule } from 'ngx-order-pipe';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { MatSelectModule } from '@angular/material/select';
-import { MyComponentsModule } from 'src/app/components/my-components.module';
+import { PublicComponentsModule } from 'src/app/components/public-components.module';
 import { LawnmowerRoutingModule } from './lawnmower-routing.module';
 
 import { AddLawnmowerComponent } from './components/addLawnmower/add-lawnmower.component';
@@ -32,7 +32,7 @@ import { LawnmowerComponent } from './components/lawnmower/lawnmower.component';
     OrderModule,
     FilterPipeModule,
     MatSelectModule,
-    MyComponentsModule
+    PublicComponentsModule
   ]
 })
 
