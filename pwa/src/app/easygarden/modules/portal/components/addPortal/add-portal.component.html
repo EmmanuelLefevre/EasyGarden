@@ -29,6 +29,7 @@
       <form [formGroup]="addPortalForm" 
             (ngSubmit)="onSubmit()"
             #ngForm="ngForm"
+            #formDirective="ngForm"
             aria-label="Formulaire de saisie utilisateur">
         <mat-form-field appearance="fill"
                         class="input-inset-shadow"
@@ -74,9 +75,9 @@
                   class="button-shadow"
                   aria-label="Bouton ajouter un portail">Modifier
           </button>
-          <button (click)="onReset()"
-                  type="button"  
-                  aria-label="Bouton effacer le formulaire"
+          <button (click)="onReset(formDirective)"
+                  type="button"
+                  aria-label="Bouton effacer le formulaire" 
                   class="button-shadow cancel">Annuler
           </button>
         </div>
