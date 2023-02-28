@@ -4,22 +4,21 @@ import { faPen, faTrash, faSort, faSearch, faTree } from '@fortawesome/free-soli
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
+import { MatDialog } from '@angular/material/dialog';
+import { IConfirmDialog, ConfirmDialogComponent } from 'src/app/easygarden/components/confirmDialog/confirm-dialog.component';
+import { DecodedTokenService } from 'src/app/_services/service/decoded-token.service';
+
 import { GardenService } from '../../garden.service';
 import { IGarden, IGardenFilter } from '../../IGarden';
-
-import { MatDialog } from '@angular/material/dialog';
-import { IConfirmDialog, ConfirmDialogComponent } from 'src/app/easygarden/components/confirmDialog/confirmDialogComponent/confirm-dialog.component';
-import { DecodedTokenService } from 'src/app/_services/service/decoded-token.service';
 
 
 @Component({
   selector: 'app-garden',
   templateUrl: './garden.component.html',
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 
 export class GardenComponent implements OnInit {
-
   faPen = faPen;
   faTrash = faTrash;
   faSort = faSort;
@@ -28,7 +27,7 @@ export class GardenComponent implements OnInit {
 
   name = environment.application.name;
   id: String = '';
-  title = "Tableau jardin";
+  title = 'Tableau jardin';
 
   // Confirm Dialog this.result = boolean
   result: boolean | undefined;
@@ -38,7 +37,7 @@ export class GardenComponent implements OnInit {
   // Ngx-order
   orderHeader: String = 'name';
   isDescOrder: boolean = true;
-  sort(headerName:String) {
+  sort(headerName: String) {
     this.isDescOrder = !this.isDescOrder;
     this.orderHeader = headerName;
   }
@@ -50,10 +49,12 @@ export class GardenComponent implements OnInit {
 
   gardens: IGarden[] = [];
 
-  constructor(private gardenService: GardenService,
-              private dialog: MatDialog,
-              public router: Router,
-              private decodedTokenService: DecodedTokenService) {} 
+  constructor(
+    private gardenService: GardenService,
+    private dialog: MatDialog,
+    public router: Router,
+    private decodedTokenService: DecodedTokenService
+  ) {}
 
   ngOnInit(): void {
     this.fetchGardens();
@@ -61,14 +62,11 @@ export class GardenComponent implements OnInit {
 
   // Display Gardens
   fetchGardens(): void {
-    this.gardenService.getAllGardens()
-      .subscribe(
-        (res:any) => {
-          if (res.hasOwnProperty('hydra:member'))
-          this.gardens = res['hydra:member'];
-          this.id = this.decodedTokenService.idDecoded();
-        }
-      )
+    this.gardenService.getAllGardens().subscribe((res: any) => {
+      if (res.hasOwnProperty('hydra:member'))
+        this.gardens = res['hydra:member'];
+      this.id = this.decodedTokenService.idDecoded();
+    });
   }
 
   // Delete Garden
@@ -76,22 +74,23 @@ export class GardenComponent implements OnInit {
     const value = name;
     const message = `Êtes-vous certain de vouloir supprimer le jardin "${name}"
       ainsi que tous ses équipements?`;
-    const dialogData = new IConfirmDialog("Confirmer l'action!", message, value);
+    const dialogData = new IConfirmDialog(
+      "Confirmer l'action!",
+      message,
+      value
+    );
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      maxWidth: "400px",
-      data: dialogData
-    })
-    
-    dialogRef.afterClosed().subscribe(dialogResult => {
+      maxWidth: '400px',
+      data: dialogData,
+    });
+
+    dialogRef.afterClosed().subscribe((dialogResult) => {
       this.result = dialogResult;
       if (this.result === true) {
-        this.gardenService.deleteGarden(id).subscribe(
-          () => {
-            this.fetchGardens();        
-          }
-        )
-      }   
-    })
+        this.gardenService.deleteGarden(id).subscribe(() => {
+          this.fetchGardens();
+        });
+      }
+    });
   }
-
 }

@@ -4,7 +4,7 @@ import { faPowerOff, faPen, faTrash, faSort, faSearch, faDoorOpen } from '@forta
 import { environment } from 'src/environments/environment';
 
 import { MatDialog } from '@angular/material/dialog';
-import { IConfirmDialog, ConfirmDialogComponent } from 'src/app/easygarden/components/confirmDialog/confirmDialogComponent/confirm-dialog.component';
+import { IConfirmDialog, ConfirmDialogComponent } from 'src/app/easygarden/components/confirmDialog/confirm-dialog.component';
 
 import { PortalService } from '../../portal.service';
 

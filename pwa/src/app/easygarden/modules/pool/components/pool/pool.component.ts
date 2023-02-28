@@ -4,21 +4,19 @@ import { faPowerOff, faPen, faTrash, faSort, faSearch, faFish } from '@fortaweso
 import { environment } from 'src/environments/environment';
 
 import { MatDialog } from '@angular/material/dialog';
-import { IConfirmDialog, ConfirmDialogComponent } from 'src/app/easygarden/components/confirmDialog/confirmDialogComponent/confirm-dialog.component';
+import { IConfirmDialog, ConfirmDialogComponent } from 'src/app/easygarden/components/confirmDialog/confirm-dialog.component';
 
 import { PoolService } from '../../pool.service';
-
 import { IPool, IPoolFilter } from '../../IPool';
 
 
 @Component({
   selector: 'app-pool',
   templateUrl: './pool.component.html',
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 
 export class PoolComponent implements OnInit {
-
   faPowerOff = faPowerOff;
   faPen = faPen;
   faTrash = faTrash;
@@ -27,7 +25,7 @@ export class PoolComponent implements OnInit {
   faFish = faFish;
 
   name = environment.application.name;
-  title = "Tableau bassin";
+  title = 'Tableau bassin';
 
   // Confirm Dialog this.result = boolean
   result: boolean | undefined;
@@ -40,20 +38,19 @@ export class PoolComponent implements OnInit {
   // Ngx-order
   orderHeader: String = 'name';
   isDescOrder: boolean = true;
-  sort(headerName:String) {
+  sort(headerName: String) {
     this.isDescOrder = !this.isDescOrder;
     this.orderHeader = headerName;
   }
   // Ngx-filter
-  searchInput: IPoolFilter = { name: ''};
+  searchInput: IPoolFilter = { name: '' };
   clearInput() {
     this.searchInput.name = '';
   }
 
   pools: IPool[] = [];
 
-  constructor(private poolService: PoolService,
-              private dialog: MatDialog) {}
+  constructor(private poolService: PoolService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.fetchPools();
@@ -61,35 +58,25 @@ export class PoolComponent implements OnInit {
 
   // Display Pools
   fetchPools(): void {
-    this.poolService.getAllPools()
-      .subscribe(
-        (res:any) => {
-          if (res.hasOwnProperty('hydra:member'))  
-          this.pools = res['hydra:member'];
-        }
-      )
+    this.poolService.getAllPools().subscribe((res: any) => {
+      if (res.hasOwnProperty('hydra:member')) this.pools = res['hydra:member'];
+    });
   }
 
   // Update Status
   updateStatus(id: number, status: boolean): void {
     if (status === true) {
       status = !status;
-      this.poolService.updateStatus(status, id)
-        .subscribe(
-          (res:any) => {
-            this.status = res;
-            this.fetchPools();
-          }
-        )
+      this.poolService.updateStatus(status, id).subscribe((res: any) => {
+        this.status = res;
+        this.fetchPools();
+      });
     } else if (status === false) {
       status = !status;
-      this.poolService.updateStatus(status, id)
-        .subscribe(
-          (res:any) => {
-            this.status = res;
-            this.fetchPools();
-          }
-        )
+      this.poolService.updateStatus(status, id).subscribe((res: any) => {
+        this.status = res;
+        this.fetchPools();
+      });
     }
   }
 
@@ -97,22 +84,23 @@ export class PoolComponent implements OnInit {
   confirmDialog(id: number, name: string): void {
     const value = name;
     const message = `Êtes-vous certain de vouloir supprimer l\'équipement "${name}"?`;
-    const dialogData = new IConfirmDialog("Confirmer l'action!", message, value);
+    const dialogData = new IConfirmDialog(
+      "Confirmer l'action!",
+      message,
+      value
+    );
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      maxWidth: "400px",
-      data: dialogData
-    })
-    
-    dialogRef.afterClosed().subscribe(dialogResult => {
+      maxWidth: '400px',
+      data: dialogData,
+    });
+
+    dialogRef.afterClosed().subscribe((dialogResult) => {
       this.result = dialogResult;
       if (this.result === true) {
-        this.poolService.deletePool(id).subscribe(
-          () => {
-            this.fetchPools();
-          }
-        )
-      }   
-    })
+        this.poolService.deletePool(id).subscribe(() => {
+          this.fetchPools();
+        });
+      }
+    });
   }
-
 }
