@@ -14,4 +14,4 @@ import { CloseFormButtonModule } from './closeFormButton/close-form-button.modul
   ]
 })
 
-export class MyComponentsModule { }
+export class PublicComponentsModule { }

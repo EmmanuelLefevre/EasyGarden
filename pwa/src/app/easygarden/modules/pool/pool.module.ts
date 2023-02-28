@@ -7,7 +7,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { OrderModule } from 'ngx-order-pipe';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { MatSelectModule } from '@angular/material/select';
-import { MyComponentsModule } from 'src/app/components/my-components.module';
+import { PublicComponentsModule } from 'src/app/components/public-components.module';
 import { PoolRoutingModule } from './pool-routing.module';
 
 import { AddPoolComponent } from './components/addPool/add-pool.component';
@@ -32,7 +32,7 @@ import { PoolComponent } from './components/pool/pool.component';
     OrderModule,
     FilterPipeModule,
     MatSelectModule,
-    MyComponentsModule
+    PublicComponentsModule
   ]
 })
 

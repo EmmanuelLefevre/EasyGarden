@@ -3,10 +3,7 @@ import { BrowserModule, Meta } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MyComponentsModule } from './components/my-components.module';
 
 import { AppComponent } from './app.component';
 import { Error404Component } from './_services/utils/components/error/error404.component';
@@ -25,11 +22,8 @@ import { JWTInterceptorProvider } from './_services/utils/jwt.interceptor';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FontAwesomeModule,
     BrowserAnimationsModule,
-    MatSnackBarModule,
-    MatTooltipModule,
-    MyComponentsModule
+    MatSnackBarModule
   ],
   providers: [JWTInterceptorProvider, Meta],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

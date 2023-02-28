@@ -9,7 +9,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { OrderModule } from 'ngx-order-pipe';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { MainPipeModule } from './pipe/pipe.module';
-import { MyComponentsModule } from '../components/my-components.module';
+import { PublicComponentsModule } from '../components/public-components.module';
 
 import { AddGardenComponent } from './components/garden/components/addGarden/add-garden.component';
 import { EditGardenComponent } from './components/garden/components/editGarden/edit-garden.component';
@@ -36,7 +36,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
         OrderModule,
         FilterPipeModule,
         MainPipeModule,
-        MyComponentsModule
+        PublicComponentsModule
     ]
 })
 

@@ -8,7 +8,7 @@ import { OrderModule } from 'ngx-order-pipe';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { MatSelectModule } from '@angular/material/select';
 import { MainPipeModule } from '../../pipe/pipe.module';
-import { MyComponentsModule } from 'src/app/components/my-components.module';
+import { PublicComponentsModule } from 'src/app/components/public-components.module';
 import { PortalRoutingModule } from './portal-routing.module';
 
 import { AddPortalComponent } from './components/addPortal/add-portal.component';
@@ -34,7 +34,7 @@ import { PortalComponent } from './components/portal/portal.component';
     FilterPipeModule,
     MatSelectModule,
     MainPipeModule,
-    MyComponentsModule
+    PublicComponentsModule
   ]
 })
 
