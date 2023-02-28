@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 // Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip in style.scss
 import { AbstractControl, UntypedFormBuilder, Validators } from '@angular/forms';
-import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
-import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
@@ -21,7 +19,6 @@ import { IGarden } from '../../IGarden';
 
 export class AddGardenComponent implements OnInit {
 
-  faCircleXmark = faCircleXmark;
   name = environment.application.name;
   title = "Ajouter un jardin";
 
@@ -40,8 +37,7 @@ export class AddGardenComponent implements OnInit {
 
   constructor(private formBuilder: UntypedFormBuilder,
               private customValidator : FormValidationService,
-              private router: Router, 
-              private location: Location,
+              private router: Router,
               private gardenService: GardenService,
               private snackbarService: SnackbarService) {}
 
@@ -73,11 +69,6 @@ export class AddGardenComponent implements OnInit {
   onReset(formDirective: any): void {
     this.addGardenForm.reset();
     formDirective.resetForm();
-  }
-
-  // Close component
-  goBack(): void {
-    this.location.back();
   }
 
 }

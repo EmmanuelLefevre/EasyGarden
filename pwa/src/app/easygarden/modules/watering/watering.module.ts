@@ -9,6 +9,7 @@ import { OrderModule } from 'ngx-order-pipe';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { MatSelectModule } from '@angular/material/select';
 import { WateringRoutingModule } from './watering-routing.module';
+import { MyComponentsModule } from 'src/app/components/my-components.module';
 
 import { AddWateringComponent } from './components/addWatering/add-watering.component';
 import { EditWateringComponent } from './components/editWatering/edit-watering.component';
@@ -31,8 +32,8 @@ import { WateringComponent } from './components/watering/watering.component';
     NgxPaginationModule,
     OrderModule,
     FilterPipeModule,
-    MatSelectModule
+    MatSelectModule,
+    MyComponentsModule
   ]
 })
-
-export class WateringModule { }
+export class WateringModule {}

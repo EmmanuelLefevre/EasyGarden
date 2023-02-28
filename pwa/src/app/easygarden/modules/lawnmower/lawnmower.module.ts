@@ -7,11 +7,13 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { OrderModule } from 'ngx-order-pipe';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { MatSelectModule } from '@angular/material/select';
-
+import { MyComponentsModule } from 'src/app/components/my-components.module';
 import { LawnmowerRoutingModule } from './lawnmower-routing.module';
-import { LawnmowerComponent } from './components/lawnmower/lawnmower.component';
-import { EditLawnmowerComponent } from './components/editLawnmower/edit-lawnmower.component';
+
 import { AddLawnmowerComponent } from './components/addLawnmower/add-lawnmower.component';
+import { EditLawnmowerComponent } from './components/editLawnmower/edit-lawnmower.component';
+import { LawnmowerComponent } from './components/lawnmower/lawnmower.component';
+
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import { AddLawnmowerComponent } from './components/addLawnmower/add-lawnmower.c
     NgxPaginationModule,
     OrderModule,
     FilterPipeModule,
-    MatSelectModule
+    MatSelectModule,
+    MyComponentsModule
   ]
 })
 

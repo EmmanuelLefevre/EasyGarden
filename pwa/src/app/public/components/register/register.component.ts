@@ -2,7 +2,7 @@ import { Component, ViewEncapsulation} from '@angular/core';
 // Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip-social in style.scss
 import { Router } from '@angular/router';
 import { AbstractControl, UntypedFormBuilder, Validators } from '@angular/forms';
-import { faCircleXmark, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { environment } from '../../../../environments/environment';
 
 import { AuthService } from '../../../_services/auth/auth.service';
@@ -19,7 +19,6 @@ import { IUser } from '../../../_interfaces/IUser';
 
 export class RegisterComponent {
 
-  faCircleXmark = faCircleXmark;
   faEye = faEye;
   faEyeSlash = faEyeSlash;
   name = environment.application.name;

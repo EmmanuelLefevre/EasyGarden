@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 // Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip in style.scss
 import { AbstractControl, NonNullableFormBuilder, Validators } from '@angular/forms';
-import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
-import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
@@ -23,7 +21,6 @@ import { IAddLightning } from '../../ILightning';
 
 export class AddLightningComponent implements OnInit {
 
-  faCircleXmark = faCircleXmark;
   name = environment.application.name;
   title = "Modifier nom de l'éclairage";
 
@@ -46,8 +43,7 @@ export class AddLightningComponent implements OnInit {
 
   constructor(private formBuilder: NonNullableFormBuilder,
               private customValidator : FormValidationService,
-              private router: Router, 
-              private location: Location,
+              private router: Router,
               private lightningService: LightningService,
               private gardenService: GardenService,
               private snackbarService: SnackbarService) { 
@@ -89,11 +85,6 @@ export class AddLightningComponent implements OnInit {
   onReset(formDirective: any): void {
     this.addLightningForm.reset();
     formDirective.resetForm();
-  }
-
-  // Close component
-  goBack(): void {
-    this.location.back()
   }
 
 }

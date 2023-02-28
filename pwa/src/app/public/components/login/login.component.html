@@ -6,20 +6,10 @@
   </div>
   <h1 class="form-title title-form-shadow">{{name}}</h1>
   <h2 class="visually-hidden">Formulaire de connexion</h2>
+  
   <div class="animate__animated animate__fadeInDown div-wrapper">
     <div class="form-content form-border form-shadow">
-      <div class="div-button-close">
-        <button [routerLink]="['/']"
-                type="button"
-                aria-label="Bouton permettant de fermer le formulaire de connexion"
-                matTooltip="Retour accueil"
-                matTooltipPosition="right"
-                matTooltipShowDelay="400"
-                matTooltipClass="'mat-tooltip'"
-                class="button-circle button-shadow">
-          <fa-icon [icon]="faCircleXmark"></fa-icon>
-        </button>
-      </div>
+      <app-close-form-button></app-close-form-button>
       <div class="form-title-content">
         <p class="p-form-title-content">Connexion</p>
       </div>
