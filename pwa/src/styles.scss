@@ -277,6 +277,11 @@ body {
     position: relative;
     text-align: center;
   }
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
   /*------Wrapper------*/
   .div-wrapper {
     display: flex;
@@ -289,7 +294,6 @@ body {
   /*------Ambiance Background------*/
   .ambiance-bg {
     background-image: url("./assets/img/garden.png");
-    // background-size: cover;
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-attachment: fixed;
@@ -297,8 +301,10 @@ body {
   }
   /*------Input------*/
   input {
-    margin: 20px 0px 20px 0px;
+    margin: auto;
     padding: 15px;
+    margin-bottom: 20px;
+    margin-top: 20px;
   }
   .div-password-icon {
     position: relative;
@@ -310,6 +316,10 @@ body {
       right: 50px; 
       cursor: pointer;
     }
+  }
+  input[type=password] {
+    display: flex;
+    flex-direction: column;
   }
   input[type=email], 
   input[type=password], 
@@ -377,11 +387,13 @@ body {
 
   /*------Select------*/
   mat-form-field {
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
     width: 80%;
     border: 2px solid var(--ang-color-green);
     -webkit-border-radius: 5px;
     border-radius: 5px;
-    margin: 20px 0px 20px 0px;
     .mat-form-field-wrapper {
       padding-bottom: 0;
     }
