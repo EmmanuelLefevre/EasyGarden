@@ -10,18 +10,7 @@
     <h2 class="visually-hidden">{{title}}</h2>
   
     <div class="form-content form-border form-shadow animate__animated animate__fadeInDown">
-      <div class="div-button-close">
-        <button (click)="goBack()"
-                type="button"
-                aria-label="Bouton permettant de fermer le formulaire"
-                matTooltip="Fermer formulaire"
-                matTooltipPosition="right"
-                matTooltipShowDelay="400"
-                matTooltipClass="'mat-tooltip'"
-                class="button-circle button-shadow">
-          <fa-icon [icon]="faCircleXmark"></fa-icon>
-        </button>
-      </div>
+      <app-close-form-button></app-close-form-button>
       <div class="form-title-content">
         <p class="p-form-title-content">AJOUTER</p>
       </div>

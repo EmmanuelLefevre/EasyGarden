@@ -9,18 +9,7 @@
 
   <div class=" animate__animated animate__fadeInDown div-wrapper">
     <div class="form-content form-border form-shadow">
-      <div class="div-button-close">
-        <button [routerLink]="['/']" 
-                type="button" 
-                aria-label="Bouton permettant de fermer le formulaire d'inscription"
-                class="button-circle button-shadow"
-                matTooltip="Retour accueil"
-                matTooltipPosition="right"
-                matTooltipShowDelay="200"
-                matTooltipClass="'mat-tooltip'">
-          <fa-icon [icon]="faCircleXmark"></fa-icon>
-        </button>
-      </div>
+      <app-close-form-button></app-close-form-button>
       <div class="form-title-content">
         <p class="p-form-title-content">S'enregistrer</p>
       </div>

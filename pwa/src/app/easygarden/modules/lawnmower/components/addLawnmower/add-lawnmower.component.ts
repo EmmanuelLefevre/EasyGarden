@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 // Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip in style.scss
 import { AbstractControl, NonNullableFormBuilder, Validators } from '@angular/forms';
-import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
-import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
@@ -23,7 +21,6 @@ import { IAddLawnmower } from '../../ILawnmower';
 
 export class AddLawnmowerComponent implements OnInit {
 
-  faCircleXmark = faCircleXmark;
   name = environment.application.name;
   title = "Modifier nom de la tondeuse";
 
@@ -46,8 +43,7 @@ export class AddLawnmowerComponent implements OnInit {
   
   constructor(private formBuilder: NonNullableFormBuilder,
               private customValidator : FormValidationService,
-              private router: Router, 
-              private location: Location,
+              private router: Router,
               private lawnmowerService: LawnmowerService,
               private gardenService: GardenService,
               private snackbarService: SnackbarService) {
@@ -90,11 +86,6 @@ export class AddLawnmowerComponent implements OnInit {
   onReset(formDirective: any): void {
     this.addLawnmowerForm.reset();
     formDirective.resetForm();
-  }
-
-  // Close component
-  goBack(): void {
-    this.location.back();
   }
 
 }

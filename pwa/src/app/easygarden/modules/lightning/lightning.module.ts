@@ -7,11 +7,12 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { OrderModule } from 'ngx-order-pipe';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { MatSelectModule } from '@angular/material/select';
-
+import { MyComponentsModule } from 'src/app/components/my-components.module';
 import { LightningRoutingModule } from './lightning-routing.module';
-import { LightningComponent } from './components/lightning/lightning.component';
-import { EditLightningComponent } from './components/editLightning/edit-lightning.component';
+
 import { AddLightningComponent } from './components/addLightning/add-lightning.component';
+import { EditLightningComponent } from './components/editLightning/edit-lightning.component';
+import { LightningComponent } from './components/lightning/lightning.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { AddLightningComponent } from './components/addLightning/add-lightning.c
     NgxPaginationModule,
     OrderModule,
     FilterPipeModule,
-    MatSelectModule
+    MatSelectModule,
+    MyComponentsModule
   ]
 })
 

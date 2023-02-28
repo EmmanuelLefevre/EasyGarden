@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 // Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip in style.scss
 import { AbstractControl, NonNullableFormBuilder, Validators } from '@angular/forms';
-import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
-import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
@@ -23,7 +21,6 @@ import { IGarden } from 'src/app/easygarden/components/garden/IGarden';
 
 export class AddPoolComponent implements OnInit {
 
-  faCircleXmark = faCircleXmark;
   name = environment.application.name;
   title = "Modifier nom de l'équipement de bassin";
 
@@ -46,8 +43,7 @@ export class AddPoolComponent implements OnInit {
 
   constructor(private formBuilder: NonNullableFormBuilder,
               private customValidator : FormValidationService,
-              private router: Router, 
-              private location: Location,
+              private router: Router,
               private poolService: PoolService,
               private gardenService: GardenService,
               private snackbarService: SnackbarService) { 
@@ -90,11 +86,6 @@ export class AddPoolComponent implements OnInit {
   onReset(formDirective: any): void {
     this.addPoolForm.reset();
     formDirective.resetForm();
-  }
-
-  // Close component
-  goBack(): void {
-    this.location.back();
   }
 
 }
