@@ -28,6 +28,7 @@
 
       <form [formGroup]="editGardenForm" 
             #ngForm="ngForm"
+            #formDirective="ngForm"
             (ngSubmit)="onSubmit()"
             aria-label="Formulaire de saisie utilisateur">
         <label class="visually-hidden" for="name">Nom</label>
@@ -59,9 +60,9 @@
                   class="button-shadow"
                   aria-label="Bouton modifier le nom d'un jardin">Modifier
           </button>
-          <button (click)="onReset()"
-                  type="button"  
-                  aria-label="Bouton effacer le formulaire"
+          <button (click)="onReset(formDirective)"
+                  type="button"
+                  aria-label="Bouton effacer le formulaire" 
                   class="button-shadow cancel">Annuler
           </button>
         </div>
