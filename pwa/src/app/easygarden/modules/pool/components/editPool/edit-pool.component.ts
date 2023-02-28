@@ -82,8 +82,9 @@ export class EditPoolComponent implements OnInit {
   }
 
   // Cancel button
-  onReset(): void {
+  onReset(formDirective: any): void {
     this.editPoolForm.reset();
+    formDirective.resetForm();
   }
 
   // Close component
