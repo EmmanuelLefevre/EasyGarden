@@ -87,8 +87,9 @@ export class AddPortalComponent implements OnInit {
   }
 
   // Cancel button
-  onReset(): void {
+  onReset(formDirective: any): void {
     this.addPortalForm.reset();
+    formDirective.resetForm();
   }
 
   // Close component
