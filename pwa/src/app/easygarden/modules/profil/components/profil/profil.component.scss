@@ -9,10 +9,11 @@ div.wrapper {
   width: 100%;
   padding: 6vh 6vh 8vh 6vh;
   h1 {
-    font-size: 2.5vh;
-    font-family: var(--ang-font-serif-text);
-    font-weight: var(--ang-body-font-weight-thin);
-    color: var(--ang-color-green);
+    font-size: 40px;
+    margin-bottom: unset;
+    // font-family: var(--ang-font-serif-text);
+    // font-weight: var(--ang-body-font-weight-thin);
+    // color: var(--ang-color-green);
   }
   .div-profil {
     display: flex;
