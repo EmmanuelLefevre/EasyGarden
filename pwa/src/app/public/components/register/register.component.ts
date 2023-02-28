@@ -121,8 +121,9 @@ export class RegisterComponent {
     )
   }
 
-  onReset(): void {
+  onReset(formDirective: any): void {
     this.registerForm.reset();
+    formDirective.resetForm();
   }
 
 }
