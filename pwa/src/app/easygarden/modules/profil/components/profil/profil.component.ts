@@ -2,15 +2,16 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 // Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip-social in style.scss
 import { AbstractControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { faEye, faEyeSlash, faPen } from '@fortawesome/free-solid-svg-icons';
-import { environment } from 'src/environments/environment';
 
 import { MatDialog } from '@angular/material/dialog';
-import { IConfirmDialog, ConfirmDialogComponent } from 'src/app/easygarden/components/confirmDialog/confirmDialogComponent/confirm-dialog.component';
+import { IConfirmDialog, ConfirmDialogComponent } from 'src/app/easygarden/components/confirmDialog/confirm-dialog.component';
 
 import { FormValidationService } from '../../../../../_services/service/form-validation.service';
-import { IUser } from '../../../../../_interfaces/IUser';
 import { ProfilService } from '../../profil.service';
 import { TokenService } from '../../../../../_services/auth/token.service';
+
+import { IUser } from '../../../../../_interfaces/IUser';
+
 
 @Component({
   selector: 'app-profil',
