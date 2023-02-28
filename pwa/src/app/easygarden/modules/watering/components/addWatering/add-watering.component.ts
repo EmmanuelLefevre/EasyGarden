@@ -87,8 +87,9 @@ export class AddWateringComponent implements OnInit {
   }
 
   // Cancel button
-  onReset(): void {
+  onReset(formDirective: any): void {
     this.addWateringForm.reset();
+    formDirective.resetForm();
   }
 
   // Close component
