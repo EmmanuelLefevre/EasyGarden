@@ -29,6 +29,7 @@
       <form [formGroup]="editLightningForm" 
             (ngSubmit)="onSubmit()"
             #ngForm="ngForm"
+            #formDirective="ngForm"
             aria-label="Formulaire de saisie utilisateur">
         <label class="visually-hidden" for="name">Nom</label>
         <input formControlName="name"
@@ -59,9 +60,9 @@
                   class="button-shadow"
                   aria-label="Bouton modifier le nom d'un éclairage">Modifier
           </button>
-          <button (click)="onReset()"
-                  type="button"  
-                  aria-label="Bouton effacer le formulaire"
+          <button (click)="onReset(formDirective)"
+                  type="button"
+                  aria-label="Bouton effacer le formulaire" 
                   class="button-shadow cancel">Annuler
           </button>
         </div>
