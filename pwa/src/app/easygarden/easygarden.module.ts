@@ -10,6 +10,7 @@ import { OrderModule } from 'ngx-order-pipe';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { MainPipeModule } from './pipe/pipe.module';
 import { PublicComponentsModule } from '../components/public-components.module';
+import { PrivateComponentsModule } from './components/private-components.module';
 
 import { AddGardenComponent } from './components/garden/components/addGarden/add-garden.component';
 import { EditGardenComponent } from './components/garden/components/editGarden/edit-garden.component';
@@ -36,7 +37,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
         OrderModule,
         FilterPipeModule,
         MainPipeModule,
-        PublicComponentsModule
+        PublicComponentsModule,
+        PrivateComponentsModule
     ]
 })
 
