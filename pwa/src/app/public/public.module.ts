@@ -2,6 +2,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { PublicRoutingModule } from './public-routing.module';
+import { DirectivesModule } from '../_directives/directives.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -24,7 +25,8 @@ import { RegisterComponent } from './components/register/register.component';
     FontAwesomeModule,
     ReactiveFormsModule,
     MatTooltipModule,
-    PublicComponentsModule
+    PublicComponentsModule,
+    DirectivesModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

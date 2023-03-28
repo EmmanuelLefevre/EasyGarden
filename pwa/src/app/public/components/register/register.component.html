@@ -21,7 +21,8 @@
             aria-label="Formulaire de saisie utilisateur">
         <label class="visually-hidden" for="name">Email</label>
         <input formControlName="email" 
-               name="email" 
+               name="email"
+               inputTrim 
                type="email" 
                placeholder="Email"
                autocomplete="off"
@@ -43,6 +44,7 @@
           <label class="visually-hidden" for="name">Mot de passe</label>
           <input formControlName="password"
                  name="password" 
+                 inputTrim
                  [type]=" visible ? 'text' : 'password' "
                  placeholder="Password"
                  spellcheck="false"
@@ -69,7 +71,8 @@
         <div class="div-password-icon">
           <label class="visually-hidden" for="name">Confirmer mot de passe</label>
           <input formControlName="confirmPassword"
-                 name="password" 
+                 name="password"
+                 inputTrim 
                  [type]=" visible ? 'text' : 'password' "
                  placeholder="Confirm Password"
                  spellcheck="false"
@@ -88,7 +91,8 @@
         </div>
         <label class="visually-hidden" for="name">Nom</label>
         <input formControlName="lastName" 
-               name="lastName" 
+               name="lastName"
+               inputTrim 
                type="text" 
                placeholder="Nom"
                spellcheck="false"
@@ -112,7 +116,8 @@
         </ng-container>
         <label class="visually-hidden" for="name">Prénom</label>
         <input formControlName="firstName" 
-               name="firstName" 
+               name="firstName"
+               inputTrim 
                type="text" 
                placeholder="Prénom"
                spellcheck="false"
@@ -137,6 +142,7 @@
         <label class="visually-hidden" for="name">Pseudonyme</label>
         <input formControlName="pseudo" 
                name="pseudo" 
+               inputTrim
                type="text" 
                placeholder="Pseudonyme" 
                spellcheck="false"
@@ -160,6 +166,7 @@
         <label class="visually-hidden" for="name">Téléphone</label>
         <input formControlName="phoneNumber" 
                name="phoneNumber" 
+               inputTrim
                type="tel" 
                placeholder="Téléphone"
                spellcheck="false"
