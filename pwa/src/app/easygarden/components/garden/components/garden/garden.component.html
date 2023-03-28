@@ -1,121 +1,115 @@
 <app-navbar></app-navbar>
 <router-outlet></router-outlet>
 
+<main aria-label="Contenu principal de la page">
   <div *ngIf="router.url === '/easygarden'" 
         (click)="clearInput()"
         class="div-wrapper ambiance-bg">
 
     <div class="animate__animated animate__jackInTheBox">
-      <main aria-label="Contenu principal de la page">
-
-        <div>
-          <h1 class="visually-hidden">{{name}}</h1>
-          <h2 class="visually-hidden">{{title}}</h2>
-          <div class="iconContainer">
-            <div class="circle"></div>
-            <fa-icon [icon]="faTree" 
-                    class="iconCategory"
-                    aria-label="Icône d'illustration de la page représentant un arbre">
+      <h1 class="visually-hidden">{{name}}</h1>
+      <h2 class="visually-hidden">{{title}}</h2>
+      <div class="iconContainer">
+        <div class="circle"></div>
+        <fa-icon [icon]="faTree" 
+                class="iconCategory"
+                aria-label="Icône d'illustration de la page représentant un arbre">
+        </fa-icon>
+      </div>
+  
+      <ng-container *ngIf="gardens.length > 5">
+        <div class="divSearch">
+          <div class="inputSearch">
+            <label class="visually-hidden" for="name">Barre de recherche</label>
+            <input [(ngModel)]="searchInput.name"
+                  id="inputSearch"
+                  type="search"
+                  aria-label="Champ de saisie permettant de rechercher dans le tableau"
+                  autocomplete="off"
+                  spellcheck="false"
+                  placeholder="Rechercher...">
+            <fa-icon [icon]="faSearch" 
+                    class="icon">
             </fa-icon>
           </div>
-      
-          <ng-container *ngIf="gardens.length > 5">
-            <div class="divSearch">
-              <div class="inputSearch">
-                <label class="visually-hidden" for="name">Barre de recherche</label>
-                <input [(ngModel)]="searchInput.name"
-                      id="inputSearch"
-                      type="search"
-                      aria-label="Champ de saisie permettant de rechercher dans le tableau"
-                      autocomplete="off"
-                      spellcheck="false"
-                      placeholder="Rechercher...">
-                <fa-icon [icon]="faSearch" 
-                        class="icon">
+        </div>
+      </ng-container>
+  
+      <div class="table form-border form-shadow animate__animated animate__jackInTheBox">
+        <table class="t-hover" aria-label="Tableau des jardins">
+    
+          <thead>             
+            <tr>
+              <th (click)="sort('name')" 
+                  matTooltip="Trier"
+                  matTooltipPosition="above"
+                  matTooltipShowDelay="800"
+                  matTooltipClass="'mat-tooltip'"
+                  class="order">Nom 
+                <fa-icon [icon]="faSort">
                 </fa-icon>
-              </div>
-            </div>
+              </th>
+              <th>Action</th>                   
+            </tr>
+          </thead>
+    
+          <tbody>
+            <tr *ngFor="let garden of gardens
+                | orderBy: orderHeader: isDescOrder
+                | filterBy: searchInput
+                | paginate: { itemsPerPage: 5, currentPage: p }">
+              <td>{{ garden.name }}</td>
+              <td>
+                <button routerLink="/easygarden/garden/edit/{{garden.id}}"
+                        type="button"
+                        aria-label="Bouton permettant de modifier le nom du jardin"
+                        matTooltip="Modifier"
+                        matTooltipPosition="before"
+                        matTooltipShowDelay="500"
+                        matTooltipClass="'mat-tooltip'">
+                  <fa-icon [icon]="faPen"></fa-icon>
+                </button>
+                <button (click)="confirmDialog(garden.id, garden.name)"
+                        type="submit"
+                        aria-label="Bouton permettant de supprimer le jardin"                  
+                        matTooltip="Supprimer"
+                        matTooltipPosition="after"
+                        matTooltipShowDelay="500"
+                        matTooltipClass="'mat-tooltip'"
+                        class="trash">
+                  <fa-icon [icon]="faTrash"></fa-icon>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+          
+        </table>
+        <ng-container *ngIf="gardens.length > 5">
+          <ng-container class="no-search-match" 
+                        *ngIf="(gardens | filterBy: searchInput).length === 0">
+            Aucune correspondance trouvée..
           </ng-container>
+        </ng-container>
+      </div>
+    </div>
       
-          <div class="table form-border form-shadow animate__animated animate__jackInTheBox">
-            <table class="t-hover" aria-label="Tableau des jardins">
-        
-              <thead>             
-                <tr>
-                  <th (click)="sort('name')" 
-                      matTooltip="Trier"
-                      matTooltipPosition="above"
-                      matTooltipShowDelay="800"
-                      matTooltipClass="'mat-tooltip'"
-                      class="order">Nom 
-                    <fa-icon [icon]="faSort">
-                    </fa-icon>
-                  </th>
-                  <th>Action</th>                   
-                </tr>
-              </thead>
-        
-              <tbody>
-                <tr *ngFor="let garden of gardens
-                    | orderBy: orderHeader: isDescOrder
-                    | filterBy: searchInput
-                    | paginate: { itemsPerPage: 5, currentPage: p }">
-                  <td>{{ garden.name }}</td>
-                  <td>
-                    <button routerLink="/easygarden/garden/edit/{{garden.id}}"
-                            type="button"
-                            aria-label="Bouton permettant de modifier le nom du jardin"
-                            matTooltip="Modifier"
-                            matTooltipPosition="before"
-                            matTooltipShowDelay="500"
-                            matTooltipClass="'mat-tooltip'">
-                      <fa-icon [icon]="faPen"></fa-icon>
-                    </button>
-                    <button (click)="confirmDialog(garden.id, garden.name)"
-                            type="submit"
-                            aria-label="Bouton permettant de supprimer le jardin"                  
-                            matTooltip="Supprimer"
-                            matTooltipPosition="after"
-                            matTooltipShowDelay="500"
-                            matTooltipClass="'mat-tooltip'"
-                            class="trash">
-                      <fa-icon [icon]="faTrash"></fa-icon>
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-              
-            </table>
-            <ng-container *ngIf="gardens.length > 5">
-              <ng-container class="no-search-match" 
-                            *ngIf="(gardens | filterBy: searchInput).length === 0">
-                Aucune correspondance trouvée..
-              </ng-container>
-            </ng-container>
-          </div>
-
-          <div class="pagination">
-            <pagination-controls (pageChange)="p = $event" 
-                                  previousLabel="" 
-                                  nextLabel=""
-                                  [autoHide]="true"
-                                  [responsive]="true"
-                                  aria-label="Pagination">
-            </pagination-controls>
-          </div>
-        </div>
-      
-        <div class="submit">
-          <button [routerLink]="['/easygarden/garden/add']"
-                  type="button" 
-                  id="submit" 
-                  class="button-shadow"
-                  aria-label="Bouton ajouter un jardin">Ajouter
-          </button>
-        </div>
-        
-      </main>
+    <div class="pagination">
+      <pagination-controls (pageChange)="p = $event" 
+                            previousLabel="" 
+                            nextLabel=""
+                            [autoHide]="true"
+                            [responsive]="true"
+                            aria-label="Pagination">
+      </pagination-controls>
     </div>
 
+    <div class="submit">
+      <button [routerLink]="['/easygarden/garden/add']"
+              type="button" 
+              id="submit" 
+              class="button-shadow"
+              aria-label="Bouton ajouter un jardin">Ajouter
+      </button>
+    </div>
   </div>
-<!-- </main> -->
+</main>
