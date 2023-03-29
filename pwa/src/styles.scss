@@ -299,7 +299,7 @@ body {
   input[type=search] {
     background-color: var(--ang-color-white);
     color: var(--ang-color-text-dark);
-    text-align: center;
+    text-align: left;
     text-decoration: none;
     font-size: 16px;
     width: 80%;
@@ -330,6 +330,12 @@ body {
   }
   input:placeholder {
     color: var(--ang-color-text-ligh);
+  }
+  ::-webkit-input-placeholder { 
+    text-align:center; 
+  }
+  ::-moz-placeholder { 
+    text-align:center; 
   }
   /*------Invalid-Input------*/
   .invalid-feedback {
