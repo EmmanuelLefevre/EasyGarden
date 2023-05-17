@@ -2,17 +2,20 @@ import { NgModule } from '@angular/core';
 import { InputClearDirective } from './inputClear/inputClear.directive';
 import { InputFocusDirective } from './inputFocus/inputFocus.directive';
 import { InputTrimDirective } from './inputTrim/inputTrim.directive';
+import { UcFirstDirective } from './ucFirst/ucFirst.directive';
 
 
 @NgModule({
-  declarations: [
+  declarations: [	
+    InputTrimDirective,
+    InputFocusDirective,
+    InputClearDirective,
+    UcFirstDirective
+   ],
+  exports: [
     InputTrimDirective,
     InputFocusDirective,
     InputClearDirective
-  ],
-  exports: [
-    InputTrimDirective,
-    InputFocusDirective
   ]
 })
 
