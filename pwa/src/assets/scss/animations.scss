@@ -70,3 +70,23 @@
   80% { -webkit-transform: scale(0.95);
     -webkit-box-shadow: 0 0 0 0 rgba(255, 0, 0, 1); }
 }
+
+
+// Headshake Invalid Input
+$shake-intensity: 1%;
+@keyframes headshake {
+  25% {
+    transform: translateX($shake-intensity);
+  }
+  75% {
+    transform: translateX($shake-intensity * -1);
+  }
+}
+@-webkit-keyframes headshake {
+  25% {
+    transform: translateX($shake-intensity);
+  }
+  75% {
+    transform: translateX($shake-intensity * -1);
+  }
+}
