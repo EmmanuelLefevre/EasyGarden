@@ -93,7 +93,8 @@
         <label class="visually-hidden" for="name">Nom</label>
         <input formControlName="lastName" 
                name="lastName"
-               inputTrim 
+               inputTrim
+               inputUppercase
                type="text" 
                placeholder="Nom"
                spellcheck="false"
@@ -118,7 +119,8 @@
         <label class="visually-hidden" for="name">Prénom</label>
         <input formControlName="firstName" 
                name="firstName"
-               inputTrim 
+               inputTrim
+               inputFirstLetterWordsUppercase
                type="text" 
                placeholder="Prénom"
                spellcheck="false"
@@ -144,6 +146,7 @@
         <input formControlName="pseudo" 
                name="pseudo" 
                inputTrim
+               inputFirstLetterWordsUppercase
                type="text" 
                placeholder="Pseudonyme" 
                spellcheck="false"
