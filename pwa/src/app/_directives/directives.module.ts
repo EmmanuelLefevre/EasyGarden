@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { InputClearDirective } from './inputClear/inputClear.directive';
 import { InputFocusDirective } from './inputFocus/inputFocus.directive';
 import { InputTrimDirective } from './inputTrim/inputTrim.directive';
 
@@ -6,7 +7,9 @@ import { InputTrimDirective } from './inputTrim/inputTrim.directive';
 @NgModule({
   declarations: [
     InputTrimDirective,
-    InputFocusDirective],
+    InputFocusDirective,
+    InputClearDirective
+  ],
   exports: [
     InputTrimDirective,
     InputFocusDirective
