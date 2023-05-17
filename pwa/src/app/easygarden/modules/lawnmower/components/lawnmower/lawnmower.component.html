@@ -1,6 +1,5 @@
 <main aria-label="Contenu principal de la page">
-  <div (click)="clearInput()"
-       class="div-wrapper ambiance-bg">
+  <div class="div-wrapper ambiance-bg">
   
     <div class="animate__animated animate__jackInTheBox">
       <h1 class="visually-hidden">{{name}}</h1>
@@ -23,7 +22,13 @@
                    autocomplete="off"
                    spellcheck="false"
                    placeholder="Rechercher...">
-              <fa-icon [icon]="faSearch" class="icon"></fa-icon>
+              <fa-icon [icon]="faSearch"></fa-icon>
+              <fa-icon [icon]="faXmark" 
+                      class="icon-right" 
+                      *ngIf="searchInput.name"
+                      (click)="searchInput.name=''"
+                      aria-label="Fermer">
+              </fa-icon>
           </div>
         </div>
       </ng-container>
