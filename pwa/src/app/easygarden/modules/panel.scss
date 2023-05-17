@@ -42,6 +42,7 @@ div {
         margin: 2px 0 0 165px;
         :hover {
           color: var(--ang-color-alert);
+          cursor: pointer;
         }
       }
       input[type=text],
