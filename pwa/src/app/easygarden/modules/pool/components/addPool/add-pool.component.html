@@ -22,7 +22,7 @@
             aria-label="Formulaire de saisie utilisateur">
         <mat-form-field appearance="fill"
             class="input-inset-shadow"
-            [ngClass]="{ 'invalid-feedback': ngForm.submitted && f['name'].errors }">
+            [ngClass]="{ 'invalid-feedback': ngForm.submitted && f['garden'].errors }">
           <mat-label>Jardin</mat-label>
           <mat-select formControlName="garden">
             <mat-option *ngFor="let garden of gardens" [value]="garden">
