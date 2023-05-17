@@ -2,11 +2,11 @@ import { Directive, ElementRef, EventEmitter, HostListener, Output } from '@angu
 import { NgControl } from '@angular/forms';
 
 @Directive({
-  selector: '[firstLetterWordsUppercase]'
+  selector: '[inputFirstLetterWordsUppercase]'
 })
 
 
-export class FirstLetterWordsUppercaseDirective {
+export class InputFirstLetterWordsUppercaseDirective {
 
   @Output() ngModelChange = new EventEmitter();
   
