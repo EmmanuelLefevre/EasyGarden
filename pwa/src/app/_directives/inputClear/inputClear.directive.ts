@@ -1,20 +1,20 @@
-import { Directive, ElementRef, AfterViewInit } from '@angular/core';
-
+import { Directive, HostListener, Input } from '@angular/core';
 
 @Directive({
   selector: '[inputClear]'
 })
 
-export class InputClearDirective implements AfterViewInit {
-  searchInput: any;
+export class InputClearDirective {
+  
+  @Input('inputSearch') searchInput: any;
 
-  constructor(private el: ElementRef) {}
+  constructor() {}
 
   /**
    * Clear input on click in component
    */
-   ngAfterViewInit() {
+  @HostListener('click') onClick() {
     this.searchInput.name = '';
-  } 
+  }
 
 }
