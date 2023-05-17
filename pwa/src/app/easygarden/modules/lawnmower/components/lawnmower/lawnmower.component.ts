@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 // Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip-social in style.scss
-import { faPowerOff, faPen, faTrash, faSort, faSearch, faSeedling } from '@fortawesome/free-solid-svg-icons';
+import { faPowerOff, faPen, faTrash, faSort, faSearch, faSeedling, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { environment } from 'src/environments/environment';
 
 import { MatDialog } from '@angular/material/dialog';
@@ -24,6 +24,7 @@ export class LawnmowerComponent implements OnInit {
   faSort = faSort;
   faSearch = faSearch;
   faSeedling = faSeedling;
+  faXmark = faXmark;
 
   name = environment.application.name;
   title = 'Tableau tondeuse';
@@ -45,9 +46,6 @@ export class LawnmowerComponent implements OnInit {
   }
   // Ngx-filter
   searchInput: ILawnmowerFilter = { name: '' };
-  clearInput() {
-    this.searchInput.name = '';
-  }
 
   lawnmowers: ILawnmower[] = [];
 

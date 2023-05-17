@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 // Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip-social in style.scss
-import { faPowerOff, faPen, faTrash, faSort, faSearch, faDoorOpen } from '@fortawesome/free-solid-svg-icons';
+import { faPowerOff, faPen, faTrash, faSort, faSearch, faDoorOpen, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { environment } from 'src/environments/environment';
 
 import { MatDialog } from '@angular/material/dialog';
@@ -25,6 +25,7 @@ export class PortalComponent implements OnInit {
   faSort = faSort;
   faSearch = faSearch;
   faDoorOpen = faDoorOpen;
+  faXmark = faXmark;
 
   name = environment.application.name;
   title = "Tableau portail";
@@ -46,9 +47,6 @@ export class PortalComponent implements OnInit {
   }
   // Ngx-filter
   searchInput: IPortalFilter = { name: ''};
-  clearInput() {
-    this.searchInput.name = '';
-  }
 
   portals: IPortal[] = [];
 

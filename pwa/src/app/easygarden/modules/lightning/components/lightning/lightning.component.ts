@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 // Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip-social in style.scss
-import { faPowerOff, faPen, faTrash, faSort, faSearch, faLightbulb } from '@fortawesome/free-solid-svg-icons';
+import { faPowerOff, faPen, faTrash, faSort, faSearch, faLightbulb, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { environment } from 'src/environments/environment';
 
 import { MatDialog } from '@angular/material/dialog';
@@ -23,6 +23,7 @@ export class LightningComponent implements OnInit {
   faSort = faSort;
   faSearch = faSearch;
   faLightbulb = faLightbulb;
+  faXmark = faXmark;
 
   name = environment.application.name;
   title = 'Tableau éclairage';
@@ -44,9 +45,6 @@ export class LightningComponent implements OnInit {
   }
   // Ngx-filter
   searchInput: ILightningFilter = { name: '' };
-  clearInput() {
-    this.searchInput.name = '';
-  }
 
   lightnings: ILightning[] = [];
 

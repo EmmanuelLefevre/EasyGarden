@@ -36,6 +36,14 @@ div {
         margin: 5px 0 0 8px;
         color: var(--ang-color-green);
       }
+      .icon-right {
+        position: absolute;
+        font-size: 2vh;
+        margin: 2px 0 0 165px;
+        :hover {
+          color: var(--ang-color-alert);
+        }
+      }
       input[type=text],
       input[type=search] {
         width: 20vh;
@@ -54,9 +62,8 @@ div {
       input[type=search]:focus {
         border-bottom: 2px solid var(--ang-color-green);
       }
-      input[type="search"]::-webkit-search-cancel-button {
+      input[type=search]::-webkit-search-cancel-button {
         appearance: none;
-        // -webkit-appearance: none;
         background-image: url('./../../../assets/svg/cross-circle.svg') no-repeat 50% 50%;
       }  
     }
