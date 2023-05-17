@@ -26,7 +26,7 @@ const routes: Routes = [
   },
   { path: 'add', component: AddWateringComponent,
     data: {
-      ogTitle: `Page ajouter arrosge de l\'application ${name}`
+      ogTitle: `Page ajouter arrosage de l\'application ${name}`
     }, 
   }
 ];
