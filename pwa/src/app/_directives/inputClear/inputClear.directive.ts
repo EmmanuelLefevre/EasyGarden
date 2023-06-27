@@ -11,7 +11,7 @@ export class InputClearDirective {
   constructor() {}
 
   /**
-   * Clear input on click in component
+   * Clear search input on click somewhere in an equipment component
    */
   @HostListener('click') onClick() {
     this.searchInput.name = '';
