@@ -10,6 +10,16 @@ nav {
     justify-content: space-between;
     align-items: center;
     height: 8vh;
+    ul > li.active-link {
+      &:hover {
+        margin-bottom: 0;
+      }
+      a {
+        &:hover {
+          cursor: default !important;
+        }
+      }
+    }
     ul {
       display: flex;
       align-items: center;
@@ -42,6 +52,7 @@ nav {
           padding: 0.5rem 1rem;
           &:hover {
             color: var(--ang-color-green);
+            cursor: pointer !important;
           }
         }        
       }
