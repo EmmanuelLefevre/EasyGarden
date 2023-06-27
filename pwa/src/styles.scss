@@ -278,6 +278,8 @@ body {
     margin-top: 20px;
   }
   .div-password-icon {
+    display: flex;
+    flex-direction: column;
     position: relative;
     fa-icon {
       color: var(--ang-color-green);
@@ -287,10 +289,6 @@ body {
       right: 50px; 
       cursor: pointer;
     }
-  }
-  input[type=password] {
-    display: flex;
-    flex-direction: column;
   }
   input[type=email], 
   input[type=password], 
