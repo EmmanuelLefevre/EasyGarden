@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { InputClearDirective } from './inputClear/inputClear.directive';
 import { InputFocusDirective } from './inputFocus/inputFocus.directive';
 import { InputTrimDirective } from './inputTrim/inputTrim.directive';
-import { InputFirstLetterWordsUppercaseDirective } from './inputFirstLetterWordsUppercase/inputFirstLetterWordsUppercase.directive';
-import { InputUppercaseDirective } from './inputUppercase/inputUppercase.directive';
+import { InputTitleCaseDirective } from './inputTitleCase/inputTitleCase.directive';
+import { InputUpperCaseDirective } from './inputUpperCase/inputUpperCase.directive';
 
 
 @NgModule({
@@ -11,15 +11,15 @@ import { InputUppercaseDirective } from './inputUppercase/inputUppercase.directi
     InputTrimDirective,
     InputFocusDirective,
     InputClearDirective,
-    InputFirstLetterWordsUppercaseDirective,
-    InputUppercaseDirective
+    InputTitleCaseDirective,
+    InputUpperCaseDirective
    ],
   exports: [
     InputTrimDirective,
     InputFocusDirective,
     InputClearDirective,
-    InputFirstLetterWordsUppercaseDirective,
-    InputUppercaseDirective
+    InputTitleCaseDirective,
+    InputUpperCaseDirective
   ]
 })
 

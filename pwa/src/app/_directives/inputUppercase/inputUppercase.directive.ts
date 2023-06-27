@@ -2,11 +2,11 @@ import { Directive, ElementRef, EventEmitter, HostListener, Output } from '@angu
 import { NgControl } from '@angular/forms';
 
 @Directive({
-  selector: '[inputUppercase]'
+  selector: '[inputUpperCase]'
 })
 
 
-export class InputUppercaseDirective {
+export class InputUpperCaseDirective {
 
   @Output() ngModelChange = new EventEmitter();
 
@@ -14,12 +14,21 @@ export class InputUppercaseDirective {
               private control: NgControl) {}
 
   /**
-   * uppercase input value
+   * Change input value in uppercase
   */
-  @HostListener('focusout') onFocusOut() {
-    (this.el.nativeElement as HTMLInputElement).value = (this.el.nativeElement as HTMLInputElement).value.toUpperCase();
-    this.ngModelChange.emit(this.el.nativeElement.value)
-    this.control.control?.setValue(this.el.nativeElement.value)
+  @HostListener('input') onInput() {
+    const value = this.control.value;
+    if (value) {
+      const transformedText = this.inputUppercase(value);
+      this.el.nativeElement.value = transformedText;
+      this.ngModelChange.emit(transformedText)
+      this.control.control?.setValue(transformedText)
+    }
+  }
+
+  inputUppercase(text: string): string {
+    const words = text.toUpperCase();
+    return words;
   }
 
 }
