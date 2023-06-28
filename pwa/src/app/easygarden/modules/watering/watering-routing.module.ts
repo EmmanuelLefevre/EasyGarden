@@ -3,8 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
 import { WateringComponent } from './watering.component';
-import { EditNameComponent } from '../../components/editName/edit-name.component';
-import { AddComponent } from '../../components/add/add.component';
+import { EditNameEntityComponent } from '../../components/editNameEntity/edit-name-entity.component';
+import { AddEntityComponent } from '../../components/addEntity/add-entity.component';
 
 import { WateringResolver } from './watering.resolver';
 
@@ -19,12 +19,12 @@ const routes: Routes = [
         watering: WateringResolver
       }
     },
-  { path: 'edit/:id', component: EditNameComponent,
+  { path: 'edit/:id', component: EditNameEntityComponent,
     data: {
       ogTitle: `Page modifier arrosage de l\'application ${name}`
     }, 
   },
-  { path: 'add', component: AddComponent,
+  { path: 'add', component: AddEntityComponent,
     data: {
       ogTitle: `Page ajouter arrosage de l\'application ${name}`
     }, 

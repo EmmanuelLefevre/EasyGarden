@@ -5,12 +5,12 @@ import { DirectivesModule } from 'src/app/_directives/directives.module';
 
 import { CloseFormButtonModule } from 'src/app/components/closeFormButton/close-form-button.module';
 
-import { EditNameComponent } from './edit-name.component';
+import { EditNameEntityComponent } from './edit-name-entity.component';
 
 
 @NgModule({
   declarations: [
-    EditNameComponent
+    EditNameEntityComponent
   ],
   imports: [
     CommonModule,
@@ -20,9 +20,9 @@ import { EditNameComponent } from './edit-name.component';
     CloseFormButtonModule
   ],
   exports: [
-    EditNameComponent
+    EditNameEntityComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 
-export class EditNameModule { }
+export class EditNameEntityModule { }

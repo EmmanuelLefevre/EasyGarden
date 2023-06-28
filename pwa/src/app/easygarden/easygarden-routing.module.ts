@@ -3,8 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
 import { GardenComponent } from './components/garden/garden.component';
-import { EditNameComponent } from './components/editName/edit-name.component';
-import { AddComponent } from './components/add/add.component';
+import { EditNameEntityComponent } from './components/editNameEntity/edit-name-entity.component';
+import { AddEntityComponent } from './components/addEntity/add-entity.component';
 
 const name = environment.application.name;
 
@@ -40,12 +40,12 @@ const routes: Routes = [
           .then(module => module.LawnmowerModule)
       },
       
-      { path: 'garden/edit/:id', component: EditNameComponent,
+      { path: 'garden/edit/:id', component: EditNameEntityComponent,
         data: {
           ogTitle: `Page modifier jardin de l'application ${name}`
         } 
       },
-      { path: 'garden/add', component: AddComponent,
+      { path: 'garden/add', component: AddEntityComponent,
         data: {
           ogTitle: `Page ajouter jardin de l'application ${name}`
         } 
