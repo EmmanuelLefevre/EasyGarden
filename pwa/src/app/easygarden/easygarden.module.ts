@@ -13,15 +13,14 @@ import { PublicComponentsModule } from '../components/public-components.module';
 import { DirectivesModule } from '../_directives/directives.module';
 
 import { AddGardenComponent } from './components/garden/components/addGarden/add-garden.component';
-import { EditGardenComponent } from './components/garden/components/editGarden/edit-garden.component';
 import { GardenComponent } from './components/garden/components/garden/garden.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { EditNameModule } from './components/editName/edit-name.module';
 
 
 @NgModule({
     declarations: [
         NavbarComponent,
-        EditGardenComponent,
         GardenComponent,
         AddGardenComponent
     ],
@@ -38,7 +37,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
         FilterPipeModule,
         MainPipeModule,
         PublicComponentsModule,
-        DirectivesModule
+        DirectivesModule,
+        EditNameModule
     ]
 })
 

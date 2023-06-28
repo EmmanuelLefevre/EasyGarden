@@ -13,14 +13,12 @@ import { PublicComponentsModule } from 'src/app/components/public-components.mod
 import { WateringRoutingModule } from './watering-routing.module';
 
 import { AddWateringComponent } from './components/addWatering/add-watering.component';
-import { EditWateringComponent } from './components/editWatering/edit-watering.component';
 import { WateringComponent } from './components/watering/watering.component';
 
 
 @NgModule({
   declarations: [
     WateringComponent,
-    EditWateringComponent,
     AddWateringComponent
   ],
   imports: [

@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
 import { LightningComponent } from './components/lightning/lightning.component';
-import { EditLightningComponent } from './components/editLightning/edit-lightning.component';
+import { EditNameComponent } from '../../components/editName/edit-name.component';
 import { AddLightningComponent } from './components/addLightning/add-lightning.component';
 
 import { LightningResolver } from './lightning.resolver';
@@ -19,7 +19,7 @@ const routes: Routes = [
       lightning: LightningResolver
     }
   },
-  { path: 'edit/:id', component: EditLightningComponent,
+  { path: 'edit/:id', component: EditNameComponent,
     data: {
       ogTitle: `Page modifier éclairage de l\'application ${name}`
     } 

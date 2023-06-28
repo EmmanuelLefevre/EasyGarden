@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 import { IPortal, IAddPortal, IDataPortal } from './IPortal';
+import { IName } from '../../_interfaces/IName';
 
 
 @Injectable({
@@ -31,7 +32,7 @@ export class PortalService {
   }
 
   // Get Portal
-  getPortal(id: number | null): Observable<IPortal>{
+  getData(id: number | null): Observable<IPortal>{
     return this.httpClient.get<IPortal>(environment.apis.portal.url+'/'+id);
   }
 
@@ -41,7 +42,7 @@ export class PortalService {
   }
 
   // Update Portal
-  updatePortal(portal: IPortal, id: number | null): Observable<IDataPortal[]> {
+  updateData(portal: IName, id: number | null): Observable<IDataPortal[]> {
     return this.httpClient.put<IDataPortal[]>(environment.apis.portal.url+'/'+id, portal);
   }
 
@@ -49,5 +50,11 @@ export class PortalService {
   deletePortal(id: number): Observable<IPortal> {
     return this.httpClient.delete<IPortal>(environment.apis.portal.url+'/'+id)
   }
+
+  // Get redirection
+  getRedirectUrl(): string {
+    return '/easygarden/portal/';
+  }
+
 
 }

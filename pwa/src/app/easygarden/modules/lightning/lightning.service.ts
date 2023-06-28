@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 import { ILightning, IAddLightning, IDataLightning } from './ILightning';
+import { IName } from '../../_interfaces/IName';
 
 
 @Injectable({
@@ -30,7 +31,7 @@ export class LightningService {
   }
 
   // Get Lightning
-  getLightning(id: number | null): Observable<ILightning>{
+  getData(id: number | null): Observable<ILightning>{
     return this.httpClient.get<ILightning>(environment.apis.lightning.url+'/'+id);
   }
 
@@ -40,13 +41,18 @@ export class LightningService {
   }
 
   // Update Lightning
-  updateLightning(lightning: ILightning, id: number | null): Observable<IDataLightning[]> {
+  updateData(lightning: IName, id: number | null): Observable<IDataLightning[]> {
     return this.httpClient.put<IDataLightning[]>(environment.apis.lightning.url+'/'+id, lightning);
   }
 
   // Delete Lightning
   deleteLightning(id: number): Observable<ILightning> {
     return this.httpClient.delete<ILightning>(environment.apis.lightning.url+'/'+id);
+  }
+
+  // Get redirection
+  getRedirectUrl(): string {
+    return '/easygarden/lightning/';
   }
 
 }

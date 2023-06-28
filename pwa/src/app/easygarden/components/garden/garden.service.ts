@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { DecodedTokenService } from 'src/app/_services/miscellaneous/decoded-token.service';
 
 import { IGarden, IDataGarden } from './IGarden';
+import { IName } from '../../_interfaces/IName';
 
 
 @Injectable({
@@ -33,18 +34,23 @@ export class GardenService {
   }
 
   // Get Garden
-  getGarden(id: number | null): Observable<IGarden>{
+  getData(id: number | null): Observable<IGarden>{
     return this.httpClient.get<IGarden>(environment.apis.garden.url+'/'+id);
   }
 
   // Update Garden
-  updateGarden(garden: IGarden, id: number | null): Observable<IDataGarden[]> {
+  updateData(garden: IName, id: number | null): Observable<IDataGarden[]> {
     return this.httpClient.put<IDataGarden[]>(environment.apis.garden.url+'/'+id, garden);
   }
 
   // Delete Garden
   deleteGarden(id: number): Observable<IGarden> {
     return this.httpClient.delete<IGarden>(environment.apis.garden.url+'/'+id);
+  }
+
+  // Get redirection
+  getRedirectUrl(): string {
+    return '/easygarden/';
   }
 
 

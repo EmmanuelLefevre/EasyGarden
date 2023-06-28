@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 import { IPool, IAddPool, IDataPool } from './IPool';
+import { IName } from '../../_interfaces/IName';
 
 
 @Injectable({
@@ -29,7 +30,7 @@ export class PoolService {
   }
 
   // Get Pool
-  getPool(id: number | null): Observable<IPool>{
+  getData(id: number | null): Observable<IPool>{
     return this.httpClient.get<IPool>(environment.apis.pool.url+'/'+id);
   }
 
@@ -39,7 +40,7 @@ export class PoolService {
   }
 
   // Update Lawnmower
-  updatePool(pool: IPool, id: number | null): Observable<IDataPool[]> {
+  updateData(pool: IName, id: number | null): Observable<IDataPool[]> {
     return this.httpClient.put<IDataPool[]>(environment.apis.pool.url+'/'+id, pool);
   }
 
@@ -47,5 +48,11 @@ export class PoolService {
   deletePool(id: number): Observable<IPool> {
     return this.httpClient.delete<IPool>(environment.apis.pool.url+'/'+id)
   }
+
+  // Get redirection
+  getRedirectUrl(): string {
+    return '/easygarden/pool/';
+  }
+
 
 }

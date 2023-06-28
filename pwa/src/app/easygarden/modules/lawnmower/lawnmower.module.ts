@@ -13,14 +13,12 @@ import { PublicComponentsModule } from 'src/app/components/public-components.mod
 import { LawnmowerRoutingModule } from './lawnmower-routing.module';
 
 import { AddLawnmowerComponent } from './components/addLawnmower/add-lawnmower.component';
-import { EditLawnmowerComponent } from './components/editLawnmower/edit-lawnmower.component';
 import { LawnmowerComponent } from './components/lawnmower/lawnmower.component';
 
 
 @NgModule({
   declarations: [
     LawnmowerComponent,
-    EditLawnmowerComponent,
     AddLawnmowerComponent
   ],
   imports: [

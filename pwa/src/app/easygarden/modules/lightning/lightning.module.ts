@@ -13,14 +13,12 @@ import { PublicComponentsModule } from 'src/app/components/public-components.mod
 import { LightningRoutingModule } from './lightning-routing.module';
 
 import { AddLightningComponent } from './components/addLightning/add-lightning.component';
-import { EditLightningComponent } from './components/editLightning/edit-lightning.component';
 import { LightningComponent } from './components/lightning/lightning.component';
 
 
 @NgModule({
   declarations: [
     LightningComponent,
-    EditLightningComponent,
     AddLightningComponent
   ],
   imports: [

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 import { ILawnmower, IAddLawnmower, IDataLawnmower } from './ILawnmower';
+import { IName } from '../../_interfaces/IName';
 
 
 @Injectable({
@@ -31,7 +32,7 @@ export class LawnmowerService {
   }
 
   // Get Lawnmower
-  getLawnmower(id: number | null): Observable<ILawnmower>{
+  getData(id: number | null): Observable<ILawnmower>{
     return this.httpClient.get<ILawnmower>(environment.apis.lawnmower.url+'/'+id);
   }
 
@@ -41,13 +42,18 @@ export class LawnmowerService {
   }
 
   // Update Lawnmower
-  updateLawnmower(lawnmower: ILawnmower, id: number | null): Observable<IDataLawnmower[]> {
+  updateData(lawnmower: IName, id: number | null): Observable<IDataLawnmower[]> {
     return this.httpClient.put<IDataLawnmower[]>(environment.apis.lawnmower.url+'/'+id, lawnmower);
   }
 
   // Delete Lawnmower
   deleteLawnmower(id: number): Observable<ILawnmower> {
     return this.httpClient.delete<ILawnmower>(environment.apis.lawnmower.url+'/'+id);
+  }
+
+  // Get redirection
+  getRedirectUrl(): string {
+    return '/easygarden/lawnmower/';
   }
 
 }

@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
 import { PoolComponent } from './components/pool/pool.component';
-import { EditPoolComponent } from './components/editPool/edit-pool.component';
+import { EditNameComponent } from '../../components/editName/edit-name.component';
 import { AddPoolComponent } from './components/addPool/add-pool.component';
 
 import { PoolResolver } from './pool.resolver';
@@ -19,7 +19,7 @@ const routes: Routes = [
       pool: PoolResolver
     }
   },
-  { path: 'edit/:id', component: EditPoolComponent,
+  { path: 'edit/:id', component: EditNameComponent,
     data: {
       ogTitle: `Page modifier équipement de bassin de l\'application ${name}`
     }, 
