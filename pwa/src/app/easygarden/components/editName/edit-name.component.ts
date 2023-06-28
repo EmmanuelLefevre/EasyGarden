@@ -119,7 +119,7 @@ export class EditNameComponent implements OnInit {
       return;
     }
 
-    const formValue: IName = this.editName.value;
+    const formValue: IName = this.editName.getRawValue();
     const id = Number(this.activated.snapshot.paramMap.get('id'));
     const url = window.location.href;
     let service: any;
