@@ -23,6 +23,10 @@ export class RegisterComponent {
   faEyeSlash = faEyeSlash;
   name = environment.application.name;
 
+  // Check if email exist
+  existingEmail: boolean = false;
+  errorMessage: String = '';
+
   // Toggle faEyeSlash
   visible: boolean = false;
   public toggle(): void {
@@ -116,13 +120,32 @@ export class RegisterComponent {
         this.snackbarService.showNotification(`Bienvenu ` + firstName + ' ' + lastName + ',' +
           `\nveuillez confirmer votre compte dans l\'email qui vous a été envoyé.`, 'register')
         this.router.navigate(['login'])
+      },
+      (errorResponse) => {
+        if (errorResponse.error['hydra:description']) {
+          const errorDescription = errorResponse.error['hydra:description'];
+          const errorMessage = this.extractErrorMessage(errorDescription);
+          this.errorMessage = errorMessage;
         }
+      }
     )
   }
 
   onReset(formDirective: any): void {
     this.registerForm.reset();
     formDirective.resetForm();
+  }
+
+  // Method to catch error message if email already existing
+  private extractErrorMessage(errorDescription: string): string {
+    const errorMessagePrefix = 'email: ';
+    const errorMessageIndex = errorDescription.indexOf(errorMessagePrefix);
+    if (errorMessageIndex !== -1) {
+      this.existingEmail = true;
+      const errorMessage = errorDescription.substring(errorMessageIndex + errorMessagePrefix.length);
+      return errorMessage.trim();
+    }
+    return '';
   }
 
 }
