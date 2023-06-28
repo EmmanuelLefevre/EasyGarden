@@ -6,12 +6,12 @@ import { DirectivesModule } from 'src/app/_directives/directives.module';
 import { MatSelectModule } from '@angular/material/select';
 import { PublicComponentsModule } from 'src/app/components/public-components.module';
 
-import { AddComponent } from './add.component';
+import { AddEntityComponent } from './add-entity.component';
 
 
 @NgModule({
   declarations: [
-    AddComponent
+    AddEntityComponent
   ],
   imports: [
     CommonModule,
@@ -22,9 +22,9 @@ import { AddComponent } from './add.component';
     PublicComponentsModule
   ],
   exports: [
-    AddComponent
+    AddEntityComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 
-export class AddModule { }
+export class AddEntityModule { }

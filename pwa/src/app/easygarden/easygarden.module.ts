@@ -15,8 +15,8 @@ import { EasygardenRoutingModule } from './easygarden-routing.module';
 
 import { GardenComponent } from './components/garden/garden.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { EditNameModule } from './components/editName/edit-name.module';
-import { AddModule } from './components/add/add.module';
+import { EditNameEntityModule } from './components/editNameEntity/edit-name-entity.module';
+import { AddEntityModule } from './components/addEntity/add-entity.module';
 
 
 @NgModule({
@@ -36,8 +36,8 @@ import { AddModule } from './components/add/add.module';
         FilterPipeModule,
         MainPipeModule,
         DirectivesModule,
-        EditNameModule,
-        AddModule
+        EditNameEntityModule,
+        AddEntityModule
     ]
 })
 

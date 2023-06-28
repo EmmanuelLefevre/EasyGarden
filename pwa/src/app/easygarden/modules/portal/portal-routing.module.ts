@@ -3,8 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
 import { PortalComponent } from './portal.component';
-import { EditNameComponent } from '../../components/editName/edit-name.component';
-import { AddComponent } from '../../components/add/add.component';
+import { EditNameEntityComponent } from '../../components/editNameEntity/edit-name-entity.component';
+import { AddEntityComponent } from '../../components/addEntity/add-entity.component';
 
 import { PortalResolver } from './portal.resolver';
 
@@ -19,12 +19,12 @@ const routes: Routes = [
       portal: PortalResolver
       }
     },
-  { path: 'edit/:id', component: EditNameComponent,
+  { path: 'edit/:id', component: EditNameEntityComponent,
     data: {
       ogTitle: `Page modifier portail de l\'application ${name}`
     }, 
   },
-  { path: 'add', component: AddComponent,
+  { path: 'add', component: AddEntityComponent,
     data: {
       ogTitle: `Page ajouter portail de l\'application ${name}`
     }, 

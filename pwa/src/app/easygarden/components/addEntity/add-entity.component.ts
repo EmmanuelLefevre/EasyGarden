@@ -18,12 +18,12 @@ import { IGarden } from '../garden/IGarden';
 
 
 @Component({
-  selector: 'app-add',
-  templateUrl: './add.component.html',
+  selector: 'app-add-entity',
+  templateUrl: './add-entity.component.html',
   encapsulation: ViewEncapsulation.None
 })
 
-export class AddComponent implements OnInit {
+export class AddEntityComponent implements OnInit {
 
   name = environment.application.name;
 
