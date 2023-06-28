@@ -13,14 +13,12 @@ import { PublicComponentsModule } from 'src/app/components/public-components.mod
 import { PoolRoutingModule } from './pool-routing.module';
 
 import { AddPoolComponent } from './components/addPool/add-pool.component';
-import { EditPoolComponent } from './components/editPool/edit-pool.component';
 import { PoolComponent } from './components/pool/pool.component';
 
 
 @NgModule({
   declarations: [
     PoolComponent,
-    EditPoolComponent,
     AddPoolComponent
   ],
   imports: [

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 import { IWatering, IAddWatering, IDataWatering } from './IWatering';
+import { IName } from '../../_interfaces/IName';
 
 
 @Injectable({
@@ -32,7 +33,7 @@ export class WateringService {
   }
 
   // Get Watering
-  getWatering(id: number | null): Observable<IWatering>{
+  getData(id: number | null): Observable<IWatering>{
     return this.httpClient.get<IWatering>(environment.apis.watering.url+'/'+id);
   }
 
@@ -42,13 +43,18 @@ export class WateringService {
   }
 
   // Update Watering
-  updateWatering(watering: IWatering, id: number | null): Observable<IDataWatering[]> {
+  updateData(watering: IName, id: number | null): Observable<IDataWatering[]> {
     return this.httpClient.put<IDataWatering[]>(environment.apis.watering.url+'/'+id, watering);
   }
 
   // Delete Watering
   deleteWatering(id: number): Observable<IWatering> {
     return this.httpClient.delete<IWatering>(environment.apis.watering.url+'/'+id);
+  }
+
+  // Get redirection
+  getRedirectUrl(): string {
+    return '/easygarden/watering/';
   }
   
 }

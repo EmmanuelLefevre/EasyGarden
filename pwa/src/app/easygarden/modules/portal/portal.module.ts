@@ -14,14 +14,12 @@ import { PublicComponentsModule } from 'src/app/components/public-components.mod
 import { PortalRoutingModule } from './portal-routing.module';
 
 import { AddPortalComponent } from './components/addPortal/add-portal.component';
-import { EditPortalComponent } from './components/editPortal/edit-portal.component';
 import { PortalComponent } from './components/portal/portal.component';
 
 
 @NgModule({
   declarations: [
     PortalComponent,
-    EditPortalComponent,
     AddPortalComponent
   ],
   imports: [

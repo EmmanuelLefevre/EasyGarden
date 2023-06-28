@@ -7,7 +7,6 @@
            alt="logo de EasyGarden">
     </div>
     <h1 class="form-title title-form-shadow">{{name}}</h1>
-    <h2 class="visually-hidden">{{title}}</h2>
 
     <div class="form-content form-border form-shadow animate__animated animate__fadeInDown">
       <app-close-form-button></app-close-form-button>
@@ -15,7 +14,7 @@
         <p class="p-form-title-content">MODIFIER</p>
       </div>
 
-      <form [formGroup]="editPoolForm" 
+      <form [formGroup]="editName" 
             (ngSubmit)="onSubmit()"
             #ngForm="ngForm"
             #formDirective="ngForm"
@@ -50,7 +49,7 @@
         <div class="div-form-button">
           <button type="submit"
                   class="button-shadow"
-                  aria-label="Bouton modifier le nom d'un équipement de bassin">Modifier
+                  aria-label="Bouton modifier le nom d'un arrosage">Modifier
           </button>
           <button (click)="onReset(formDirective)"
                   type="button"
@@ -59,7 +58,7 @@
           </button>
         </div>
       </form>
-      
+
     </div>
   </div>
 </main>
