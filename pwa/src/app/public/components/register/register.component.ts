@@ -5,7 +5,7 @@ import { AbstractControl, UntypedFormBuilder, Validators } from '@angular/forms'
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { environment } from '../../../../environments/environment';
 
-import { AuthService } from '../../../_services/auth/auth.service';
+import { RegisterService } from 'src/app/_services/register/register.service';
 import { SnackbarService } from 'src/app/_services/service/snackbar.service';
 import { FormValidationService } from '../../../_services/service/form-validation.service';
 import { IUser } from '../../../_interfaces/IUser';
@@ -96,7 +96,7 @@ export class RegisterComponent {
   
   constructor(private formBuilder: UntypedFormBuilder,
               private customValidator : FormValidationService,
-              private authService: AuthService,
+              private registerService: RegisterService,
               private snackbarService: SnackbarService,
               private router: Router) {}
 
@@ -113,7 +113,7 @@ export class RegisterComponent {
     const formValue: IUser = this.registerForm.getRawValue();
     delete formValue.confirmPassword;
     console.log(formValue)
-    this.authService.registerIn(formValue).subscribe(
+    this.registerService.registerIn(formValue).subscribe(
       () => {
         const firstName = formValue.firstName;
         const lastName = formValue.lastName;
@@ -124,8 +124,9 @@ export class RegisterComponent {
       (errorResponse) => {
         if (errorResponse.error['hydra:description']) {
           const errorDescription = errorResponse.error['hydra:description'];
-          const errorMessage = this.extractErrorMessage(errorDescription);
-          this.errorMessage = errorMessage;
+        const errorMessage = this.registerService.extractExistingEmailErrorMessage(errorDescription);
+        this.errorMessage = errorMessage;
+        this.existingEmail = errorMessage !== '';
         }
       }
     )
@@ -134,18 +135,6 @@ export class RegisterComponent {
   onReset(formDirective: any): void {
     this.registerForm.reset();
     formDirective.resetForm();
-  }
-
-  // Method to catch error message if email already existing
-  private extractErrorMessage(errorDescription: string): string {
-    const errorMessagePrefix = 'email: ';
-    const errorMessageIndex = errorDescription.indexOf(errorMessagePrefix);
-    if (errorMessageIndex !== -1) {
-      this.existingEmail = true;
-      const errorMessage = errorDescription.substring(errorMessageIndex + errorMessagePrefix.length);
-      return errorMessage.trim();
-    }
-    return '';
   }
 
 }
