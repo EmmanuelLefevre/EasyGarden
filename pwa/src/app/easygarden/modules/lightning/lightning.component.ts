@@ -6,8 +6,8 @@ import { environment } from 'src/environments/environment';
 import { MatDialog } from '@angular/material/dialog';
 import { IConfirmDialog, ConfirmDialogComponent } from 'src/app/easygarden/components/confirmDialog/confirm-dialog.component';
 
-import { LightningService } from '../../lightning.service';
-import { ILightning, ILightningFilter } from '../../ILightning';
+import { LightningService } from './lightning.service';
+import { ILightning, ILightningFilter } from './ILightning';
 
 
 @Component({

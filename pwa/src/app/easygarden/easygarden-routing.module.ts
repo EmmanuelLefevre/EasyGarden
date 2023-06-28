@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
-import { GardenComponent } from './components/garden/components/garden/garden.component';
+import { GardenComponent } from './components/garden/garden.component';
 import { EditNameComponent } from './components/editName/edit-name.component';
-import { AddGardenComponent } from './components/garden/components/addGarden/add-garden.component';
+import { AddComponent } from './components/add/add.component';
 
 const name = environment.application.name;
 
@@ -45,7 +45,7 @@ const routes: Routes = [
           ogTitle: `Page modifier jardin de l'application ${name}`
         } 
       },
-      { path: 'garden/add', component: AddGardenComponent,
+      { path: 'garden/add', component: AddComponent,
         data: {
           ogTitle: `Page ajouter jardin de l'application ${name}`
         } 

@@ -3,8 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
-import { IPool, IAddPool, IDataPool } from './IPool';
+import { IPool, IDataPool } from './IPool';
 import { IName } from '../../_interfaces/IName';
+import { IAdd } from '../../_interfaces/IAdd';
 
 
 @Injectable({
@@ -20,7 +21,7 @@ export class PoolService {
   }
 
   // Add Pool
-  addPool(pool: IAddPool) {
+  addData(pool: IAdd) {
     const json = {
       name: pool.name,
       status: false,

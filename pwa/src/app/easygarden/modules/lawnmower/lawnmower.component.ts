@@ -6,8 +6,8 @@ import { environment } from 'src/environments/environment';
 import { MatDialog } from '@angular/material/dialog';
 import { IConfirmDialog, ConfirmDialogComponent } from 'src/app/easygarden/components/confirmDialog/confirm-dialog.component';
 
-import { LawnmowerService } from '../../lawnmower.service';
-import { ILawnmower, ILawnmowerFilter } from '../../ILawnmower';
+import { LawnmowerService } from './lawnmower.service';
+import { ILawnmower, ILawnmowerFilter } from './ILawnmower';
 
 
 @Component({

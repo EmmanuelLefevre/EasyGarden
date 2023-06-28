@@ -3,8 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
-import { ILightning, IAddLightning, IDataLightning } from './ILightning';
+import { ILightning, IDataLightning } from './ILightning';
 import { IName } from '../../_interfaces/IName';
+import { IAdd } from '../../_interfaces/IAdd';
 
 
 @Injectable({
@@ -21,7 +22,7 @@ export class LightningService {
   }
 
   // Add Lightning
-  addLightning(lightning: IAddLightning) {
+  addData(lightning: IAdd) {
     const json = {
       name: lightning.name,
       status: false,

@@ -6,8 +6,8 @@ import { environment } from 'src/environments/environment';
 import { MatDialog } from '@angular/material/dialog';
 import { IConfirmDialog, ConfirmDialogComponent } from 'src/app/easygarden/components/confirmDialog/confirm-dialog.component';
 
-import { PoolService } from '../../pool.service';
-import { IPool, IPoolFilter } from '../../IPool';
+import { PoolService } from './pool.service';
+import { IPool, IPoolFilter } from './IPool';
 
 
 @Component({

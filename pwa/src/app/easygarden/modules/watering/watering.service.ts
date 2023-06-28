@@ -3,8 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
-import { IWatering, IAddWatering, IDataWatering } from './IWatering';
+import { IWatering, IDataWatering } from './IWatering';
 import { IName } from '../../_interfaces/IName';
+import { IAdd } from '../../_interfaces/IAdd';
 
 
 @Injectable({
@@ -21,7 +22,7 @@ export class WateringService {
   }
 
   // Add Watering
-  addWatering(watering: IAddWatering) {
+  addData(watering: IAdd) {
     const json = {
       name: watering.name,
       status: false,

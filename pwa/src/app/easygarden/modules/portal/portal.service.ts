@@ -3,8 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
-import { IPortal, IAddPortal, IDataPortal } from './IPortal';
+import { IPortal, IDataPortal } from './IPortal';
 import { IName } from '../../_interfaces/IName';
+import { IAdd } from '../../_interfaces/IAdd';
 
 
 @Injectable({
@@ -21,7 +22,7 @@ export class PortalService {
   }
 
   // Add Portal
-  addPortal(portal: IAddPortal) {
+  addData(portal: IAdd) {
     const json = {
       name: portal.name,
       status: false,

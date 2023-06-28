@@ -7,6 +7,7 @@ import { DecodedTokenService } from 'src/app/_services/miscellaneous/decoded-tok
 
 import { IGarden, IDataGarden } from './IGarden';
 import { IName } from '../../_interfaces/IName';
+import { IAdd } from '../../_interfaces/IAdd';
 
 
 @Injectable({
@@ -24,7 +25,7 @@ export class GardenService {
   }
 
   // Add Garden
-  addGarden(garden: IGarden) {
+  addData(garden: IAdd) {
     let id = this.decodedTokenService.idDecoded()
     const json = {
       name: garden.name,
