@@ -11,7 +11,7 @@
     <div class="form-content form-border form-shadow">
       <app-close-form-button></app-close-form-button>
       <div class="form-title-content">
-        <p class="p-form-title-content">S'enregistrer</p>
+        <p class="p-form-title-content">S'inscrire</p>
       </div>
 
       <form [formGroup]="registerForm" 
@@ -29,7 +29,8 @@
                autocomplete="off"
                spellcheck="false"
                class="input-inset-shadow"
-               [ngClass]="{ 'invalid-feedback': ngForm.submitted && f['email'].errors }">
+               [ngClass]="{ 'invalid-feedback': ngForm.submitted && f['email'].errors }"
+               [ngClass]="{ 'invalid-feedback': existingEmail }">
         <ng-container *ngIf="ngForm.submitted && f['email'].errors">
           <ng-container class="text-alert" 
                         *ngIf="f['email'].errors['required']">Veuillez saisir un email!
@@ -41,6 +42,12 @@
                         *ngIf="f['email'].errors['validEmail']">L'email doit contenir un "." + nom de domaine!
           </ng-container>
         </ng-container>
+        <div *ngIf="ngForm.submitted && errorMessage"
+             class="text-alert">
+          <ng-container>
+            {{ errorMessage }}
+          </ng-container>
+        </div>
         <div class="div-password-icon">
           <label class="visually-hidden" for="name">Mot de passe</label>
           <input formControlName="password"
