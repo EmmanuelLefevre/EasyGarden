@@ -38,7 +38,7 @@ use Symfony\Component\Validator\Constraints as Assert;
                                               'lastname' => 'partial',
                                               'phoneNumber' => 'exact'])]
 
-#[UniqueEntity('email', message: "Un utilisateur avec cet email existe déjà")]
+#[UniqueEntity('email', message: "Un utilisateur possédant cet email est déjà enregistré!")]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
