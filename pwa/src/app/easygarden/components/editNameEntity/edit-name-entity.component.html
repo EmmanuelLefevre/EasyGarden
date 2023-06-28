@@ -33,18 +33,18 @@
                [ngClass]="{ 'invalid-feedback': ngForm.submitted && f['name'].errors }"
                value={{value}}>
         <ng-container *ngIf="ngForm.submitted && f['name'].errors">
-          <ng-container class="text-alert" 
-                        *ngIf="f['name'].errors['required']">Veuillez saisir un nom!
-          </ng-container>
-          <ng-container class="text-alert" 
-                        *ngIf="f['name'].errors['minlength']">Le nom doit contenir au minimum 3 caractères.
-          </ng-container>
-          <ng-container class="text-alert" 
-                        *ngIf="f['name'].errors['maxlength']">Le nom doit contenir au maximum 20 caractères.
-          </ng-container>
-          <ng-container class="text-alert" 
-                        *ngIf="f['name'].errors['validEquipmentName']">Le nom ne peut contenir de caractères spéciaux!
-          </ng-container>
+          <div class="text-alert" 
+               *ngIf="f['name'].errors['required']">Veuillez saisir un nom!
+          </div>
+          <div class="text-alert" 
+               *ngIf="f['name'].errors['minlength']">Le nom doit contenir au minimum 3 caractères.
+          </div>
+          <div class="text-alert" 
+               *ngIf="f['name'].errors['maxlength']">Le nom doit contenir au maximum 20 caractères.
+          </div>
+          <div class="text-alert" 
+               *ngIf="f['name'].errors['validEquipmentName']">Le nom ne peut contenir de caractères spéciaux!
+          </div>
         </ng-container>
         <div class="div-form-button">
           <button type="submit"

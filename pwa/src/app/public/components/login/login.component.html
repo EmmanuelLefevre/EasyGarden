@@ -31,15 +31,15 @@
                [ngClass]="{ 'invalid-feedback': ngForm.submitted && f['email'].errors }"
                [ngClass]="{ 'invalid-feedback': invalidCredentials }">
         <ng-container *ngIf="ngForm.submitted && f['email'].errors">
-          <ng-container class="text-alert" 
-                        *ngIf="f['email'].errors['required']">Veuillez saisir un email!
-          </ng-container>
-          <ng-container class="text-alert" 
-                        *ngIf="f['email'].errors['email']">Format d'email invalide!
-          </ng-container>
-          <ng-container class="text-alert" 
-                        *ngIf="f['email'].errors['validEmail']">L'email doit contenir un "." + nom de domaine!
-          </ng-container>
+          <div class="text-alert" 
+               *ngIf="f['email'].errors['required']">Veuillez saisir un email!
+          </div>
+          <div class="text-alert" 
+               *ngIf="f['email'].errors['email']">Format d'email invalide!
+          </div>
+          <div class="text-alert" 
+               *ngIf="f['email'].errors['validEmail']">L'email doit contenir un "." + nom de domaine!
+          </div>
         </ng-container>
         <div class="div-password-icon">
           <label class="visually-hidden" for="name">Mot de passe</label>
@@ -54,17 +54,16 @@
                  [ngClass]="{ 'invalid-feedback': invalidCredentials }">
           <fa-icon [icon]="visible ? faEyeSlash : faEye" aria-hidden="true" (click)="toggle()"></fa-icon>
           <ng-container *ngIf="ngForm.submitted && f['password'].errors">
-            <ng-container class="text-alert" 
-                          *ngIf="f['password'].errors['required']">Veuillez saisir un mot de passe!
-            </ng-container>
+            <div class="text-alert" 
+                 *ngIf="f['password'].errors['required']">Veuillez saisir un mot de passe!
+            </div>
           </ng-container>
         </div>
-        <div *ngIf="ngForm.submitted && errorMessage"
-             class="text-alert">
-          <ng-container>
+        <ng-container *ngIf="ngForm.submitted && errorMessage">
+          <div class="text-alert">
             {{ errorMessage }}
-          </ng-container>
-        </div>
+          </div>
+        </ng-container>
         <div class="div-form-button">
           <button type="submit" 
                   aria-label="Bouton se connecter"
