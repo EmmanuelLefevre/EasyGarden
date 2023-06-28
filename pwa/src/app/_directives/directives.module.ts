@@ -3,7 +3,8 @@ import { InputClearDirective } from './inputClear/inputClear.directive';
 import { InputFocusDirective } from './inputFocus/inputFocus.directive';
 import { InputTrimDirective } from './inputTrim/inputTrim.directive';
 import { InputTitleCaseDirective } from './inputTitleCase/inputTitleCase.directive';
-import { InputUpperCaseDirective } from './inputUpperCase/inputUpperCase.directive';
+import { InputUpperCaseDirective } from './inputUppercase/inputUppercase.directive';
+import { RemoveNgTouchedDirective } from './removeNgTouched/removeNgTouched.directive';
 
 
 @NgModule({
@@ -12,14 +13,16 @@ import { InputUpperCaseDirective } from './inputUpperCase/inputUpperCase.directi
     InputFocusDirective,
     InputClearDirective,
     InputTitleCaseDirective,
-    InputUpperCaseDirective
+    InputUpperCaseDirective,
+    RemoveNgTouchedDirective
    ],
   exports: [
     InputTrimDirective,
     InputFocusDirective,
     InputClearDirective,
     InputTitleCaseDirective,
-    InputUpperCaseDirective
+    InputUpperCaseDirective,
+    RemoveNgTouchedDirective
   ]
 })
 
