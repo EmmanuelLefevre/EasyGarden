@@ -28,7 +28,8 @@
                placeholder="Email"
                spellcheck="false"
                class="input-inset-shadow"
-               [ngClass]="{ 'invalid-feedback': ngForm.submitted && f['email'].errors }">
+               [ngClass]="{ 'invalid-feedback': ngForm.submitted && f['email'].errors }"
+               [ngClass]="{ 'invalid-feedback': invalidCredentials }">
         <ng-container *ngIf="ngForm.submitted && f['email'].errors">
           <ng-container class="text-alert" 
                         *ngIf="f['email'].errors['required']">Veuillez saisir un email!
@@ -49,12 +50,19 @@
                  spellcheck="false"
                  autocomplete="off"
                  class="input-inset-shadow"
-                 [ngClass]="{ 'invalid-feedback': ngForm.submitted && f['password'].errors }">
+                 [ngClass]="{ 'invalid-feedback': ngForm.submitted && f['password'].errors }"
+                 [ngClass]="{ 'invalid-feedback': invalidCredentials }">
           <fa-icon [icon]="visible ? faEyeSlash : faEye" aria-hidden="true" (click)="toggle()"></fa-icon>
           <ng-container *ngIf="ngForm.submitted && f['password'].errors">
             <ng-container class="text-alert" 
                           *ngIf="f['password'].errors['required']">Veuillez saisir un mot de passe!
             </ng-container>
+          </ng-container>
+        </div>
+        <div *ngIf="ngForm.submitted && errorMessage"
+             class="text-alert">
+          <ng-container>
+            {{ errorMessage }}
           </ng-container>
         </div>
         <div class="div-form-button">

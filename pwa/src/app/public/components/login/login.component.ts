@@ -27,6 +27,10 @@ export class LoginComponent {
   faEyeSlash = faEyeSlash;
   name = environment.application.name;
 
+  // Invalid credentials
+  invalidCredentials: boolean = false;
+  errorMessage: string = '';
+
   // Toggle faEyeSlash
   visible: boolean = false;
   public toggle(): void {
@@ -71,6 +75,15 @@ export class LoginComponent {
         this.router.navigate(['easygarden'])
         this.snackbarService.showNotification(`Bonjour ${this.decodedTokenService.firstNameDecoded()} 
                                               ${this.decodedTokenService.lastNameDecoded()}.`, 'logIn-logOut')
+      },
+      error => {
+        if (error.status === 401) {
+          this.errorMessage = "Identifiants incorrects!";
+          this.invalidCredentials = true;
+        }
+        else {
+          this.errorMessage = "Une erreur est survenue!";
+        }
       }
     )
   }
