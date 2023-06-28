@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
-import { SnackbarService } from 'src/app/_services/service/snackbar.service';
+import { SnackbarService } from 'src/app/_services/miscellaneous/snackbar.service';
 
 @Component({
   selector: 'app-confirm-dialog',
