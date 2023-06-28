@@ -8,8 +8,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { IConfirmDialog, ConfirmDialogComponent } from 'src/app/easygarden/components/confirmDialog/confirm-dialog.component';
 import { DecodedTokenService } from 'src/app/_services/miscellaneous/decoded-token.service';
 
-import { GardenService } from '../../garden.service';
-import { IGarden, IGardenFilter } from '../../IGarden';
+import { GardenService } from './garden.service';
+import { IGarden, IGardenFilter } from './IGarden';
 
 
 @Component({

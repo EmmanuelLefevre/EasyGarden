@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
-import { WateringComponent } from './components/watering/watering.component';
+import { WateringComponent } from './watering.component';
 import { EditNameComponent } from '../../components/editName/edit-name.component';
-import { AddWateringComponent } from './components/addWatering/add-watering.component';
+import { AddComponent } from '../../components/add/add.component';
 
 import { WateringResolver } from './watering.resolver';
 
@@ -24,7 +24,7 @@ const routes: Routes = [
       ogTitle: `Page modifier arrosage de l\'application ${name}`
     }, 
   },
-  { path: 'add', component: AddWateringComponent,
+  { path: 'add', component: AddComponent,
     data: {
       ogTitle: `Page ajouter arrosage de l\'application ${name}`
     }, 

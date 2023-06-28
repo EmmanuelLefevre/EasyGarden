@@ -7,35 +7,36 @@
            alt="logo de EasyGarden">
     </div>
     <h1 class="form-title title-form-shadow">{{name}}</h1>
-    <h2 class="visually-hidden">{{title}}</h2>
-  
+
     <div class="form-content form-border form-shadow animate__animated animate__fadeInDown">
-        <app-close-form-button></app-close-form-button>
+      <app-close-form-button></app-close-form-button>
       <div class="form-title-content">
         <p class="p-form-title-content">AJOUTER</p>
       </div>
-  
-      <form [formGroup]="addLightningForm" 
+
+      <form [formGroup]="addForm"
             (ngSubmit)="onSubmit()"
             #ngForm="ngForm"
             #formDirective="ngForm"
             aria-label="Formulaire de saisie utilisateur">
-        <mat-form-field appearance="fill"
-                        class="input-inset-shadow"
-                        [ngClass]="{ 'invalid-feedback': ngForm.submitted && f['garden'].errors }">
-          <mat-label>Jardin</mat-label>
-          <mat-select formControlName="garden">
-            <mat-option *ngFor="let garden of gardens" [value]="garden">
-              {{ garden.name }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <ng-container *ngIf="ngForm.submitted && f['garden'].errors">
-          <ng-container class="text-alert" 
-                        *ngIf="f['garden'].errors['required']">Veuillez sélectionner un jardin!
+        <ng-container *ngIf="!currentUrl.includes('easygarden/garden/add')">
+          <mat-form-field appearance="fill"
+                          class="input-inset-shadow"
+                          [ngClass]="{ 'invalid-feedback': ngForm.submitted && f['garden'].errors }">
+            <mat-label>Jardin</mat-label>
+            <mat-select formControlName="garden">
+              <mat-option *ngFor="let garden of gardens" [value]="garden">
+                {{ garden.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <ng-container *ngIf="ngForm.submitted && f['garden'].errors">
+            <ng-container class="text-alert" 
+                          *ngIf="f['garden'].errors['required']">Veuillez sélectionner un jardin!
+            </ng-container>
           </ng-container>
         </ng-container>
-        <label class="visually-hidden" for="name">Nom</label>
+        <label class="visually-hidden" for="name">Name</label>
         <input formControlName="name"
                name="name"
                inputTrim
@@ -43,9 +44,9 @@
                inputTitleCase
                id="name"
                type="text"
+               placeholder="Nom"
                spellcheck="false"
                autocomplete="off"
-               placeholder="Nom"
                class="input-inset-shadow"
                [ngClass]="{ 'invalid-feedback': ngForm.submitted && f['name'].errors }">
         <ng-container *ngIf="ngForm.submitted && f['name'].errors">
@@ -65,7 +66,7 @@
         <div class="div-form-button">
           <button type="submit"
                   class="button-shadow"
-                  aria-label="Bouton ajouter un éclairage">Ajouter
+                  aria-label="Bouton ajouter un arrosage">Ajouter
           </button>
           <button (click)="onReset(formDirective)"
                   type="button"
@@ -74,7 +75,7 @@
           </button>
         </div>
       </form>
-  
+
     </div>
   </div>
 </main>

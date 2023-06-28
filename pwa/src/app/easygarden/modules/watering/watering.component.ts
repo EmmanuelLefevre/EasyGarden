@@ -1,35 +1,35 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 // Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip-social in style.scss
-import { faPowerOff, faPen, faTrash, faSort, faSearch, faDoorOpen, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faPowerOff, faPen, faTrash, faSort, faSearch, faDroplet, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { environment } from 'src/environments/environment';
 
 import { MatDialog } from '@angular/material/dialog';
 import { IConfirmDialog, ConfirmDialogComponent } from 'src/app/easygarden/components/confirmDialog/confirm-dialog.component';
 
-import { PortalService } from '../../portal.service';
+import { WateringService } from './watering.service';
 
-import { IPortal, IPortalFilter } from '../../IPortal';
+import { IWatering, IWateringFilter } from './IWatering';
 
 
 @Component({
-  selector: 'app-portal',
-  templateUrl: './portal.component.html',
+  selector: 'app-watering',
+  templateUrl: './watering.component.html',
   encapsulation: ViewEncapsulation.None
 })
 
-export class PortalComponent implements OnInit {
+export class WateringComponent implements OnInit {
 
   faPowerOff = faPowerOff;
   faPen = faPen;
   faTrash = faTrash;
   faSort = faSort;
   faSearch = faSearch;
-  faDoorOpen = faDoorOpen;
+  faDroplet = faDroplet;
   faXmark = faXmark;
 
   name = environment.application.name;
-  title = "Tableau portail";
-  
+  title = "Tableau arrosage";
+
   // Confirm Dialog this.result = boolean
   result: boolean | undefined;
 
@@ -46,24 +46,24 @@ export class PortalComponent implements OnInit {
     this.orderHeader = headerName;
   }
   // Ngx-filter
-  searchInput: IPortalFilter = { name: ''};
+  searchInput: IWateringFilter = { name: ''};
 
-  portals: IPortal[] = [];
+  waterings: IWatering[] = [];
 
-  constructor(private portalService: PortalService,
+  constructor(private wateringService: WateringService,
               private dialog: MatDialog) {}
-
+  
   ngOnInit(): void {
-    this.fetchPortals();
+    this.fetchWaterings();
   }
-
-  // Display Portals
-  fetchPortals(): void {
-    this.portalService.getAllPortals()
+  
+  // Display Waterings
+  fetchWaterings(): void {
+    this.wateringService.getAllWaterings()
       .subscribe(
         (res:any) => {
           if (res.hasOwnProperty('hydra:member'))
-          this.portals = res['hydra:member'];
+          this.waterings = res['hydra:member'];
         }
       )
   }
@@ -72,26 +72,26 @@ export class PortalComponent implements OnInit {
   updateStatus(id: number, status: boolean): void {
     if (status === true) {
       status = !status;
-      this.portalService.updateStatus(status, id)
+      this.wateringService.updateStatus(status, id)
         .subscribe(
           (res:any) => {
             this.status = res;
-            this.fetchPortals();
+            this.fetchWaterings();
           }
         )
     } else if (status === false) {
       status = !status;
-      this.portalService.updateStatus(status, id)
+      this.wateringService.updateStatus(status, id)
         .subscribe(
           (res:any) => {
             this.status = res;
-            this.fetchPortals();
+            this.fetchWaterings();
           }
         )
     }
   }
 
-  // Delete Portal
+  // Delete Watering
   confirmDialog(id: number, name: string): void {
     const value = name;
     const message = `Êtes-vous certain de vouloir supprimer l\'équipement "${name}"?`;
@@ -104,9 +104,9 @@ export class PortalComponent implements OnInit {
     dialogRef.afterClosed().subscribe(dialogResult => {
       this.result = dialogResult;
       if (this.result === true) {
-        this.portalService.deletePortal(id).subscribe(
+        this.wateringService.deleteWatering(id).subscribe(
           () => {
-            this.fetchPortals();
+            this.fetchWaterings();
           }
         )
       }   

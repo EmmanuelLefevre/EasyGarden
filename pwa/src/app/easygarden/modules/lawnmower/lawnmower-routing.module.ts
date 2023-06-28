@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
-import { LawnmowerComponent } from './components/lawnmower/lawnmower.component';
-import { AddLawnmowerComponent } from './components/addLawnmower/add-lawnmower.component';
+import { LawnmowerComponent } from './lawnmower.component';
+import { AddComponent } from '../../components/add/add.component';
 
 import { LawnmowerResolver } from './lawnmower.resolver';
 import { EditNameComponent } from '../../components/editName/edit-name.component';
@@ -24,7 +24,7 @@ const routes: Routes = [
       ogTitle: `Page modifier éclairage de l\'application ${name}`
     } 
   },
-  { path: 'add', component: AddLawnmowerComponent,
+  { path: 'add', component: AddComponent,
     data: {
       ogTitle: `Page ajouter tondeuse de l\'application ${name}`
     } 

@@ -2,10 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
-import { PoolComponent } from './components/pool/pool.component';
+import { PoolComponent } from './pool.component';
 import { EditNameComponent } from '../../components/editName/edit-name.component';
-import { AddPoolComponent } from './components/addPool/add-pool.component';
-
+import { AddComponent } from '../../components/add/add.component';
 import { PoolResolver } from './pool.resolver';
 
 const name = environment.application.name;
@@ -24,7 +23,7 @@ const routes: Routes = [
       ogTitle: `Page modifier équipement de bassin de l\'application ${name}`
     }, 
   },
-  { path: 'add', component: AddPoolComponent,
+  { path: 'add', component: AddComponent,
     data: {
       ogTitle: `Page ajouter équipement de bassin de l\'application ${name}`
     }, 

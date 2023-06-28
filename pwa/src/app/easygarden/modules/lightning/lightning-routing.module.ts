@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
-import { LightningComponent } from './components/lightning/lightning.component';
+import { LightningComponent } from './lightning.component';
 import { EditNameComponent } from '../../components/editName/edit-name.component';
-import { AddLightningComponent } from './components/addLightning/add-lightning.component';
+import { AddComponent } from '../../components/add/add.component';
 
 import { LightningResolver } from './lightning.resolver';
 
@@ -24,7 +24,7 @@ const routes: Routes = [
       ogTitle: `Page modifier éclairage de l\'application ${name}`
     } 
   },
-  { path: 'add', component: AddLightningComponent,
+  { path: 'add', component: AddComponent,
     data: {
       ogTitle: `Page ajouter éclairage de l\'application ${name}`
     } 

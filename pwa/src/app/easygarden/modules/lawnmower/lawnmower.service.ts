@@ -3,8 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
-import { ILawnmower, IAddLawnmower, IDataLawnmower } from './ILawnmower';
+import { ILawnmower, IDataLawnmower } from './ILawnmower';
 import { IName } from '../../_interfaces/IName';
+import { IAdd } from '../../_interfaces/IAdd';
 
 
 @Injectable({
@@ -21,7 +22,7 @@ export class LawnmowerService {
   }
 
   // Add Lawnmower
-  addLawnmower(lawnmower: IAddLawnmower) {
+  addData(lawnmower: IAdd) {
     const json = {
       name: lawnmower.name,
       status: false,
