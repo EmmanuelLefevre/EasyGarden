@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { TokenService } from '../../../_services/auth/token.service';
-import { DecodedTokenService } from 'src/app/_services/service/decoded-token.service';
-import { SnackbarService } from 'src/app/_services/service/snackbar.service';
+import { DecodedTokenService } from 'src/app/_services/miscellaneous/decoded-token.service';
+import { SnackbarService } from 'src/app/_services/miscellaneous/snackbar.service';
 
 
 @Component({

@@ -5,8 +5,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
 import { PoolService } from '../../pool.service';
-import { FormValidationService } from '../../../../../_services/service/form-validation.service';
-import { SnackbarService } from 'src/app/_services/service/snackbar.service';
+import { FormValidationService } from '../../../../../_services/miscellaneous/form-validation.service';
+import { SnackbarService } from 'src/app/_services/miscellaneous/snackbar.service';
 
 import { IPool } from '../../IPool';
 

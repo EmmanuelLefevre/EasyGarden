@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
-import { DecodedTokenService } from 'src/app/_services/service/decoded-token.service';
+import { DecodedTokenService } from 'src/app/_services/miscellaneous/decoded-token.service';
 
 import { IGarden, IDataGarden } from './IGarden';
 

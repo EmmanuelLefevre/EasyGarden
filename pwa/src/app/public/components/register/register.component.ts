@@ -6,8 +6,8 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { environment } from '../../../../environments/environment';
 
 import { RegisterService } from 'src/app/_services/register/register.service';
-import { SnackbarService } from 'src/app/_services/service/snackbar.service';
-import { FormValidationService } from '../../../_services/service/form-validation.service';
+import { SnackbarService } from 'src/app/_services/miscellaneous/snackbar.service';
+import { FormValidationService } from '../../../_services/miscellaneous/form-validation.service';
 import { IUser } from '../../../_interfaces/IUser';
 
 @Component({

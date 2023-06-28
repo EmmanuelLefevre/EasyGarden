@@ -4,8 +4,8 @@ import { AbstractControl, UntypedFormBuilder, Validators } from '@angular/forms'
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
-import { FormValidationService } from '../../../../../_services/service/form-validation.service';
-import { SnackbarService } from 'src/app/_services/service/snackbar.service';
+import { FormValidationService } from '../../../../../_services/miscellaneous/form-validation.service';
+import { SnackbarService } from 'src/app/_services/miscellaneous/snackbar.service';
 import { WateringService } from '../../watering.service';
 
 import { IWatering } from '../../IWatering';

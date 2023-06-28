@@ -4,10 +4,10 @@ import { AbstractControl, NonNullableFormBuilder, Validators } from '@angular/fo
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
-import { FormValidationService } from '../../../../../_services/service/form-validation.service';
+import { FormValidationService } from '../../../../../_services/miscellaneous/form-validation.service';
 import { GardenService } from 'src/app/easygarden/components/garden/garden.service';
 import { LightningService } from '../../lightning.service';
-import { SnackbarService } from 'src/app/_services/service/snackbar.service';
+import { SnackbarService } from 'src/app/_services/miscellaneous/snackbar.service';
 
 import { IGarden } from 'src/app/easygarden/components/garden/IGarden';
 import { IAddLightning } from '../../ILightning';

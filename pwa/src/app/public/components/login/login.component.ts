@@ -6,10 +6,10 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { environment } from '../../../../environments/environment';
 
 import { AuthService } from '../../../_services/auth/auth.service';
-import { FormValidationService } from '../../../_services/service/form-validation.service';
+import { FormValidationService } from '../../../_services/miscellaneous/form-validation.service';
 import { TokenService } from '../../../_services/auth/token.service';
-import { DecodedTokenService } from 'src/app/_services/service/decoded-token.service';
-import { SnackbarService } from 'src/app/_services/service/snackbar.service';
+import { DecodedTokenService } from 'src/app/_services/miscellaneous/decoded-token.service';
+import { SnackbarService } from 'src/app/_services/miscellaneous/snackbar.service';
 
 import { ICredentials } from '../../../_interfaces/ICredentials';
 
