@@ -82,7 +82,7 @@ export class LoginComponent {
           this.invalidCredentials = true;
         }
         else {
-          this.errorMessage = "Une erreur est survenue!";
+          this.errorMessage = "Une erreur s'est produite lors de la connexion!";
         }
       }
     )
