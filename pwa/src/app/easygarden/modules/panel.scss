@@ -28,6 +28,7 @@ div {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    height: 38px;
     .filter-select-garden {
       width: 100px;
       color: var(--ang-color-green);
