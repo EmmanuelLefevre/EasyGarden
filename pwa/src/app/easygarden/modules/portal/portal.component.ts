@@ -7,8 +7,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { IConfirmDialog, ConfirmDialogComponent } from 'src/app/easygarden/components/confirmDialog/confirm-dialog.component';
 
 import { PortalService } from './portal.service';
+import { GardenService } from '../../components/garden/garden.service';
 
 import { IPortal, IPortalFilter } from './IPortal';
+import { IName } from '../../_interfaces/IName';
 
 
 @Component({
@@ -47,25 +49,57 @@ export class PortalComponent implements OnInit {
   }
   // Ngx-filter
   searchInput: IPortalFilter = { name: ''};
+  // Filter by garden
+  selectedGardenId: number | '' = '';
+  gardens: IName[] = [];
 
   portals: IPortal[] = [];
+  filteredPortals: IPortal[] = [];
 
   constructor(private portalService: PortalService,
+              private gardenService: GardenService,
               private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.fetchPortals();
+    this.fetchGardens();
+  }
+
+  // Recover Gardens
+  fetchGardens(): void {
+    this.gardenService.getAllGardens().subscribe((res: any) => {
+      if (res.hasOwnProperty('hydra:member'))
+      this.gardens = res['hydra:member'];
+    });
   }
 
   // Display Portals
   fetchPortals(): void {
-    this.portalService.getAllPortals()
-      .subscribe(
-        (res:any) => {
-          if (res.hasOwnProperty('hydra:member'))
-          this.portals = res['hydra:member'];
+    this.portalService.getAllPortals().subscribe((res:any) => {
+      if (res.hasOwnProperty('hydra:member'))
+      this.portals = res['hydra:member'];
+      this.filterByGarden();
+    });
+  }
+
+  filterByGarden(): void {
+    let selectedGardenId: number | undefined;
+    if (typeof this.selectedGardenId === 'string' && this.selectedGardenId !== '') {
+      selectedGardenId = parseInt(this.selectedGardenId, 10);
+    }
+  
+    if (!selectedGardenId) {
+      this.filteredPortals = [...this.portals];
+    } else {
+      this.filteredPortals = this.portals.filter(portal => {
+        if (typeof portal.garden.id === 'number') {
+          return portal.garden.id === selectedGardenId;
         }
-      )
+        return false;
+      });
+    } 
+    // Reset paging
+    this.p = 1;
   }
 
   // Update Status

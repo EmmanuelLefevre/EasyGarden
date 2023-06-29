@@ -16,7 +16,7 @@
       <div class="table-header">
         <ng-container *ngIf="gardens.length > 1">
           <select [(ngModel)]="selectedGardenId"
-                  (change)="filterWateringsByGarden()"
+                  (change)="filterByGarden()"
                   class="filter-select-garden"
                   removeNgTouched>
             <option value="">Jardins</option>

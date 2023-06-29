@@ -7,7 +7,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { IConfirmDialog, ConfirmDialogComponent } from 'src/app/easygarden/components/confirmDialog/confirm-dialog.component';
 
 import { LawnmowerService } from './lawnmower.service';
+import { GardenService } from '../../components/garden/garden.service';
+
 import { ILawnmower, ILawnmowerFilter } from './ILawnmower';
+import { IName } from '../../_interfaces/IName';
 
 
 @Component({
@@ -46,16 +49,28 @@ export class LawnmowerComponent implements OnInit {
   }
   // Ngx-filter
   searchInput: ILawnmowerFilter = { name: '' };
+  // Filter by garden
+  selectedGardenId: number | '' = '';
+  gardens: IName[] = [];
 
   lawnmowers: ILawnmower[] = [];
+  filteredLawnmowers: ILawnmower[] = [];
 
-  constructor(
-    private lawnmowerService: LawnmowerService,
-    private dialog: MatDialog
-  ) {}
+  constructor(private lawnmowerService: LawnmowerService,
+              private gardenService: GardenService,
+              private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.fetchLawnmowers();
+    this.fetchGardens();
+  }
+
+  // Recover Gardens
+  fetchGardens(): void {
+    this.gardenService.getAllGardens().subscribe((res: any) => {
+      if (res.hasOwnProperty('hydra:member'))
+      this.gardens = res['hydra:member'];
+    });
   }
 
   // Display Lawnmowers
@@ -63,7 +78,28 @@ export class LawnmowerComponent implements OnInit {
     this.lawnmowerService.getAllLawnmowers().subscribe((res: any) => {
       if (res.hasOwnProperty('hydra:member'))
         this.lawnmowers = res['hydra:member'];
+        this.filterByGarden();
     });
+  }
+
+  filterByGarden(): void {
+    let selectedGardenId: number | undefined;
+    if (typeof this.selectedGardenId === 'string' && this.selectedGardenId !== '') {
+      selectedGardenId = parseInt(this.selectedGardenId, 10);
+    }
+  
+    if (!selectedGardenId) {
+      this.filteredLawnmowers = [...this.lawnmowers];
+    } else {
+      this.filteredLawnmowers = this.lawnmowers.filter(lawnmower => {
+        if (typeof lawnmower.garden.id === 'number') {
+          return lawnmower.garden.id === selectedGardenId;
+        }
+        return false;
+      });
+    } 
+    // Reset paging
+    this.p = 1;
   }
 
   // Update Status
