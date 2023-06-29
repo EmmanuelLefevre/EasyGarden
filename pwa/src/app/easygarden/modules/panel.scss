@@ -43,6 +43,10 @@ div {
         background-color: var(--ang-color-green);
         border: 2px solid var(--color-border);
       }
+      &:focus {
+        outline: none;
+        border-color: var(--color-border);
+      }
     }
     .divSearch {
       display: flex;
