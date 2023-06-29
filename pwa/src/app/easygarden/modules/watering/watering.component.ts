@@ -7,8 +7,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { IConfirmDialog, ConfirmDialogComponent } from 'src/app/easygarden/components/confirmDialog/confirm-dialog.component';
 
 import { WateringService } from './watering.service';
+import { GardenService } from '../../components/garden/garden.service';
 
 import { IWatering, IWateringFilter } from './IWatering';
+import { IName } from '../../_interfaces/IName';
 
 
 @Component({
@@ -47,25 +49,57 @@ export class WateringComponent implements OnInit {
   }
   // Ngx-filter
   searchInput: IWateringFilter = { name: ''};
+  // Filter by garden
+  selectedGardenId: number | '' = '';;
+  gardens: IName[] = [];
 
+  filteredWaterings: IWatering[] = [];
   waterings: IWatering[] = [];
 
   constructor(private wateringService: WateringService,
+              private gardenService: GardenService,
               private dialog: MatDialog) {}
   
   ngOnInit(): void {
     this.fetchWaterings();
+    this.fetchGardens();
   }
   
+  // Recover Gardens
+  fetchGardens(): void {
+    this.gardenService.getAllGardens().subscribe((res: any) => {
+      if (res.hasOwnProperty('hydra:member'))
+      this.gardens = res['hydra:member'];
+    });
+  }
+
   // Display Waterings
   fetchWaterings(): void {
-    this.wateringService.getAllWaterings()
-      .subscribe(
-        (res:any) => {
-          if (res.hasOwnProperty('hydra:member'))
-          this.waterings = res['hydra:member'];
+    this.wateringService.getAllWaterings().subscribe((res:any) => {
+      if (res.hasOwnProperty('hydra:member'))
+      this.waterings = res['hydra:member'];
+      this.filterWateringsByGarden();
+    });
+  }
+
+  filterWateringsByGarden(): void {
+    let selectedGardenId: number | undefined;
+    if (typeof this.selectedGardenId === 'string' && this.selectedGardenId !== '') {
+      selectedGardenId = parseInt(this.selectedGardenId, 10);
+    }
+  
+    if (!selectedGardenId) {
+      this.filteredWaterings = [...this.waterings];
+    } else {
+      this.filteredWaterings = this.waterings.filter(watering => {
+        if (typeof watering.garden.id === 'number') {
+          return watering.garden.id === selectedGardenId;
         }
-      )
+        return false;
+      });
+    } 
+    // Reset paging
+    this.p = 1;
   }
 
   // Update Status
