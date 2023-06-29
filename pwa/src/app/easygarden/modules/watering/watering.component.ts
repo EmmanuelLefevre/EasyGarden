@@ -50,11 +50,11 @@ export class WateringComponent implements OnInit {
   // Ngx-filter
   searchInput: IWateringFilter = { name: ''};
   // Filter by garden
-  selectedGardenId: number | '' = '';;
+  selectedGardenId: number | '' = '';
   gardens: IName[] = [];
 
-  filteredWaterings: IWatering[] = [];
   waterings: IWatering[] = [];
+  filteredWaterings: IWatering[] = [];
 
   constructor(private wateringService: WateringService,
               private gardenService: GardenService,
@@ -78,11 +78,11 @@ export class WateringComponent implements OnInit {
     this.wateringService.getAllWaterings().subscribe((res:any) => {
       if (res.hasOwnProperty('hydra:member'))
       this.waterings = res['hydra:member'];
-      this.filterWateringsByGarden();
+      this.filterByGarden();
     });
   }
 
-  filterWateringsByGarden(): void {
+  filterByGarden(): void {
     let selectedGardenId: number | undefined;
     if (typeof this.selectedGardenId === 'string' && this.selectedGardenId !== '') {
       selectedGardenId = parseInt(this.selectedGardenId, 10);

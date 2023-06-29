@@ -6,8 +6,11 @@ import { environment } from 'src/environments/environment';
 import { MatDialog } from '@angular/material/dialog';
 import { IConfirmDialog, ConfirmDialogComponent } from 'src/app/easygarden/components/confirmDialog/confirm-dialog.component';
 
+import { GardenService } from '../../components/garden/garden.service';
 import { LightningService } from './lightning.service';
+
 import { ILightning, ILightningFilter } from './ILightning';
+import { IName } from '../../_interfaces/IName';
 
 
 @Component({
@@ -45,16 +48,28 @@ export class LightningComponent implements OnInit {
   }
   // Ngx-filter
   searchInput: ILightningFilter = { name: '' };
+  // Filter by garden
+  selectedGardenId: number | '' = '';
+  gardens: IName[] = [];
 
   lightnings: ILightning[] = [];
+  filteredLightnings: ILightning[] = [];
 
-  constructor(
-    private lightningService: LightningService,
-    private dialog: MatDialog
-  ) {}
+  constructor(private lightningService: LightningService,
+              private gardenService: GardenService,
+              private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.fetchLightnings();
+    this.fetchGardens();
+  }
+
+  // Recover Gardens
+  fetchGardens(): void {
+    this.gardenService.getAllGardens().subscribe((res: any) => {
+      if (res.hasOwnProperty('hydra:member'))
+      this.gardens = res['hydra:member'];
+    });
   }
 
   // Display Lightnings
@@ -62,7 +77,28 @@ export class LightningComponent implements OnInit {
     this.lightningService.getAllLightnings().subscribe((res: any) => {
       if (res.hasOwnProperty('hydra:member'))
         this.lightnings = res['hydra:member'];
+        this.filterByGarden();
     });
+  }
+
+  filterByGarden(): void {
+    let selectedGardenId: number | undefined;
+    if (typeof this.selectedGardenId === 'string' && this.selectedGardenId !== '') {
+      selectedGardenId = parseInt(this.selectedGardenId, 10);
+    }
+  
+    if (!selectedGardenId) {
+      this.filteredLightnings = [...this.lightnings];
+    } else {
+      this.filteredLightnings = this.lightnings.filter(lightning => {
+        if (typeof lightning.garden.id === 'number') {
+          return lightning.garden.id === selectedGardenId;
+        }
+        return false;
+      });
+    } 
+    // Reset paging
+    this.p = 1;
   }
 
   // Update Status
