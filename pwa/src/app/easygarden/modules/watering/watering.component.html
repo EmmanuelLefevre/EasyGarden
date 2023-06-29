@@ -52,19 +52,23 @@
           <thead>             
             <tr>
               <th (click)="sort('status')"
-                  class="power order">On/Off 
+                  class="power order"
+                  aria-label="Trier par statut">On/Off 
                 <fa-icon [icon]="faSort"></fa-icon>
               </th>
               <th (click)="sort('name')"
-                  class="order">Nom 
+                  class="order"
+                  aria-label="Trier par nom">Nom 
                 <fa-icon [icon]="faSort"></fa-icon>
               </th>
               <th (click)="sort('flowSensor')"
-                  class="order">Débit 
+                  class="order"
+                  aria-label="Trier par débit">Débit 
                 <fa-icon [icon]="faSort"></fa-icon>
               </th>
               <th (click)="sort('pressureSensor')"
-                  class="order">Pression 
+                  class="order"
+                  aria-label="Trier par pression">Pression 
                 <fa-icon [icon]="faSort"></fa-icon>
               </th>
               <th>Action</th>                   
