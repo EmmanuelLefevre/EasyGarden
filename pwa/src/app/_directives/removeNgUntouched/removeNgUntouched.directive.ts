@@ -1,22 +1,22 @@
 import { Directive, ElementRef, HostListener, Renderer2  } from '@angular/core';
 
 @Directive({
-  selector: '[removeNgTouched]'
+  selector: '[removeNgUntouched]'
 })
 
 
-export class RemoveNgTouchedDirective {
+export class RemoveNgUntouchedDirective {
 
   constructor(private elementRef: ElementRef, 
               private renderer: Renderer2) {}
 
   @HostListener('change') onChange() {
-    this.removeNgTouched();
+    this.removeNgUntouched();
   }
 
-  private removeNgTouched() {
+  private removeNgUntouched() {
     const selectElement = this.elementRef.nativeElement as HTMLSelectElement;
-    this.renderer.removeClass(selectElement, 'ng-touched');
+    this.renderer.removeClass(selectElement, 'ng-untouched');
   }
 
 }
