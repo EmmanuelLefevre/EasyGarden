@@ -91,6 +91,8 @@ export class LightningComponent implements OnInit {
       selectedGardenId,
       'id'
     );
+    // Reset paging
+    this.p = 1;
   }
 
   // Update Status
