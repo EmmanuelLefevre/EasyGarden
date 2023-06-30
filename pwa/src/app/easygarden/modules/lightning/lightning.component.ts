@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { IConfirmDialog, ConfirmDialogComponent } from 'src/app/easygarden/components/confirmDialog/confirm-dialog.component';
 
 import { GardenService } from '../../components/garden/garden.service';
+import { GardenFilterService } from '../../_services/garden-filter.service';
 import { LightningService } from './lightning.service';
 
 import { ILightning, ILightningFilter } from './ILightning';
@@ -40,7 +41,7 @@ export class LightningComponent implements OnInit {
   // Ngx-paginator
   p: number = 1;
   // Ngx-order
-  orderHeader: String = 'name';
+  orderHeader: String = '';
   isDescOrder: boolean = true;
   sort(headerName: String) {
     this.isDescOrder = !this.isDescOrder;
@@ -57,6 +58,7 @@ export class LightningComponent implements OnInit {
 
   constructor(private lightningService: LightningService,
               private gardenService: GardenService,
+              private gardenFilterService: GardenFilterService,
               private dialog: MatDialog) {}
 
   ngOnInit(): void {
@@ -81,24 +83,14 @@ export class LightningComponent implements OnInit {
     });
   }
 
+  // Filter by garden
   filterByGarden(): void {
-    let selectedGardenId: number | undefined;
-    if (typeof this.selectedGardenId === 'string' && this.selectedGardenId !== '') {
-      selectedGardenId = parseInt(this.selectedGardenId, 10);
-    }
-  
-    if (!selectedGardenId) {
-      this.filteredLightnings = [...this.lightnings];
-    } else {
-      this.filteredLightnings = this.lightnings.filter(lightning => {
-        if (typeof lightning.garden.id === 'number') {
-          return lightning.garden.id === selectedGardenId;
-        }
-        return false;
-      });
-    } 
-    // Reset paging
-    this.p = 1;
+    const selectedGardenId = this.gardenFilterService.convertSelectedGardenId(this.selectedGardenId);
+    this.filteredLightnings = this.gardenFilterService.filterByGarden(
+      this.lightnings,
+      selectedGardenId,
+      'id'
+    );
   }
 
   // Update Status
