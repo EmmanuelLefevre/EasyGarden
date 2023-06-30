@@ -8,6 +8,7 @@ import { IConfirmDialog, ConfirmDialogComponent } from 'src/app/easygarden/compo
 
 import { LawnmowerService } from './lawnmower.service';
 import { GardenService } from '../../components/garden/garden.service';
+import { GardenFilterService } from '../../_services/garden-filter.service';
 
 import { ILawnmower, ILawnmowerFilter } from './ILawnmower';
 import { IName } from '../../_interfaces/IName';
@@ -41,7 +42,7 @@ export class LawnmowerComponent implements OnInit {
   // Ngx-paginator
   p: number = 1;
   // Ngx-order
-  orderHeader: String = 'name';
+  orderHeader: String = '';
   isDescOrder: boolean = true;
   sort(headerName: String) {
     this.isDescOrder = !this.isDescOrder;
@@ -58,6 +59,7 @@ export class LawnmowerComponent implements OnInit {
 
   constructor(private lawnmowerService: LawnmowerService,
               private gardenService: GardenService,
+              private gardenFilterService: GardenFilterService,
               private dialog: MatDialog) {}
 
   ngOnInit(): void {
@@ -82,24 +84,14 @@ export class LawnmowerComponent implements OnInit {
     });
   }
 
+  // Filter by garden
   filterByGarden(): void {
-    let selectedGardenId: number | undefined;
-    if (typeof this.selectedGardenId === 'string' && this.selectedGardenId !== '') {
-      selectedGardenId = parseInt(this.selectedGardenId, 10);
-    }
-  
-    if (!selectedGardenId) {
-      this.filteredLawnmowers = [...this.lawnmowers];
-    } else {
-      this.filteredLawnmowers = this.lawnmowers.filter(lawnmower => {
-        if (typeof lawnmower.garden.id === 'number') {
-          return lawnmower.garden.id === selectedGardenId;
-        }
-        return false;
-      });
-    } 
-    // Reset paging
-    this.p = 1;
+    const selectedGardenId = this.gardenFilterService.convertSelectedGardenId(this.selectedGardenId);
+    this.filteredLawnmowers = this.gardenFilterService.filterByGarden(
+      this.lawnmowers,
+      selectedGardenId,
+      'id'
+    );
   }
 
   // Update Status

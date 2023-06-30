@@ -8,6 +8,7 @@ import { IConfirmDialog, ConfirmDialogComponent } from 'src/app/easygarden/compo
 
 import { PoolService } from './pool.service';
 import { GardenService } from '../../components/garden/garden.service';
+import { GardenFilterService } from '../../_services/garden-filter.service';
 
 import { IPool, IPoolFilter } from './IPool';
 import { IName } from '../../_interfaces/IName';
@@ -40,7 +41,7 @@ export class PoolComponent implements OnInit {
   // Ngx-paginator
   p: number = 1;
   // Ngx-order
-  orderHeader: String = 'name';
+  orderHeader: String = '';
   isDescOrder: boolean = true;
   sort(headerName: String) {
     this.isDescOrder = !this.isDescOrder;
@@ -57,6 +58,7 @@ export class PoolComponent implements OnInit {
 
   constructor(private poolService: PoolService,
               private gardenService: GardenService,
+              private gardenFilterService: GardenFilterService,
               private dialog: MatDialog) {}
 
   ngOnInit(): void {
@@ -81,24 +83,14 @@ export class PoolComponent implements OnInit {
     });
   }
 
+  // Filter by garden
   filterByGarden(): void {
-    let selectedGardenId: number | undefined;
-    if (typeof this.selectedGardenId === 'string' && this.selectedGardenId !== '') {
-      selectedGardenId = parseInt(this.selectedGardenId, 10);
-    }
-  
-    if (!selectedGardenId) {
-      this.filteredPools = [...this.pools];
-    } else {
-      this.filteredPools = this.pools.filter(pool => {
-        if (typeof pool.garden.id === 'number') {
-          return pool.garden.id === selectedGardenId;
-        }
-        return false;
-      });
-    } 
-    // Reset paging
-    this.p = 1;
+    const selectedGardenId = this.gardenFilterService.convertSelectedGardenId(this.selectedGardenId);
+    this.filteredPools = this.gardenFilterService.filterByGarden(
+      this.pools,
+      selectedGardenId,
+      'id'
+    );
   }
 
   // Update Status
