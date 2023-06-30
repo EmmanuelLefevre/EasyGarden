@@ -13,8 +13,6 @@ import { IWatering } from '../modules/watering/IWatering';
 
 export class GardenFilterService {
 
-  private p: number = 1;
-
   constructor() { }
 
   convertSelectedGardenId(selectedGardenId: number | string): number | '' {
@@ -56,20 +54,9 @@ export class GardenFilterService {
         return 1;
       }
     });
-
-    // Reset paging
-    this.p = 1;
     
     return filteredItems;
 
-  }
-
-  setPageNumber(pageNumber: number): void {
-    this.p = pageNumber;
-  }
-
-  getPageNumber(): number {
-    return this.p;
   }
 
 }
