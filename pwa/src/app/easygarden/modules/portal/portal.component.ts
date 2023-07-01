@@ -101,6 +101,7 @@ export class PortalComponent implements OnInit {
     status = !status;
     this.portalService.updateStatus(status, id).subscribe((res: any) => {
       this.status = res;
+      this.fetchPortals();
     });
   }
 
