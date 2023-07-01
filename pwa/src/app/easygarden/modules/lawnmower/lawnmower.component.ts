@@ -35,11 +35,9 @@ export class LawnmowerComponent implements OnInit {
 
   // Confirm Dialog this.result = boolean
   result: boolean | undefined;
-
   // updateStatus()
   status: boolean | undefined;
-
-  // Ngx-paginator
+  // Ngx-pagination
   p: number = 1;
   // Ngx-order
   orderHeader: String = '';
@@ -92,7 +90,7 @@ export class LawnmowerComponent implements OnInit {
       selectedGardenId,
       'id'
     );
-    // Reset paging
+    // Reset pagination
     this.p = 1;
   }
 

@@ -32,8 +32,7 @@ export class GardenComponent implements OnInit {
 
   // Confirm Dialog this.result = boolean
   result: boolean | undefined;
-
-  // Ngx-paginator
+  // Ngx-pagination
   p: number = 1;
   // Ngx-order
   orderHeader: String = 'name';
