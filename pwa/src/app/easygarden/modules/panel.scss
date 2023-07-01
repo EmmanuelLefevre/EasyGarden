@@ -28,6 +28,7 @@ div {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    position: relative;
     height: 38px;
     .filter-select-garden {
       width: 100px;
@@ -52,6 +53,9 @@ div {
       display: flex;
       flex-direction: row;
       justify-content: flex-end;
+      position: absolute;
+      top: 0;
+      right: 0;
       .inputSearch {
         display: flex;
         position: relative;
