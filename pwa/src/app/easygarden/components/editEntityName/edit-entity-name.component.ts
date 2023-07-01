@@ -17,12 +17,12 @@ import { IName } from '../../_interfaces/IName';
 
 
 @Component({
-  selector: 'app-edit-name-entity',
-  templateUrl: './edit-name-entity.component.html',
+  selector: 'app-edit-entity-name',
+  templateUrl: './edit-entity-name.component.html',
   encapsulation: ViewEncapsulation.None
 })
 
-export class EditNameEntityComponent implements OnInit {
+export class EditEntityNameComponent implements OnInit {
 
   name = environment.application.name;
 

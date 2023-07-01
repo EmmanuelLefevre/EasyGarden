@@ -4,9 +4,10 @@ import { environment } from 'src/environments/environment';
 
 import { LawnmowerComponent } from './lawnmower.component';
 import { AddEntityComponent } from '../../components/addEntity/add-entity.component';
+import { EditEntityNameComponent } from '../../components/editEntityName/edit-entity-name.component';
 
 import { LawnmowerResolver } from './lawnmower.resolver';
-import { EditNameEntityComponent } from '../../components/editNameEntity/edit-name-entity.component';
+
 
 const name = environment.application.name;
 
@@ -19,7 +20,7 @@ const routes: Routes = [
       lawnmower: LawnmowerResolver
     } 
   },
-  { path: 'edit/:id', component: EditNameEntityComponent,
+  { path: 'edit/:id', component: EditEntityNameComponent,
     data: {
       ogTitle: `Page modifier éclairage de l\'application ${name}`
     } 
