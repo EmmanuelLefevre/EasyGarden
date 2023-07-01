@@ -98,25 +98,10 @@ export class PortalComponent implements OnInit {
 
   // Update Status
   updateStatus(id: number, status: boolean): void {
-    if (status === true) {
-      status = !status;
-      this.portalService.updateStatus(status, id)
-        .subscribe(
-          (res:any) => {
-            this.status = res;
-            this.fetchPortals();
-          }
-        )
-    } else if (status === false) {
-      status = !status;
-      this.portalService.updateStatus(status, id)
-        .subscribe(
-          (res:any) => {
-            this.status = res;
-            this.fetchPortals();
-          }
-        )
-    }
+    status = !status;
+    this.portalService.updateStatus(status, id).subscribe((res: any) => {
+      this.status = res;
+    });
   }
 
   // Delete Portal
