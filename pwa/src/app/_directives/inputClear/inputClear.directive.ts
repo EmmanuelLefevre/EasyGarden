@@ -6,18 +6,20 @@ import { Directive, HostListener, Input, ElementRef } from '@angular/core';
 })
 
 export class InputClearDirective {
+
   @Input('inputSearch') searchInput: any;
 
   constructor(private elementRef: ElementRef) {}
 
   /**
-   * Clear search input on click somewhere in an equipment component unless if it's an order method
+   * Clear search input on click somewhere in an equipment component unless if it's an order, filter or update status method
    */
   @HostListener('document:click', ['$event.target']) onClick(target: HTMLElement) {
     const isSelect = this.elementRef.nativeElement.contains(target.closest('select.filter-select-garden'));
     const isTh = this.elementRef.nativeElement.contains(target.closest('th.order'));
+    const isTd = this.elementRef.nativeElement.contains(target.closest('td.power'));
 
-    if (!isSelect && !isTh) {
+    if (!isSelect && !isTh && !isTd) {
       this.searchInput.name = '';
     }
   }
