@@ -69,7 +69,7 @@
             <tr *ngFor="let lightning of filteredLightnings 
                 | orderBy: orderHeader: isDescOrder
                 | filterBy: searchInput
-                | paginate: { itemsPerPage: 5, currentPage: p, totalItems: filteredLightnings.length }">
+                | paginate: { itemsPerPage: 5, currentPage: p, totalItems: count }">
               <td class="power">
                 <button (click)="updateStatus(lightning.id, lightning.status)"
                         *ngIf="lightning.status === true"

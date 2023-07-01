@@ -74,7 +74,7 @@
             <tr *ngFor="let lawnmower of filteredLawnmowers  
                 | orderBy: orderHeader: isDescOrder
                 | filterBy: searchInput
-                | paginate: { itemsPerPage: 5, currentPage: p, totalItems: filteredLawnmowers.length }">
+                | paginate: { itemsPerPage: 5, currentPage: p, totalItems: count }">
               <td class="power">
                 <button (click)="updateStatus(lawnmower.id, lawnmower.status)"
                         *ngIf="lawnmower.status === true"

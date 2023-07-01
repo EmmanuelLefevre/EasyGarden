@@ -69,7 +69,7 @@
             <tr *ngFor="let pool of filteredPools 
                 | orderBy: orderHeader: isDescOrder
                 | filterBy: searchInput
-                | paginate: { itemsPerPage: 5, currentPage: p, totalItems: filteredPools.length }">
+                | paginate: { itemsPerPage: 5, currentPage: p, totalItems: count }">
               <td class="power">
                 <button (click)="updateStatus(pool.id, pool.status)"
                         *ngIf="pool.status === true"

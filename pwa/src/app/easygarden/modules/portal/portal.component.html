@@ -74,7 +74,7 @@
             <tr *ngFor="let portal of filteredPortals  
                 | orderBy: orderHeader: isDescOrder
                 | filterBy: searchInput
-                | paginate: { itemsPerPage: 5, currentPage: p, totalItems: filteredPortals.length }">
+                | paginate: { itemsPerPage: 5, currentPage: p, totalItems: count }">
               <td class="power">
                 <button (click)="updateStatus(portal.id, portal.status)"
                         *ngIf="portal.status === true" 

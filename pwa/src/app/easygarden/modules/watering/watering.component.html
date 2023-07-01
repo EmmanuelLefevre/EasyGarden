@@ -1,6 +1,7 @@
-<main aria-label="Contenu principal de la page"
+<!-- <main aria-label="Contenu principal de la page"
       inputClear
-      [inputSearch]="searchInput">
+      [inputSearch]="searchInput"> -->
+<main aria-label="Contenu principal de la page">
   <div class="div-wrapper ambiance-bg">
        
     <div class="animate__animated animate__jackInTheBox">
@@ -78,7 +79,7 @@
             <tr *ngFor="let watering of filteredWaterings  
                 | orderBy: orderHeader: isDescOrder
                 | filterBy: searchInput
-                | paginate: { itemsPerPage: 5, currentPage: p, totalItems: filteredWaterings.length }">
+                | paginate: { itemsPerPage: 5, currentPage: p, totalItems: count }">
               <td class="power">
                 <button (click)="updateStatus(watering.id, watering.status)"
                         *ngIf="watering.status === true"
