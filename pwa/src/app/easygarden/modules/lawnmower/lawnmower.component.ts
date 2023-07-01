@@ -68,17 +68,19 @@ export class LawnmowerComponent implements OnInit {
   // Recover Gardens
   fetchGardens(): void {
     this.gardenService.getAllGardens().subscribe((res: any) => {
-      if (res.hasOwnProperty('hydra:member'))
-      this.gardens = res['hydra:member'];
+      if (res.hasOwnProperty('hydra:member')) {
+        this.gardens = res['hydra:member'];
+      }
     });
   }
 
   // Display Lawnmowers
   fetchLawnmowers(): void {
     this.lawnmowerService.getAllLawnmowers().subscribe((res: any) => {
-      if (res.hasOwnProperty('hydra:member'))
-        this.lawnmowers = res['hydra:member'];
+      if (res.hasOwnProperty('hydra:member')) {
         this.filterByGarden();
+        this.lawnmowers = res['hydra:member'];
+      }
     });
   }
 

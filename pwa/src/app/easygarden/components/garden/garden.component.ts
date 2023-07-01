@@ -64,8 +64,9 @@ export class GardenComponent implements OnInit {
   // Display Gardens
   fetchGardens(): void {
     this.gardenService.getAllGardens().subscribe((res: any) => {
-      if (res.hasOwnProperty('hydra:member'))
+      if (res.hasOwnProperty('hydra:member')) {
         this.gardens = res['hydra:member'];
+      }
       this.id = this.decodedTokenService.idDecoded();
     });
   }
