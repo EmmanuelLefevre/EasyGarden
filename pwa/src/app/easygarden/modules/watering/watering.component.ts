@@ -98,25 +98,10 @@ export class WateringComponent implements OnInit {
 
   // Update Status
   updateStatus(id: number, status: boolean): void {
-    if (status === true) {
-      status = !status;
-      this.wateringService.updateStatus(status, id)
-        .subscribe(
-          (res:any) => {
-            this.status = res;
-            this.fetchWaterings();
-          }
-        )
-    } else if (status === false) {
-      status = !status;
-      this.wateringService.updateStatus(status, id)
-        .subscribe(
-          (res:any) => {
-            this.status = res;
-            this.fetchWaterings();
-          }
-        )
-    }
+    status = !status;
+    this.wateringService.updateStatus(status, id).subscribe((res: any) => {
+      this.status = res;
+    });
   }
 
   // Delete Watering

@@ -86,31 +86,22 @@ export class LawnmowerComponent implements OnInit {
 
   // Filter by garden
   filterByGarden(): void {
-    const selectedGardenId = this.gardenFilterService.convertSelectedGardenId(this.selectedGardenId);
-    this.filteredLawnmowers = this.gardenFilterService.filterByGarden(
-      this.lawnmowers,
-      selectedGardenId,
-      'id'
-    );
-    // Reset paging
-    this.p = 1;
+    // const selectedGardenId = this.gardenFilterService.convertSelectedGardenId(this.selectedGardenId);
+    // this.filteredLawnmowers = this.gardenFilterService.filterByGarden(
+    //   this.lawnmowers,
+    //   selectedGardenId,
+    //   'id'
+    // );
+    // // Reset paging
+    // this.p = 1;
   }
 
   // Update Status
   updateStatus(id: number, status: boolean): void {
-    if (status === true) {
-      status = !status;
-      this.lawnmowerService.updateStatus(status, id).subscribe((res: any) => {
-        this.status = res;
-        this.fetchLawnmowers();
-      });
-    } else if (status === false) {
-      status = !status;
-      this.lawnmowerService.updateStatus(status, id).subscribe((res: any) => {
-        this.status = res;
-        this.fetchLawnmowers();
-      });
-    }
+    status = !status;
+    this.lawnmowerService.updateStatus(status, id).subscribe((res: any) => {
+      this.status = res;
+    });
   }
 
   // Delete Lawnmower
