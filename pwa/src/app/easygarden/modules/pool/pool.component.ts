@@ -67,17 +67,19 @@ export class PoolComponent implements OnInit {
   // Recover Gardens
   fetchGardens(): void {
     this.gardenService.getAllGardens().subscribe((res: any) => {
-      if (res.hasOwnProperty('hydra:member'))
-      this.gardens = res['hydra:member'];
+      if (res.hasOwnProperty('hydra:member')) {
+        this.gardens = res['hydra:member'];
+      }
     });
   }
 
   // Display Pools
   fetchPools(): void {
     this.poolService.getAllPools().subscribe((res: any) => {
-      if (res.hasOwnProperty('hydra:member')) 
+      if (res.hasOwnProperty('hydra:member')) {
         this.pools = res['hydra:member'];
-        this.filterByGarden();
+        this.filterByGarden();       
+      }
     });
   }
 

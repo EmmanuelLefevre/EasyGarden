@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { share } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 import { IWatering, IDataWatering } from './IWatering';
@@ -18,7 +19,7 @@ export class WateringService {
   
   // Get List of Waterings
   getAllWaterings(): Observable<IDataWatering[]> {
-    return this.httpClient.get<IDataWatering[]>(environment.apis.watering.url);
+    return this.httpClient.get<IDataWatering[]>(environment.apis.watering.url).pipe(share());
   }
 
   // Add Watering

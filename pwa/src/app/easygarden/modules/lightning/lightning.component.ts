@@ -67,17 +67,19 @@ export class LightningComponent implements OnInit {
   // Recover Gardens
   fetchGardens(): void {
     this.gardenService.getAllGardens().subscribe((res: any) => {
-      if (res.hasOwnProperty('hydra:member'))
-      this.gardens = res['hydra:member'];
+      if (res.hasOwnProperty('hydra:member')) {
+        this.gardens = res['hydra:member'];
+      }
     });
   }
 
   // Display Lightnings
   fetchLightnings(): void {
     this.lightningService.getAllLightnings().subscribe((res: any) => {
-      if (res.hasOwnProperty('hydra:member'))
+      if (res.hasOwnProperty('hydra:member')) {
         this.lightnings = res['hydra:member'];
-        this.filterByGarden();
+        this.filterByGarden();        
+      }
     });
   }
 

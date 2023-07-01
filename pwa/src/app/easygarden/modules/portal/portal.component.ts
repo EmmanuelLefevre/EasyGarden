@@ -68,17 +68,19 @@ export class PortalComponent implements OnInit {
   // Recover Gardens
   fetchGardens(): void {
     this.gardenService.getAllGardens().subscribe((res: any) => {
-      if (res.hasOwnProperty('hydra:member'))
-      this.gardens = res['hydra:member'];
+      if (res.hasOwnProperty('hydra:member')) {
+        this.gardens = res['hydra:member'];
+      }
     });
   }
 
   // Display Portals
   fetchPortals(): void {
     this.portalService.getAllPortals().subscribe((res:any) => {
-      if (res.hasOwnProperty('hydra:member'))
-      this.portals = res['hydra:member'];
-      this.filterByGarden();
+      if (res.hasOwnProperty('hydra:member')) {
+        this.portals = res['hydra:member'];
+        this.filterByGarden();
+      }
     });
   }
 
