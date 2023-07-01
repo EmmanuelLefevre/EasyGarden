@@ -27,9 +27,10 @@ export class GardenComponent implements OnInit {
   faTree = faTree;
 
   name = environment.application.name;
-  id: String = '';
   title = 'Tableau jardin';
-
+  
+  // Get user id from DecodedTokenService
+  id: String = '';
   // Confirm Dialog this.result = boolean
   result: boolean | undefined;
   // Ngx-pagination
