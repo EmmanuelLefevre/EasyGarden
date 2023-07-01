@@ -4,7 +4,7 @@ export interface IGarden {
 }
 
 export interface IDataGarden {
-  data: IGarden[]
+  'hydra:member': IGarden[]
 }
 
 export interface IGardenFilter {

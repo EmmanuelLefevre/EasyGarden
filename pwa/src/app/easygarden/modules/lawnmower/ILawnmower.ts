@@ -12,7 +12,7 @@ export interface ILawnmower {
 }
 
 export interface IDataLawnmower {
-  data: ILawnmower[]
+  'hydra:member': ILawnmower[]
 }
 
 export interface IAddLawnmower {

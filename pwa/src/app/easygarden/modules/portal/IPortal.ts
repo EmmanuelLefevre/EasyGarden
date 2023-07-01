@@ -12,7 +12,7 @@ export interface IPortal {
 }
 
 export interface IDataPortal {
-  data: IPortal[]
+  'hydra:member': IPortal[]
 }
 
 export interface IAddPortal {
