@@ -39,6 +39,7 @@ export class LawnmowerComponent implements OnInit {
   status: boolean | undefined;
   // Ngx-pagination
   p: number = 1;
+  count: number = 0;
   // Ngx-order
   orderHeader: String = '';
   isDescOrder: boolean = true;
