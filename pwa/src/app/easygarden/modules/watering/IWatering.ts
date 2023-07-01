@@ -13,7 +13,7 @@ export interface IWatering {
 }
 
 export interface IDataWatering {
-  data: IWatering[]
+  'hydra:member': IWatering[]
 }
 
 export interface IAddWatering {
