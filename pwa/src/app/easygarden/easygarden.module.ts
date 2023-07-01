@@ -15,7 +15,7 @@ import { EasygardenRoutingModule } from './easygarden-routing.module';
 
 import { GardenComponent } from './components/garden/garden.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { EditNameEntityModule } from './components/editNameEntity/edit-name-entity.module';
+import { EditEntityNameModule } from './components/editEntityName/edit-entity-name.module';
 import { AddEntityModule } from './components/addEntity/add-entity.module';
 
 
@@ -36,7 +36,7 @@ import { AddEntityModule } from './components/addEntity/add-entity.module';
         FilterPipeModule,
         MainPipeModule,
         DirectivesModule,
-        EditNameEntityModule,
+        EditEntityNameModule,
         AddEntityModule
     ]
 })
