@@ -35,11 +35,9 @@ export class WateringComponent implements OnInit {
 
   // Confirm Dialog this.result = boolean
   result: boolean | undefined;
-
   // updateStatus()
   status: boolean | undefined;
-
-  // Ngx-paginator
+  // Ngx-pagination
   p: number = 1;
   // Ngx-order
   orderHeader: String = '';
@@ -70,17 +68,19 @@ export class WateringComponent implements OnInit {
   // Recover Gardens
   fetchGardens(): void {
     this.gardenService.getAllGardens().subscribe((res: any) => {
-      if (res.hasOwnProperty('hydra:member'))
-      this.gardens = res['hydra:member'];
+      if (res.hasOwnProperty('hydra:member')) {
+        this.gardens = res['hydra:member'];
+      }
     });
   }
 
   // Display Waterings
   fetchWaterings(): void {
     this.wateringService.getAllWaterings().subscribe((res:any) => {
-      if (res.hasOwnProperty('hydra:member'))
-      this.waterings = res['hydra:member'];
-      this.filterByGarden();
+      if (res.hasOwnProperty('hydra:member')) {
+        this.waterings = res['hydra:member'];
+        this.filterByGarden();
+      }
     });
   }
 
@@ -92,7 +92,7 @@ export class WateringComponent implements OnInit {
       selectedGardenId,
       'id'
     );
-    // Reset paging
+    // Reset pagination
     this.p = 1;
   }
 
