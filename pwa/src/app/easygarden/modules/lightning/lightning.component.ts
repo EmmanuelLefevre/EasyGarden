@@ -85,14 +85,14 @@ export class LightningComponent implements OnInit {
 
   // Filter by garden
   filterByGarden(): void {
-    // const selectedGardenId = this.gardenFilterService.convertSelectedGardenId(this.selectedGardenId);
-    // this.filteredLightnings = this.gardenFilterService.filterByGarden(
-    //   this.lightnings,
-    //   selectedGardenId,
-    //   'id'
-    // );
-    // // Reset paging
-    // this.p = 1;
+    const selectedGardenId = this.gardenFilterService.convertSelectedGardenId(this.selectedGardenId);
+    this.filteredLightnings = this.gardenFilterService.filterByGarden(
+      this.lightnings,
+      selectedGardenId,
+      'id'
+    );
+    // Reset paging
+    this.p = 1;
   }
 
   // Update Status
@@ -100,6 +100,7 @@ export class LightningComponent implements OnInit {
     status = !status;
     this.lightningService.updateStatus(status, id).subscribe((res: any) => {
       this.status = res;
+      this.fetchLightnings();
     });
   }
 

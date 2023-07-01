@@ -85,14 +85,14 @@ export class PoolComponent implements OnInit {
 
   // Filter by garden
   filterByGarden(): void {
-    // const selectedGardenId = this.gardenFilterService.convertSelectedGardenId(this.selectedGardenId);
-    // this.filteredPools = this.gardenFilterService.filterByGarden(
-    //   this.pools,
-    //   selectedGardenId,
-    //   'id'
-    // );
-    // // Reset paging
-    // this.p = 1;
+    const selectedGardenId = this.gardenFilterService.convertSelectedGardenId(this.selectedGardenId);
+    this.filteredPools = this.gardenFilterService.filterByGarden(
+      this.pools,
+      selectedGardenId,
+      'id'
+    );
+    // Reset paging
+    this.p = 1;
   }
 
   // Update Status
@@ -100,6 +100,7 @@ export class PoolComponent implements OnInit {
     status = !status;
     this.poolService.updateStatus(status, id).subscribe((res: any) => {
       this.status = res;
+      this.fetchPools();
     });
   }
 
