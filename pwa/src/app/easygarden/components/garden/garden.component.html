@@ -2,29 +2,27 @@
 <router-outlet></router-outlet>
 
 <main aria-label="Contenu principal de la page"
-      inputClear
-      [inputSearch]="searchInput">
-  <div *ngIf="router.url === '/easygarden'" 
-        (click)="clearInput()"
+      searchInputReset
+      [searchInput]="searchInput">
+  <div *ngIf="router.url === '/easygarden'"
         class="div-wrapper ambiance-bg">
 
     <div class="animate__animated animate__jackInTheBox">
       <h1 class="visually-hidden">{{name}}</h1>
       <h2 class="visually-hidden">{{title}}</h2>
-      <div class="iconContainer">
+      <div class="icon-container">
         <div class="circle"></div>
         <fa-icon [icon]="faTree" 
-                class="iconCategory"
-                aria-label="Icône d'illustration de la page représentant un arbre">
+                 aria-label="Icône d'illustration de la page représentant un arbre">
         </fa-icon>
       </div>
   
       <ng-container *ngIf="gardens.length > 5">
-        <div class="divSearch">
-          <div class="inputSearch">
+        <div class="search-div">
+          <div class="search-input">
             <label class="visually-hidden" for="name">Barre de recherche</label>
             <input [(ngModel)]="searchInput.name"
-                  id="inputSearch"
+                  id="search-input"
                   type="search"
                   aria-label="Champ de saisie permettant de rechercher dans le tableau"
                   autocomplete="off"

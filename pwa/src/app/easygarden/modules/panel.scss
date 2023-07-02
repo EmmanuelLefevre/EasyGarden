@@ -1,5 +1,5 @@
 div {
-  div.iconContainer {
+  div.icon-container {
     display: flex;
     justify-content: center;
     margin: 2.5vh 0 2vh 0;
@@ -49,14 +49,14 @@ div {
         border-color: var(--color-border);
       }
     }
-    .divSearch {
+    .search-div {
       display: flex;
       flex-direction: row;
       justify-content: flex-end;
       position: absolute;
       top: 0;
       right: 0;
-      .inputSearch {
+      .search-input {
         display: flex;
         position: relative;
         fa-icon {
