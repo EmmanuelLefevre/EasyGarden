@@ -45,9 +45,6 @@ export class GardenComponent implements OnInit {
   }
   // Ngx-filter
   searchInput: IGardenFilter = { name: '' };
-  clearInput() {
-    this.searchInput.name = '';
-  }
 
   gardens: IGarden[] = [];
 
