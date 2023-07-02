@@ -41,6 +41,7 @@ export class GardenComponent implements OnInit {
   sort(headerName: String) {
     this.isDescOrder = !this.isDescOrder;
     this.orderHeader = headerName;
+    this.p = 1;
   }
   // Ngx-filter
   searchInput: IGardenFilter = { name: '' };
