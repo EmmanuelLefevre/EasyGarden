@@ -80,10 +80,8 @@ export class AddEntityComponent implements OnInit {
   // Submit button
   onSubmit() {
     if (!this.addForm.valid) {
-      console.log(this.addForm.valid);
       return;
     }
-    console.log(this.addForm.valid);
 
     const formValue: IAdd = this.addForm.getRawValue();
     const url = window.location.href;
