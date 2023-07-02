@@ -73,24 +73,13 @@
                 | paginate: { itemsPerPage: 5, currentPage: p, totalItems: count }">
               <td class="power">
                 <button (click)="updateStatus(lightning.id, lightning.status)"
-                        *ngIf="lightning.status === true"
-                        type="submit"
-                        aria-label="Eteindre l'éclairage"
-                        matTooltip="Eteindre"
-                        matTooltipPosition="left"
-                        matTooltipShowDelay="1000"
-                        matTooltipClass="'mat-tooltip'">
-                  <fa-icon [icon]="faPowerOff"></fa-icon>
-                </button>
-                <button (click)="updateStatus(lightning.id, lightning.status)"
-                        *ngIf="lightning.status === false"
-                        type="submit"
-                        aria-label="Allumer l'éclairage"
-                        matTooltip="Allumer"
+                        type="submit" 
+                        [attr.aria-label]="lightning.status ? 'Eteindre l\'éclairage' : 'Allumer l\'éclairage'"
+                        [matTooltip]="lightning.status ? 'Eteindre' : 'Allumer'"
                         matTooltipPosition="left"
                         matTooltipShowDelay="1000"
                         matTooltipClass="'mat-tooltip'"
-                        class="btn-off">
+                        [class.btn-off]="!lightning.status">
                   <fa-icon [icon]="faPowerOff"></fa-icon>
                 </button>
               </td>
