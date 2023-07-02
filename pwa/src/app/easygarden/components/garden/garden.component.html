@@ -17,23 +17,29 @@
         </fa-icon>
       </div>
   
-      <ng-container *ngIf="gardens.length > 5">
-        <div class="search-div">
-          <div class="search-input">
-            <label class="visually-hidden" for="name">Barre de recherche</label>
-            <input [(ngModel)]="searchInput.name"
-                  id="search-input"
-                  type="search"
-                  aria-label="Champ de saisie permettant de rechercher dans le tableau"
-                  autocomplete="off"
-                  spellcheck="false"
-                  placeholder="Rechercher...">
-            <fa-icon [icon]="faSearch" 
-                    class="icon">
-            </fa-icon>
+      <div class="table-header">
+        <ng-container *ngIf="gardens.length > 5">
+          <div class="search-div">
+            <div class="search-input">
+              <label class="visually-hidden" for="name">Barre de recherche</label>
+              <input [(ngModel)]="searchInput.name"
+                    id="search-input"
+                    type="search"
+                    aria-label="Champ de saisie permettant de rechercher dans le tableau"
+                    autocomplete="off"
+                    spellcheck="false"
+                    placeholder="Rechercher...">
+              <fa-icon [icon]="faSearch"></fa-icon>
+              <fa-icon [icon]="faXmark" 
+                      class="icon-right" 
+                      *ngIf="searchInput.name"
+                      (click)="searchInput.name=''"
+                      aria-label="Fermer">
+              </fa-icon>
+            </div>
           </div>
-        </div>
-      </ng-container>
+        </ng-container>
+      </div>
   
       <div class="table form-border form-shadow animate__animated animate__jackInTheBox">
         <table class="t-hover" aria-label="Tableau des jardins">

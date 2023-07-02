@@ -70,6 +70,7 @@ export class AddEntityComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUrl = this.router.url;
+    this.updateValidators();
   }
 
   get f(): { [key: string]: AbstractControl } {
@@ -79,8 +80,10 @@ export class AddEntityComponent implements OnInit {
   // Submit button
   onSubmit() {
     if (!this.addForm.valid) {
+      console.log(this.addForm.valid);
       return;
     }
+    console.log(this.addForm.valid);
 
     const formValue: IAdd = this.addForm.getRawValue();
     const url = window.location.href;
@@ -125,6 +128,15 @@ export class AddEntityComponent implements OnInit {
   onReset(formDirective: any): void {
     this.addForm.reset();
     formDirective.resetForm();
+  }
+
+  private updateValidators() {
+    const url = this.currentUrl;
+    const isAddRoute = url.includes('easygarden/garden/add');
+    const gardenValidators = isAddRoute ? [] : [Validators.required];
+
+    this.addForm.get('garden')?.setValidators(gardenValidators);
+    this.addForm.get('garden')?.updateValueAndValidity();
   }
 
 }

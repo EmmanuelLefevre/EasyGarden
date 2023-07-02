@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 // Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip in style.scss
-import { faPen, faTrash, faSort, faSearch, faTree } from '@fortawesome/free-solid-svg-icons';
+import { faPen, faTrash, faSort, faSearch, faTree, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
@@ -25,6 +25,7 @@ export class GardenComponent implements OnInit {
   faSort = faSort;
   faSearch = faSearch;
   faTree = faTree;
+  faXmark = faXmark;
 
   name = environment.application.name;
   title = 'Tableau jardin';
