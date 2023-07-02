@@ -1,4 +1,6 @@
 import { NgModule } from '@angular/core';
+
+import { CancelSearchInputResetDirective } from './cancelSearchInputReset/cancel-search-input-reset.directive';
 import { InputFocusDirective } from './inputFocus/inputFocus.directive';
 import { InputTrimDirective } from './inputTrim/inputTrim.directive';
 import { InputTitleCaseDirective } from './inputTitleCase/inputTitleCase.directive';
@@ -12,6 +14,7 @@ import { SearchInputResetDirective } from './searchInputReset/search-input-reset
 
 @NgModule({
   declarations: [	
+    CancelSearchInputResetDirective,
     InputTrimDirective,
     InputFocusDirective,
     InputTitleCaseDirective,
@@ -23,6 +26,7 @@ import { SearchInputResetDirective } from './searchInputReset/search-input-reset
     SearchInputResetDirective
    ],
   exports: [
+    CancelSearchInputResetDirective,
     InputTrimDirective,
     InputFocusDirective,
     InputTitleCaseDirective,
