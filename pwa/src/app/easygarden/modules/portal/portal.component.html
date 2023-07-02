@@ -1,15 +1,15 @@
 <main aria-label="Contenu principal de la page"
-      inputClear
-      [inputSearch]="searchInput">
+      searchInputReset
+      [searchInput]="searchInput">
   <div class="div-wrapper ambiance-bg">
   
     <div class="animate__animated animate__jackInTheBox">
       <h1 class="visually-hidden">{{name}}</h1>
       <h2 class="visually-hidden">{{title}}</h2>
-      <div class="iconContainer">
+      <div class="icon-container">
         <div class="circle"></div>
         <fa-icon [icon]="faDoorOpen" 
-                 class="iconCategory">
+                 aria-label="Icône d'illustration de la page représentant un portail">
         </fa-icon>
       </div>
   
@@ -24,10 +24,10 @@
           </select>
         </ng-container>
         <ng-container *ngIf="portals.length > 5">
-          <div class="divSearch">
-            <div class="inputSearch">
+          <div class="search-div">
+            <div class="search-input">
               <label class="visually-hidden" for="name">Barre de recherche</label>
-              <input id="inputSearch"
+              <input id="search-input"
                      type="search"
                      aria-label="Champ de saisie afin de rechercher dans le tableau"
                      [(ngModel)]="searchInput.name"
