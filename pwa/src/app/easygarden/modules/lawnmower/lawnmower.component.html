@@ -78,24 +78,13 @@
                 | paginate: { itemsPerPage: 5, currentPage: p, totalItems: count }">
               <td class="power">
                 <button (click)="updateStatus(lawnmower.id, lawnmower.status)"
-                        *ngIf="lawnmower.status === true"
                         type="submit" 
-                        aria-label="Eteindre la tondeuse"
-                        matTooltip="Eteindre"
+                        [attr.aria-label]="lawnmower.status ? 'Eteindre la tondeuse' : 'Allumer la tondeuse'"
+                        [matTooltip]="lawnmower.status ? 'Eteindre' : 'Allumer'"
                         matTooltipPosition="left"
                         matTooltipShowDelay="1000"
-                        matTooltipClass="'mat-tooltip'">
-                  <fa-icon [icon]="faPowerOff"></fa-icon>
-                </button>
-                <button (click)="updateStatus(lawnmower.id, lawnmower.status)"
-                        *ngIf="lawnmower.status === false"
-                        type="submit" 
-                        aria-label="Allumer la tondeuse"
-                        matTooltip="Allumer"
-                        matTooltipPosition="left"
-                        matTooltipShowDelay="1000"
-                        matTooltipClass="'mat-tooltip'" 
-                        class="btn-off">
+                        matTooltipClass="'mat-tooltip'"
+                        [class.btn-off]="!lawnmower.status">
                   <fa-icon [icon]="faPowerOff"></fa-icon>
                 </button>
               </td>
