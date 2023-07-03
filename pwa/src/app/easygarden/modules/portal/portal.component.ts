@@ -46,7 +46,7 @@ export class PortalComponent implements OnInit {
   sort(headerName:String) {
     this.isDescOrder = !this.isDescOrder;
     this.orderHeader = headerName;
-    this.p = 1;
+    this.resetPagination();
   }
   // Ngx-filter
   searchInput: IPortalFilter = { name: ''};
@@ -95,7 +95,7 @@ export class PortalComponent implements OnInit {
       'id'
     );
     // Reset pagination
-    this.p = 1;
+    this.resetPagination();
   }
 
   // Update Status
@@ -127,6 +127,10 @@ export class PortalComponent implements OnInit {
         )
       }   
     })
+  }
+
+  resetPagination(): void {
+    this.p = 1;
   }
 
 }

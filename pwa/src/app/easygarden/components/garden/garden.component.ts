@@ -42,7 +42,7 @@ export class GardenComponent implements OnInit {
   sort(headerName: String) {
     this.isDescOrder = !this.isDescOrder;
     this.orderHeader = headerName;
-    this.p = 1;
+    this.resetPagination();
   }
   // Ngx-filter
   searchInput: IGardenFilter = { name: '' };
@@ -94,4 +94,9 @@ export class GardenComponent implements OnInit {
       }
     });
   }
+
+  resetPagination(): void {
+    this.p = 1;
+  }
+
 }

@@ -45,7 +45,7 @@ export class LightningComponent implements OnInit {
   sort(headerName: String) {
     this.isDescOrder = !this.isDescOrder;
     this.orderHeader = headerName;
-    this.p = 1;
+    this.resetPagination();
   }
   // Ngx-filter
   searchInput: ILightningFilter = { name: '' };
@@ -94,7 +94,7 @@ export class LightningComponent implements OnInit {
       'id'
     );
     // Reset pagination
-    this.p = 1;
+    this.resetPagination();
   }
 
   // Update Status
@@ -129,4 +129,9 @@ export class LightningComponent implements OnInit {
       }
     });
   }
+
+  resetPagination(): void {
+    this.p = 1;
+  }
+
 }
