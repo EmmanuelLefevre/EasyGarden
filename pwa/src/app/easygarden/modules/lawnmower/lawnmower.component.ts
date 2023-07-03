@@ -46,7 +46,7 @@ export class LawnmowerComponent implements OnInit {
   sort(headerName: String) {
     this.isDescOrder = !this.isDescOrder;
     this.orderHeader = headerName;
-    this.p = 1;
+    this.resetPagination();
   }
   // Ngx-filter
   searchInput: ILawnmowerFilter = { name: '' };
@@ -95,7 +95,7 @@ export class LawnmowerComponent implements OnInit {
       'id'
     );
     // Reset pagination
-    this.p = 1;
+    this.resetPagination();
   }
 
   // Update Status
@@ -130,4 +130,9 @@ export class LawnmowerComponent implements OnInit {
       }
     });
   }
+
+  resetPagination(): void {
+    this.p = 1;
+  }
+
 }

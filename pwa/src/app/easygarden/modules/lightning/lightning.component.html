@@ -31,7 +31,7 @@
                      type="search"
                      aria-label="Champ de saisie afin de rechercher dans le tableau"
                      [(ngModel)]="searchInput.name"
-                     (input)="filterByGarden()"
+                     (input)="resetPagination()"
                      autocomplete="off"
                      spellcheck="false"
                      placeholder="Rechercher...">
@@ -39,7 +39,7 @@
               <fa-icon [icon]="faXmark" 
                         class="icon-right" 
                         *ngIf="searchInput.name"
-                        (click)="searchInput.name=''"
+                        (click)="resetPagination(); searchInput.name=''"
                         aria-label="Fermer">
               </fa-icon>
             </div>
