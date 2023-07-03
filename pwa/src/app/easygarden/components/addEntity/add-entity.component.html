@@ -48,22 +48,19 @@
                spellcheck="false"
                autocomplete="off"
                class="input-inset-shadow"
-               [ngClass]="{ 'invalid-feedback': ngForm.submitted && (f['name'].errors || ngForm.invalid) }">
-        <ng-container *ngIf="ngForm.submitted && (f['name'].errors || ngForm.invalid)">
+               [ngClass]="{ 'invalid-feedback': ngForm.submitted && f['name'].errors }">
+        <ng-container *ngIf="ngForm.submitted && f['name'].errors">
           <div class="text-alert" 
-               *ngIf="ngForm.invalid">Le formulaire est invalide!
+               *ngIf="f['name'].errors['required']">Veuillez saisir un nom!
           </div>
           <div class="text-alert" 
-               *ngIf="f['name'].errors && f['name'].errors['required']">Veuillez saisir un nom!
+               *ngIf="f['name'].errors['minlength']">Le nom doit contenir au minimum 3 caractères.
           </div>
           <div class="text-alert" 
-               *ngIf="f['name'].errors && f['name'].errors['minlength']">Le nom doit contenir au minimum 3 caractères.
-          </div>
-          <div class="text-alert" 
-               *ngIf="f['name'].errors && f['name'].errors['maxlength']">Le nom doit contenir au maximum 20 caractères.
+               *ngIf="f['name'].errors['maxlength']">Le nom doit contenir au maximum 20 caractères.
           </div>
           <div class="text-alert"
-               *ngIf="f['name'].errors && f['name'].errors['validEquipmentName']">Le nom ne peut contenir de caractères spéciaux!
+               *ngIf="f['name'].errors['validEquipmentName']">Le nom ne peut contenir de caractères spéciaux!
           </div>
         </ng-container>
         <div class="div-form-button">
