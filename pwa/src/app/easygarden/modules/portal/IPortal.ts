@@ -6,7 +6,7 @@ export interface IPortal {
   presenceSensor: boolean,
   status: boolean,
   garden: {
-    id: string,
+    id: number,
     name: string
   }
 }

@@ -7,7 +7,7 @@ export interface IWatering {
   pressureSensor: string,
   status: boolean,
   garden: {
-    id: string,
+    id: number,
     name: string
   }
 }
