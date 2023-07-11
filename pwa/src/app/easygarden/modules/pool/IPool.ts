@@ -5,7 +5,7 @@ export interface IPool {
   name: string,
   status: boolean,
   garden: {
-    id: string,
+    id: number,
     name: string
   }
 }
