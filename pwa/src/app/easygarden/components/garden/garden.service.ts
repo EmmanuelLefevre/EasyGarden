@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Location } from '@angular/common';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -17,7 +18,8 @@ import { IAdd } from '../../_interfaces/IAdd';
 export class GardenService {
 
   constructor(private httpClient: HttpClient,
-              private decodedTokenService: DecodedTokenService) {}
+              private decodedTokenService: DecodedTokenService,
+              private location: Location) {}
 
   // Get List of Gardens
   getAllGardens(): Observable<IDataGarden[]> {
@@ -50,9 +52,14 @@ export class GardenService {
   }
 
   // Get redirection
-  getRedirectUrl(): string {
-    return '/easygarden/';
+  getRedirectUrl(): string | null {
+    if (window.history.length >= 1) {
+      this.location.back();
+      return '';
+    }
+    else {
+      return null;
+    }
   }
-
 
 }
