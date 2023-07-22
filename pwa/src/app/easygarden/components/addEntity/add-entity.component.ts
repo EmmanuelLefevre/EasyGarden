@@ -110,14 +110,31 @@ export class AddEntityComponent implements OnInit {
 
     if (service) {
       service.addData(formValue).subscribe(() => {
-        const equipment = url.includes('/easygarden/garden/add') ? gardenCase : "L'équipement";
+        const name = url.includes('/easygarden/garden/add') ? gardenCase : "L'équipement";
         const gardenName = formValue.garden?.name;
-        let notificationMessage = `${equipment} "${formValue.name}" a bien été ajouté.`;
-        if (gardenName && equipment !== gardenCase) {
-          notificationMessage = `${equipment} "${formValue.name}" a bien été ajouté au jardin "${gardenName}".`;
+        let notificationMessage = `${name} "${formValue.name}" a bien été ajouté.`;
+
+        const redirectUrl = service.getRedirectUrl();
+        if (gardenCase) {
+          if (redirectUrl === null) {
+            this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => { 
+              this.snackbarService.showNotification(notificationMessage, 'created');
+              this.router.navigate(['/easygarden']);
+            });
+          }
+          else {
+            this.router.navigateByUrl(redirectUrl).then(() => {
+              this.snackbarService.showNotification(notificationMessage, 'created');
+            });
+          }
         }
-        this.router.navigate([service.getRedirectUrl()]);
-        this.snackbarService.showNotification(notificationMessage, 'created');
+        else {
+          if (gardenName && name !== gardenCase) {
+            notificationMessage = `${name} "${formValue.name}" a bien été ajouté au jardin "${gardenName}".`;
+          }
+          this.router.navigate([service.getRedirectUrl()]);
+          this.snackbarService.showNotification(notificationMessage, 'created');
+        }
       });
     }
   }

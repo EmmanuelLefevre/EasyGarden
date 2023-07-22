@@ -147,10 +147,28 @@ export class EditEntityNameComponent implements OnInit {
   
     if (service) {
       service.updateData(formValue, id).subscribe(() => {
+        const name = url.includes('/easygarden/garden/edit/') ? gardenCase : "L'équipement";
         const newName = formValue.name;
-        const equipment = url.includes('/easygarden/garden/edit/') ? gardenCase : "L'équipement";
-        this.router.navigate([service.getRedirectUrl()]);
-        this.snackbarService.showNotification(`${equipment} "${this.IName.name}" a bien été renommé en "${newName}".`, 'modified');
+        let notificationMessage = `${name} "${this.IName.name}" a bien été renommé en "${newName}".`;
+
+        const redirectUrl = service.getRedirectUrl();
+        if (gardenCase) {
+          if (redirectUrl === null) {
+            this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => { 
+              this.snackbarService.showNotification(notificationMessage, 'modified');
+              this.router.navigate(['/easygarden']);
+            });
+          }
+          else {
+            this.router.navigateByUrl(redirectUrl).then(() => {
+              this.snackbarService.showNotification(notificationMessage, 'modified');
+            });
+          }
+        }
+        else {
+          this.router.navigate([service.getRedirectUrl()]);
+          this.snackbarService.showNotification(notificationMessage, 'modified');
+        }
       });
     }
   }
