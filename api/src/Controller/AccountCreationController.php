@@ -6,6 +6,7 @@ use App\DataPersister\UserDataPersister;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -50,7 +51,7 @@ class AccountCreationController extends AbstractController
         // Persist the user using the UserDataPersister
         $this->userDataPersister->persist($user);
 
-        // Return a success response with status code 200
-        return new JsonResponse(['status' => 200]);
+        // Return a success response with status code 201
+        return new JsonResponse(['status' => 201], Response::HTTP_CREATED);
     }
 }
