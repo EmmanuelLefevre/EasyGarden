@@ -15,16 +15,13 @@ export class RegisterService {
   registerIn(user: IUser) {
     const profile = {
       email: user.email,
-      password: user.password,
       plainPassword: user.password,
+      pseudo: user.pseudo,
       lastName: user.lastName,
       firstName: user.firstName,
-      pseudo: user.pseudo,
-      phoneNumber: user.phoneNumber,
-      createdAt: new Date(),
-      isVerified: false
+      phoneNumber: user.phoneNumber
     };
-    return this.httpClient.post(environment.apis.user.url, profile)
+    return this.httpClient.post(environment.apis.register.url, profile)
   }
 
   // Method to catch error message if email already existing

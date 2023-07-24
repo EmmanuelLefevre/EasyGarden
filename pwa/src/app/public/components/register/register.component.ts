@@ -112,7 +112,6 @@ export class RegisterComponent {
 
     const formValue: IUser = this.registerForm.getRawValue();
     delete formValue.confirmPassword;
-    console.log(formValue)
     this.registerService.registerIn(formValue).subscribe(
       () => {
         const firstName = formValue.firstName;

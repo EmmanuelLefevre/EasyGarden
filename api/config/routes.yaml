@@ -9,3 +9,8 @@ kernel:
 login_check:
     path: /api/login_check
     methods: ['GET', 'POST']
+
+account_creation:
+    path: /api/account_creation
+    methods: ['POST']
+    controller: App\Controller\AccountCreationController::accountCreation
