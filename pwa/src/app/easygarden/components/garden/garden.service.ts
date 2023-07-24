@@ -53,7 +53,7 @@ export class GardenService {
 
   // Get redirection
   getRedirectUrl(): string | null {
-    if (window.history.length >= 1) {
+    if (window.history.length > 1) {
       this.location.back();
       return '';
     }
