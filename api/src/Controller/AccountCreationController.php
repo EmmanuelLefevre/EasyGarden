@@ -77,14 +77,8 @@ class AccountCreationController extends AbstractController
 
         $mailer->send($email);
 
-        // Check the response status
-        if ($response->getStatusCode() === Response::HTTP_OK) {
-            // Return a success response if the email was sent successfully
-            return new JsonResponse(['message' => 'Email was sent successfully'], Response::HTTP_OK);
-        } else {
-            // Return an error response if there was an issue with sending the email
-            return new JsonResponse(['error' => 'Failed to send confirmation email'], Response::HTTP_INTERNAL_SERVER_ERROR);
-        }
+        // Return a success response
+        return new JsonResponse(['message' => 'Email was sent successfully'], Response::HTTP_OK);
     
     }
 
