@@ -8,6 +8,9 @@ export const environment = {
     login: {
       url: 'http://localhost:8000/api/login_check'
     },
+    register: {
+      url: 'http://localhost:8000/api/create_account'
+    },
     user: {
       url: 'http://localhost:8000/api/users'
     },
