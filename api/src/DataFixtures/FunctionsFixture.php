@@ -59,3 +59,16 @@ function wateringsData()
     $value = array_rand(array_flip($data), 1);
     return $value;
 }
+
+// Generate activation key (20 digit random number)
+function generateActivationKey() {
+    // Add first number
+    $random_number = '1' . mt_rand(0, 9);
+
+    // Add the following 19 numbers
+    for ($i = 0; $i < 19; $i++) {
+        $random_number .= mt_rand(0, 9);
+    }
+
+    return $random_number;
+}
