@@ -113,12 +113,14 @@ export class RegisterComponent {
     const formValue: IUser = this.registerForm.getRawValue();
     delete formValue.confirmPassword;
     this.registerService.registerIn(formValue).subscribe(
-      () => {
-        const firstName = formValue.firstName;
-        const lastName = formValue.lastName;
-        this.snackbarService.showNotification(`Bienvenu ` + firstName + ' ' + lastName + ',' +
-          `\nveuillez confirmer votre compte dans l\'email qui vous a été envoyé.`, 'register')
-        this.router.navigate(['login'])
+      (response: any) => { 
+        if (response && response.status === 200) { 
+          const firstName = formValue.firstName;
+          const lastName = formValue.lastName;
+          this.snackbarService.showNotification(`Bienvenu ` + firstName + ' ' + lastName + ',' +
+            `\nveuillez confirmer votre compte dans l\'email qui vous a été envoyé.`, 'register')
+          this.router.navigate(['login'])
+        }
       },
       (errorResponse) => {
         if (errorResponse.error['hydra:description']) {

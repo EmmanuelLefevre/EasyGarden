@@ -51,6 +51,6 @@ class AccountCreationController extends AbstractController
         $this->userDataPersister->persist($user);
 
         // Return a success response with status code 200
-        return new JsonResponse(['message' => 'Compte créé avec succès'], 200);
+        return new JsonResponse(['status' => 200]);
     }
 }
