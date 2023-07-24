@@ -154,6 +154,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
               'write:User'])]
     private $isVerified;
 
+    #[ORM\Column(type: 'string', length: 255)]
+    private $activationToken;
+
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Garden::class, orphanRemoval: true)]
     private $garden;
 
@@ -333,6 +336,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+        
+        return $this;
+    }
+
+    public function getActivationToken(): ?string
+    {
+        return $this->activationToken;
+    }
+
+    public function setActivationToken(string $activationToken): self
+    {
+        $this->activationToken = $activationToken;
 
         return $this;
     }
@@ -366,4 +381,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
 }
