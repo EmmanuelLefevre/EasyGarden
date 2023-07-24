@@ -10,12 +10,12 @@ use Doctrine\ORM\EntityManagerInterface;
 class UserDataPersister implements DataPersisterInterface 
 {
     private $entityManager;
-    private $userPasswordEncoder;
+    private $userPasswordHasher;
 
-    public function __construct (EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordEncoder)
+    public function __construct (EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher)
     {
         $this->entityManager = $entityManager;
-        $this->userPasswordEncoder = $userPasswordEncoder;
+        $this->userPasswordHasher = $userPasswordHasher;
     }
 
     public function supports($data, array $context = []): bool
@@ -30,7 +30,7 @@ class UserDataPersister implements DataPersisterInterface
     {
         if ($data->getPlainPassword()) {
             $data->setPassword(
-                $this->userPasswordEncoder->hashPassword($data, $data->getPlainPassword())
+                $this->userPasswordHasher->hashPassword($data, $data->getPlainPassword())
             );
             $data->eraseCredentials();
         }   
