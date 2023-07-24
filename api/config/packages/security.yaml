@@ -18,7 +18,7 @@ security:
                 
     firewalls:
         registration:
-            pattern: ^/api/users
+            pattern: ^/api/account_creation
             stateless: true
             methods: [POST]
         login:
@@ -39,10 +39,10 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api/users, roles: PUBLIC_ACCESS,
+        - { path: ^/api/account_creation, roles: PUBLIC_ACCESS,
             methods: [POST] }
         - { path: ^/api/users, roles: IS_AUTHENTICATED_FULLY,
-                methods: [GET, PUT, PATCH, DELETE] }
+            methods: [GET, PUT, PATCH, DELETE] }
         - { path: ^/api/gardens, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/api/lawnmowers, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/api/lightnings, roles: IS_AUTHENTICATED_FULLY }
@@ -52,6 +52,7 @@ security:
 
     role_hierarchy:
         ROLE_ADMIN: ROLE_USER
+        PUBLIC_ACCESS: IS_AUTHENTICATED_ANONYMOUSLY
         
 when@test:
     security:

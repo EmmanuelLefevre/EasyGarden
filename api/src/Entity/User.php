@@ -59,6 +59,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $email;
 
     #[ORM\Column(type: 'json')]
+    #[Groups(['write:User'])]
     private $roles = [];
 
     #[ORM\Column(type: 'string', length: 45)]
@@ -97,7 +98,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotBlank(groups:['create'])]
     #[Assert\Length(max:4096)]
     #[Groups(['write:User'])]
-    private $plainPassword;
+    private ?string $plainPassword;
 
     #[ORM\Column(type: 'string')]
     #[Assert\NotBlank]
@@ -139,7 +140,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $phoneNumber;
 
     #[ORM\Column(type: 'datetime_immutable', options:['default' => 'CURRENT_TIMESTAMP'])]
-    #[Groups(['read:User'])]
+    #[Groups(['read:User',
+              'write:User'])]
     private $createdAt;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
@@ -222,12 +224,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getPlainPassword(): string
+    public function getPlainPassword(): ?string
     {
         return $this->plainPassword;
     }
 
-    public function setPlainPassword(string $plainPassword): self
+    public function setPlainPassword(?string $plainPassword): self
     {
         $this->plainPassword = $plainPassword;
 
