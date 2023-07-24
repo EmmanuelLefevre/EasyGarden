@@ -49,6 +49,10 @@ composer require --dev symfony/profiler-pack
 **Décommenter** &nbsp;&nbsp; DATABASE_URL="mysql://root:@127.0.0.1:3306/EasyGardenCDA?serverVersion=mariadb-10.5.8"
 \
 **Noter**APP_ENV=prod
+12. &nbsp;&nbsp;*/EasyGardenCDA/api*
+```
+composer require symfony/mailer
+```
 
 
 # LANCER SERVEUR
