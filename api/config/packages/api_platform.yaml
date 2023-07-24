@@ -1,6 +1,6 @@
 api_platform:
     title: 'EasyGarden API'
-    description: 'API to deal with Angular13'
+    description: 'API to deal with Angular15'
     version: '1.0'
     # Araignée specs APi_Platform   https://127.0.0.1:8000/api
     show_webby: false
