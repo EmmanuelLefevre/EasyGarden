@@ -114,7 +114,7 @@ export class RegisterComponent {
     delete formValue.confirmPassword;
     this.registerService.registerIn(formValue).subscribe(
       (response: any) => { 
-        if (response && response.status === null) { 
+        if (response && response.status === 200) { 
           const firstName = formValue.firstName;
           const lastName = formValue.lastName;
           this.snackbarService.showNotification(`Bienvenu ` + firstName + ' ' + lastName + ',' +
