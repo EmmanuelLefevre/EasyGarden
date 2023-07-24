@@ -65,11 +65,11 @@ class AccountCreationController extends AbstractController
         $activationLink = $urlGenerator->generate('account_activation', ['token' => $activationToken], UrlGeneratorInterface::ABSOLUTE_URL);
 
         // Interpolate the first name and last name into the subject
-        $subject = sprintf('Veuillez activer votre compte %s %s', $user->getFirstName(), $user->getLastName());
+        $subject = sprintf('Veuillez activer votre compte %s %s.', $user->getFirstName(), $user->getLastName());
 
         // Generate email
         $email = (new Email())
-            ->from('esaygarden@easygarden.com')
+            ->from('easygarden@easygarden.com')
             ->to($user->getEmail())
             ->subject($subject)
             ->text('Cliquez sur le lien suivant pour activer votre compte : ' . $activationLink)
@@ -77,8 +77,14 @@ class AccountCreationController extends AbstractController
 
         $mailer->send($email);
 
-        // Return a success response with no content
-        return new JsonResponse(null, Response::HTTP_CREATED);
+        // Check the response status
+        if ($response->getStatusCode() === Response::HTTP_OK) {
+            // Return a success response if the email was sent successfully
+            return new JsonResponse(['message' => 'Email was sent successfully'], Response::HTTP_OK);
+        } else {
+            // Return an error response if there was an issue with sending the email
+            return new JsonResponse(['error' => 'Failed to send confirmation email'], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     
     }
 
