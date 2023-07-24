@@ -124,9 +124,12 @@ export class RegisterComponent {
       (errorResponse) => {
         if (errorResponse.error['hydra:description']) {
           const errorDescription = errorResponse.error['hydra:description'];
-        const errorMessage = this.registerService.extractExistingEmailErrorMessage(errorDescription);
-        this.errorMessage = errorMessage;
-        this.existingEmail = errorMessage !== '';
+          const errorMessage = this.registerService.extractExistingEmailErrorMessage(errorDescription);
+          this.errorMessage = errorMessage;
+          this.existingEmail = errorMessage !== '';
+        }
+        else {
+          this.errorMessage = "Une erreur s'est produite lors de la création du compte!";
         }
       }
     )
