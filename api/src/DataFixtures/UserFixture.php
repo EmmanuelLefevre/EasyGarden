@@ -40,6 +40,7 @@ class UserFixture extends Fixture
         $admin->setPhoneNumber('05 12 25 48 71');
         $admin->setCreatedAt(new \DateTimeImmutable());
         $admin->setIsVerified(true);
+        $admin->setActivationToken('12151444564515415154');
         $manager->persist($admin);
        
         // User Manu
@@ -53,6 +54,7 @@ class UserFixture extends Fixture
         $user1->setPhoneNumber('06 45 91 23 07');
         $user1->setCreatedAt(new \DateTimeImmutable());
         $user1->setIsVerified(true); 
+        $user1->setActivationToken('22151444564515415154');
         $manager->persist($user1);
         $this->addReference(self::USER1_REFERENCE , $user1);
 
@@ -67,6 +69,7 @@ class UserFixture extends Fixture
         $user2->setPhoneNumber('07 12 45 75 64');
         $user2->setCreatedAt(new \DateTimeImmutable());
         $user2->setIsVerified(true); 
+        $user2->setActivationToken('32151444564515415154');
         $manager->persist($user2);
         $this->addReference(self::USER2_REFERENCE , $user2);
 
@@ -82,6 +85,7 @@ class UserFixture extends Fixture
             $user->setPhoneNumber($faker->mobileNumber());
             $user->setCreatedAt(new \DateTimeImmutable());
             $user->setIsVerified(mt_rand(0, 1));
+            $user->setActivationToken(generateActivationKey());
             $manager->persist($user);
             $this->addReference('user_'.$nbrUsers , $user);
         }
