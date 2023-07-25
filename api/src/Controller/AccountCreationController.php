@@ -67,7 +67,7 @@ class AccountCreationController extends AbstractController
         // Interpolate the first name and last name into the subject
         $subject = sprintf('Veuillez activer votre compte %s %s.', $user->getFirstName(), $user->getLastName());
 
-        // Generate the activation button
+        // Activation button
         $activationButton = sprintf(
             '<a href="%s" style="display: inline-block; 
                                 background-color: #95cb11; 
@@ -83,20 +83,31 @@ class AccountCreationController extends AbstractController
             </a>', 
             $activationLink);
 
-        // Generate emailce fichier .env.local
+        // Generate email body as plain text
+        $message = sprintf(
+            "Bonjour %s %s, merci pour votre inscription à Easygarden !\n\nVeuillez cliquer sur le lien suivant pour activer votre compte svp => %s\n\n",
+            $user->getFirstName(),
+            $user->getLastName(),
+            $activationLink
+        );
+        $message .= "Ce lien restera valide pour une durée de 48H à compter de la réception de ce message, une fois ce délai expiré il vous sera nécessaire de vous inscrire à nouveau.";
+
+        // Generate email body as HTML
+        $htmlMessage = sprintf(
+            'Bonjour %s %s, merci pour votre inscription à <a href="https://easygarden.com" style="color: #95cb11; text-decoration: none;">Easygarden</a> !<br><br>',
+            $user->getFirstName(),
+            $user->getLastName()
+        );
+        $htmlMessage .= 'Veuillez cliquer sur le lien suivant pour activer votre compte svp => ' . '<br><br>' . $activationButton . '<br><br>';
+        $htmlMessage .= 'Ce lien restera valide pour une durée de 48H à compter de la réception de ce message, une fois ce délai expiré il vous sera nécessaire de vous inscrire à nouveau.';
+
+        // Generate email
         $email = (new Email())
             ->from('easygarden.noreply@gmail.com')
             ->to($user->getEmail())
             ->subject($subject)
-            ->text(sprintf("Bonjour %s %s, veuillez cliquer sur le lien suivant pour activer votre compte svp =>", $user->getFirstName(), $user->getLastName()) . ' ' . $activationLink)
-            ->html(sprintf( '<p>Bonjour %s %s, merci pour votre inscription à <a href="https://easygarden.com" style="color: #95cb11; text-decoration: none;">Easygarden</a> !</p>', 
-                            $user->getFirstName(), 
-                            $user->getLastName()
-                ) .
-                '<p>Veuillez cliquer sur le lien suivant pour activer votre compte svp =></p>' .
-                '<p>' . $activationButton . '</p>' .
-                '<p>Ce lien restera valide pour une durée de 48H à compter de la réception de ce message, une fois ce délai expiré il vous sera nécessaire de vous inscrire à nouveau.</p>'
-            );
+            ->text($message)
+            ->html($htmlMessage);
 
         $mailer->send($email);
 
@@ -104,6 +115,7 @@ class AccountCreationController extends AbstractController
         return new JsonResponse(['message' => 'Email was sent successfully'], Response::HTTP_OK);
     
     }
+
 
     /**
      * @Route("/account_activation/{token}", name="account_activation", methods={"GET"})
