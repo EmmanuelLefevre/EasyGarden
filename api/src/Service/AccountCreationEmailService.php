@@ -24,7 +24,7 @@ class AccountCreationEmailService
                                         string $activationToken): void
     {
 
-        // Déclarez et initialisez les variables $firstName et $lastName
+        // Declare and initialize the $firstName and $lastName variables
         $firstName = $user->getFirstName();
         $lastName = $user->getLastName();
 
