@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\DataPersister\UserDataPersister;
 use App\Entity\User;
-use App\Service\EmailSenderWithRetries;
+use App\Service\AccountCreationEmailService;
 use App\Utility\TokenGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -12,20 +12,21 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Routing\RouterInterface;
 
 class AccountCreationController extends AbstractController
 {
     private $userDataPersister;
     private $userPasswordHasher;
-    private $emailSender;
+    private $emailService;
 
     public function __construct(UserDataPersister $userDataPersister, 
                                 UserPasswordHasherInterface $userPasswordHasher, 
-                                EmailSenderWithRetries $emailSender)
+                                AccountCreationEmailService $emailService)
     {
         $this->userDataPersister = $userDataPersister;
         $this->userPasswordHasher = $userPasswordHasher;
-        $this->emailSender = $emailSender;
+        $this->emailService = $emailService;
     }
 
     /**
@@ -58,11 +59,10 @@ class AccountCreationController extends AbstractController
         $activationToken = TokenGenerator::generateToken();
         $user->setActivationToken($activationToken);
 
-        // Attempt to send the email with retries
-        $emailSent = $this->emailSender->sendActivationEmailWithRetries($user, $activationToken);
-
-        if (!$emailSent) {
-            // If all attempts fail, return an error response
+        // Send the account creation confirmation email with token activation link
+        try {
+            $this->emailService->sendActivationEmail($user, $user->getEmail(), $activationToken);
+        } catch (\Exception $e) {
             return new JsonResponse(['message' => 'Failed to send email'], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
         
@@ -77,7 +77,9 @@ class AccountCreationController extends AbstractController
     /**
      * @Route("/account_activation/{token}", name="account_activation", methods={"GET"})
      */
-    public function activateAccount(string $token, UserDataPersister $userDataPersister): JsonResponse
+    public function activateAccount(string $token, 
+                                    UserDataPersister $userDataPersister, 
+                                    RouterInterface $router): JsonResponse
     {
         // Find the user with the given activation token
         $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['activationToken' => $token]);
@@ -91,7 +93,11 @@ class AccountCreationController extends AbstractController
         // Persist account validation
         $this->userDataPersister->persist($user);
 
-        return new JsonResponse(['status' => 200], Response::HTTP_OK);
+        // Redirect the user to the Angular login page
+        $loginUrl = $router->generate('http://localhost:4200/login');
+        return $this->redirect($loginUrl);
+
+        // return new JsonResponse(['status' => 200], Response::HTTP_OK);
     }
 
 }
