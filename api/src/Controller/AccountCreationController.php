@@ -70,7 +70,7 @@ class AccountCreationController extends AbstractController
         $this->userDataPersister->persist($user);
 
         // Return a success response
-        return new JsonResponse(['message' => 'Email was sent successfully'], Response::HTTP_OK);
+        return new JsonResponse(['status' => 201], Response::HTTP_CREATED);
     }
 
 
@@ -88,8 +88,10 @@ class AccountCreationController extends AbstractController
 
         // Activate the user's account
         $user->setIsVerified(true);
+        // Persist account validation
+        $this->userDataPersister->persist($user);
 
-        return new JsonResponse(['status' => 201], Response::HTTP_CREATED);
+        return new JsonResponse(['status' => 200], Response::HTTP_OK);
     }
 
 }
