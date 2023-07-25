@@ -53,7 +53,10 @@ composer require --dev symfony/profiler-pack
 ```
 composer require symfony/mailer
 ```
-
+13. &nbsp;&nbsp;*/EasyGardenCDA/api*
+```
+composer require --dev symfony/google-mailer
+```
 
 # LANCER SERVEUR
 1. Lancer serveur en local
