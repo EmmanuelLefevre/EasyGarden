@@ -67,13 +67,36 @@ class AccountCreationController extends AbstractController
         // Interpolate the first name and last name into the subject
         $subject = sprintf('Veuillez activer votre compte %s %s.', $user->getFirstName(), $user->getLastName());
 
-        // Generate email
+        // Generate the activation button
+        $activationButton = sprintf(
+            '<a href="%s" style="display: inline-block; 
+                                background-color: #95cb11; 
+                                color: #ffffff; 
+                                border: 2px solid #C4F253; 
+                                padding: 6px 10px; 
+                                text-decoration: none; 
+                                border-radius: 4px; 
+                                transition: background-color 0.3s, color 0.3s;
+                                height: 20px;
+                                line-height: 20px;"
+                                >Activer le compte
+            </a>', 
+            $activationLink);
+
+        // Generate emailce fichier .env.local
         $email = (new Email())
-            ->from('easygarden@easygarden.com')
+            ->from('easygarden.noreply@gmail.com')
             ->to($user->getEmail())
             ->subject($subject)
-            ->text('Cliquez sur le lien suivant pour activer votre compte : ' . $activationLink)
-            ->html('<p>Cliquez sur le lien suivant pour activer votre compte : <a href="' . $activationLink . '">Activer le compte</a></p>');
+            ->text(sprintf("Bonjour %s %s, veuillez cliquer sur le lien suivant pour activer votre compte svp =>", $user->getFirstName(), $user->getLastName()) . ' ' . $activationLink)
+            ->html(sprintf( '<p>Bonjour %s %s, merci pour votre inscription à <a href="https://easygarden.com" style="color: #95cb11; text-decoration: none;">Easygarden</a> !</p>', 
+                            $user->getFirstName(), 
+                            $user->getLastName()
+                ) .
+                '<p>Veuillez cliquer sur le lien suivant pour activer votre compte svp =></p>' .
+                '<p>' . $activationButton . '</p>' .
+                '<p>Ce lien restera valide pour une durée de 48H à compter de la réception de ce message, une fois ce délai expiré il vous sera nécessaire de vous inscrire à nouveau.</p>'
+            );
 
         $mailer->send($email);
 
