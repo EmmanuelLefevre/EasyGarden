@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\DataPersister\UserDataPersister;
 use App\Entity\User;
-use App\Service\AccountCreationEmailService;
+use App\Service\EmailSenderWithRetries;
 use App\Utility\TokenGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -17,15 +17,15 @@ class AccountCreationController extends AbstractController
 {
     private $userDataPersister;
     private $userPasswordHasher;
-    private $emailService;
+    private $emailSender;
 
     public function __construct(UserDataPersister $userDataPersister, 
                                 UserPasswordHasherInterface $userPasswordHasher, 
-                                AccountCreationEmailService $emailService)
+                                EmailSenderWithRetries $emailSender)
     {
         $this->userDataPersister = $userDataPersister;
         $this->userPasswordHasher = $userPasswordHasher;
-        $this->emailService = $emailService;
+        $this->emailSender = $emailSender;
     }
 
     /**
@@ -58,11 +58,11 @@ class AccountCreationController extends AbstractController
         $activationToken = TokenGenerator::generateToken();
         $user->setActivationToken($activationToken);
 
-        // Send the account creation confirmation email with token activation link
-        // $this->emailService->sendActivationEmail($user, $user->getEmail(), $activationToken);
-        try {
-            $this->emailService->sendActivationEmail($user, $user->getEmail(), $activationToken);
-        } catch (\Exception $e) {
+        // Attempt to send the email with retries
+        $emailSent = $this->emailSender->sendActivationEmailWithRetries($user, $activationToken);
+
+        if (!$emailSent) {
+            // If all attempts fail, return an error response
             return new JsonResponse(['message' => 'Failed to send email'], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
         
