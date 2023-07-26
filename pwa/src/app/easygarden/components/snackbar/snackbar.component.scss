@@ -70,4 +70,7 @@ snack-bar-container.account-not-verified {
   position: relative;
   overflow: hidden;
   white-space: pre-line;
+  &::before {
+    background-color: var(--ang-color-alert);
+  }
 }
