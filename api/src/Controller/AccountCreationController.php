@@ -94,8 +94,8 @@ class AccountCreationController extends AbstractController
 
         // Activate the user's account
         $user->setIsVerified(true);
+        $user->setUpdatedAt(new \DateTime());
         // Persist account validation
-        // $this->userDataPersister->persist($user);
         $this->entityManager->merge($user);
         $this->entityManager->flush();
 
