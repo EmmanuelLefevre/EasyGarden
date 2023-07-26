@@ -123,13 +123,12 @@ export class RegisterComponent {
         }
       },
       (errorResponse) => {
-        if (errorResponse.error['hydra:description']) {
-          const errorDescription = errorResponse.error['hydra:description'];
-          const errorMessage = this.registerService.extractExistingEmailErrorMessage(errorDescription);
-          this.errorMessage = errorMessage;
-          this.existingEmail = errorMessage !== '';
-        }
+        if (errorResponse.error && errorResponse.error.message === "Email already exists" && errorResponse.status === 409) {
+          this.existingEmail = true;
+          this.errorMessage = "Un utilisateur possédant cet email est déjà enregistré!";
+        } 
         else {
+          this.existingEmail = false;
           this.errorMessage = "Une erreur s'est produite lors de la création du compte!";
         }
       }
