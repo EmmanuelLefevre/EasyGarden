@@ -3,15 +3,16 @@
 namespace App\Controller;
 
 use App\DataPersister\UserDataPersister;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\User;
 use App\Service\AccountCreationEmailService;
 use App\Utility\TokenGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\RouterInterface;
 
 class AccountCreationController extends AbstractController
@@ -19,14 +20,15 @@ class AccountCreationController extends AbstractController
     private $userDataPersister;
     private $userPasswordHasher;
     private $emailService;
+    private $entityManager;
 
     public function __construct(UserDataPersister $userDataPersister, 
-                                UserPasswordHasherInterface $userPasswordHasher, 
-                                AccountCreationEmailService $emailService)
+                                AccountCreationEmailService $emailService,
+                                EntityManagerInterface $entityManager)
     {
         $this->userDataPersister = $userDataPersister;
-        $this->userPasswordHasher = $userPasswordHasher;
         $this->emailService = $emailService;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -35,6 +37,12 @@ class AccountCreationController extends AbstractController
     public function accountCreation(Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
+
+        // Check if a user with the provided email already exists
+        $existingUser = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $data['email']]);
+        if ($existingUser) {
+            return new JsonResponse(['message' => 'Email already exists'], Response::HTTP_CONFLICT);
+        }
 
         // Create new user with the received JSON
         $user = new User();
@@ -49,11 +57,6 @@ class AccountCreationController extends AbstractController
         $user->setRoles(['ROLE_USER']);
         $user->setCreatedAt(new \DateTimeImmutable());
         $user->setIsVerified(false);
-
-        // Hash the plain password before persisting the user
-        $hashedPassword = $this->userPasswordHasher->hashPassword($user, $user->getPlainPassword());
-        $user->setPassword($hashedPassword);
-        $user->eraseCredentials();
 
         // Generate and set the activation token for the user using the TokenGenerator class
         $activationToken = TokenGenerator::generateToken();
@@ -75,14 +78,15 @@ class AccountCreationController extends AbstractController
 
 
     /**
-     * @Route("/account_activation/{token}", name="account_activation", methods={"GET, POST"})
+     * @Route("/account_activation/{token}", name="account_activation", methods={"GET", "POST"})
      */
     public function activateAccount(string $token, 
                                     UserDataPersister $userDataPersister, 
-                                    RouterInterface $router): JsonResponse
+                                    RouterInterface $router): RedirectResponse
     {
         // Find the user with the given activation token
-        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['activationToken' => $token]);
+        $userRepository = $this->entityManager->getRepository(User::class);
+        $user = $userRepository->findOneBy(['activationToken' => $token]);
 
         if (!$user) {
             return new JsonResponse(['message' => 'Invalid activation token'], Response::HTTP_BAD_REQUEST);
@@ -91,13 +95,13 @@ class AccountCreationController extends AbstractController
         // Activate the user's account
         $user->setIsVerified(true);
         // Persist account validation
-        $this->userDataPersister->persist($user);
+        // $this->userDataPersister->persist($user);
+        $this->entityManager->merge($user);
+        $this->entityManager->flush();
 
-        // Redirect the user to the Angular login page
-        $loginUrl = $router->generate('http://localhost:4200/login');
-        return $this->redirect($loginUrl);
-
-        // return new JsonResponse(['status' => 200], Response::HTTP_OK);
+        // Redirect the user to the Angular verified account page (external URL)
+        $loginUrl = 'http://localhost:4200/verified-account';
+        return new RedirectResponse($loginUrl);
     }
 
 }
