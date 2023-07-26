@@ -41,8 +41,10 @@ security:
         - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/account_creation, roles: PUBLIC_ACCESS,
             methods: [POST] }
+        - { path: ^/api/check_account_validation, roles: PUBLIC_ACCESS,
+            methods: [GET] }
         - { path: ^/api/users, roles: IS_AUTHENTICATED_FULLY,
-            methods: [GET, PUT, PATCH, DELETE] }
+            methods: [POST, GET, PUT, PATCH, DELETE] }
         - { path: ^/api/gardens, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/api/lawnmowers, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/api/lightnings, roles: IS_AUTHENTICATED_FULLY }

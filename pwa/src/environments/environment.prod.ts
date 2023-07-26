@@ -4,6 +4,9 @@ export const environment = {
     login: {
       url: 'http://localhost:8000/api/login_check'
     },
+    checkAccountActivation: {
+      url: 'http://localhost:8000/api/check_account_validation'
+    },
     register: {
       url: 'http://localhost:8000/api/account_creation'
     },

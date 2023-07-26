@@ -11,7 +11,7 @@ export class SnackbarService {
 
   constructor(private snackbar: MatSnackBar) { }
 
-  showNotification(displayMessage: string, messageType: 'created' | 'modified' | 'deleted' | 'logIn-logOut' | 'register') {
+  showNotification(displayMessage: string, messageType: 'created' | 'modified' | 'deleted' | 'logIn-logOut' | 'register' | 'account-not-verified') {
     if (messageType === 'logIn-logOut') {
       this.snackbar.openFromComponent(SnackbarComponent, {
         data: {
@@ -22,7 +22,7 @@ export class SnackbarService {
         verticalPosition: 'top',
         horizontalPosition: 'end'
       });
-    } else if (messageType === 'register') {
+    } else if (messageType === 'register' || messageType === 'account-not-verified') {
       this.snackbar.openFromComponent(SnackbarComponent, {
         data: {
           message: displayMessage

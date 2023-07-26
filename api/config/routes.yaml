@@ -14,3 +14,8 @@ account_creation:
     path: /api/account_creation
     methods: ['POST']
     controller: App\Controller\AccountCreationController::accountCreation
+
+verify_account_validation:
+    path: /api/check_account_validation/
+    methods: ['GET']
+    controller: App\Controller\CheckAccountActivationController::checkAccountValidation

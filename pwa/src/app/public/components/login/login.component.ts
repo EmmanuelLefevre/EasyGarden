@@ -69,23 +69,36 @@ export class LoginComponent {
     }
     
     const typedLoginForm: ICredentials = this.loginForm.value;
-    this.authService.logIn(typedLoginForm).subscribe(
-      data => {
-        this.tokenService.saveToken(data.token)
-        this.router.navigate(['easygarden'])
-        this.snackbarService.showNotification(`Bonjour ${this.decodedTokenService.firstNameDecoded()} 
-                                              ${this.decodedTokenService.lastNameDecoded()}.`, 'logIn-logOut')
+    const email = this.loginForm.value.email;
+
+    this.authService.isAccountVerified(email).subscribe(
+      (isVerified) => {
+        if (isVerified) {
+          this.authService.logIn(typedLoginForm).subscribe(
+            data => {
+              this.tokenService.saveToken(data.token);
+              this.router.navigate(['easygarden']);
+              this.snackbarService.showNotification(`Bonjour ${this.decodedTokenService.firstNameDecoded()} 
+                                              ${this.decodedTokenService.lastNameDecoded()}.`, 'logIn-logOut');
+            },
+            error => {
+              if (error.status === 401) {
+                this.errorMessage = "Identifiants incorrects!";
+                this.invalidCredentials = true;
+              }
+              else {
+                this.errorMessage = "Une erreur s'est produite lors de la connexion!";
+              }
+            }
+          );
+        } else {
+          this.snackbarService.showNotification(`Votre compte n'a pas encore été activé grâce au lien dans l'email qui vous a été envoyé!`, 'account-not-verified');
+        }
       },
-      error => {
-        if (error.status === 401) {
-          this.errorMessage = "Identifiants incorrects!";
-          this.invalidCredentials = true;
-        }
-        else {
-          this.errorMessage = "Une erreur s'est produite lors de la connexion!";
-        }
+      _error => {
+        this.snackbarService.showNotification(`Une erreur s'est produite lors de la vérification du compte!`, 'account-not-verified');
       }
-    )
+    );
   }
 
   onReset(formDirective: any): void {
