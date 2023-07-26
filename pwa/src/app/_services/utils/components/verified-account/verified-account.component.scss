@@ -1,29 +1,35 @@
-.div-account-verified{
+main.div-account-verified{
   display: flex;
   align-items: center;
   flex-direction: column; 
   justify-content: center;
   width: 100%;
   height: 90vh;
-  padding: 4vh 4vh;
+  padding: 2vh 4vh;
+  h1 {
+    font-weight: 900;
+    font-size: 25px;
+    color: var(--ang-color-green);
+    margin-bottom: 3vh;
+    text-align: center;
+  }
   .img-account-verified {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: url("../../../../../assets/img/KuangSi.jpg") no-repeat;
-    width: 75vh;
-    height: 35vh;
-    margin-bottom: 4vh;
-    span {
-      font-family: "Charlotte Southern";
-      -webkit-text-stroke: 1px var(--color-border);
-      font-weight: 900;
-      font-size: 6rem;
-      color: var(--ang-color-green);
+    width: 75vw;
+    height: 50vh;
+    margin-bottom: 3vh;
+    border: 2px solid var(--ang-color-border-button);
+    border-radius: 15px;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 15px;
     }
   }
   .div-timer {
-    margin: 3vh 0;
     text-align: center;
     p {
       padding: 0.5vh 0;
@@ -31,6 +37,13 @@
     p > span.color {
       color: var(--ang-color-green);
       font-size: 2vh;
+      font-weight: 700;
+      a {
+        text-decoration: none;
+        &:visited {
+          color: var(--ang-color-green);
+        }
+      }
     }
   }
 }
