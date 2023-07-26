@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 
@@ -14,13 +15,19 @@ export class CloseFormButtonComponent implements OnInit {
 
   faCircleXmark = faCircleXmark;
 
-  constructor(private location: Location) { }
+  constructor(private location: Location,
+              private router: Router) { }
 
-  ngOnInit() {}
+  ngOnInit(): void {}
 
   // Close component
   goBack(): void {
-    this.location.back();
+    const currentUrl: string = this.router.url;
+    if (currentUrl === '/login') {
+      this.router.navigate(['/']);
+    } else {
+      this.location.back();
+    }
   }
 
 }
