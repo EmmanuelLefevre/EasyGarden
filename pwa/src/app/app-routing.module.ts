@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { AuthGuard } from './_services/guard/auth.guard';
 
 import { Error404Component } from './_services/utils/components/error/error404.component';
+import { VerifiedAccountComponent } from './_services/utils/components/verified-account/verified-account.component';
 
 const name = environment.application.name;
 
@@ -19,7 +20,12 @@ const routes: Routes = [
   },
   { path: '404', component: Error404Component,
     data: {
-      ogTitle: `Page d'erreur de l\'application ${name}`
+      ogTitle: `Page d'erreur 404 de l\'application ${name}`
+    }, 
+  },
+  { path: 'verified-account', component: VerifiedAccountComponent,
+    data: {
+      ogTitle: `Page de confirmation de validation de compte utilisateur de l\'application ${name}`
     }, 
   },
   { path: '**', component: Error404Component }
