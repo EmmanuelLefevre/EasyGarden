@@ -80,8 +80,8 @@ export class LawnmowerComponent implements OnInit {
   fetchLawnmowers(): void {
     this.lawnmowerService.getAllLawnmowers().subscribe((res: any) => {
       if (res.hasOwnProperty('hydra:member')) {
-        this.filterByGarden();
         this.lawnmowers = res['hydra:member'];
+        this.filterByGarden();
       }
     });
   }
