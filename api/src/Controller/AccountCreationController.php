@@ -75,7 +75,7 @@ class AccountCreationController extends AbstractController
 
 
     /**
-     * @Route("/account_activation/{token}", name="account_activation", methods={"GET"})
+     * @Route("/account_activation/{token}", name="account_activation", methods={"GET, POST"})
      */
     public function activateAccount(string $token, 
                                     UserDataPersister $userDataPersister, 

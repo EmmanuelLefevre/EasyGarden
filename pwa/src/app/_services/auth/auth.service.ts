@@ -18,5 +18,9 @@ export class AuthService {
   logIn(credentials: ICredentials): Observable<IToken>{
     return this.httpClient.post<IToken>(environment.apis.login.url, credentials)
   }
+
+  isAccountVerified(email: string): Observable<boolean> {
+    return this.httpClient.get<boolean>(environment.apis.checkAccountActivation.url, {params:{email}});
+  }
   
 }
