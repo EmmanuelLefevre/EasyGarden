@@ -65,12 +65,12 @@ snack-bar-container.account-not-verified {
   text-align: center;
   margin: 5vh 2vh !important;
   color: var(--ang-color-white);
-  border: 2px solid var(--ang-color-alert2);
-  background-color: var(--ang-color-alert);
+  border: 2px solid var(--ang-color-alert);
+  background-color: var(--ang-color-alert2);
   position: relative;
   overflow: hidden;
   white-space: pre-line;
   &::before {
-    background-color: var(--ang-color-alert);
+    background-color: var(--ang-color-alert2);
   }
 }
