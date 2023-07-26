@@ -41,6 +41,8 @@ security:
         - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/account_creation, roles: PUBLIC_ACCESS,
             methods: [POST] }
+        - { path: ^/api/account_activation, roles: PUBLIC_ACCESS,
+            methods: [GET, POST] }
         - { path: ^/api/check_account_validation, roles: PUBLIC_ACCESS,
             methods: [GET] }
         - { path: ^/api/users, roles: IS_AUTHENTICATED_FULLY,
