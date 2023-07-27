@@ -21,7 +21,6 @@ class UserIpAddressDetector
             $userIpAddress = '127.0.0.1';
         }
 
-        var_dump($userIpAddress);
         return $userIpAddress;
     }
 }
