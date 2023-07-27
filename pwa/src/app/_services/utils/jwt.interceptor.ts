@@ -28,7 +28,7 @@ export class JwtInterceptor implements HttpInterceptor {
 
       // Check the token expiration
       if (this.tokenService.isTokenExpired(token)) {
-        // The token has expired so we delete it, we disconnect the user and we redirect to the login page
+        // Token has expired so we display notification, we delete it and we redirect to the login page
         this.snackbarService.showNotification(`Votre session a expiré 
           ${this.decodedTokenService.firstNameDecoded()} ${this.decodedTokenService.lastNameDecoded()}, 
           veuillez vous reconnecter!`, 'account-not-verified');
@@ -46,14 +46,13 @@ export class JwtInterceptor implements HttpInterceptor {
       return next.handle(clone).pipe(
         catchError(error => {
           if (error.status === 401){
-            this.snackbarService.showNotification(`Votre session a expiré 
-              ${this.decodedTokenService.firstNameDecoded()} ${this.decodedTokenService.lastNameDecoded()}, 
-              veuillez vous reconnecter!`, 'account-not-verified');
-            this.tokenService.clearToken();
-            this.router.navigate(['/login']);
+            // Display notification that this part of application is unauthorized
+            this.snackbarService.showNotification(`Vous n'êtes pas autorisé à accéder à cette partie de l'application 
+              ${this.decodedTokenService.firstNameDecoded()} ${this.decodedTokenService.lastNameDecoded()}`, 
+              'account-not-verified');
           }
 
-          return throwError(() => new Error('Session Expired.'));
+          return throwError(() => new Error('Unauthorized part of the application.'));
         })
       )
     }
