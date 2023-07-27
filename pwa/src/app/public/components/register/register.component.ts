@@ -1,7 +1,8 @@
-import { Component, ViewEncapsulation} from '@angular/core';
+import { Component, OnDestroy, ViewEncapsulation} from '@angular/core';
 // Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip-social in style.scss
 import { Router } from '@angular/router';
 import { AbstractControl, UntypedFormBuilder, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { environment } from '../../../../environments/environment';
 
@@ -17,11 +18,14 @@ import { IUser } from '../../../_interfaces/IUser';
   encapsulation: ViewEncapsulation.None
 })
 
-export class RegisterComponent {
+export class RegisterComponent implements OnDestroy {
 
   faEye = faEye;
   faEyeSlash = faEyeSlash;
   name = environment.application.name;
+
+  // Declaration of subscriptions
+  private registerSubscription!: Subscription;
 
   // Check if email exist
   existingEmail: boolean = false;
@@ -112,7 +116,7 @@ export class RegisterComponent {
 
     const formValue: IUser = this.registerForm.getRawValue();
     delete formValue.confirmPassword;
-    this.registerService.registerIn(formValue).subscribe(
+    this.registerSubscription = this.registerService.registerIn(formValue).subscribe(
       (response: any) => { 
         if (response && response.status === 201) { 
           const firstName = formValue.firstName;
@@ -138,6 +142,10 @@ export class RegisterComponent {
   onReset(formDirective: any): void {
     this.registerForm.reset();
     formDirective.resetForm();
+  }
+
+  ngOnDestroy(): void {
+    this.registerSubscription.unsubscribe();
   }
 
 }
