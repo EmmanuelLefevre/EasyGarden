@@ -9,7 +9,7 @@ class UserTimeZoneAndDateTimeDetector
 {
     public static function userTimeZoneAndDateTimeDetector(): string
     {
-        // Récupérer l'adresse IP de l'utilisateur
+        // Get user's IP adress
         $userIpAddress = UserIpAddressDetector::getUserIpAddress();
 
         $apiKey = $_ENV['TIMEZONE_API_KEY'];
