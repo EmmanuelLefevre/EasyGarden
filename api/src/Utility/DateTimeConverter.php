@@ -12,8 +12,8 @@ class DateTimeConverter
         $userData = self::extractUserTimeZoneAndDateTimeZone();
 
         // Convert the date_time string to DateTimeImmutable object using the user's time zone
-        $dateTime = \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $userData['userDateTimeZone']);
-        $dateTime = $dateTime->setTimezone(new \DateTimeZone($userData['userTimeZone']));
+        $dateTimeImmutable = \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $userData['userDateTimeZone']);
+        $dateTimeImmutable = $dateTimeImmutable->setTimezone(new \DateTimeZone($userData['userTimeZone']));
 
         return $dateTimeImmutable;
     }
@@ -33,7 +33,7 @@ class DateTimeConverter
     private static function getUserData(): array
     {
         // Get user's TimeZone and DateTimeZone data from UserTimeZoneAndDateTimeDetector class
-        return UserTimeZoneAndDateTimeDetector::getUserTimeZoneAndDateTimeZone();
+        return UserTimeZoneAndDateTimeDetector::userTimeZoneAndDateTimeDetector();
     }
 
     private static function extractUserTimeZoneAndDateTimeZone(): array
