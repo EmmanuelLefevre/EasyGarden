@@ -18,8 +18,12 @@ class UserTimeZoneAndDateTimeDetector
         $client = HttpClient::create();
         $response = $client->request('GET', $endpoint);
         $data = $response->toArray();
-        $userTimeZone = $data['timezone'];
-        $userDateTimeZone = $data['date_time'];
+
+        // Fallback for userTimeZone
+        $userTimeZone = $data['timezone'] ?? 'UTC';
+
+        // Fallback for userDateTimezone
+        $userDateTimeZone = $data['date_time'] ?? date('Y-m-d H:i:s');
 
         return [
             'userTimeZone' => $userTimeZone,
