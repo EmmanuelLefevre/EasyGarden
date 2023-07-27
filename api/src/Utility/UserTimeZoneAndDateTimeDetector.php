@@ -18,12 +18,12 @@ class UserTimeZoneAndDateTimeDetector
         $client = HttpClient::create();
         $response = $client->request('GET', $endpoint);
         $data = $response->toArray();
-        $userTimezone = $data['timezone'];
-        $userDateTimezone = $data['date_time'];
+        $userTimeZone = $data['timezone'];
+        $userDateTimeZone = $data['date_time'];
 
         return [
-            'userTimezone' => $userTimezone,
-            'userDateTimezone' => $userDateTimezone,
+            'userTimeZone' => $userTimeZone,
+            'userDateTimeZone' => $userDateTimeZone,
         ];
     }
 }
