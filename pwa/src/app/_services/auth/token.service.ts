@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
+import jwt_decode from "jwt-decode";
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -11,21 +14,38 @@ export class TokenService {
   constructor(private router: Router) { }
 
   getToken(): string | null{
-    return localStorage.getItem('token')
+    return localStorage.getItem('token');
   }
 
   saveToken(token: string): void{
-    localStorage.setItem('token', token)
+    localStorage.setItem('token', token);
   }
 
   isLogged(): boolean{
-    const token = localStorage.getItem('token')
-    return !! token
+    const token = localStorage.getItem('token');
+    return !! token;
   }
 
   clearToken(): void{
-    localStorage.removeItem('token')
-    this.router.navigate(['/'])
+    localStorage.removeItem('token');
+    this.router.navigate(['/']);
+  }
+
+  isTokenExpired(token: string): boolean{
+    try {
+      const decodedToken: any = jwt_decode(token);
+      
+      // Convert the expiration date to milliseconds
+      const expirationDate = new Date(decodedToken.exp * 1000);
+  
+      // Check if the expiration date is in the past
+      return expirationDate.getTime() <= Date.now();
+
+    }
+    // In the event of an error during decoding, the token is considered expired as a precaution.
+    catch (error) {
+      return true;
+    }
   }
 
 }
