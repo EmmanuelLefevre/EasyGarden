@@ -7,7 +7,7 @@ use Symfony\Component\HttpClient\HttpClient;
 
 class UserTimeZoneAndDateTimeDetector
 {
-    public static function userTimeZoneAndDateTimeDetector(): string
+    public static function userTimeZoneAndDateTimeDetector(): array
     {
         // Get user's IP adress
         $userIpAddress = UserIpAddressDetector::getUserIpAddress();
