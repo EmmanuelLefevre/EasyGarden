@@ -57,6 +57,10 @@ composer require symfony/mailer
 ```
 composer require --dev symfony/google-mailer
 ```
+14. &nbsp;&nbsp;*/EasyGardenCDA/api*
+```
+composer require symfony/http-client
+```
 
 # LANCER SERVEUR
 1. Lancer serveur en local
