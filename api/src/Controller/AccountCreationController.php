@@ -7,7 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\User;
 use App\Service\AccountCreationEmailService;
 use App\Utility\TokenGenerator;
-use App\Utility\UserTimezoneDetector;
+use App\Utility\UserTimeZoneAndDateTimeDetector;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -58,10 +58,10 @@ class AccountCreationController extends AbstractController
         $user->setRoles(['ROLE_USER']);
         $user->setIsVerified(false);
 
-        // Use the UserTimezoneDetector class
-        $userTimezone = UserTimezoneDetector::detectUserTimezone();
+        // Use the UserTimeZoneAndDateTimeDetector class
+        $userTimeZone = UserTimeZoneAndDateTimeDetector::userTimeZoneAndDateTimeDetector();
         // Set the createdAt property with the user's timezone
-        $createdAt = new \DateTimeImmutable('now', new \DateTimeZone($userTimezone));
+        $createdAt = new \DateTimeImmutable('now', new \DateTimeZone($userTimeZone));
         $user->setCreatedAt($createdAt);
 
         // Generate and set the activation token for the user using the TokenGenerator class
@@ -101,10 +101,10 @@ class AccountCreationController extends AbstractController
         // Activate the user's account
         $user->setIsVerified(true);
 
-        // Use the UserTimezoneDetector class
-        $userTimezone = UserTimezoneDetector::detectUserTimezone();
+        // Use the UserTimeZoneAndDateTimeDetector class
+        $userTimeZone = UserTimeZoneAndDateTimeDetector::userTimeZoneAndDateTimeDetector();
         // Set the updatedAt property with the user's timezone
-        $updatedAt = new \DateTime('now', new \DateTimeZone($userTimezone));
+        $updatedAt = new \DateTime('now', new \DateTimeZone($userTimeZone));
         $user->setUpdatedAt($updatedAt);
 
         // Persist account validation
