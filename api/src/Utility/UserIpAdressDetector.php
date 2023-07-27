@@ -8,7 +8,7 @@ class UserIpAddressDetector
 {
     public static function getUserIpAddress(): string
     {
-        $apiKey = $_ENV['IPIFY_API_KEY'];
+        $apiKey = $_ENV['IP_API_KEY'];
         $endpoint = "https://api.ipify.org?format=json";
 
         try {
@@ -21,6 +21,7 @@ class UserIpAddressDetector
             $userIpAddress = '127.0.0.1';
         }
 
+        var_dump($userIpAddress);
         return $userIpAddress;
     }
 }
