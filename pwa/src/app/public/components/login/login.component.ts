@@ -1,7 +1,8 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, ViewEncapsulation } from '@angular/core';
 // Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip in style.scss
 import { Router } from '@angular/router';
 import { AbstractControl, UntypedFormBuilder, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { environment } from '../../../../environments/environment';
 
@@ -21,11 +22,15 @@ import { ICredentials } from '../../../_interfaces/ICredentials';
   encapsulation: ViewEncapsulation.None
 })
 
-export class LoginComponent {
+export class LoginComponent implements OnDestroy {
 
   faEye = faEye;
   faEyeSlash = faEyeSlash;
   name = environment.application.name;
+
+  // Declaration of subscriptions
+  private loginSubscription!: Subscription;
+  private accountVerificationSubscription!: Subscription;
 
   // Invalid credentials
   invalidCredentials: boolean = false;
@@ -70,11 +75,11 @@ export class LoginComponent {
     
     const typedLoginForm: ICredentials = this.loginForm.value;
 
-    this.authService.logIn(typedLoginForm).subscribe(
+    this.loginSubscription = this.authService.logIn(typedLoginForm).subscribe(
       data => {
         this.tokenService.saveToken(data.token);
         const email = this.loginForm.value.email;
-        this.authService.isAccountVerified(email).subscribe(
+        this.accountVerificationSubscription = this.authService.isAccountVerified(email).subscribe(
           (isVerified) => {
             if (isVerified) {
               this.router.navigate(['easygarden']);
@@ -104,6 +109,11 @@ export class LoginComponent {
   onReset(formDirective: any): void {
     this.loginForm.reset();
     formDirective.resetForm();
+  }
+
+  ngOnDestroy(): void {
+    this.loginSubscription.unsubscribe();
+    this.accountVerificationSubscription.unsubscribe();
   }
 
 }
