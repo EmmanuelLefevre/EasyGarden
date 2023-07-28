@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 // Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip-social in style.scss
 import { faPowerOff, faPen, faTrash, faSort, faSearch, faSeedling, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 import { MatDialog } from '@angular/material/dialog';
@@ -20,7 +21,7 @@ import { IName } from '../../_interfaces/IName';
   encapsulation: ViewEncapsulation.None,
 })
 
-export class LawnmowerComponent implements OnInit {
+export class LawnmowerComponent implements OnInit, OnDestroy {
 
   faPowerOff = faPowerOff;
   faPen = faPen;
@@ -32,6 +33,13 @@ export class LawnmowerComponent implements OnInit {
 
   name = environment.application.name;
   title = 'Tableau tondeuse';
+
+  // Declaration of subscriptions
+  private getAllGardensSubscription!: Subscription;
+  private getAllLawnmowersSubscription!: Subscription;
+  private updateStatusSubscription!: Subscription;
+  private dialogRefSubscription!: Subscription;
+  private deleteLawnmowerSubscription!: Subscription;
 
   // Confirm Dialog this.result = boolean
   result: boolean | undefined;
@@ -67,23 +75,33 @@ export class LawnmowerComponent implements OnInit {
     this.fetchGardens();
   }
 
+  ngOnDestroy(): void {
+    this.getAllGardensSubscription.unsubscribe();
+    this.getAllLawnmowersSubscription.unsubscribe();
+    this.deleteLawnmowerSubscription.unsubscribe();
+    this.updateStatusSubscription.unsubscribe();
+    this.dialogRefSubscription.unsubscribe();
+  }
+
   // Recover Gardens
   fetchGardens(): void {
-    this.gardenService.getAllGardens().subscribe((res: any) => {
-      if (res.hasOwnProperty('hydra:member')) {
-        this.gardens = res['hydra:member'];
-      }
-    });
+    this.getAllGardensSubscription = this.gardenService.getAllGardens()
+      .subscribe((res: any) => {
+        if (res.hasOwnProperty('hydra:member')) {
+          this.gardens = res['hydra:member'];
+        }
+      });
   }
 
   // Display Lawnmowers
   fetchLawnmowers(): void {
-    this.lawnmowerService.getAllLawnmowers().subscribe((res: any) => {
-      if (res.hasOwnProperty('hydra:member')) {
-        this.lawnmowers = res['hydra:member'];
-        this.filterByGarden();
-      }
-    });
+    this.getAllLawnmowersSubscription = this.lawnmowerService.getAllLawnmowers()
+      .subscribe((res: any) => {
+        if (res.hasOwnProperty('hydra:member')) {
+          this.lawnmowers = res['hydra:member'];
+          this.filterByGarden();
+        }
+      });
   }
 
   // Filter by garden
@@ -101,10 +119,11 @@ export class LawnmowerComponent implements OnInit {
   // Update Status
   updateStatus(id: number, status: boolean): void {
     status = !status;
-    this.lawnmowerService.updateStatus(status, id).subscribe((res: any) => {
-      this.status = res;
-      this.fetchLawnmowers();
-    });
+    this.updateStatusSubscription = this.lawnmowerService.updateStatus(status, id)
+      .subscribe((res: any) => {
+        this.status = res;
+        this.fetchLawnmowers();
+      });
   }
 
   // Delete Lawnmower
@@ -121,14 +140,16 @@ export class LawnmowerComponent implements OnInit {
       data: dialogData,
     });
 
-    dialogRef.afterClosed().subscribe((dialogResult) => {
-      this.result = dialogResult;
-      if (this.result === true) {
-        this.lawnmowerService.deleteLawnmower(id).subscribe(() => {
-          this.fetchLawnmowers();
-        });
-      }
-    });
+    this.dialogRefSubscription = dialogRef.afterClosed()
+      .subscribe((dialogResult) => {
+        this.result = dialogResult;
+        if (this.result === true) {
+          this.deleteLawnmowerSubscription = this.lawnmowerService.deleteLawnmower(id)
+            .subscribe(() => {
+              this.fetchLawnmowers();
+            });
+        }
+      });
   }
 
   resetPagination(): void {

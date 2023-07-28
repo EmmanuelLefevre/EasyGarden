@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 // Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip-social in style.scss
 import { faPowerOff, faPen, faTrash, faSort, faSearch, faLightbulb, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 import { MatDialog } from '@angular/material/dialog';
@@ -20,7 +21,7 @@ import { IName } from '../../_interfaces/IName';
   encapsulation: ViewEncapsulation.None,
 })
 
-export class LightningComponent implements OnInit {
+export class LightningComponent implements OnInit, OnDestroy {
   faPowerOff = faPowerOff;
   faPen = faPen;
   faTrash = faTrash;
@@ -31,6 +32,13 @@ export class LightningComponent implements OnInit {
 
   name = environment.application.name;
   title = 'Tableau éclairage';
+
+  // Declaration of subscriptions
+  private getAllGardensSubscription!: Subscription;
+  private getAllLightningsSubscription!: Subscription;
+  private deleteLightningSubscription!: Subscription;
+  private updateStatusSubscription!: Subscription;
+  private dialogRefSubscription!: Subscription;
 
   // Confirm Dialog this.result = boolean
   result: boolean | undefined;
@@ -66,23 +74,33 @@ export class LightningComponent implements OnInit {
     this.fetchGardens();
   }
 
+  ngOnDestroy(): void {
+    this.getAllGardensSubscription.unsubscribe();
+    this.getAllLightningsSubscription.unsubscribe();
+    this.deleteLightningSubscription.unsubscribe();
+    this.updateStatusSubscription.unsubscribe();
+    this.dialogRefSubscription.unsubscribe();
+  }
+
   // Recover Gardens
   fetchGardens(): void {
-    this.gardenService.getAllGardens().subscribe((res: any) => {
-      if (res.hasOwnProperty('hydra:member')) {
-        this.gardens = res['hydra:member'];
-      }
-    });
+    this.getAllGardensSubscription = this.gardenService.getAllGardens()
+      .subscribe((res: any) => {
+        if (res.hasOwnProperty('hydra:member')) {
+          this.gardens = res['hydra:member'];
+        }
+      });
   }
 
   // Display Lightnings
   fetchLightnings(): void {
-    this.lightningService.getAllLightnings().subscribe((res: any) => {
-      if (res.hasOwnProperty('hydra:member')) {
-        this.lightnings = res['hydra:member'];
-        this.filterByGarden();        
-      }
-    });
+    this.getAllLightningsSubscription = this.lightningService.getAllLightnings()
+      .subscribe((res: any) => {
+        if (res.hasOwnProperty('hydra:member')) {
+          this.lightnings = res['hydra:member'];
+          this.filterByGarden();        
+        }
+      });
   }
 
   // Filter by garden
@@ -100,10 +118,11 @@ export class LightningComponent implements OnInit {
   // Update Status
   updateStatus(id: number, status: boolean): void {
     status = !status;
-    this.lightningService.updateStatus(status, id).subscribe((res: any) => {
-      this.status = res;
-      this.fetchLightnings();
-    });
+    this.updateStatusSubscription = this.lightningService.updateStatus(status, id)
+      .subscribe((res: any) => {
+        this.status = res;
+        this.fetchLightnings();
+      });
   }
 
   // Delete Lightning
@@ -120,14 +139,16 @@ export class LightningComponent implements OnInit {
       data: dialogData,
     });
 
-    dialogRef.afterClosed().subscribe((dialogResult) => {
-      this.result = dialogResult;
-      if (this.result === true) {
-        this.lightningService.deleteLightning(id).subscribe(() => {
-          this.fetchLightnings();
-        });
-      }
-    });
+    this.dialogRefSubscription = dialogRef.afterClosed()
+      .subscribe((dialogResult) => {
+        this.result = dialogResult;
+        if (this.result === true) {
+          this.deleteLightningSubscription = this.lightningService.deleteLightning(id)
+            .subscribe(() => {
+              this.fetchLightnings();
+            });
+        }
+      });
   }
 
   resetPagination(): void {

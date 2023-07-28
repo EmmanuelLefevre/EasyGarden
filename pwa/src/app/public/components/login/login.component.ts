@@ -63,6 +63,11 @@ export class LoginComponent implements OnDestroy {
               private snackbarService: SnackbarService,
               private decodedTokenService: DecodedTokenService) {}
 
+  ngOnDestroy(): void {
+    this.loginSubscription.unsubscribe();
+    this.accountVerificationSubscription.unsubscribe();
+  }
+
   get f(): { [key: string]: AbstractControl } {
     return this.loginForm.controls;
   }
@@ -75,45 +80,44 @@ export class LoginComponent implements OnDestroy {
     
     const typedLoginForm: ICredentials = this.loginForm.value;
 
-    this.loginSubscription = this.authService.logIn(typedLoginForm).subscribe(
-      data => {
-        this.tokenService.saveToken(data.token);
-        const email = this.loginForm.value.email;
-        this.accountVerificationSubscription = this.authService.isAccountVerified(email).subscribe(
-          (isVerified) => {
-            if (isVerified) {
-              this.router.navigate(['easygarden']);
-              this.snackbarService.showNotification(`Bonjour ${this.decodedTokenService.firstNameDecoded()} 
-                                          ${this.decodedTokenService.lastNameDecoded()}.`, 'logIn-logOut');
-            } else {
-              this.snackbarService.showNotification(`Votre compte n'a pas encore été activé grâce au lien dans l'email qui vous a été envoyé!`, 'account-not-verified');
-            }
-          },
-          _error => {
-            this.snackbarService.showNotification(`Une erreur s'est produite lors de la vérification du compte!`, 'account-not-verified');
+    this.loginSubscription = this.authService.logIn(typedLoginForm)
+      .subscribe(
+        data => {
+          this.tokenService.saveToken(data.token);
+          const email = this.loginForm.value.email;
+          this.accountVerificationSubscription = this.authService.isAccountVerified(email)
+            .subscribe(
+              (isVerified) => {
+                if (isVerified) {
+                  this.router.navigate(['easygarden']);
+                  this.snackbarService.showNotification(`Bonjour ${this.decodedTokenService.firstNameDecoded()} 
+                    ${this.decodedTokenService.lastNameDecoded()}.`, 'logIn-logOut');
+                } else {
+                  this.snackbarService.showNotification(`Votre compte n'a pas encore été activé grâce au 
+                    lien dans l'email qui vous a été envoyé!`, 'account-not-verified');
+                }
+              },
+              _error => {
+                this.snackbarService.showNotification(`Une erreur s'est produite lors de la vérification 
+                  du compte!`, 'account-not-verified');
+              }
+            );
+        },
+        error => {
+          if (error.status === 401) {
+            this.errorMessage = "Identifiants incorrects!";
+            this.invalidCredentials = true;
+          } 
+          else {
+            this.errorMessage = "Une erreur s'est produite lors de la connexion!";
           }
-        );
-      },
-      error => {
-        if (error.status === 401) {
-          this.errorMessage = "Identifiants incorrects!";
-          this.invalidCredentials = true;
-        } 
-        else {
-          this.errorMessage = "Une erreur s'est produite lors de la connexion!";
         }
-      }
-    );
+      );
   }
 
   onReset(formDirective: any): void {
     this.loginForm.reset();
     formDirective.resetForm();
-  }
-
-  ngOnDestroy(): void {
-    this.loginSubscription.unsubscribe();
-    this.accountVerificationSubscription.unsubscribe();
   }
 
 }

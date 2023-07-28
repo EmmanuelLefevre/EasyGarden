@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 // Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip-social in style.scss
 import { faPowerOff, faPen, faTrash, faSort, faSearch, faDroplet, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 import { MatDialog } from '@angular/material/dialog';
@@ -20,7 +21,7 @@ import { IName } from '../../_interfaces/IName';
   encapsulation: ViewEncapsulation.None
 })
 
-export class WateringComponent implements OnInit {
+export class WateringComponent implements OnInit, OnDestroy {
 
   faPowerOff = faPowerOff;
   faPen = faPen;
@@ -32,6 +33,13 @@ export class WateringComponent implements OnInit {
 
   name = environment.application.name;
   title = "Tableau arrosage";
+
+  // Declaration of subscriptions
+  private getAllGardensSubscription!: Subscription;
+  private getAllWateringsSubscription!: Subscription;
+  private deleteWateringSubscription!: Subscription;
+  private updateStatusSubscription!: Subscription;
+  private dialogRefSubscription!: Subscription;
 
   // Confirm Dialog this.result = boolean
   result: boolean | undefined;
@@ -66,24 +74,34 @@ export class WateringComponent implements OnInit {
     this.fetchWaterings();
     this.fetchGardens();
   }
+
+  ngOnDestroy(): void {
+    this.getAllGardensSubscription.unsubscribe();
+    this.getAllWateringsSubscription.unsubscribe();
+    this.deleteWateringSubscription.unsubscribe();
+    this.updateStatusSubscription.unsubscribe();
+    this.dialogRefSubscription.unsubscribe();
+  }
   
   // Recover Gardens
   fetchGardens(): void {
-    this.gardenService.getAllGardens().subscribe((res: any) => {
-      if (res.hasOwnProperty('hydra:member')) {
-        this.gardens = res['hydra:member'];
-      }
-    });
+    this.getAllGardensSubscription = this.gardenService.getAllGardens()
+      .subscribe((res: any) => {
+        if (res.hasOwnProperty('hydra:member')) {
+          this.gardens = res['hydra:member'];
+        }
+      });
   }
 
   // Display Waterings
   fetchWaterings(): void {
-    this.wateringService.getAllWaterings().subscribe((res:any) => {
-      if (res.hasOwnProperty('hydra:member')) {
-        this.waterings = res['hydra:member'];
-        this.filterByGarden();
-      }
-    });
+    this.getAllWateringsSubscription = this.wateringService.getAllWaterings()
+      .subscribe((res:any) => {
+        if (res.hasOwnProperty('hydra:member')) {
+          this.waterings = res['hydra:member'];
+          this.filterByGarden();
+        }
+      });
   }
 
   // Filter by garden
@@ -101,10 +119,11 @@ export class WateringComponent implements OnInit {
   // Update Status
   updateStatus(id: number, status: boolean): void {
     status = !status;
-    this.wateringService.updateStatus(status, id).subscribe((res: any) => {
-      this.status = res;
-      this.fetchWaterings();
-    });
+    this.updateStatusSubscription = this.wateringService.updateStatus(status, id)
+      .subscribe((res: any) => {
+        this.status = res;
+        this.fetchWaterings();
+      });
   }
 
   // Delete Watering
@@ -117,16 +136,18 @@ export class WateringComponent implements OnInit {
       data: dialogData
     })
     
-    dialogRef.afterClosed().subscribe(dialogResult => {
-      this.result = dialogResult;
-      if (this.result === true) {
-        this.wateringService.deleteWatering(id).subscribe(
-          () => {
-            this.fetchWaterings();
-          }
-        )
-      }   
-    })
+    this.dialogRefSubscription = dialogRef.afterClosed()
+      .subscribe(dialogResult => {
+        this.result = dialogResult;
+        if (this.result === true) {
+          this.deleteWateringSubscription = this.wateringService.deleteWatering(id)
+            .subscribe(
+              () => {
+                this.fetchWaterings();
+              }
+            )
+        }   
+      })
   }
 
   resetPagination(): void {
