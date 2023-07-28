@@ -4,11 +4,11 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 // Environment
 import { environment } from 'src/environments/environment';
-// Images
+// Icons
 import { faPen, faTrash, faSort, faSearch, faTree, faXmark } from '@fortawesome/free-solid-svg-icons';
 // Components
-import { MatDialog } from '@angular/material/dialog';
 import { IConfirmDialog, ConfirmDialogComponent } from 'src/app/easygarden/components/confirmDialog/confirm-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 // Services
 import { DecodedTokenService } from 'src/app/_services/miscellaneous/decoded-token.service';
 import { GardenService } from './garden.service';
@@ -58,12 +58,10 @@ export class GardenComponent implements OnInit, OnDestroy {
 
   gardens: IGarden[] = [];
 
-  constructor(
-    private gardenService: GardenService,
-    private dialog: MatDialog,
-    public router: Router,
-    private decodedTokenService: DecodedTokenService
-  ) {}
+  constructor(public router: Router,             
+              private decodedTokenService: DecodedTokenService,
+              private dialog: MatDialog,
+              private gardenService: GardenService) {}
 
   ngOnInit(): void {
     this.fetchGardens();
@@ -71,9 +69,9 @@ export class GardenComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.getAllGardensSubscription.unsubscribe();
-    if (this.deleteGardenSubscription && this.dialogRefSubscription) {
-      this.deleteGardenSubscription.unsubscribe();
+    if (this.dialogRefSubscription && this.deleteGardenSubscription) {
       this.dialogRefSubscription.unsubscribe();
+      this.deleteGardenSubscription.unsubscribe();
     }
   }
 
