@@ -3,17 +3,18 @@ import { Component, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { AbstractControl, UntypedFormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+// Environment
 import { environment } from 'src/environments/environment';
-
+// Services
 import { FormValidationService } from '../../../_services/miscellaneous/form-validation.service';
-import { SnackbarService } from 'src/app/_services/miscellaneous/snackbar.service';
 import { GardenService } from '../garden/garden.service';
 import { LawnmowerService } from '../../modules/lawnmower/lawnmower.service';
 import { LightningService } from '../../modules/lightning/lightning.service';
 import { PoolService } from '../../modules/pool/pool.service';
 import { PortalService } from '../../modules/portal/portal.service';
+import { SnackbarService } from 'src/app/_services/miscellaneous/snackbar.service';
 import { WateringService } from '../../modules/watering/watering.service';
-
+// Modeles
 import { IName } from '../../_interfaces/IName';
 
 
@@ -28,8 +29,8 @@ export class EditEntityNameComponent implements OnDestroy {
   name = environment.application.name;
 
   // Declaration of subscriptions
+  private getDataSubscription: Subscription = new Subscription();
   private updateDataSubscription!: Subscription;
-  private getDataSubscription!: Subscription;
 
   // EditWateringForm Group
   editName = this.formBuilder.group({
@@ -47,17 +48,17 @@ export class EditEntityNameComponent implements OnDestroy {
   value = '';
   IName!: IName;
 
-  constructor(private formBuilder: UntypedFormBuilder,
+  constructor(private activated: ActivatedRoute,
               private customValidator : FormValidationService,
-              private router: Router,
-              private activated: ActivatedRoute,            
+              private formBuilder: UntypedFormBuilder,
               private gardenService: GardenService,          
               private lawnmowerService: LawnmowerService,          
               private lightningService: LightningService,            
               private poolService: PoolService,            
               private portalService: PortalService,
-              private wateringService: WateringService,
-              private snackbarService: SnackbarService) {
+              private router: Router,
+              private snackbarService: SnackbarService,          
+              private wateringService: WateringService,) {
 
     const id = Number(this.activated.snapshot.paramMap.get('id'));
     // Get entire url
@@ -114,8 +115,10 @@ export class EditEntityNameComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.updateDataSubscription.unsubscribe();
     this.getDataSubscription.unsubscribe();
+    if (this.updateDataSubscription) {
+      this.updateDataSubscription.unsubscribe();
+    }
   }
 
   get f(): { [key: string]: AbstractControl } {
