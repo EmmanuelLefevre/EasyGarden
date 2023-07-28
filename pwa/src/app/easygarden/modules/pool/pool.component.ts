@@ -1,16 +1,18 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 // Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip-social in style.scss
-import { faPowerOff, faPen, faTrash, faSort, faSearch, faFish, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
+// Environment
 import { environment } from 'src/environments/environment';
-
-import { MatDialog } from '@angular/material/dialog';
+// Icons
+import { faPowerOff, faPen, faTrash, faSort, faSearch, faFish, faXmark } from '@fortawesome/free-solid-svg-icons';
+// Components
 import { IConfirmDialog, ConfirmDialogComponent } from 'src/app/easygarden/components/confirmDialog/confirm-dialog.component';
-
-import { PoolService } from './pool.service';
+import { MatDialog } from '@angular/material/dialog';
+// Services
 import { GardenService } from '../../components/garden/garden.service';
 import { GardenFilterService } from '../../_services/garden-filter.service';
-
+import { PoolService } from './pool.service';
+// Modeles
 import { IPool, IPoolFilter } from './IPool';
 import { IName } from '../../_interfaces/IName';
 
@@ -34,8 +36,8 @@ export class PoolComponent implements OnInit, OnDestroy {
   title = 'Tableau bassin';
 
   // Declaration of subscriptions
-  private getAllGardensSubscription!: Subscription;
-  private getAllPoolsSubscription!: Subscription;
+  private getAllGardensSubscription: Subscription = new Subscription;
+  private getAllPoolsSubscription: Subscription = new Subscription;
   private deletePoolSubscription!: Subscription;
   private updateStatusSubscription!: Subscription;
   private dialogRefSubscription!: Subscription;
@@ -64,31 +66,25 @@ export class PoolComponent implements OnInit, OnDestroy {
   pools: IPool[] = [];
   filteredPools: IPool[] = [];
 
-  constructor(private poolService: PoolService,
-              private gardenService: GardenService,
+  constructor(private dialog: MatDialog,
               private gardenFilterService: GardenFilterService,
-              private dialog: MatDialog) {}
+              private gardenService: GardenService,
+              private poolService: PoolService,) {}
 
   ngOnInit(): void {
-    this.fetchPools();
     this.fetchGardens();
+    this.fetchPools();
   }
 
   ngOnDestroy(): void {
-    if (this.getAllGardensSubscription) {
-      this.getAllGardensSubscription.unsubscribe();
-    }
-    if (this.getAllPoolsSubscription) {
-      this.getAllPoolsSubscription.unsubscribe();
-    }
-    if (this.deletePoolSubscription) {
-      this.deletePoolSubscription.unsubscribe();
-    }
+    this.getAllGardensSubscription.unsubscribe();
+    this.getAllPoolsSubscription.unsubscribe();
     if (this.updateStatusSubscription) {
       this.updateStatusSubscription.unsubscribe();
     }
-    if (this.dialogRefSubscription) {
+    if (this.dialogRefSubscription && this.deletePoolSubscription) {
       this.dialogRefSubscription.unsubscribe();
+      this.deletePoolSubscription.unsubscribe();
     }
   }
 
