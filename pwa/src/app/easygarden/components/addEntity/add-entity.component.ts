@@ -3,17 +3,18 @@ import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { AbstractControl, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+// Environment
 import { environment } from 'src/environments/environment';
-
+// Services
 import { FormValidationService } from '../../../_services/miscellaneous/form-validation.service';
-import { SnackbarService } from 'src/app/_services/miscellaneous/snackbar.service';
 import { GardenService } from '../garden/garden.service';
 import { LawnmowerService } from '../../modules/lawnmower/lawnmower.service';
 import { LightningService } from '../../modules/lightning/lightning.service';
 import { PoolService } from '../../modules/pool/pool.service';
 import { PortalService } from '../../modules/portal/portal.service';
+import { SnackbarService } from 'src/app/_services/miscellaneous/snackbar.service';
 import { WateringService } from '../../modules/watering/watering.service';
-
+// Modeles
 import { IAdd } from '../../_interfaces/IAdd';
 import { IGarden } from '../garden/IGarden';
 
@@ -30,7 +31,7 @@ export class AddEntityComponent implements OnInit, OnDestroy {
 
   // Declaration of subscriptions
   private addDataSubscription!: Subscription;
-  private getAllGardensSubscription!: Subscription;
+  private getAllGardensSubscription: Subscription = new Subscription;
 
   currentUrl!: string;
 
@@ -52,16 +53,16 @@ export class AddEntityComponent implements OnInit, OnDestroy {
   gardens: IGarden[] = [];
   IAdd!: IAdd;
 
-  constructor(private formBuilder: NonNullableFormBuilder,
-              private customValidator : FormValidationService,
-              private router: Router,            
+  constructor(private customValidator : FormValidationService,
+              private formBuilder: NonNullableFormBuilder,
               private gardenService: GardenService,          
               private lawnmowerService: LawnmowerService,          
               private lightningService: LightningService,            
               private poolService: PoolService,            
               private portalService: PortalService,
-              private wateringService: WateringService,
-              private snackbarService: SnackbarService) {
+              private router: Router,
+              private snackbarService: SnackbarService,          
+              private wateringService: WateringService,) {
 
     this.getAllGardensSubscription = this.gardenService.getAllGardens()
       .subscribe(
@@ -81,8 +82,10 @@ export class AddEntityComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.addDataSubscription.unsubscribe();
     this.getAllGardensSubscription.unsubscribe();
+    if (this.addDataSubscription) {
+      this.addDataSubscription.unsubscribe();
+    }
   }
 
   get f(): { [key: string]: AbstractControl } {
