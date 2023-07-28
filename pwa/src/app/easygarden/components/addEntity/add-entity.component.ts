@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 // Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip in style.scss
 import { AbstractControl, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 import { FormValidationService } from '../../../_services/miscellaneous/form-validation.service';
@@ -23,9 +24,13 @@ import { IGarden } from '../garden/IGarden';
   encapsulation: ViewEncapsulation.None
 })
 
-export class AddEntityComponent implements OnInit {
+export class AddEntityComponent implements OnInit, OnDestroy {
 
   name = environment.application.name;
+
+  // Declaration of subscriptions
+  private addDataSubscription!: Subscription;
+  private getAllGardensSubscription!: Subscription;
 
   currentUrl!: string;
 
@@ -56,21 +61,28 @@ export class AddEntityComponent implements OnInit {
               private poolService: PoolService,            
               private portalService: PortalService,
               private wateringService: WateringService,
-              private snackbarService: SnackbarService) { 
-    this.gardenService.getAllGardens().subscribe(
-      (res:any) => {
-        if (res.hasOwnProperty('hydra:member')) 
-        this.gardens = res['hydra:member'];
-        if (this.gardens.length < 2) {
-          this.addForm.controls.garden.setValue(this.gardens[0]);
+              private snackbarService: SnackbarService) {
+
+    this.getAllGardensSubscription = this.gardenService.getAllGardens()
+      .subscribe(
+        (res:any) => {
+          if (res.hasOwnProperty('hydra:member')) 
+          this.gardens = res['hydra:member'];
+          if (this.gardens.length < 2) {
+            this.addForm.controls.garden.setValue(this.gardens[0]);
+          }
         }
-      }
-    )
+      );
   }
 
   ngOnInit(): void {
     this.currentUrl = this.router.url;
     this.updateValidators();
+  }
+
+  ngOnDestroy(): void {
+    this.addDataSubscription.unsubscribe();
+    this.getAllGardensSubscription.unsubscribe();
   }
 
   get f(): { [key: string]: AbstractControl } {
@@ -109,32 +121,33 @@ export class AddEntityComponent implements OnInit {
     }
 
     if (service) {
-      service.addData(formValue).subscribe(() => {
-        const name = url.includes('/easygarden/garden/add') ? gardenCase : "L'équipement";
-        const gardenName = formValue.garden?.name;
-        let notificationMessage = `${name} "${formValue.name}" a bien été ajouté.`;
+      this.addDataSubscription = service.addData(formValue)
+        .subscribe(() => {
+          const name = url.includes('/easygarden/garden/add') ? gardenCase : "L'équipement";
+          const gardenName = formValue.garden?.name;
+          let notificationMessage = `${name} "${formValue.name}" a bien été ajouté.`;
 
-        const redirectUrl = service.getRedirectUrl();
-        if (gardenCase) {
-          if (redirectUrl === null) {
-            this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => { 
-              this.snackbarService.showNotification(notificationMessage, 'created');
-              this.router.navigate(['/easygarden']);
-            });
+          const redirectUrl = service.getRedirectUrl();
+          if (gardenCase) {
+            if (redirectUrl === null) {
+              this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => { 
+                this.snackbarService.showNotification(notificationMessage, 'created');
+                this.router.navigate(['/easygarden']);
+              });
+            }
+            else {
+              this.router.navigateByUrl(redirectUrl).then(() => {
+                this.snackbarService.showNotification(notificationMessage, 'created');
+              });
+            }
           }
           else {
-            this.router.navigateByUrl(redirectUrl).then(() => {
-              this.snackbarService.showNotification(notificationMessage, 'created');
-            });
+            if (gardenName && name !== gardenCase) {
+              notificationMessage = `${name} "${formValue.name}" a bien été ajouté au jardin "${gardenName}".`;
+            }
+            this.router.navigate([service.getRedirectUrl()]);
+            this.snackbarService.showNotification(notificationMessage, 'created');
           }
-        }
-        else {
-          if (gardenName && name !== gardenCase) {
-            notificationMessage = `${name} "${formValue.name}" a bien été ajouté au jardin "${gardenName}".`;
-          }
-          this.router.navigate([service.getRedirectUrl()]);
-          this.snackbarService.showNotification(notificationMessage, 'created');
-        }
       });
     }
   }
