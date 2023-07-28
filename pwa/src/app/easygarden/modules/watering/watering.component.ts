@@ -1,16 +1,18 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 // Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip-social in style.scss
-import { faPowerOff, faPen, faTrash, faSort, faSearch, faDroplet, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
+// Environment
 import { environment } from 'src/environments/environment';
-
-import { MatDialog } from '@angular/material/dialog';
+// Icons
+import { faPowerOff, faPen, faTrash, faSort, faSearch, faDroplet, faXmark } from '@fortawesome/free-solid-svg-icons';
+// Components
 import { IConfirmDialog, ConfirmDialogComponent } from 'src/app/easygarden/components/confirmDialog/confirm-dialog.component';
-
-import { WateringService } from './watering.service';
+import { MatDialog } from '@angular/material/dialog';
+// Services
 import { GardenService } from '../../components/garden/garden.service';
 import { GardenFilterService } from '../../_services/garden-filter.service';
-
+import { WateringService } from './watering.service';
+// Modeles
 import { IWatering, IWateringFilter } from './IWatering';
 import { IName } from '../../_interfaces/IName';
 
@@ -35,8 +37,8 @@ export class WateringComponent implements OnInit, OnDestroy {
   title = "Tableau arrosage";
 
   // Declaration of subscriptions
-  private getAllGardensSubscription!: Subscription;
-  private getAllWateringsSubscription!: Subscription;
+  private getAllGardensSubscription: Subscription = new Subscription;
+  private getAllWateringsSubscription: Subscription = new Subscription;
   private deleteWateringSubscription!: Subscription;
   private updateStatusSubscription!: Subscription;
   private dialogRefSubscription!: Subscription;
@@ -65,31 +67,25 @@ export class WateringComponent implements OnInit, OnDestroy {
   waterings: IWatering[] = [];
   filteredWaterings: IWatering[] = [];
 
-  constructor(private wateringService: WateringService,
-              private gardenService: GardenService,
+  constructor(private dialog: MatDialog,
               private gardenFilterService: GardenFilterService,
-              private dialog: MatDialog) {}
+              private gardenService: GardenService,
+              private wateringService: WateringService) {}
   
   ngOnInit(): void {
-    this.fetchWaterings();
     this.fetchGardens();
+    this.fetchWaterings();
   }
 
   ngOnDestroy(): void {
-    if (this.getAllGardensSubscription) {
-      this.getAllGardensSubscription.unsubscribe();
-    }
-    if (this.getAllWateringsSubscription) {
-      this.getAllWateringsSubscription.unsubscribe();
-    }
-    if (this.deleteWateringSubscription) {
-      this.deleteWateringSubscription.unsubscribe();
-    }
+    this.getAllGardensSubscription.unsubscribe();
+    this.getAllWateringsSubscription.unsubscribe();
     if (this.updateStatusSubscription) {
       this.updateStatusSubscription.unsubscribe();
     }
-    if (this.dialogRefSubscription) {
+    if (this.dialogRefSubscription && this.deleteWateringSubscription) {
       this.dialogRefSubscription.unsubscribe();
+      this.deleteWateringSubscription.unsubscribe();
     }
   }
   
