@@ -1,16 +1,18 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 // Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip-social in style.scss
-import { faPowerOff, faPen, faTrash, faSort, faSearch, faDoorOpen, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
+// Environment
 import { environment } from 'src/environments/environment';
-
-import { MatDialog } from '@angular/material/dialog';
+// Icons
+import { faPowerOff, faPen, faTrash, faSort, faSearch, faDoorOpen, faXmark } from '@fortawesome/free-solid-svg-icons';
+// Components
 import { IConfirmDialog, ConfirmDialogComponent } from 'src/app/easygarden/components/confirmDialog/confirm-dialog.component';
-
-import { PortalService } from './portal.service';
+import { MatDialog } from '@angular/material/dialog';
+// Services
 import { GardenService } from '../../components/garden/garden.service';
 import { GardenFilterService } from '../../_services/garden-filter.service';
-
+import { PortalService } from './portal.service';
+// Modeles
 import { IPortal, IPortalFilter } from './IPortal';
 import { IName } from '../../_interfaces/IName';
 
@@ -35,8 +37,8 @@ export class PortalComponent implements OnInit, OnDestroy {
   title = "Tableau portail";
 
   // Declaration of subscriptions
-  private getAllGardensSubscription!: Subscription;
-  private getAllPortalsSubscription!: Subscription;
+  private getAllGardensSubscription: Subscription = new Subscription;
+  private getAllPortalsSubscription: Subscription = new Subscription;
   private deletePortalSubscription!: Subscription;
   private updateStatusSubscription!: Subscription;
   private dialogRefSubscription!: Subscription;
@@ -65,31 +67,25 @@ export class PortalComponent implements OnInit, OnDestroy {
   portals: IPortal[] = [];
   filteredPortals: IPortal[] = [];
 
-  constructor(private portalService: PortalService,
-              private gardenService: GardenService,
+  constructor(private dialog: MatDialog,              
               private gardenFilterService: GardenFilterService,
-              private dialog: MatDialog) {}
+              private gardenService: GardenService,
+              private portalService: PortalService) {}
 
   ngOnInit(): void {
-    this.fetchPortals();
     this.fetchGardens();
+    this.fetchPortals();
   }
 
   ngOnDestroy(): void {
-    if (this.getAllGardensSubscription) {
-      this.getAllGardensSubscription.unsubscribe();
-    }
-    if (this.getAllPortalsSubscription) {
-      this.getAllPortalsSubscription.unsubscribe();
-    }
-    if (this.deletePortalSubscription) {
-      this.deletePortalSubscription.unsubscribe();
-    }
+    this.getAllGardensSubscription.unsubscribe();
+    this.getAllPortalsSubscription.unsubscribe();
     if (this.updateStatusSubscription) {
       this.updateStatusSubscription.unsubscribe();
     }
-    if (this.dialogRefSubscription) {
+    if (this.dialogRefSubscription && this.deletePortalSubscription) {
       this.dialogRefSubscription.unsubscribe();
+      this.deletePortalSubscription.unsubscribe();
     }
   }
 
