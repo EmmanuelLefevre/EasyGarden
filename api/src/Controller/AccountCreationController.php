@@ -103,6 +103,9 @@ class AccountCreationController extends AbstractController
         $updatedAt = DateTimeConverter::convertDateTimeStringToDate();
         $user->setUpdatedAt($updatedAt);
 
+        // Clear the activation token
+        $user->setActivationToken(null);
+
         // Persist account validation
         $this->entityManager->merge($user);
         $this->entityManager->flush();

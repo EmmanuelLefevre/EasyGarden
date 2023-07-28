@@ -345,7 +345,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->activationToken;
     }
 
-    public function setActivationToken(string $activationToken): self
+    public function setActivationToken(?string $activationToken): self
     {
         $this->activationToken = $activationToken;
 
