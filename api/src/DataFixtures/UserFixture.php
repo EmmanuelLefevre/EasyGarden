@@ -84,8 +84,18 @@ class UserFixture extends Fixture
             $user->setEmail($fN.".".$lN.'@'.emailData());
             $user->setPhoneNumber($faker->mobileNumber());
             $user->setCreatedAt(new \DateTimeImmutable());
-            $user->setIsVerified(mt_rand(0, 1));
-            $user->setActivationToken(generateToken());
+
+            // Determine if the user should be verified or not
+            $isVerified = mt_rand(0, 1);
+            $user->setIsVerified($isVerified);
+
+            // Generate activation token only if the user is verified
+            if ($isVerified === 1) {
+                $user->setActivationToken(generateToken());
+            } else {
+                $user->setActivationToken('');
+            }
+
             $manager->persist($user);
             $this->addReference('user_'.$nbrUsers , $user);
         }
