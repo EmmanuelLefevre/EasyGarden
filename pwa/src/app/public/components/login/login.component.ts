@@ -3,15 +3,17 @@ import { Component, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { AbstractControl, UntypedFormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+// Environment
 import { environment } from '../../../../environments/environment';
-
+// Icons
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+// Services
 import { AuthService } from '../../../_services/auth/auth.service';
-import { FormValidationService } from '../../../_services/miscellaneous/form-validation.service';
-import { TokenService } from '../../../_services/auth/token.service';
 import { DecodedTokenService } from 'src/app/_services/miscellaneous/decoded-token.service';
+import { FormValidationService } from '../../../_services/miscellaneous/form-validation.service';
 import { SnackbarService } from 'src/app/_services/miscellaneous/snackbar.service';
-
+import { TokenService } from '../../../_services/auth/token.service';
+// Modeles
 import { ICredentials } from '../../../_interfaces/ICredentials';
 
 
@@ -55,13 +57,13 @@ export class LoginComponent implements OnDestroy {
     password: ['', [Validators.required]]
   })
 
-  constructor(private router: Router,
-              private formBuilder: UntypedFormBuilder,
+  constructor(private authService: AuthService,
               private customValidator : FormValidationService,
-              private authService: AuthService,
-              private tokenService: TokenService,
+              private decodedTokenService: DecodedTokenService,              
+              private formBuilder: UntypedFormBuilder,
+              private router: Router,
               private snackbarService: SnackbarService,
-              private decodedTokenService: DecodedTokenService) {}
+              private tokenService: TokenService,) {}
 
   ngOnDestroy(): void {
     if (this.loginSubscription) {
