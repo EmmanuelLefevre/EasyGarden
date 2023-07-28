@@ -64,8 +64,13 @@ export class LoginComponent implements OnDestroy {
               private decodedTokenService: DecodedTokenService) {}
 
   ngOnDestroy(): void {
-    this.loginSubscription.unsubscribe();
-    this.accountVerificationSubscription.unsubscribe();
+    if (this.loginSubscription) {
+      this.loginSubscription.unsubscribe();
+    }
+    if (this.accountVerificationSubscription) {
+      this.accountVerificationSubscription.unsubscribe();
+    }
+
   }
 
   get f(): { [key: string]: AbstractControl } {
@@ -94,12 +99,12 @@ export class LoginComponent implements OnDestroy {
                     ${this.decodedTokenService.lastNameDecoded()}.`, 'logIn-logOut');
                 } else {
                   this.snackbarService.showNotification(`Votre compte n'a pas encore été activé grâce au 
-                    lien dans l'email qui vous a été envoyé!`, 'account-not-verified');
+                    lien dans l'email qui vous a été envoyé!`, 'orange-alert');
                 }
               },
               _error => {
                 this.snackbarService.showNotification(`Une erreur s'est produite lors de la vérification 
-                  du compte!`, 'account-not-verified');
+                  du compte!`, 'red-alert');
               }
             );
         },

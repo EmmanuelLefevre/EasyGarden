@@ -75,11 +75,21 @@ export class PoolComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.getAllGardensSubscription.unsubscribe();
-    this.getAllPoolsSubscription.unsubscribe();
-    this.deletePoolSubscription.unsubscribe();
-    this.updateStatusSubscription.unsubscribe();
-    this.dialogRefSubscription.unsubscribe();
+    if (this.getAllGardensSubscription) {
+      this.getAllGardensSubscription.unsubscribe();
+    }
+    if (this.getAllPoolsSubscription) {
+      this.getAllPoolsSubscription.unsubscribe();
+    }
+    if (this.deletePoolSubscription) {
+      this.deletePoolSubscription.unsubscribe();
+    }
+    if (this.updateStatusSubscription) {
+      this.updateStatusSubscription.unsubscribe();
+    }
+    if (this.dialogRefSubscription) {
+      this.dialogRefSubscription.unsubscribe();
+    }
   }
 
   // Recover Gardens

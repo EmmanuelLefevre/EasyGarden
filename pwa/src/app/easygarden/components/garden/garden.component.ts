@@ -33,8 +33,8 @@ export class GardenComponent implements OnInit, OnDestroy {
 
   // Declaration of subscriptions
   private getAllGardensSubscription!: Subscription;
-  private dialogRefSubscription!: Subscription;
   private deleteGardenSubscription!: Subscription;
+  private dialogRefSubscription!: Subscription;
 
   // Get user id from DecodedTokenService
   id: String = '';
@@ -67,9 +67,15 @@ export class GardenComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.getAllGardensSubscription.unsubscribe();
-    this.dialogRefSubscription.unsubscribe();
-    this.deleteGardenSubscription.unsubscribe();
+    if (this.getAllGardensSubscription) {
+      this.getAllGardensSubscription.unsubscribe();
+    }
+    if (this.deleteGardenSubscription) {
+      this.deleteGardenSubscription.unsubscribe();
+    }
+    if (this.dialogRefSubscription) {
+      this.dialogRefSubscription.unsubscribe();
+    }
   }
 
   // Display Gardens

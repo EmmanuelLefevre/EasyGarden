@@ -76,11 +76,21 @@ export class WateringComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.getAllGardensSubscription.unsubscribe();
-    this.getAllWateringsSubscription.unsubscribe();
-    this.deleteWateringSubscription.unsubscribe();
-    this.updateStatusSubscription.unsubscribe();
-    this.dialogRefSubscription.unsubscribe();
+    if (this.getAllGardensSubscription) {
+      this.getAllGardensSubscription.unsubscribe();
+    }
+    if (this.getAllWateringsSubscription) {
+      this.getAllWateringsSubscription.unsubscribe();
+    }
+    if (this.deleteWateringSubscription) {
+      this.deleteWateringSubscription.unsubscribe();
+    }
+    if (this.updateStatusSubscription) {
+      this.updateStatusSubscription.unsubscribe();
+    }
+    if (this.dialogRefSubscription) {
+      this.dialogRefSubscription.unsubscribe();
+    }
   }
   
   // Recover Gardens

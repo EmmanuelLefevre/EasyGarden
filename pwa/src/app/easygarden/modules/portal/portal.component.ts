@@ -76,11 +76,21 @@ export class PortalComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.getAllGardensSubscription.unsubscribe();
-    this.getAllPortalsSubscription.unsubscribe();
-    this.deletePortalSubscription.unsubscribe();
-    this.updateStatusSubscription.unsubscribe();
-    this.dialogRefSubscription.unsubscribe();
+    if (this.getAllGardensSubscription) {
+      this.getAllGardensSubscription.unsubscribe();
+    }
+    if (this.getAllPortalsSubscription) {
+      this.getAllPortalsSubscription.unsubscribe();
+    }
+    if (this.deletePortalSubscription) {
+      this.deletePortalSubscription.unsubscribe();
+    }
+    if (this.updateStatusSubscription) {
+      this.updateStatusSubscription.unsubscribe();
+    }
+    if (this.dialogRefSubscription) {
+      this.dialogRefSubscription.unsubscribe();
+    }
   }
 
   // Recover Gardens

@@ -139,10 +139,18 @@ export class ProfilComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.getUserSubscription.unsubscribe();
-    this.updateUserSubscription.unsubscribe();
-    this.deleteUserSubscription.unsubscribe();
-    this.dialogRefSubscription.unsubscribe();
+    if (this.getUserSubscription) {
+      this.getUserSubscription.unsubscribe();
+    }
+    if (this.updateUserSubscription) {
+      this.updateUserSubscription.unsubscribe();
+    }
+    if (this.deleteUserSubscription) {
+      this.deleteUserSubscription.unsubscribe();
+    }
+    if (this.dialogRefSubscription) {
+      this.dialogRefSubscription.unsubscribe();
+    }
   }
 
   // Display User Informations
