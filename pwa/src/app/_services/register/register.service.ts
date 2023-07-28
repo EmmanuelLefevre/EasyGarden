@@ -24,14 +24,4 @@ export class RegisterService {
     return this.httpClient.post(environment.apis.register.url, profile)
   }
 
-  // Method to catch error message if email already existing
-  extractExistingEmailErrorMessage(errorDescription: string): string {
-    const errorMessagePrefix = 'email: ';
-    const errorMessageIndex = errorDescription.indexOf(errorMessagePrefix);
-    if (errorMessageIndex !== -1) {
-      return errorDescription.substring(errorMessageIndex + errorMessagePrefix.length).trim();
-    }
-    return '';
-  }
-
 }
