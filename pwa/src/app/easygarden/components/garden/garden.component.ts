@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 // Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip in style.scss
 import { faPen, faTrash, faSort, faSearch, faTree, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 import { MatDialog } from '@angular/material/dialog';
@@ -18,7 +19,7 @@ import { IGarden, IGardenFilter } from './IGarden';
   encapsulation: ViewEncapsulation.None,
 })
 
-export class GardenComponent implements OnInit {
+export class GardenComponent implements OnInit, OnDestroy {
   
   faPen = faPen;
   faTrash = faTrash;
@@ -29,7 +30,12 @@ export class GardenComponent implements OnInit {
 
   name = environment.application.name;
   title = 'Tableau jardin';
-  
+
+  // Declaration of subscriptions
+  private getAllGardensSubscription!: Subscription;
+  private dialogRefSubscription!: Subscription;
+  private deleteGardenSubscription!: Subscription;
+
   // Get user id from DecodedTokenService
   id: String = '';
   // Confirm Dialog this.result = boolean
@@ -60,14 +66,21 @@ export class GardenComponent implements OnInit {
     this.fetchGardens();
   }
 
+  ngOnDestroy(): void {
+    this.getAllGardensSubscription.unsubscribe();
+    this.dialogRefSubscription.unsubscribe();
+    this.deleteGardenSubscription.unsubscribe();
+  }
+
   // Display Gardens
   fetchGardens(): void {
-    this.gardenService.getAllGardens().subscribe((res: any) => {
-      if (res.hasOwnProperty('hydra:member')) {
-        this.gardens = res['hydra:member'];
-      }
-      this.id = this.decodedTokenService.idDecoded();
-    });
+    this.getAllGardensSubscription = this.gardenService.getAllGardens()
+      .subscribe((res: any) => {
+        if (res.hasOwnProperty('hydra:member')) {
+          this.gardens = res['hydra:member'];
+        }
+        this.id = this.decodedTokenService.idDecoded();
+      });
   }
 
   // Delete Garden
@@ -85,14 +98,16 @@ export class GardenComponent implements OnInit {
       data: dialogData,
     });
 
-    dialogRef.afterClosed().subscribe((dialogResult) => {
-      this.result = dialogResult;
-      if (this.result === true) {
-        this.gardenService.deleteGarden(id).subscribe(() => {
-          this.fetchGardens();
-        });
-      }
-    });
+    this.dialogRefSubscription = dialogRef.afterClosed()
+      .subscribe((dialogResult) => {
+        this.result = dialogResult;
+        if (this.result === true) {
+          this.deleteGardenSubscription = this.gardenService.deleteGarden(id)
+            .subscribe(() => {
+              this.fetchGardens();
+            });
+        }
+      });
   }
 
   resetPagination(): void {

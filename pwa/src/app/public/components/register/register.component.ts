@@ -104,6 +104,10 @@ export class RegisterComponent implements OnDestroy {
               private snackbarService: SnackbarService,
               private router: Router) {}
 
+  ngOnDestroy(): void {
+    this.registerSubscription.unsubscribe();
+  }
+  
   get f(): { [key: string]: AbstractControl } {
     return this.registerForm.controls;
   }
@@ -116,36 +120,35 @@ export class RegisterComponent implements OnDestroy {
 
     const formValue: IUser = this.registerForm.getRawValue();
     delete formValue.confirmPassword;
-    this.registerSubscription = this.registerService.registerIn(formValue).subscribe(
-      (response: any) => { 
-        if (response && response.status === 201) { 
-          const firstName = formValue.firstName;
-          const lastName = formValue.lastName;
-          this.snackbarService.showNotification(`Bienvenu ` + firstName + ' ' + lastName + ',' +
-            `\nveuillez confirmer votre compte dans l\'email qui vous a été envoyé.`, 'register')
-          this.router.navigate(['login'])
+    this.registerSubscription = this.registerService.registerIn(formValue)
+      .subscribe(
+        (response: any) => { 
+          if (response && response.status === 201) { 
+            const firstName = formValue.firstName;
+            const lastName = formValue.lastName;
+            this.snackbarService.showNotification(`Bienvenu ` + firstName + ' ' + lastName + ',' +
+              `\nveuillez confirmer votre compte dans l\'email qui vous a été envoyé.`, 'register')
+            this.router.navigate(['login'])
+          }
+        },
+        (errorResponse) => {
+          if (errorResponse.error 
+              && errorResponse.error.message === "Email already exists" 
+              && errorResponse.status === 409) {
+            this.existingEmail = true;
+            this.errorMessage = "Un utilisateur possédant cet email est déjà enregistré!";
+          } 
+          else {
+            this.existingEmail = false;
+            this.errorMessage = "Une erreur s'est produite lors de la création du compte!";
+          }
         }
-      },
-      (errorResponse) => {
-        if (errorResponse.error && errorResponse.error.message === "Email already exists" && errorResponse.status === 409) {
-          this.existingEmail = true;
-          this.errorMessage = "Un utilisateur possédant cet email est déjà enregistré!";
-        } 
-        else {
-          this.existingEmail = false;
-          this.errorMessage = "Une erreur s'est produite lors de la création du compte!";
-        }
-      }
-    )
+      )
   }
 
   onReset(formDirective: any): void {
     this.registerForm.reset();
     formDirective.resetForm();
-  }
-
-  ngOnDestroy(): void {
-    this.registerSubscription.unsubscribe();
   }
 
 }

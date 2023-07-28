@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 // Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip-social in style.scss
 import { AbstractControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { faEye, faEyeSlash, faPen } from '@fortawesome/free-solid-svg-icons';
 
 import { MatDialog } from '@angular/material/dialog';
@@ -20,12 +21,18 @@ import { IUser } from '../../../../../_interfaces/IUser';
   encapsulation: ViewEncapsulation.None
 })
 
-export class ProfilComponent implements OnInit {
+export class ProfilComponent implements OnInit, OnDestroy {
 
   title = 'Paramètres du compte';
   faPen = faPen;
   faEye = faEye;
   faEyeSlash = faEyeSlash;
+
+  // Declaration of subscriptions
+  private getUserSubscription!: Subscription;
+  private updateUserSubscription!: Subscription;
+  private deleteUserSubscription!: Subscription;
+  private dialogRefSubscription!: Subscription;
 
   // Toggle faEyeSlash
   visible: boolean = false;
@@ -131,15 +138,20 @@ export class ProfilComponent implements OnInit {
     this.fetchUser()
   }
 
+  ngOnDestroy(): void {
+    this.getUserSubscription.unsubscribe();
+    this.updateUserSubscription.unsubscribe();
+    this.deleteUserSubscription.unsubscribe();
+    this.dialogRefSubscription.unsubscribe();
+  }
+
   // Display User Informations
   fetchUser(): void {
-    this.profilService.getUser()
+    this.getUserSubscription = this.profilService.getUser()
       .subscribe(
         (res:any) => {
           if (res.hasOwnProperty('hydra:member'))
-          // console.log(res)
           this.users = res['hydra:member'];
-          // console.log(this.users)
         }
       )
   }
@@ -224,18 +236,20 @@ export class ProfilComponent implements OnInit {
       maxWidth: "400px",
       data: dialogData
     })
-    dialogRef.afterClosed().subscribe(dialogResult => {
-      this.result = dialogResult;
-      if (this.result === true) {
-        const typedEmailForm: IUser = this.emailForm.value;
-        this.success = JSON.stringify(typedEmailForm);
-        this.profilService.updateUser(typedEmailForm, id).subscribe(
-          () => {
-            this.tokenService.clearToken()
-          }
-        )
-      }   
-    })
+    this.dialogRefSubscription = dialogRef.afterClosed()
+      .subscribe(dialogResult => {
+        this.result = dialogResult;
+        if (this.result === true) {
+          const typedEmailForm: IUser = this.emailForm.value;
+          this.success = JSON.stringify(typedEmailForm);
+          this.updateUserSubscription = this.profilService.updateUser(typedEmailForm, id)
+            .subscribe(
+              () => {
+                this.tokenService.clearToken()
+              }
+            )
+        }   
+      })
   }
   // LastName
   lastNameSubmit(id: number): void {
@@ -245,9 +259,10 @@ export class ProfilComponent implements OnInit {
     }
     const typedLastNameForm: IUser = this.lastNameForm.value;
     this.success = JSON.stringify(typedLastNameForm);
-    this.profilService.updateUser(typedLastNameForm, id).subscribe(
-      () => {}
-    )
+    this.updateUserSubscription = this.profilService.updateUser(typedLastNameForm, id)
+      .subscribe(
+        () => {}
+      )
   }  
   // FirstName
   firstNameSubmit(id: number): void {
@@ -257,9 +272,10 @@ export class ProfilComponent implements OnInit {
     }
     const typedFirstNameForm: IUser = this.firstNameForm.value;
     this.success = JSON.stringify(typedFirstNameForm);
-    this.profilService.updateUser(typedFirstNameForm, id).subscribe(
-      () => {}
-    )
+    this.updateUserSubscription = this.profilService.updateUser(typedFirstNameForm, id)
+      .subscribe(
+        () => {}
+      )
   }  
   // Pseudo
   pseudoSubmit(id: number): void {
@@ -269,9 +285,10 @@ export class ProfilComponent implements OnInit {
     }
     const typedPseudoForm: IUser = this.pseudoForm.value;
     this.success = JSON.stringify(typedPseudoForm);
-    this.profilService.updateUser(typedPseudoForm, id).subscribe(
-      () => {}
-    )
+    this.updateUserSubscription = this.profilService.updateUser(typedPseudoForm, id)
+      .subscribe(
+        () => {}
+      )
   }  
   // Phone Number
   phoneNumberSubmit(id: number): void {
@@ -281,9 +298,10 @@ export class ProfilComponent implements OnInit {
     }
     const typedPhoneNumbeForm: IUser = this.phoneNumberForm.value;
     this.success = JSON.stringify(typedPhoneNumbeForm);
-    this.profilService.updateUser(typedPhoneNumbeForm, id).subscribe(
-      () => {}
-    )
+    this.updateUserSubscription = this.profilService.updateUser(typedPhoneNumbeForm, id)
+      .subscribe(
+        () => {}
+      )
   }
 
   // Delete Account
@@ -296,16 +314,18 @@ export class ProfilComponent implements OnInit {
       data: dialogData
     })
     
-    dialogRef.afterClosed().subscribe(dialogResult => {
-      this.result = dialogResult;
-      if (this.result === true) {
-        this.profilService.deleteUser(id).subscribe(
-          () => {
-            this.tokenService.clearToken()
-          }
-        )
-      }   
-    })
+    this.dialogRefSubscription = dialogRef.afterClosed()
+      .subscribe(dialogResult => {
+        this.result = dialogResult;
+        if (this.result === true) {
+          this.deleteUserSubscription = this.profilService.deleteUser(id)
+            .subscribe(
+              () => {
+                this.tokenService.clearToken()
+              }
+            )
+        }   
+      })
   }
 
 }
