@@ -11,7 +11,13 @@ export class SnackbarService {
 
   constructor(private snackbar: MatSnackBar) { }
 
-  showNotification(displayMessage: string, messageType: 'created' | 'modified' | 'deleted' | 'logIn-logOut' | 'register' | 'account-not-verified') {
+  showNotification(displayMessage: string, messageType: 'created' 
+                                                        | 'modified' 
+                                                        | 'deleted' 
+                                                        | 'logIn-logOut' 
+                                                        | 'register' 
+                                                        | 'orange-alert' 
+                                                        | 'red-alert') {
     if (messageType === 'logIn-logOut') {
       this.snackbar.openFromComponent(SnackbarComponent, {
         data: {
@@ -22,7 +28,9 @@ export class SnackbarService {
         verticalPosition: 'top',
         horizontalPosition: 'end'
       });
-    } else if (messageType === 'register' || messageType === 'account-not-verified') {
+    } else if (messageType === 'register' 
+              || messageType === 'orange-alert' 
+              || messageType === 'red-alert') {
       this.snackbar.openFromComponent(SnackbarComponent, {
         data: {
           message: displayMessage
