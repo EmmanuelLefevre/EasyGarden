@@ -1,16 +1,18 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 // Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip in style.scss
-import { faPen, faTrash, faSort, faSearch, faTree, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+// Environment
 import { environment } from 'src/environments/environment';
-
+// Images
+import { faPen, faTrash, faSort, faSearch, faTree, faXmark } from '@fortawesome/free-solid-svg-icons';
+// Components
 import { MatDialog } from '@angular/material/dialog';
 import { IConfirmDialog, ConfirmDialogComponent } from 'src/app/easygarden/components/confirmDialog/confirm-dialog.component';
-
+// Services
 import { DecodedTokenService } from 'src/app/_services/miscellaneous/decoded-token.service';
 import { GardenService } from './garden.service';
-
+// Modeles
 import { IGarden, IGardenFilter } from './IGarden';
 
 
@@ -33,7 +35,7 @@ export class GardenComponent implements OnInit, OnDestroy {
   title = 'Tableau jardin';
 
   // Declaration of subscriptions
-  private getAllGardensSubscription!: Subscription;
+  private getAllGardensSubscription: Subscription = new Subscription;
   private deleteGardenSubscription!: Subscription;
   private dialogRefSubscription!: Subscription;
 
@@ -68,13 +70,9 @@ export class GardenComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.getAllGardensSubscription) {
-      this.getAllGardensSubscription.unsubscribe();
-    }
-    if (this.deleteGardenSubscription) {
+    this.getAllGardensSubscription.unsubscribe();
+    if (this.deleteGardenSubscription && this.dialogRefSubscription) {
       this.deleteGardenSubscription.unsubscribe();
-    }
-    if (this.dialogRefSubscription) {
       this.dialogRefSubscription.unsubscribe();
     }
   }
