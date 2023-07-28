@@ -1,16 +1,18 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 // Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip-social in style.scss
-import { faPowerOff, faPen, faTrash, faSort, faSearch, faSeedling, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
+// Environment
 import { environment } from 'src/environments/environment';
-
-import { MatDialog } from '@angular/material/dialog';
+// Icons
+import { faPowerOff, faPen, faTrash, faSort, faSearch, faSeedling, faXmark } from '@fortawesome/free-solid-svg-icons';
+// Components
 import { IConfirmDialog, ConfirmDialogComponent } from 'src/app/easygarden/components/confirmDialog/confirm-dialog.component';
-
+import { MatDialog } from '@angular/material/dialog';
+// Services
 import { LawnmowerService } from './lawnmower.service';
 import { GardenService } from '../../components/garden/garden.service';
 import { GardenFilterService } from '../../_services/garden-filter.service';
-
+// Modeles
 import { ILawnmower, ILawnmowerFilter } from './ILawnmower';
 import { IName } from '../../_interfaces/IName';
 
@@ -35,8 +37,8 @@ export class LawnmowerComponent implements OnInit, OnDestroy {
   title = 'Tableau tondeuse';
 
   // Declaration of subscriptions
-  private getAllGardensSubscription!: Subscription;
-  private getAllLawnmowersSubscription!: Subscription;
+  private getAllGardensSubscription: Subscription = new Subscription;
+  private getAllLawnmowersSubscription: Subscription = new Subscription;
   private deleteLawnmowerSubscription!: Subscription;
   private updateStatusSubscription!: Subscription;
   private dialogRefSubscription!: Subscription;
@@ -65,31 +67,25 @@ export class LawnmowerComponent implements OnInit, OnDestroy {
   lawnmowers: ILawnmower[] = [];
   filteredLawnmowers: ILawnmower[] = [];
 
-  constructor(private lawnmowerService: LawnmowerService,
-              private gardenService: GardenService,
+  constructor(private dialog: MatDialog,
               private gardenFilterService: GardenFilterService,
-              private dialog: MatDialog) {}
+              private gardenService: GardenService,
+              private lawnmowerService: LawnmowerService) {}
 
   ngOnInit(): void {
-    this.fetchLawnmowers();
     this.fetchGardens();
+    this.fetchLawnmowers();
   }
 
   ngOnDestroy(): void {
-    if (this.getAllGardensSubscription) {
-      this.getAllGardensSubscription.unsubscribe();
-    }
-    if (this.getAllLawnmowersSubscription) {
-      this.getAllLawnmowersSubscription.unsubscribe();
-    }
-    if (this.deleteLawnmowerSubscription) {
-      this.deleteLawnmowerSubscription.unsubscribe();
-    }
+    this.getAllGardensSubscription.unsubscribe();
+    this.getAllLawnmowersSubscription.unsubscribe();
     if (this.updateStatusSubscription) {
       this.updateStatusSubscription.unsubscribe();
     }
-    if (this.dialogRefSubscription) {
+    if (this.dialogRefSubscription && this.deleteLawnmowerSubscription) {
       this.dialogRefSubscription.unsubscribe();
+      this.deleteLawnmowerSubscription.unsubscribe();
     }
   }
 
