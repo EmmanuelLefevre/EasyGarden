@@ -7,7 +7,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AppComponent } from './app.component';
-import { Error404Component } from './_services/utils/components/error/error404.component';
+import { Error404Component } from './_services/utils/error/error404.component';
 import { FooterComponent } from './components/footer/footer.component';
 
 import { JWTInterceptorProvider } from './_services/interceptor/jwt.interceptor';
