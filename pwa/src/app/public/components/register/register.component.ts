@@ -105,7 +105,9 @@ export class RegisterComponent implements OnDestroy {
               private router: Router) {}
 
   ngOnDestroy(): void {
-    this.registerSubscription.unsubscribe();
+    if (this.registerSubscription) { 
+      this.registerSubscription.unsubscribe();
+    }
   }
   
   get f(): { [key: string]: AbstractControl } {

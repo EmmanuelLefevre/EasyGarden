@@ -75,11 +75,21 @@ export class LightningComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.getAllGardensSubscription.unsubscribe();
-    this.getAllLightningsSubscription.unsubscribe();
-    this.deleteLightningSubscription.unsubscribe();
-    this.updateStatusSubscription.unsubscribe();
-    this.dialogRefSubscription.unsubscribe();
+    if (this.getAllGardensSubscription) {
+      this.getAllGardensSubscription.unsubscribe();
+    }
+    if (this.getAllLightningsSubscription) {
+      this.getAllLightningsSubscription.unsubscribe();
+    }
+    if (this.deleteLightningSubscription) {
+      this.deleteLightningSubscription.unsubscribe();
+    }
+    if (this.updateStatusSubscription) {
+      this.updateStatusSubscription.unsubscribe();
+    }
+    if (this.dialogRefSubscription) {
+      this.dialogRefSubscription.unsubscribe();
+    }
   }
 
   // Recover Gardens

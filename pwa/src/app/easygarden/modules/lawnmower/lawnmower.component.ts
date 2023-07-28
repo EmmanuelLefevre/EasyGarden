@@ -37,9 +37,9 @@ export class LawnmowerComponent implements OnInit, OnDestroy {
   // Declaration of subscriptions
   private getAllGardensSubscription!: Subscription;
   private getAllLawnmowersSubscription!: Subscription;
+  private deleteLawnmowerSubscription!: Subscription;
   private updateStatusSubscription!: Subscription;
   private dialogRefSubscription!: Subscription;
-  private deleteLawnmowerSubscription!: Subscription;
 
   // Confirm Dialog this.result = boolean
   result: boolean | undefined;
@@ -76,11 +76,21 @@ export class LawnmowerComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.getAllGardensSubscription.unsubscribe();
-    this.getAllLawnmowersSubscription.unsubscribe();
-    this.deleteLawnmowerSubscription.unsubscribe();
-    this.updateStatusSubscription.unsubscribe();
-    this.dialogRefSubscription.unsubscribe();
+    if (this.getAllGardensSubscription) {
+      this.getAllGardensSubscription.unsubscribe();
+    }
+    if (this.getAllLawnmowersSubscription) {
+      this.getAllLawnmowersSubscription.unsubscribe();
+    }
+    if (this.deleteLawnmowerSubscription) {
+      this.deleteLawnmowerSubscription.unsubscribe();
+    }
+    if (this.updateStatusSubscription) {
+      this.updateStatusSubscription.unsubscribe();
+    }
+    if (this.dialogRefSubscription) {
+      this.dialogRefSubscription.unsubscribe();
+    }
   }
 
   // Recover Gardens
