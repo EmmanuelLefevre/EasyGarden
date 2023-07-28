@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, ViewEncapsulation } from '@angular/core';
 // Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip in style.scss
 import { AbstractControl, UntypedFormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 import { FormValidationService } from '../../../_services/miscellaneous/form-validation.service';
@@ -22,9 +23,13 @@ import { IName } from '../../_interfaces/IName';
   encapsulation: ViewEncapsulation.None
 })
 
-export class EditEntityNameComponent implements OnInit {
+export class EditEntityNameComponent implements OnDestroy {
 
   name = environment.application.name;
+
+  // Declaration of subscriptions
+  private updateDataSubscription!: Subscription;
+  private getDataSubscription!: Subscription;
 
   // EditWateringForm Group
   editName = this.formBuilder.group({
@@ -99,15 +104,19 @@ export class EditEntityNameComponent implements OnInit {
     }
 
     if (service) {
-      service.getData(id).subscribe((data: IName) => {
-        this.IName = data;
-        this.value = this.IName.name;
-      });
+      this.getDataSubscription = service.getData(id)
+        .subscribe((data: IName) => {
+          this.IName = data;
+          this.value = this.IName.name;
+        });
     }
 
   }
 
-  ngOnInit(): void {}
+  ngOnDestroy(): void {
+    this.updateDataSubscription.unsubscribe();
+    this.getDataSubscription.unsubscribe();
+  }
 
   get f(): { [key: string]: AbstractControl } {
     return this.editName.controls;
@@ -146,30 +155,31 @@ export class EditEntityNameComponent implements OnInit {
     }
   
     if (service) {
-      service.updateData(formValue, id).subscribe(() => {
-        const name = url.includes('/easygarden/garden/edit/') ? gardenCase : "L'équipement";
-        const newName = formValue.name;
-        let notificationMessage = `${name} "${this.IName.name}" a bien été renommé en "${newName}".`;
+      this.updateDataSubscription = service.updateData(formValue, id)
+        .subscribe(() => {
+          const name = url.includes('/easygarden/garden/edit/') ? gardenCase : "L'équipement";
+          const newName = formValue.name;
+          let notificationMessage = `${name} "${this.IName.name}" a bien été renommé en "${newName}".`;
 
-        const redirectUrl = service.getRedirectUrl();
-        if (gardenCase) {
-          if (redirectUrl === null) {
-            this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => { 
-              this.snackbarService.showNotification(notificationMessage, 'modified');
-              this.router.navigate(['/easygarden']);
-            });
+          const redirectUrl = service.getRedirectUrl();
+          if (gardenCase) {
+            if (redirectUrl === null) {
+              this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => { 
+                this.snackbarService.showNotification(notificationMessage, 'modified');
+                this.router.navigate(['/easygarden']);
+              });
+            }
+            else {
+              this.router.navigateByUrl(redirectUrl).then(() => {
+                this.snackbarService.showNotification(notificationMessage, 'modified');
+              });
+            }
           }
           else {
-            this.router.navigateByUrl(redirectUrl).then(() => {
-              this.snackbarService.showNotification(notificationMessage, 'modified');
-            });
+            this.router.navigate([service.getRedirectUrl()]);
+            this.snackbarService.showNotification(notificationMessage, 'modified');
           }
-        }
-        else {
-          this.router.navigate([service.getRedirectUrl()]);
-          this.snackbarService.showNotification(notificationMessage, 'modified');
-        }
-      });
+        });
     }
   }
 
