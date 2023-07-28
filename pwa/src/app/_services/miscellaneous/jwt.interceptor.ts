@@ -3,9 +3,9 @@ import { Router } from '@angular/router';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
 
-import { DecodedTokenService } from '../miscellaneous/decoded-token.service';
-import { SnackbarService } from '../miscellaneous/snackbar.service';
-import { TokenService } from '../../_services/auth/token.service';
+import { DecodedTokenService } from './decoded-token.service';
+import { SnackbarService } from './snackbar.service';
+import { TokenService } from '../auth/token.service';
 
 
 @Injectable({

@@ -10,7 +10,7 @@ import { AppComponent } from './app.component';
 import { Error404Component } from './_services/utils/components/error/error404.component';
 import { FooterComponent } from './components/footer/footer.component';
 
-import { JWTInterceptorProvider } from './_services/utils/jwt.interceptor';
+import { JWTInterceptorProvider } from './_services/miscellaneous/jwt.interceptor';
 
 
 @NgModule({
