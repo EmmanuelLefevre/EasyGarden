@@ -1,16 +1,18 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 // Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip-social in style.scss
-import { faPowerOff, faPen, faTrash, faSort, faSearch, faLightbulb, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
+// Environment
 import { environment } from 'src/environments/environment';
-
-import { MatDialog } from '@angular/material/dialog';
+// Icons
+import { faPowerOff, faPen, faTrash, faSort, faSearch, faLightbulb, faXmark } from '@fortawesome/free-solid-svg-icons';
+// Components
 import { IConfirmDialog, ConfirmDialogComponent } from 'src/app/easygarden/components/confirmDialog/confirm-dialog.component';
-
+import { MatDialog } from '@angular/material/dialog';
+// Services
 import { GardenService } from '../../components/garden/garden.service';
 import { GardenFilterService } from '../../_services/garden-filter.service';
 import { LightningService } from './lightning.service';
-
+// Modeles
 import { ILightning, ILightningFilter } from './ILightning';
 import { IName } from '../../_interfaces/IName';
 
@@ -34,8 +36,8 @@ export class LightningComponent implements OnInit, OnDestroy {
   title = 'Tableau éclairage';
 
   // Declaration of subscriptions
-  private getAllGardensSubscription!: Subscription;
-  private getAllLightningsSubscription!: Subscription;
+  private getAllGardensSubscription: Subscription = new Subscription;
+  private getAllLightningsSubscription: Subscription = new Subscription;
   private deleteLightningSubscription!: Subscription;
   private updateStatusSubscription!: Subscription;
   private dialogRefSubscription!: Subscription;
@@ -64,31 +66,25 @@ export class LightningComponent implements OnInit, OnDestroy {
   lightnings: ILightning[] = [];
   filteredLightnings: ILightning[] = [];
 
-  constructor(private lightningService: LightningService,
-              private gardenService: GardenService,
+  constructor(private dialog: MatDialog,
               private gardenFilterService: GardenFilterService,
-              private dialog: MatDialog) {}
+              private gardenService: GardenService,
+              private lightningService: LightningService,) {}
 
   ngOnInit(): void {
-    this.fetchLightnings();
     this.fetchGardens();
+    this.fetchLightnings();
   }
 
   ngOnDestroy(): void {
-    if (this.getAllGardensSubscription) {
-      this.getAllGardensSubscription.unsubscribe();
-    }
-    if (this.getAllLightningsSubscription) {
-      this.getAllLightningsSubscription.unsubscribe();
-    }
-    if (this.deleteLightningSubscription) {
-      this.deleteLightningSubscription.unsubscribe();
-    }
+    this.getAllGardensSubscription.unsubscribe();
+    this.getAllLightningsSubscription.unsubscribe();
     if (this.updateStatusSubscription) {
       this.updateStatusSubscription.unsubscribe();
     }
-    if (this.dialogRefSubscription) {
+    if (this.dialogRefSubscription && this.deleteLightningSubscription) {
       this.dialogRefSubscription.unsubscribe();
+      this.deleteLightningSubscription.unsubscribe();
     }
   }
 
