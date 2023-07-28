@@ -59,7 +59,7 @@ snack-bar-container.register {
   white-space: pre-line;
 }
 
-snack-bar-container.account-not-verified {
+snack-bar-container.orange-alert {
   -webkit-animation: fadeInRight 1.5s;
   animation: fadeInRight 1.5s;
   text-align: center;
@@ -72,5 +72,21 @@ snack-bar-container.account-not-verified {
   white-space: pre-line;
   &::before {
     background-color: var(--ang-color-alert2);
+  }
+}
+
+snack-bar-container.red-alert {
+  -webkit-animation: fadeInRight 1.5s;
+  animation: fadeInRight 1.5s;
+  text-align: center;
+  margin: 5vh 2vh !important;
+  color: var(--ang-color-white);
+  border: 2px solid var(--ang-color-alert2);
+  background-color: var(--ang-color-alert);
+  position: relative;
+  overflow: hidden;
+  white-space: pre-line;
+  &::before {
+    background-color: var(--ang-color-alert);
   }
 }
