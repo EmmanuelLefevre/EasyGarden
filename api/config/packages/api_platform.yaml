@@ -2,8 +2,12 @@ api_platform:
     title: 'EasyGarden API'
     description: 'API to deal with Angular15'
     version: '1.0'
-    # Araignée specs APi_Platform   https://127.0.0.1:8000/api
+    
+    # URL Specs APi_Platform => https://127.0.0.1:8000/api
+
+    # Show spider
     show_webby: false
+
     mapping:
         paths: ['%kernel.project_dir%/src/Entity']
     patch_formats:
