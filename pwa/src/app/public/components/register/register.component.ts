@@ -3,13 +3,17 @@ import { Component, OnDestroy, ViewEncapsulation} from '@angular/core';
 import { Router } from '@angular/router';
 import { AbstractControl, UntypedFormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+// Environment
 import { environment } from '../../../../environments/environment';
-
+// Icons
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+// Services
+import { FormValidationService } from '../../../_services/miscellaneous/form-validation.service';
 import { RegisterService } from 'src/app/_services/register/register.service';
 import { SnackbarService } from 'src/app/_services/miscellaneous/snackbar.service';
-import { FormValidationService } from '../../../_services/miscellaneous/form-validation.service';
+// Modeles
 import { IUser } from '../../../_interfaces/IUser';
+
 
 @Component({
   selector: 'app-register',
@@ -98,11 +102,11 @@ export class RegisterComponent implements OnDestroy {
 
   success = '';
   
-  constructor(private formBuilder: UntypedFormBuilder,
-              private customValidator : FormValidationService,
+  constructor(private customValidator : FormValidationService,
+              private formBuilder: UntypedFormBuilder,
               private registerService: RegisterService,
-              private snackbarService: SnackbarService,
-              private router: Router) {}
+              private router: Router,
+              private snackbarService: SnackbarService) {}
 
   ngOnDestroy(): void {
     if (this.registerSubscription) { 
