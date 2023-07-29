@@ -92,7 +92,6 @@ class AccountCreationController extends AbstractController
         return new JsonResponse(['status' => 201], Response::HTTP_CREATED);
     }
 
-
     /**
      * Activate user account
      * This method is accessible via GET and POST requests to "/account_activation/{token}" 
