@@ -10,7 +10,6 @@ class TokenGenerator
 {
     /**
      * Generate a random token.
-     *
      * @return string The generated token.
      */
     public static function generateToken(): string {

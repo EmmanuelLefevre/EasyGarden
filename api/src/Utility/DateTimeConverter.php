@@ -12,7 +12,6 @@ class DateTimeConverter
 {
     /**
      * Convert a date-time string to a DateTimeImmutable object using the user's time zone.
-     *
      * @return \DateTimeImmutable The converted DateTimeImmutable object.
      */
     public static function convertDateTimeStringToDateTimeImmutable(): \DateTimeImmutable
@@ -30,7 +29,6 @@ class DateTimeConverter
 
     /**
      * Convert a date-time string to a DateTime object using the user's time zone.
-     *
      * @return \DateTime The converted DateTime object.
      */
     public static function convertDateTimeStringToDate(): \DateTime
@@ -48,7 +46,6 @@ class DateTimeConverter
 
     /**
      * Get the user's time zone and date time zone data.
-     *
      * @return array An array containing the detected user time zone and date time zone.
      */
     private static function getUserData(): array
@@ -59,7 +56,6 @@ class DateTimeConverter
 
     /**
      * Extract the user's time zone and date time zone data from the getUserData method.
-     *
      * @return array An array containing the detected user time zone and date time zone.
      */
     private static function extractUserData(): array
@@ -72,9 +68,7 @@ class DateTimeConverter
 
     /**
      * Set the default time zone to the user's time zone.
-     *
-     * @param string $timeZone The user's time zone (e.g., 'America/New_York').
-     * 
+     * @param string $timeZone The user's time zone (e.g., 'America/New_York'). 
      * @return void
      */
     private static function setDefaultTimeZone(string $timeZone): void

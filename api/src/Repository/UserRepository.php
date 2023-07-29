@@ -9,16 +9,11 @@ use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 
-/**
- * @method void upgradePassword(PasswordAuthenticatedUserInterface|User $user, string $newHashedPassword)
- * @method bool checkIfUserExist(string $email)
- * @method bool isUserVerified(string $email)
- */
+
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
     /**
      * UserRepository constructor.
-     *
      * @param ManagerRegistry $registry The ManagerRegistry instance used for database access.
      */
     public function __construct(ManagerRegistry $registry)
@@ -28,10 +23,8 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
-     *
      * @param PasswordAuthenticatedUserInterface|User $user The user object to upgrade the password for.
      * @param string $newHashedPassword The new hashed password to set for the user.
-     *
      * @throws UnsupportedUserException If the provided user object is not an instance of User.
      */
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
@@ -65,5 +58,25 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     {
         $user = $this->findOneBy(['email' => $email, 'isVerified' => true]);
         return $user !== null;
+    }
+
+    /**
+     * Find a user by email.
+     * @param string $email The user's email.
+     * @return User|null The user object or null if not found.
+     */
+    public function findByEmail(string $email): ?User
+    {
+        return $this->findOneBy(['email' => $email]);
+    }
+
+    /**
+     * Find a user by activation token.
+     * @param string $activationToken The activation token.
+     * @return User|null The user object or null if not found.
+     */
+    public function findByActivationToken(string $activationToken): ?User
+    {
+        return $this->findOneBy(['activationToken' => $activationToken]);
     }
 }
