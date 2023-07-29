@@ -93,7 +93,7 @@ class AccountCreationController extends AbstractController
         $user = $userRepository->findOneBy(['activationToken' => $token]);
 
         if (!$user) {
-            return new JsonResponse(['message' => 'Invalid activation token'], Response::HTTP_BAD_REQUEST);
+            return new JsonResponse(['message' => 'Invalid activation token'], Response::HTTP_FORBIDDEN);
         }
 
         // Activate the user's account
