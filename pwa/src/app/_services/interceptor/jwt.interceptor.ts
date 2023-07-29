@@ -29,15 +29,18 @@ export class JwtInterceptor implements HttpInterceptor {
       // Check the token expiration
       if (this.tokenService.isTokenExpired(token)) {
         // Token has expired so we display notification, we delete it and we redirect to the login page
-        this.snackbarService.showNotification(`Votre session a expiré 
-          ${this.decodedTokenService.firstNameDecoded()} ${this.decodedTokenService.lastNameDecoded()}, 
-          veuillez vous reconnecter!`, 'orange-alert');
+        this.snackbarService.showNotification(
+          `Votre session a expiré `
+          + `${this.decodedTokenService.firstNameDecoded()} `
+          + `${this.decodedTokenService.lastNameDecoded()}, `
+          +` veuillez vous reconnecter!`
+          ,'orange-alert'
+        );
         this.tokenService.clearToken();
         this.router.navigate(['/login']);
 
         return throwError(() => new Error('Session Expired.'));
       }
-
       // Add token to request headers
       const clone = request.clone({
         headers: request.headers.set('Authorization', 'bearer '+token)
@@ -47,22 +50,21 @@ export class JwtInterceptor implements HttpInterceptor {
         catchError(error => {
           if (error.status === 401){
             // Display notification that this part of application is unauthorized
-            this.snackbarService.showNotification(`Vous n'êtes pas autorisé à accéder à cette partie de l'application 
-              ${this.decodedTokenService.firstNameDecoded()} ${this.decodedTokenService.lastNameDecoded()}`, 
-              'red-alert');
+            this.snackbarService.showNotification(
+              `Vous n'êtes pas autorisé à accéder à cette partie de l'application `
+              + `${this.decodedTokenService.firstNameDecoded()} `
+              + `${this.decodedTokenService.lastNameDecoded()}.`
+              ,'red-alert'
+            );
           }
-
           return throwError(() => new Error('Unauthorized part of the application.'));
         })
       )
     }
     
     return next.handle(request)
-
   }
-
 }
-
 export const JWTInterceptorProvider = {
   provide: HTTP_INTERCEPTORS,
   useClass: JwtInterceptor,
