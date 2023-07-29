@@ -45,6 +45,8 @@ security:
             methods: [GET, POST] }
         - { path: ^/api/check_account_validation, roles: PUBLIC_ACCESS,
             methods: [GET] }
+        - { path: ^/api/check_if_email_exist, roles: PUBLIC_ACCESS,
+            methods: [GET] }
         - { path: ^/api/users, roles: IS_AUTHENTICATED_FULLY,
             methods: [POST, GET, PUT, PATCH, DELETE] }
         - { path: ^/api/gardens, roles: IS_AUTHENTICATED_FULLY }
