@@ -95,6 +95,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $lastName;
 
     #[SerializedName('password')]
+    #[Assert\NotBlank(groups:['create'])]
     #[Assert\Length(max:4096)]
     #[Groups(['write:User'])]
     private ?string $plainPassword;
