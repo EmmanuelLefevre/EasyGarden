@@ -3,19 +3,20 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class CheckAccountActivationController extends AbstractController
 {
-    private $entityManager;
+    private $userRepository;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(UserRepository $userRepository)
     {
-        $this->entityManager = $entityManager;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -25,14 +26,12 @@ class CheckAccountActivationController extends AbstractController
     {
         $email = $request->query->get('email');
 
-        $userRepository = $this->entityManager->getRepository(User::class);
-        $user = $userRepository->findOneBy(['email' => $email]);
+        $isVerified = $this->userRepository->isUserVerified($email);
 
-        if (!$user) {
-            return new JsonResponse(false, 200);
+        if ($isVerified) {
+            return new JsonResponse(true, Response::HTTP_OK);
+        } else {
+            return new JsonResponse(false, Response::HTTP_NOT_FOUND);
         }
-
-        $isVerified = $user->getIsVerified();
-        return new JsonResponse($isVerified, 200);
     }
 }
