@@ -12,7 +12,6 @@ class UserIpAddressDetector
 {
     /**
      * Get the user's IP address.
-     *
      * @return string The user's IP address as a string.
      */
     public static function getUserIpAddress(): string

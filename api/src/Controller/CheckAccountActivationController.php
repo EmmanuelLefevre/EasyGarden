@@ -17,7 +17,6 @@ class CheckAccountActivationController extends AbstractController
 
     /**
      * CheckAccountActivationController constructor.
-     *
      * @param UserRepository $userRepository The repository responsible for retrieving User data.
      */
     public function __construct(UserRepository $userRepository)
@@ -28,11 +27,8 @@ class CheckAccountActivationController extends AbstractController
     /**
      * Check account activation status based on email [UniqueEntity]
      * This method is accessible via GET request to "/account_validation"
-     * 
      * @param string Request $request The HTTP request object.
-     * 
      * @return JsonResponse The JSON response with the boolean account verification status.
-     * 
      * @Route("/api/check_account_validation", name="check_account_validation", methods={"GET"})
      */
     public function checkAccountValidation(Request $request): JsonResponse

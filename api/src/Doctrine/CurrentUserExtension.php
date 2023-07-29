@@ -23,7 +23,6 @@ final class CurrentUserExtension implements QueryCollectionExtensionInterface, Q
 
     /**
      * CurrentUserExtension constructor.
-     *
      * @param Security $security The Security instance used to check user roles and identity.
      */
     public function __construct(Security $security) {
@@ -32,12 +31,10 @@ final class CurrentUserExtension implements QueryCollectionExtensionInterface, Q
 
     /**
      * Apply the current user filter to a collection query.
-     *
      * @param QueryBuilder $queryBuilder The query builder.
      * @param QueryNameGeneratorInterface $queryNameGenerator The query name generator.
      * @param string $resourceClass The resource class.
-     * @param string|null $operationName The operation name.
-     * 
+     * @param string|null $operationName The operation name. 
      * @return void
      */
     public function applyToCollection(QueryBuilder $queryBuilder, 
@@ -49,14 +46,12 @@ final class CurrentUserExtension implements QueryCollectionExtensionInterface, Q
 
     /**
      * Apply the current user filter to an item query.
-     *
      * @param QueryBuilder $queryBuilder The query builder.
      * @param QueryNameGeneratorInterface $queryNameGenerator The query name generator.
      * @param string $resourceClass The resource class.
      * @param array $identifiers The item identifiers.
      * @param string|null $operationName The operation name.
-     * @param array $context The context options.
-     * 
+     * @param array $context The context options. 
      * @return void
      */
     public function applyToItem(QueryBuilder $queryBuilder, 
@@ -70,10 +65,8 @@ final class CurrentUserExtension implements QueryCollectionExtensionInterface, Q
 
     /**
      * Add the current user filter to the query builder.
-     *
      * @param QueryBuilder $queryBuilder The query builder.
-     * @param string $resourceClass The resource class.
-     * 
+     * @param string $resourceClass The resource class. 
      * @return void
      */
     private function addWhere(QueryBuilder $queryBuilder, string $resourceClass): void {

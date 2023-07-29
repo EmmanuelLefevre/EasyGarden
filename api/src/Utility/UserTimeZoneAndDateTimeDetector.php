@@ -14,7 +14,6 @@ class UserTimeZoneAndDateTimeDetector
 {
     /**
      * Detect the user's time zone and date time zone based on their IP address.
-     *
      * @return array An array containing the detected user time zone and date time zone.
      */
     public static function userTimeZoneAndDateTimeDetector(): array
