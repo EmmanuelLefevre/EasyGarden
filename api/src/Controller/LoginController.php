@@ -43,4 +43,20 @@ class LoginController extends AbstractController
             return new JsonResponse(false, Response::HTTP_NOT_FOUND);
         }
     }
+
+    /**
+     * Check if user exists in the database based on the provided email.
+     * This method is accessible via GET request to "/api/check_email_exist"
+     * @param string Request $request The HTTP request object.
+     * @return JsonResponse The JSON response with the boolean indicating whether the email exists or not.
+     * @Route("/api/check_email_exist", name="check_email_exist", methods={"GET"})
+     */
+    public function checkEmailExist(Request $request): JsonResponse
+    {
+        $email = $request->query->get('email');
+
+        $emailExists = $this->userRepository->checkIfUserExist($email);
+
+        return new JsonResponse($emailExists, Response::HTTP_OK);
+    }
 }
