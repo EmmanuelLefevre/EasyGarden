@@ -98,7 +98,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotBlank(groups:['create'])]
     #[Assert\Length(max:4096)]
     #[Groups(['write:User'])]
-    private ?string $plainPassword;
+    private ?string $plainPassword = null;
 
     #[ORM\Column(type: 'string')]
     #[Assert\NotBlank]
