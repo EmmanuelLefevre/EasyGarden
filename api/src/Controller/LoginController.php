@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 
-class CheckAccountActivationController extends AbstractController
+class LoginController extends AbstractController
 {
     private $userRepository;
 
