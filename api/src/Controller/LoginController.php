@@ -61,5 +61,6 @@ class LoginController extends AbstractController
             return new JsonResponse(true, Response::HTTP_OK);
         } else {
             return new JsonResponse(false, Response::HTTP_NOT_FOUND);
+        }
     }
 }
