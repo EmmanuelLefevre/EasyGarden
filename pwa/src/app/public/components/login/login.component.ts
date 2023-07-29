@@ -66,13 +66,10 @@ export class LoginComponent implements OnDestroy {
               private tokenService: TokenService,) {}
 
   ngOnDestroy(): void {
-    if (this.loginSubscription) {
+    if (this.loginSubscription && this.accountVerificationSubscription) {
       this.loginSubscription.unsubscribe();
-    }
-    if (this.accountVerificationSubscription) {
       this.accountVerificationSubscription.unsubscribe();
     }
-
   }
 
   get f(): { [key: string]: AbstractControl } {
