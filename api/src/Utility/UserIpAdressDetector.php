@@ -4,8 +4,17 @@ namespace App\Utility;
 
 use Symfony\Component\HttpClient\HttpClient;
 
+
+/**
+ * The UserIpAddressDetector class is responsible for detecting the user's IP address using an external API.
+ */
 class UserIpAddressDetector
 {
+    /**
+     * Get the user's IP address.
+     *
+     * @return string The user's IP address as a string.
+     */
     public static function getUserIpAddress(): string
     {
         $apiKey = $_ENV['IP_API_KEY'];

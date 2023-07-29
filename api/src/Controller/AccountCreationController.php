@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
 
+
 class AccountCreationController extends AbstractController
 {
     private $userDataPersister;
@@ -33,6 +34,13 @@ class AccountCreationController extends AbstractController
     }
 
     /**
+     * Create user account
+     * This method is accessible via GET request to "/account_creation"
+     *
+     * @param string Request $request The HTTP request object.
+     * 
+     * @return JsonResponse
+     * 
      * @Route("/account_creation", name="account_creation", methods={"POST"})
      */
     public function accountCreation(Request $request): JsonResponse
@@ -82,6 +90,15 @@ class AccountCreationController extends AbstractController
 
 
     /**
+     * Activate user account
+     * This method is accessible via GET and POST requests to "/account_activation/{token}"
+     * 
+     * @param string $token The activation token received as part of the URL.
+     * @param UserDataPersister $userDataPersister The service responsible for persisting user data.
+     * @param RouterInterface $router The RouterInterface instance used for generating URLs.
+     * 
+     * @return RedirectResponse A RedirectResponse object that redirects the user to the Angular verified account page.
+     * 
      * @Route("/account_activation/{token}", name="account_activation", methods={"GET", "POST"})
      */
     public function activateAccount(string $token, 

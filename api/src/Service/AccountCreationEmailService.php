@@ -7,11 +7,18 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
+
 class AccountCreationEmailService
 {
     private $mailer;
     private $urlGenerator;
 
+    /**
+     * AccountCreationEmailService constructor.
+     *
+     * @param MailerInterface $mailer The MailerInterface instance used for sending emails.
+     * @param UrlGeneratorInterface $urlGenerator The UrlGeneratorInterface instance used for generating URLs.
+     */
     public function __construct(MailerInterface $mailer, 
                                 UrlGeneratorInterface $urlGenerator)
     {
@@ -19,6 +26,15 @@ class AccountCreationEmailService
         $this->urlGenerator = $urlGenerator;
     }
 
+    /**
+     * Send an activation email to the user.
+     *
+     * @param User $user The User object representing the user to whom the email will be sent.
+     * @param string $recipientEmail The recipient's email address.
+     * @param string $activationToken The activation token generated for the user's account activation.
+     * 
+     * @return void
+     */
     public function sendActivationEmail(User $user, 
                                         string $recipientEmail,
                                         string $activationToken): void

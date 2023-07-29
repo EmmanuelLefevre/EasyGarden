@@ -4,11 +4,14 @@ namespace App\EventListener;
 
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent;
 
+
 class JWTCreatedListener
 {
   /**
-   * @param JWTCreatedEvent $event
-   *
+   * Listen to the JWTCreatedEvent event and modify the token payload.
+   * 
+   * @param JWTCreatedEvent $event The JWTCreatedEvent object.
+   * 
    * @return void
    */
   public function onJWTCreated(JWTCreatedEvent $event)
