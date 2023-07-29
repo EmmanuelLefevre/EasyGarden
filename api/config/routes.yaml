@@ -23,9 +23,9 @@ account_validation:
 verify_account_validation:
     path: /api/check_account_validation/
     methods: ['GET']
-    controller: App\Controller\CheckAccountActivationController::checkAccountValidation
+    controller: App\Controller\LoginController::checkAccountValidation
 
 check_if_email_exist:
     path: /api/check_if_email_exist/
     methods: ['GET']
-    controller: App\Controller\CheckAccountActivationController::checkIfEmailExist
+    controller: App\Controller\LoginController::checkIfEmailExist
