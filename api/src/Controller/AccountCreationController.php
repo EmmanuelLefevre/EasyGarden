@@ -82,7 +82,7 @@ class AccountCreationController extends AbstractController
         try {
             $this->emailService->sendActivationEmail($user, $user->getEmail(), $activationToken);
         } catch (\Exception $e) {
-            return new JsonResponse(['message' => 'Failed to send email'], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return new JsonResponse(['message' => 'Failed to send email!'], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
         
         // Persist User
@@ -110,7 +110,7 @@ class AccountCreationController extends AbstractController
         $user = $this->userRepository->findByActivationToken($token);
 
         if (!$user) {
-            return new JsonResponse(['message' => 'Invalid activation token'], Response::HTTP_FORBIDDEN);
+            return new JsonResponse(['message' => 'Invalid activation token!'], Response::HTTP_FORBIDDEN);
         }
 
         // Activate the user's account
