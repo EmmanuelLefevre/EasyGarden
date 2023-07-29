@@ -25,7 +25,7 @@ class LoginController extends AbstractController
     }
 
     /**
-     * Check account activation status based on email [UniqueEntity]
+     * Check account activation status based on the provided email [UniqueEntity]
      * This method is accessible via GET request to "/account_validation"
      * @param string Request $request The HTTP request object.
      * @return JsonResponse The JSON response with the boolean account verification status.
@@ -45,7 +45,7 @@ class LoginController extends AbstractController
     }
 
     /**
-     * Check if user exists in the database based on the provided email.
+     * Check if user exists in the database based on the provided email [UniqueEntity]
      * This method is accessible via GET request to "/api/check_email_exist"
      * @param string Request $request The HTTP request object.
      * @return JsonResponse The JSON response with the boolean indicating whether the email exists or not.
@@ -57,6 +57,9 @@ class LoginController extends AbstractController
 
         $emailExists = $this->userRepository->checkIfUserExist($email);
 
-        return new JsonResponse($emailExists, Response::HTTP_OK);
+        if ($emailExists) {
+            return new JsonResponse(true, Response::HTTP_OK);
+        } else {
+            return new JsonResponse(false, Response::HTTP_NOT_FOUND);
     }
 }
