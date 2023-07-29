@@ -39,17 +39,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
     /**
-     * Check if user exist in database
-     * @param string $email The email to check [UniqueEntity]
-     * @return bool True if the email exists, false otherwise
-     */
-    public function checkIfUserExist(string $email): bool
-    {
-        $user = $this->findOneBy(['email' => $email]);
-        return $user !== null;
-    }
-
-    /**
      * Check if a user with the given email and isVerified = true exists.
      * @param string $email Email [UniqueEntity] of the user to look for.
      * @return bool True if the user exists and is verified, false otherwise.
