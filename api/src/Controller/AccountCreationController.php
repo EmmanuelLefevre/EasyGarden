@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-use App\DataPersister\UserDataPersister;
-use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\User;
+use App\DataPersister\UserDataPersister;
+use App\Repository\UserRepository;
 use App\Service\AccountCreationEmailService;
 use App\Utility\TokenGenerator;
 use App\Utility\DateTimeConverter;
@@ -22,32 +22,29 @@ class AccountCreationController extends AbstractController
     private $userDataPersister;
     private $userPasswordHasher;
     private $emailService;
-    private $entityManager;
+    private $userRepository;
 
     /**
      * AccountCreationController constructor.
      *
-     * @param UserDataPersister $userDataPersister The service responsible for persisting user data.
      * @param AccountCreationEmailService $emailService The service responsible for sending account creation emails.
-     * @param EntityManagerInterface $entityManager The Doctrine EntityManager responsible for database interactions.
+     * @param UserDataPersister $userDataPersister The service responsible for persisting user data.
+     * @param UserRepository $userRepository The repository responsible for retrieving User data.
      */
-    public function __construct(UserDataPersister $userDataPersister, 
-                                AccountCreationEmailService $emailService,
-                                EntityManagerInterface $entityManager)
+    public function __construct(AccountCreationEmailService $emailService,
+                                UserDataPersister $userDataPersister,
+                                UserRepository $userRepository)
     {
         $this->userDataPersister = $userDataPersister;
         $this->emailService = $emailService;
-        $this->entityManager = $entityManager;
+        $this->userRepository = $userRepository;
     }
 
     /**
      * Create user account
      * This method is accessible via GET request to "/account_creation"
-     *
-     * @param string Request $request The HTTP request object.
-     * 
+     * @param string Request $request The HTTP request object. 
      * @return JsonResponse
-     * 
      * @Route("/account_creation", name="account_creation", methods={"POST"})
      */
     public function accountCreation(Request $request): JsonResponse
@@ -55,7 +52,7 @@ class AccountCreationController extends AbstractController
         $data = json_decode($request->getContent(), true);
 
         // Check if a user with the provided email already exists
-        $existingUser = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $data['email']]);
+        $existingUser = $this->userRepository->findByEmail($data['email']);
         if ($existingUser) {
             return new JsonResponse(['message' => 'Email already exists'], Response::HTTP_CONFLICT);
         }
@@ -98,23 +95,19 @@ class AccountCreationController extends AbstractController
 
     /**
      * Activate user account
-     * This method is accessible via GET and POST requests to "/account_activation/{token}"
-     * 
+     * This method is accessible via GET and POST requests to "/account_activation/{token}" 
      * @param string $token The activation token received as part of the URL.
-     * @param UserDataPersister $userDataPersister The service responsible for persisting user data.
+     * @param UserRepository $userRepository The UserRepository for retrieving User data.
      * @param RouterInterface $router The RouterInterface instance used for generating URLs.
-     * 
      * @return RedirectResponse A RedirectResponse object that redirects the user to the Angular verified account page.
-     * 
      * @Route("/account_activation/{token}", name="account_activation", methods={"GET", "POST"})
      */
-    public function activateAccount(string $token, 
-                                    UserDataPersister $userDataPersister, 
-                                    RouterInterface $router): RedirectResponse
+    public function activateAccount(string $token,
+                                    RouterInterface $router,
+                                    UserRepository $userRepository): RedirectResponse
     {
         // Find the user with the given activation token
-        $userRepository = $this->entityManager->getRepository(User::class);
-        $user = $userRepository->findOneBy(['activationToken' => $token]);
+        $user = $this->userRepository->findByActivationToken($token);
 
         if (!$user) {
             return new JsonResponse(['message' => 'Invalid activation token'], Response::HTTP_FORBIDDEN);
@@ -131,8 +124,7 @@ class AccountCreationController extends AbstractController
         $user->setActivationToken(null);
 
         // Persist account validation
-        $this->entityManager->merge($user);
-        $this->entityManager->flush();
+        $this->userDataPersister->persist($user);
 
         // Redirect the user to the Angular verified account page (external URL)
         $loginUrl = 'http://localhost:4200/verified-account';
