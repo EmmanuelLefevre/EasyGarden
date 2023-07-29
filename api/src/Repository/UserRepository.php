@@ -68,4 +68,15 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     {
         return $this->findOneBy(['activationToken' => $activationToken]);
     }
+
+    /**
+     * Check if user exist in database on the provided email [UniqueEntity]
+     * @param string $email The email to check
+     * @return bool True if the email exists, false otherwise
+     */
+    public function checkIfUserExist(string $email): bool
+    {
+        $user = $this->findOneBy(['email' => $email]);
+        return $user !== null;
+    }
 }
