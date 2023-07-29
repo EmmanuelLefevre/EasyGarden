@@ -15,6 +15,11 @@ class CheckAccountActivationController extends AbstractController
 {
     private $userRepository;
 
+    /**
+     * CheckAccountActivationController constructor.
+     *
+     * @param UserRepository $userRepository The repository responsible for retrieving User data.
+     */
     public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;

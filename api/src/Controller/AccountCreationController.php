@@ -24,6 +24,13 @@ class AccountCreationController extends AbstractController
     private $emailService;
     private $entityManager;
 
+    /**
+     * AccountCreationController constructor.
+     *
+     * @param UserDataPersister $userDataPersister The service responsible for persisting user data.
+     * @param AccountCreationEmailService $emailService The service responsible for sending account creation emails.
+     * @param EntityManagerInterface $entityManager The Doctrine EntityManager responsible for database interactions.
+     */
     public function __construct(UserDataPersister $userDataPersister, 
                                 AccountCreationEmailService $emailService,
                                 EntityManagerInterface $entityManager)

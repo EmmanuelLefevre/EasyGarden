@@ -21,10 +21,25 @@ final class CurrentUserExtension implements QueryCollectionExtensionInterface, Q
 {
     private $security;
 
+    /**
+     * CurrentUserExtension constructor.
+     *
+     * @param Security $security The Security instance used to check user roles and identity.
+     */
     public function __construct(Security $security) {
         $this->security = $security;
     }
 
+    /**
+     * Apply the current user filter to a collection query.
+     *
+     * @param QueryBuilder $queryBuilder The query builder.
+     * @param QueryNameGeneratorInterface $queryNameGenerator The query name generator.
+     * @param string $resourceClass The resource class.
+     * @param string|null $operationName The operation name.
+     * 
+     * @return void
+     */
     public function applyToCollection(QueryBuilder $queryBuilder, 
                                       QueryNameGeneratorInterface $queryNameGenerator, 
                                       string $resourceClass, 
@@ -32,6 +47,18 @@ final class CurrentUserExtension implements QueryCollectionExtensionInterface, Q
         $this->addWhere($queryBuilder, $resourceClass);
     }
 
+    /**
+     * Apply the current user filter to an item query.
+     *
+     * @param QueryBuilder $queryBuilder The query builder.
+     * @param QueryNameGeneratorInterface $queryNameGenerator The query name generator.
+     * @param string $resourceClass The resource class.
+     * @param array $identifiers The item identifiers.
+     * @param string|null $operationName The operation name.
+     * @param array $context The context options.
+     * 
+     * @return void
+     */
     public function applyToItem(QueryBuilder $queryBuilder, 
                                 QueryNameGeneratorInterface $queryNameGenerator, 
                                 string $resourceClass, 
@@ -41,6 +68,14 @@ final class CurrentUserExtension implements QueryCollectionExtensionInterface, Q
         $this->addWhere($queryBuilder, $resourceClass);
     }
 
+    /**
+     * Add the current user filter to the query builder.
+     *
+     * @param QueryBuilder $queryBuilder The query builder.
+     * @param string $resourceClass The resource class.
+     * 
+     * @return void
+     */
     private function addWhere(QueryBuilder $queryBuilder, string $resourceClass): void {
         if ($this->security->isGranted('ROLE_ADMIN') 
             || null === $user = $this->security->getUser()) {

@@ -12,19 +12,38 @@ class UserDataPersister implements DataPersisterInterface
     private $entityManager;
     private $userPasswordHasher;
 
+    /**
+     * UserDataPersister constructor.
+     *
+     * @param EntityManagerInterface $entityManager The EntityManagerInterface instance used for persisting entities.
+     * @param UserPasswordHasherInterface $userPasswordHasher The UserPasswordHasherInterface instance used for hashing user passwords.
+     */
     public function __construct (EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher)
     {
         $this->entityManager = $entityManager;
         $this->userPasswordHasher = $userPasswordHasher;
     }
 
+    /**
+     * Check if the data is supported by this data persister.
+     *
+     * @param mixed $data The data to check.
+     * @param array $context The context options.
+     *
+     * @return bool True if the data is supported, false otherwise.
+     */
     public function supports($data, array $context = []): bool
     {
         return $data instanceof User;
     }
 
     /**
-     * @param User $data
+     * Persist (create or update) the User entity in the database.
+     *
+     * @param User $data The User entity to persist.
+     * @param array $context The context options.
+     * 
+     * @return void
      */
     public function persist($data, array $context = [])
     {
@@ -38,6 +57,14 @@ class UserDataPersister implements DataPersisterInterface
         $this->entityManager->flush();
     }
 
+    /**
+     * Remove the User entity from the database.
+     *
+     * @param User $data The User entity to remove.
+     * @param array $context The context options.
+     * 
+     * @return void
+     */
     public function remove($data, array $context = [])
     {
         $this->entityManager->remove($data);      
