@@ -10,10 +10,9 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 
 /**
- * @method User|null find($id, $lockMode = null, $lockVersion = null)
- * @method User|null findOneBy(array $criteria, array $orderBy = null)
- * @method User[]    findAll()
- * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method void upgradePassword(PasswordAuthenticatedUserInterface|User $user, string $newHashedPassword)
+ * @method bool checkIfUserExist(string $email)
+ * @method bool isUserVerified(string $email)
  */
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
@@ -24,6 +23,11 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
+     *
+     * @param PasswordAuthenticatedUserInterface|User $user The user object to upgrade the password for.
+     * @param string $newHashedPassword The new hashed password to set for the user.
+     *
+     * @throws UnsupportedUserException If the provided user object is not an instance of User.
      */
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
     {
@@ -36,32 +40,25 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->flush();
     }
 
-    // /**
-    //  * @return User[] Returns an array of User objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * Check if user exist in database
+     * @param string $email The email to check [UniqueEntity]
+     * @return bool True if the email exists, false otherwise
+     */
+    public function checkIfUserExist(string $email): bool
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $user = $this->findOneBy(['email' => $email]);
+        return $user !== null;
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?User
+    /**
+     * Check if a user with the given email and isVerified = true exists.
+     * @param string $email Email [UniqueEntity] of the user to look for.
+     * @return bool True if the user exists and is verified, false otherwise.
+     */
+    public function isUserVerified(string $email): bool
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $user = $this->findOneBy(['email' => $email, 'isVerified' => true]);
+        return $user !== null;
     }
-    */
 }

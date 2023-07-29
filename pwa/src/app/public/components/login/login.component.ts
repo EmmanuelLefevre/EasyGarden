@@ -2,7 +2,8 @@ import { Component, OnDestroy, ViewEncapsulation } from '@angular/core';
 // Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip in style.scss
 import { Router } from '@angular/router';
 import { AbstractControl, UntypedFormBuilder, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { Subscription, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 // Environment
 import { environment } from '../../../../environments/environment';
 // Icons
@@ -83,33 +84,44 @@ export class LoginComponent implements OnDestroy {
     }
     
     const typedLoginForm: ICredentials = this.loginForm.value;
-
+  
     this.loginSubscription = this.authService.logIn(typedLoginForm)
       .subscribe(
         data => {
           this.tokenService.saveToken(data.token);
           const email = this.loginForm.value.email;
           this.accountVerificationSubscription = this.authService.isAccountVerified(email)
+            .pipe(
+              catchError(_error => {
+                // Handle specific error case for account verification
+                this.snackbarService.showNotification(
+                  `Votre compte n'a pas encore été activé grâce au lien dans l'email qui vous a été envoyé!`,
+                  'orange-alert'
+                );
+                // Return a false value to continue the chain
+                return of(false);
+              })
+            )
             .subscribe(
               (isVerified) => {
                 if (isVerified) {
                   this.router.navigate(['easygarden']);
                   this.snackbarService.showNotification(
                     `Bonjour ${this.decodedTokenService.firstNameDecoded()} `
-                    + `${this.decodedTokenService.lastNameDecoded()}.`
-                    ,'logIn-logOut'
+                    + `${this.decodedTokenService.lastNameDecoded()}.`,
+                    'logIn-logOut'
                   );
                 } else {
                   this.snackbarService.showNotification(
-                    `Votre compte n'a pas encore été activé grâce au lien dans l'email qui vous a été envoyé!`
-                    ,'orange-alert'
+                    `Votre compte n'a pas encore été activé grâce au lien dans l'email qui vous a été envoyé!`,
+                    'orange-alert'
                   );
                 }
               },
               _error => {
                 this.snackbarService.showNotification(
-                  `Une erreur s'est produite lors de la vérification du compte!`
-                  ,'red-alert'
+                  `Une erreur s'est produite lors de la vérification du compte!`,
+                  'red-alert'
                 );
               }
             );
@@ -124,7 +136,7 @@ export class LoginComponent implements OnDestroy {
           }
         }
       );
-  }
+    }
 
   onReset(formDirective: any): void {
     this.loginForm.reset();
