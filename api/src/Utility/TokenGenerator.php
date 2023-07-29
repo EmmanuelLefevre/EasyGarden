@@ -2,6 +2,7 @@
 
 namespace App\Utility;
 
+
 class TokenGenerator
 
 {
