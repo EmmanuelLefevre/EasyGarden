@@ -132,8 +132,15 @@ export class RegisterComponent implements OnDestroy {
           if (response && response.status === 201) { 
             const firstName = formValue.firstName;
             const lastName = formValue.lastName;
-            this.snackbarService.showNotification(`Bienvenu ` + firstName + ' ' + lastName + ',' +
-              `\nveuillez confirmer votre compte dans l\'email qui vous a été envoyé.`, 'register')
+            this.snackbarService.showNotification(
+              `Bienvenu ` 
+              + firstName 
+              + ` ` 
+              + lastName 
+              + `,` 
+              + `\nveuillez confirmer votre compte dans l\'email qui vous a été envoyé.`
+              ,'register'
+            );
             this.router.navigate(['login'])
           }
         },
