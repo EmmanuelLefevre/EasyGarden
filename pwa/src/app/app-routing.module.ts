@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { environment } from 'src/environments/environment';
-
-import { AuthGuard } from './_services/guard/auth.guard';
-
+// Service
+import { AuthGuardService } from './_services/guard/auth.guard';
+// Component
 import { Error404Component } from './_services/utils/error/error404.component';
 import { VerifiedAccountComponent } from './_services/utils/verified-account/verified-account.component';
 
@@ -16,7 +16,7 @@ const routes: Routes = [
   },
   {
     path: 'easygarden', loadChildren: () => import('./easygarden/easygarden.module')
-      .then(module => module.EasygardenModule), canActivate:[AuthGuard]
+      .then(module => module.EasygardenModule), canActivate:[AuthGuardService]
   },
   { path: '404', component: Error404Component,
     data: {
