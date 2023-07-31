@@ -56,7 +56,9 @@ export class AuthInterceptor implements HttpInterceptor {
               && !request.url.endsWith('/login_check')) {
             // Access denied so we display notification
             this.snackbarService.showNotification(
-              `Vous n'êtes pas autorisé à accéder à cette partie de l'application ${this.decodedTokenService.firstNameDecoded()} ${this.decodedTokenService.lastNameDecoded()}.`,
+              `Vous n'êtes pas autorisé à accéder à cette partie de l'application `
+              + `${this.decodedTokenService.firstNameDecoded()} `
+              + `${this.decodedTokenService.lastNameDecoded()}!`,
               'red-alert'
             );
           }
