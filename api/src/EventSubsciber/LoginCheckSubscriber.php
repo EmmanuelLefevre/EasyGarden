@@ -48,7 +48,7 @@ class LoginCheckSubscriber implements EventSubscriberInterface
             // Verify the presence of the required keys
             if (!isset($data['email']) || !isset($data['password'])) {
                 // The required keys are not present in the JSON, return an error response with 400 status
-                $response = new JsonResponse(['message' => 'Missing email or password!'], Response::HTTP_BAD_REQUEST);
+                $response = new JsonResponse(['message' => 'Invalid required keys!'], Response::HTTP_BAD_REQUEST);
                 $event->setResponse($response);
                 return;
             }
