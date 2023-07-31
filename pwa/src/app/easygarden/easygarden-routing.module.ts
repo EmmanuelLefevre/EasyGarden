@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+// Environment
 import { environment } from 'src/environments/environment';
-
-import { GardenComponent } from './components/garden/garden.component';
-import { EditEntityNameComponent } from './components/editEntityName/edit-entity-name.component';
+// Components
 import { AddEntityComponent } from './components/addEntity/add-entity.component';
+import { EditEntityNameComponent } from './components/editEntityName/edit-entity-name.component';
+import { GardenComponent } from './components/garden/garden.component';
 
 const name = environment.application.name;
 
