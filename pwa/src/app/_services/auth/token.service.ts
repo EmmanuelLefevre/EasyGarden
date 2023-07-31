@@ -21,7 +21,7 @@ export class TokenService {
     localStorage.setItem('token', token);
   }
 
-  isLogged(): boolean{
+  isToken(): boolean{
     const token = localStorage.getItem('token');
     return !! token;
   }
@@ -34,13 +34,11 @@ export class TokenService {
   isTokenExpired(token: string): boolean{
     try {
       const decodedToken: any = jwt_decode(token);
-      
       // Convert the expiration date to milliseconds
-      const expirationDate = new Date(decodedToken.exp * 1000);
-  
+      const expirationDate = new Date(decodedToken.exp * 1000);  
       // Check if the expiration date is in the past
+      
       return expirationDate.getTime() <= Date.now();
-
     }
     // In the event of an error during decoding, the token is considered expired as a precaution.
     catch (error) {
