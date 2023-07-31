@@ -62,5 +62,11 @@ class LoginController extends AbstractController
         } else {
             return new JsonResponse(false, Response::HTTP_NOT_FOUND);
         }
+
+        // if ($emailExists) {
+        //     return new JsonResponse(['exists' => true], Response::HTTP_OK);
+        // } else {
+        //     return new JsonResponse(['exists' => false, 'error' => 'Account doesn\'t exist!'], Response::HTTP_NOT_FOUND);
+        // }
     }
 }
