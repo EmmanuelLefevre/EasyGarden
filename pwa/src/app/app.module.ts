@@ -10,7 +10,7 @@ import { AppComponent } from './app.component';
 import { Error404Component } from './_services/utils/error/error404.component';
 import { FooterComponent } from './components/footer/footer.component';
 
-import { JWTInterceptorProvider } from './_services/interceptor/jwt.interceptor';
+import { AUTHInterceptorProvider } from './_services/interceptor/auth.interceptor';
 
 
 @NgModule({
@@ -27,7 +27,7 @@ import { JWTInterceptorProvider } from './_services/interceptor/jwt.interceptor'
     MatSnackBarModule,
     FontAwesomeModule
   ],
-  providers: [JWTInterceptorProvider, Meta],
+  providers: [AUTHInterceptorProvider, Meta],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent],
 })
