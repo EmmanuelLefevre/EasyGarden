@@ -2,7 +2,7 @@ import { Component, OnDestroy, ViewEncapsulation } from '@angular/core';
 // Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip in style.scss
 import { AbstractControl, UntypedFormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription, takeUntil } from 'rxjs';
 // Environment
 import { environment } from 'src/environments/environment';
 // Services
@@ -31,6 +31,8 @@ export class EditEntityNameComponent implements OnDestroy {
   // Declaration of subscriptions
   private getDataSubscription: Subscription = new Subscription();
   private updateDataSubscription!: Subscription;
+  // Private Subject to handle component destruction
+  private destroy$ = new Subject<void>();
 
   // EditWateringForm Group
   editName = this.formBuilder.group({
@@ -106,6 +108,8 @@ export class EditEntityNameComponent implements OnDestroy {
 
     if (service) {
       this.getDataSubscription = service.getData(id)
+      // Use takeUntil to automatically unsubscribe
+      .pipe(takeUntil(this.destroy$))
         .subscribe((data: IName) => {
           this.IName = data;
           this.value = this.IName.name;
@@ -115,10 +119,11 @@ export class EditEntityNameComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.getDataSubscription.unsubscribe();
-    if (this.updateDataSubscription) {
-      this.updateDataSubscription.unsubscribe();
-    }
+    // Destroy Subject
+    this.destroy$.next();
+    this.destroy$.complete();
+    // Clean up subscriptions
+    this.unsubscribeAll();
   }
 
   get f(): { [key: string]: AbstractControl } {
@@ -190,6 +195,15 @@ export class EditEntityNameComponent implements OnDestroy {
   onReset(formDirective: any): void {
     this.editName.reset();
     formDirective.resetForm();
+  }
+
+  private unsubscribeAll(): void {
+    this.getDataSubscription.unsubscribe();
+    console.log('getDataSubscription s\'est désabonnée avec succès.');
+    if (this.updateDataSubscription) {
+      this.updateDataSubscription.unsubscribe();
+      console.log('updateDataSubscription s\'est désabonnée avec succès.');
+    }
   }
 
 }

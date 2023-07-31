@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 // Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip in style.scss
-import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { filter, Subject, Subscription } from 'rxjs';
 // Environment
 import { environment } from 'src/environments/environment';
 // Icons
@@ -35,9 +35,12 @@ export class GardenComponent implements OnInit, OnDestroy {
   title = 'Tableau jardin';
 
   // Declaration of subscriptions
-  private getAllGardensSubscription: Subscription = new Subscription;
+  private getAllGardensInGardenSubscription: Subscription = new Subscription;
   private deleteGardenSubscription!: Subscription;
-  private dialogRefSubscription!: Subscription;
+  private dialogRefInGardenSubscription!: Subscription;
+  private navigationEndSubscription!: Subscription;
+  // Private Subject to handle component destruction
+  private destroy$ = new Subject<void>();
 
   // Get user id from DecodedTokenService
   id: String = '';
@@ -58,26 +61,40 @@ export class GardenComponent implements OnInit, OnDestroy {
 
   gardens: IGarden[] = [];
 
-  constructor(public router: Router,             
+  constructor(public router: Router, 
+              private route: ActivatedRoute,            
               private decodedTokenService: DecodedTokenService,
               private dialog: MatDialog,
               private gardenService: GardenService) {}
 
   ngOnInit(): void {
     this.fetchGardens();
+
+    // Observing route changes with NavigationEnd
+    this.navigationEndSubscription = this.router.events.pipe(
+      filter((event): event is NavigationEnd => event instanceof NavigationEnd)
+    )
+      .subscribe((_event: NavigationEnd) => {
+      // Check if the current route matches a child route
+        if (this.route.snapshot.firstChild) {
+          this.unsubscribeAll();
+        }
+      });
   }
 
   ngOnDestroy(): void {
-    this.getAllGardensSubscription.unsubscribe();
-    if (this.dialogRefSubscription && this.deleteGardenSubscription) {
-      this.dialogRefSubscription.unsubscribe();
-      this.deleteGardenSubscription.unsubscribe();
-    }
+    // Destroy Subject
+    this.destroy$.next();
+    this.destroy$.complete();
+    // Clean up subscriptions
+    this.unsubscribeAll();
+    this.navigationEndSubscription.unsubscribe();
+    console.log('navigationEndSubscription s\'est désabonnée avec succès.');
   }
 
   // Display Gardens
   fetchGardens(): void {
-    this.getAllGardensSubscription = this.gardenService.getAllGardens()
+    this.getAllGardensInGardenSubscription = this.gardenService.getAllGardens()
       .subscribe((res: any) => {
         if (res.hasOwnProperty('hydra:member')) {
           this.gardens = res['hydra:member'];
@@ -101,7 +118,7 @@ export class GardenComponent implements OnInit, OnDestroy {
       data: dialogData,
     });
 
-    this.dialogRefSubscription = dialogRef.afterClosed()
+    this.dialogRefInGardenSubscription = dialogRef.afterClosed()
       .subscribe((dialogResult) => {
         this.result = dialogResult;
         if (this.result === true) {
@@ -115,6 +132,14 @@ export class GardenComponent implements OnInit, OnDestroy {
 
   resetPagination(): void {
     this.p = 1;
+  }
+
+  private unsubscribeAll(): void {
+    this.getAllGardensInGardenSubscription.unsubscribe();
+    if (this.dialogRefInGardenSubscription && this.deleteGardenSubscription) {
+      this.dialogRefInGardenSubscription.unsubscribe();
+      this.deleteGardenSubscription.unsubscribe();
+    }
   }
 
 }

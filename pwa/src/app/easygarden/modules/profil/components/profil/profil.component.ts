@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 // Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip-social in style.scss
 import { AbstractControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription, takeUntil } from 'rxjs';
 import { faEye, faEyeSlash, faPen } from '@fortawesome/free-solid-svg-icons';
 
 import { MatDialog } from '@angular/material/dialog';
@@ -33,6 +33,8 @@ export class ProfilComponent implements OnInit, OnDestroy {
   private updateUserSubscription!: Subscription;
   private deleteUserSubscription!: Subscription;
   private dialogRefSubscription!: Subscription;
+  // Private Subject to handle component destruction
+  private destroy$ = new Subject<void>();
 
   // Toggle faEyeSlash
   visible: boolean = false;
@@ -139,23 +141,18 @@ export class ProfilComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.getUserSubscription) {
-      this.getUserSubscription.unsubscribe();
-    }
-    if (this.updateUserSubscription) {
-      this.updateUserSubscription.unsubscribe();
-    }
-    if (this.deleteUserSubscription) {
-      this.deleteUserSubscription.unsubscribe();
-    }
-    if (this.dialogRefSubscription) {
-      this.dialogRefSubscription.unsubscribe();
-    }
+    // Destroy Subject
+    this.destroy$.next();
+    this.destroy$.complete();
+    // Clean up subscriptions
+    this.unsubscribeAll();
   }
 
   // Display User Informations
   fetchUser(): void {
     this.getUserSubscription = this.profilService.getUser()
+      // Use takeUntil to automatically unsubscribe
+      .pipe(takeUntil(this.destroy$))
       .subscribe(
         (res:any) => {
           if (res.hasOwnProperty('hydra:member'))
@@ -334,6 +331,21 @@ export class ProfilComponent implements OnInit, OnDestroy {
             )
         }   
       })
+  }
+
+  private unsubscribeAll(): void {
+    if (this.getUserSubscription) {
+      this.getUserSubscription.unsubscribe();
+    }
+    if (this.updateUserSubscription) {
+      this.updateUserSubscription.unsubscribe();
+    }
+    if (this.deleteUserSubscription) {
+      this.deleteUserSubscription.unsubscribe();
+    }
+    if (this.dialogRefSubscription) {
+      this.dialogRefSubscription.unsubscribe();
+    }
   }
 
 }

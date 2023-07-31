@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 // Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip-social in style.scss
-import { Subscription } from 'rxjs';
+import { Subject, Subscription, takeUntil } from 'rxjs';
 // Environment
 import { environment } from 'src/environments/environment';
 // Icons
@@ -42,6 +42,8 @@ export class PortalComponent implements OnInit, OnDestroy {
   private deletePortalSubscription!: Subscription;
   private updateStatusSubscription!: Subscription;
   private dialogRefSubscription!: Subscription;
+  // Private Subject to handle component destruction
+  private destroy$ = new Subject<void>();
 
   // Confirm Dialog this.result = boolean
   result: boolean | undefined;
@@ -78,15 +80,11 @@ export class PortalComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.getAllGardensSubscription.unsubscribe();
-    this.getAllPortalsSubscription.unsubscribe();
-    if (this.updateStatusSubscription) {
-      this.updateStatusSubscription.unsubscribe();
-    }
-    if (this.dialogRefSubscription && this.deletePortalSubscription) {
-      this.dialogRefSubscription.unsubscribe();
-      this.deletePortalSubscription.unsubscribe();
-    }
+    // Destroy Subject
+    this.destroy$.next();
+    this.destroy$.complete();
+    // Clean up subscriptions
+    this.unsubscribeAll();
   }
 
   // Recover Gardens
@@ -102,6 +100,8 @@ export class PortalComponent implements OnInit, OnDestroy {
   // Display Portals
   fetchPortals(): void {
     this.getAllPortalsSubscription = this.portalService.getAllPortals()
+      // Use takeUntil to automatically unsubscribe
+      .pipe(takeUntil(this.destroy$))
       .subscribe((res:any) => {
         if (res.hasOwnProperty('hydra:member')) {
           this.portals = res['hydra:member'];
@@ -158,6 +158,18 @@ export class PortalComponent implements OnInit, OnDestroy {
 
   resetPagination(): void {
     this.p = 1;
+  }
+
+  private unsubscribeAll(): void {
+    this.getAllGardensSubscription.unsubscribe();
+    this.getAllPortalsSubscription.unsubscribe();
+    if (this.updateStatusSubscription) {
+      this.updateStatusSubscription.unsubscribe();
+    }
+    if (this.dialogRefSubscription && this.deletePortalSubscription) {
+      this.dialogRefSubscription.unsubscribe();
+      this.deletePortalSubscription.unsubscribe();
+    }
   }
 
 }
