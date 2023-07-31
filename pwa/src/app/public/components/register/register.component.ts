@@ -109,9 +109,8 @@ export class RegisterComponent implements OnDestroy {
               private snackbarService: SnackbarService) {}
 
   ngOnDestroy(): void {
-    if (this.registerSubscription) { 
-      this.registerSubscription.unsubscribe();
-    }
+    // Clean up subscriptions
+    this.unsubscribeAll();
   }
   
   get f(): { [key: string]: AbstractControl } {
@@ -162,6 +161,12 @@ export class RegisterComponent implements OnDestroy {
   onReset(formDirective: any): void {
     this.registerForm.reset();
     formDirective.resetForm();
+  }
+
+  private unsubscribeAll(): void {
+    if (this.registerSubscription) { 
+      this.registerSubscription.unsubscribe();
+    }
   }
 
 }

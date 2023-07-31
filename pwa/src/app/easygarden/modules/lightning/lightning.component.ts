@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 // Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip-social in style.scss
-import { Subscription } from 'rxjs';
+import { Subject, Subscription, takeUntil } from 'rxjs';
 // Environment
 import { environment } from 'src/environments/environment';
 // Icons
@@ -41,6 +41,8 @@ export class LightningComponent implements OnInit, OnDestroy {
   private deleteLightningSubscription!: Subscription;
   private updateStatusSubscription!: Subscription;
   private dialogRefSubscription!: Subscription;
+  // Private Subject to handle component destruction
+  private destroy$ = new Subject<void>();
 
   // Confirm Dialog this.result = boolean
   result: boolean | undefined;
@@ -77,15 +79,11 @@ export class LightningComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.getAllGardensSubscription.unsubscribe();
-    this.getAllLightningsSubscription.unsubscribe();
-    if (this.updateStatusSubscription) {
-      this.updateStatusSubscription.unsubscribe();
-    }
-    if (this.dialogRefSubscription && this.deleteLightningSubscription) {
-      this.dialogRefSubscription.unsubscribe();
-      this.deleteLightningSubscription.unsubscribe();
-    }
+    // Destroy Subject
+    this.destroy$.next();
+    this.destroy$.complete();
+    // Clean up subscriptions
+    this.unsubscribeAll();
   }
 
   // Recover Gardens
@@ -101,6 +99,8 @@ export class LightningComponent implements OnInit, OnDestroy {
   // Display Lightnings
   fetchLightnings(): void {
     this.getAllLightningsSubscription = this.lightningService.getAllLightnings()
+      // Use takeUntil to automatically unsubscribe
+      .pipe(takeUntil(this.destroy$))
       .subscribe((res: any) => {
         if (res.hasOwnProperty('hydra:member')) {
           this.lightnings = res['hydra:member'];
@@ -159,6 +159,18 @@ export class LightningComponent implements OnInit, OnDestroy {
 
   resetPagination(): void {
     this.p = 1;
+  }
+
+  private unsubscribeAll(): void {
+    this.getAllGardensSubscription.unsubscribe();
+    this.getAllLightningsSubscription.unsubscribe();
+    if (this.updateStatusSubscription) {
+      this.updateStatusSubscription.unsubscribe();
+    }
+    if (this.dialogRefSubscription && this.deleteLightningSubscription) {
+      this.dialogRefSubscription.unsubscribe();
+      this.deleteLightningSubscription.unsubscribe();
+    }
   }
 
 }

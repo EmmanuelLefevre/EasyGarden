@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 // Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip in style.scss
 import { AbstractControl, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription, takeUntil } from 'rxjs';
 // Environment
 import { environment } from 'src/environments/environment';
 // Services
@@ -32,6 +32,8 @@ export class AddEntityComponent implements OnInit, OnDestroy {
   // Declaration of subscriptions
   private addDataSubscription!: Subscription;
   private getAllGardensSubscription: Subscription = new Subscription;
+  // Private Subject to handle component destruction
+  private destroy$ = new Subject<void>();
 
   currentUrl!: string;
 
@@ -65,6 +67,8 @@ export class AddEntityComponent implements OnInit, OnDestroy {
               private wateringService: WateringService,) {
 
     this.getAllGardensSubscription = this.gardenService.getAllGardens()
+    // Use takeUntil to automatically unsubscribe
+    .pipe(takeUntil(this.destroy$))
       .subscribe(
         (res:any) => {
           if (res.hasOwnProperty('hydra:member')) 
@@ -82,10 +86,11 @@ export class AddEntityComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.getAllGardensSubscription.unsubscribe();
-    if (this.addDataSubscription) {
-      this.addDataSubscription.unsubscribe();
-    }
+    // Destroy Subject
+    this.destroy$.next();
+    this.destroy$.complete();
+    // Clean up subscriptions
+    this.unsubscribeAll();
   }
 
   get f(): { [key: string]: AbstractControl } {
@@ -168,6 +173,13 @@ export class AddEntityComponent implements OnInit, OnDestroy {
 
     this.addForm.get('garden')?.setValidators(gardenValidators);
     this.addForm.get('garden')?.updateValueAndValidity();
+  }
+
+  private unsubscribeAll(): void {
+    this.getAllGardensSubscription.unsubscribe();
+    if (this.addDataSubscription) {
+      this.addDataSubscription.unsubscribe();
+    }
   }
 
 }
