@@ -51,8 +51,8 @@ export class AuthInterceptor implements HttpInterceptor {
       return next.handle(clone).pipe(
         catchError(error => {
           // Check access permission
-          if (error.status === 401 
-              && this.authService.isUserLogged() 
+          if (this.authService.isUserLogged()
+              && error.status === 401 
               && !request.url.endsWith('/login_check')) {
             // Access denied so we display notification
             this.snackbarService.showNotification(
@@ -62,6 +62,26 @@ export class AuthInterceptor implements HttpInterceptor {
               'red-alert'
             );
           }
+          // Check if email exist
+          // else if (request.url.endsWith('/login_check')
+          //         && this.authService.checkIfEmailExist()
+          //         && error.status === 404) {
+          //   const errorMessage = this.authService.checkIfEmailExist(error.error);
+          //   if (errorMessage === "Account doesn't exist!") {
+          //     this.snackbarService.showNotification(
+          //       `Veuillez créer un compte!`
+          //       ,'red-alert'
+          //     );
+          //   }
+          // }
+          // else if (request.url.endsWith('/login_check')
+          //         && this.authService.checkIfEmailExist() === false
+          //         && error.status === 404) {
+          //   this.snackbarService.showNotification(
+          //     `Veuillez créer un compte!`
+          //     ,'red-alert'
+          //   );
+          // }
           return throwError(() => new Error('Unauthorized part of the application!'));
         })
       );
