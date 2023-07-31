@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
-
+// Modele
 import { ICredentials } from '../../_interfaces/ICredentials';
 import { IToken } from '../../_interfaces/IToken';
 
@@ -22,5 +22,13 @@ export class AuthService {
   isAccountVerified(email: string): Observable<boolean> {
     return this.httpClient.get<boolean>(environment.apis.checkAccountActivation.url, {params:{email}});
   }
-  
+
+  checkIfEmailExist(email: string): Observable<boolean> {
+    return this.httpClient.get<boolean>(environment.apis.checkIfEmailExist.url, {params:{email}});
+  }
+
+  isUserLogged() {
+    return of(true);
+  }
+
 }
