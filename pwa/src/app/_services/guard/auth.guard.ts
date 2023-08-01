@@ -24,8 +24,9 @@ export class AuthGuardService implements CanActivate {
       | UrlTree {
 
       if (this.tokenService.isToken()) {
-        return this.authService.isUserLogged()
-          .pipe(map((isUserLogged) => isUserLogged));
+        return true;
+        // return this.authService.isUserLogged()
+        //   .pipe(map((isUserLogged) => isUserLogged));
       }
 
     return this.router.navigate(['/']);

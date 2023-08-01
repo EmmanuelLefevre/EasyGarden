@@ -48,24 +48,26 @@ export class AuthInterceptor implements HttpInterceptor {
         headers: request.headers.set('Authorization', 'bearer '+ token)
       });
 
-      return next.handle(clone).pipe(
-        catchError(error => {
-          // Check access permission
-          if (error instanceof HttpErrorResponse &&
-              error.status === 401 
-              && this.authGuardService.canActivate()
-              && !request.url.endsWith('/login_check')) {
-            // Access denied so we display notification
-            this.snackbarService.showNotification(
-              `Vous n'êtes pas autorisé à accéder à cette partie de l'application `
-              + `${this.decodedTokenService.firstNameDecoded()} `
-              + `${this.decodedTokenService.lastNameDecoded()}!`,
-              'red-alert'
-            );
-          }
-          return throwError(() => new Error('Unauthorized part of the application!'));
-        })
-      );
+      return next.handle(clone)
+      // .pipe
+      // (
+      //   catchError(error => {
+      //     // Check access permission
+      //     if (error instanceof HttpErrorResponse &&
+      //         error.status === 401 
+      //         && this.authGuardService.canActivate()
+      //         && !request.url.endsWith('/login_check')) {
+      //       // Access denied so we display notification
+      //       this.snackbarService.showNotification(
+      //         `Vous n'êtes pas autorisé à accéder à cette partie de l'application `
+      //         + `${this.decodedTokenService.firstNameDecoded()} `
+      //         + `${this.decodedTokenService.lastNameDecoded()}!`,
+      //         'red-alert'
+      //       );
+      //     }
+      //     return throwError(() => new Error('Unauthorized part of the application!'));
+      //   })
+      // );
     }
     
     return next.handle(request)
