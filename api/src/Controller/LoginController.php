@@ -27,28 +27,29 @@ class LoginController extends AbstractController
     /**
      * Check account activation status based on the provided email [UniqueEntity]
      * This method is accessible via GET request to "/account_validation"
-     * @param string Request $request The HTTP request object.
-     * @return JsonResponse The JSON response with the boolean account verification status.
+     * @param Request $request The HTTP request object.
+     * @return JsonResponse The JSON response with the message verification status message.
      * @Route("/api/check_account_validation", name="check_account_validation", methods={"GET"})
      */
     public function checkAccountValidation(Request $request): JsonResponse
     {
         $email = $request->query->get('email');
 
-        $isVerified = $this->userRepository->isUserVerified($email);
-
-        if ($isVerified) {
-            return new JsonResponse(true, Response::HTTP_OK);
-        } else {
-            return new JsonResponse(false, Response::HTTP_UNAUTHORIZED);
+        if (!$this->isValidEmailParam($request, $email)) {
+            return new Response('', Response::HTTP_BAD_REQUEST);
         }
+
+        $isVerified = $this->userRepository->isUserVerified($email);
+        $message = $isVerified ? 'Account is verified!' : 'Account not verified!';
+        
+        return new JsonResponse(['message' => $message], Response::HTTP_OK);
     }
 
     /**
      * Check if user exists in the database based on the provided email [UniqueEntity]
      * This method is accessible via GET request to "/api/check_if_email_exist"
-     * @param string Request $request The HTTP request object.
-     * @return JsonResponse The JSON response with the boolean indicating whether the email exists or not.
+     * @param Request $request The HTTP request object.
+     * @return JsonResponse The JSON response with the indicating message whether the email exists or not.
      * @Route("/api/check_if_email_exist", name="check_if_email_exist", methods={"GET"})
      */
     public function checkIfEmailExist(Request $request): JsonResponse
@@ -56,17 +57,30 @@ class LoginController extends AbstractController
         $email = $request->query->get('email');
 
         $emailExists = $this->userRepository->checkIfUserExist($email);
+        $message = $emailExists ? 'Email Exist!' : `Email doesn't exist!`;
 
-        if ($emailExists) {
-            return new JsonResponse(true, Response::HTTP_OK);
-        } else {
-            return new JsonResponse(false, Response::HTTP_NOT_FOUND);
+        if (!$this->isValidEmailParam($request, $email)) {
+            return new Response('', Response::HTTP_BAD_REQUEST);
         }
 
-        // if ($emailExists) {
-        //     return new JsonResponse(['exists' => true], Response::HTTP_OK);
-        // } else {
-        //     return new JsonResponse(['exists' => false, 'error' => 'Account doesn\'t exist!'], Response::HTTP_NOT_FOUND);
-        // }
+        return new JsonResponse(['message' => $message], Response::HTTP_OK);
+
     }
+
+    /**
+     * Check if the "email" param is defined in the request, is a string, and its value is not null or empty.
+     * If any of these conditions are not met, return a JSON response with a bad request status.
+     * @param Request $request The HTTP request object.
+     * @param string $email The email address to be checked.
+     * @return bool True if the email is valid; otherwise, false.
+     */
+    private function isValidEmailParam(Request $request, string $email): bool
+    {
+        if (!$request->query->has('email') || !is_string($email) || trim($email) === '') {
+            return false;
+        }
+
+        return true;
+    }
+
 }
