@@ -89,7 +89,6 @@ export class GardenComponent implements OnInit, OnDestroy {
     // Clean up subscriptions
     this.unsubscribeAll();
     this.navigationEndSubscription.unsubscribe();
-    console.log('navigationEndSubscription s\'est désabonnée avec succès.');
   }
 
   // Display Gardens
