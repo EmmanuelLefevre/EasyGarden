@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS, HttpErrorResponse } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
-// Service
-import { AuthService } from '../auth/auth.service';
+// Services
+import { AuthGuardService } from '../guard/auth.guard';
 import { DecodedTokenService } from '../miscellaneous/decoded-token.service';
 import { SnackbarService } from '../miscellaneous/snackbar.service';
 import { TokenService } from '../auth/token.service';
@@ -15,7 +15,7 @@ import { TokenService } from '../auth/token.service';
 
 export class AuthInterceptor implements HttpInterceptor {
 
-  constructor(private authService: AuthService,
+  constructor(private authGuardService: AuthGuardService,
               private decodedTokenService: DecodedTokenService,
               private router: Router,
               private snackbarService: SnackbarService,
@@ -51,8 +51,9 @@ export class AuthInterceptor implements HttpInterceptor {
       return next.handle(clone).pipe(
         catchError(error => {
           // Check access permission
-          if (this.authService.isUserLogged()
-              && error.status === 401 
+          if (error instanceof HttpErrorResponse &&
+              error.status === 401 
+              && this.authGuardService.canActivate()
               && !request.url.endsWith('/login_check')) {
             // Access denied so we display notification
             this.snackbarService.showNotification(
@@ -62,30 +63,9 @@ export class AuthInterceptor implements HttpInterceptor {
               'red-alert'
             );
           }
-          // Check if email exist
-          // else if (request.url.endsWith('/login_check')
-          //         && this.authService.checkIfEmailExist()
-          //         && error.status === 404) {
-          //   const errorMessage = this.authService.checkIfEmailExist(error.error);
-          //   if (errorMessage === "Account doesn't exist!") {
-          //     this.snackbarService.showNotification(
-          //       `Veuillez créer un compte!`
-          //       ,'red-alert'
-          //     );
-          //   }
-          // }
-          // else if (request.url.endsWith('/login_check')
-          //         && this.authService.checkIfEmailExist() === false
-          //         && error.status === 404) {
-          //   this.snackbarService.showNotification(
-          //     `Veuillez créer un compte!`
-          //     ,'red-alert'
-          //   );
-          // }
           return throwError(() => new Error('Unauthorized part of the application!'));
         })
       );
-
     }
     
     return next.handle(request)
