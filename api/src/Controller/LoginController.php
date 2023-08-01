@@ -40,7 +40,7 @@ class LoginController extends AbstractController
         if ($isVerified) {
             return new JsonResponse(true, Response::HTTP_OK);
         } else {
-            return new JsonResponse(false, Response::HTTP_NOT_FOUND);
+            return new JsonResponse(false, Response::HTTP_UNAUTHORIZED);
         }
     }
 
