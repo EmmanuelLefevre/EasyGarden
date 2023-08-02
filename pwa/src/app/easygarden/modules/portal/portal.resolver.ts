@@ -21,7 +21,7 @@ export class PortalResolver implements Resolve<IDataPortal[]> {
       catchError(
         () => {
           this.router.navigate([""]);
-          return throwError(() => ('Aucun portail n\'a été trouvé.'))
+          return throwError(() => ('No portals were found.'))
         }
       )
     );
