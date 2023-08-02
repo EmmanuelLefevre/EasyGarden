@@ -59,7 +59,7 @@ $easygardenAngular-theme: mat.define-light-theme((
   /*------Buttons------*/
   --ang-color-text-button: #c1c1c1;
   --ang-color-border-button: #C4F253;
-  --ang-color-disabled-border-button: #898888;
+  --ang-color-border-disabled-reset-button: #898888;
 
   /*------Title------*/
   --ang-color-title-tab-rgba: rgba(0,0,0,0.5);
@@ -205,12 +205,23 @@ body {
         border-color: var(--ang-color-alert);
       }
     }
-    button.disabled {
-      color: var(--ang-color-disabled-border-button);
-      border: 2px solid var(--ang-color-disabled-border-button);
+    button.disabled-reset-button {
+      opacity: 0.6;
+      color: var(--ang-color-border-disabled-reset-button);
+      border: 2px solid var(--ang-color-border-disabled-reset-button);
       &:hover {
-        color: var(--ang-color-disabled-border-button);
-        border-color: var(--ang-color-disabled-border-button);
+        color: var(--ang-color-border-disabled-reset-button);
+        border-color: var(--ang-color-border-disabled-reset-button);
+        cursor: not-allowed;
+      }
+    }
+    button.disabled-submit-button {
+      opacity: 0.6;
+      color: var(--ang-color-border-disabled-reset-button);
+      border: 2px solid var(--ang-color-border-disabled-reset-button);
+      &:hover {
+        color: var(--ang-color-alert);
+        border-color: var(--ang-color-alert);
         cursor: not-allowed;
       }
     }
