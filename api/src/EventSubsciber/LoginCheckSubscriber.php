@@ -70,14 +70,14 @@ class LoginCheckSubscriber implements EventSubscriberInterface
                     return;
                 } 
                 else {
-                    // Incorrect password, return an error response with 200 status
+                    // Incorrect password, return message response with 200 status
                     $response = new JsonResponse(['message' => 'Incorrect password!'], Response::HTTP_OK);
                     $event->setResponse($response);
                     return;
                 }
             } 
             else {
-                // Email does not exist, return an error response with 200 status
+                // Email does not exist, return message response with 200 status
                 $response = new JsonResponse(['message' => 'No existing email!'], Response::HTTP_OK);
                 $event->setResponse($response);
                 return;
