@@ -2,27 +2,31 @@
 
 namespace App\EventSubscriber;
 
-use App\Entity\User;
 use App\Repository\UserRepository;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 
 class LoginCheckSubscriber implements EventSubscriberInterface
 {
     private $userRepository;
+    private $userPasswordHasher;
 
     /**
      * LoginCheckSubscriber constructor.
      *
+     * @param EntityManagerInterface $entityManager The EntityManagerInterface instance used for persisting entities.
      * @param UserRepository $userRepository The repository responsible for retrieving User data.
      */
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserPasswordHasherInterface $userPasswordHasher, 
+                                UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
+        $this->userPasswordHasher = $userPasswordHasher;
     }
 
     /**
@@ -65,22 +69,22 @@ class LoginCheckSubscriber implements EventSubscriberInterface
 
             // Check if a user with the provided email already exists
             $existingUser = $this->userRepository->findByEmail($data['email']);
-            if ($existingUser !== null && $existingUser instanceof PasswordAuthenticatedUserInterface) {
-                // Email exists, now check the password
-                if ($existingUser->isPasswordValid($plainPassword)) {
+            // Email exists, now check the password
+            if ($existingUser !== null && $existingUser instanceof UserPasswordHasherInterface) {
+                if ($this->userPasswordHasher->isPasswordValid($existingUser, $plainPassword)) {
                     // Correct password, continue the authentication process
                     return;
                 } 
                 else {
-                    // Incorrect password, return an error response with 401 status
-                    $response = new JsonResponse(['message' => 'Incorrect password!'], Response::HTTP_UNAUTHORIZED);
+                    // Incorrect password, return an error response with 200 status
+                    $response = new JsonResponse(['message' => 'Incorrect password!'], Response::HTTP_OK);
                     $event->setResponse($response);
                     return;
                 }
             } 
             else {
-                // Email does not exist, return an error response with 404 status
-                $response = new JsonResponse(['message' => 'No existing email!'], Response::HTTP_NOT_FOUND);
+                // Email does not exist, return an error response with 200 status
+                $response = new JsonResponse(['message' => 'No existing email!'], Response::HTTP_OK);
                 $event->setResponse($response);
                 return;
             }
