@@ -22,23 +22,19 @@
         <label class="visually-hidden" for="name">Email</label>
         <input formControlName="email" 
                name="email"
-               inputFocus
                inputTrim
                type="email"
                placeholder="Email"
                spellcheck="false"
                class="input-inset-shadow"
-               [ngClass]="{ 'invalid-feedback': (ngForm.submitted && f['password'].errors) 
-                                                || invalidCredentials }">
-        <ng-container *ngIf="ngForm.submitted && f['email'].errors">
-          <div class="text-alert" 
-               *ngIf="f['email'].errors['required']">Veuillez saisir un email!
-          </div>
-          <div class="text-alert" 
-               *ngIf="f['email'].errors['email']">Format d'email invalide!
-          </div>
-          <div class="text-alert" 
-               *ngIf="f['email'].errors['validEmail']">L'email doit contenir un "." + nom de domaine!
+               (focusout)="onInputFocusOut('email')"
+               [ngClass]="{ 'invalid-feedback': (loginForm.get('email')?.dirty 
+                                                && loginForm.get('email')?.invalid )
+                                                || invalidCredentials}">
+        <ng-container *ngIf="loginForm.get('email')?.dirty 
+                            && getErrorMessage('email') !== ''">
+          <div class="text-alert">
+            {{ getErrorMessage('email') }}
           </div>
         </ng-container>
         <div class="div-password-icon">
@@ -51,12 +47,14 @@
                  spellcheck="false"
                  autocomplete="off"
                  class="input-inset-shadow"
-                 [ngClass]="{ 'invalid-feedback': (ngForm.submitted && f['password'].errors) 
-                                                  || invalidCredentials }">
+                 [ngClass]="{ 'invalid-feedback': (loginForm.get('password')?.dirty 
+                                                && loginForm.get('password')?.invalid)
+                                                || invalidCredentials}">
           <fa-icon [icon]="visible ? faEyeSlash : faEye" aria-hidden="true" (click)="toggle()"></fa-icon>
-          <ng-container *ngIf="ngForm.submitted && f['password'].errors">
-            <div class="text-alert" 
-                 *ngIf="f['password'].errors['required']">Veuillez saisir un mot de passe!
+          <ng-container *ngIf="loginForm.get('password')?.dirty 
+                              && getErrorMessage('password') !== ''">
+            <div class="text-alert">
+              {{ getErrorMessage('password') }}
             </div>
           </ng-container>
         </div>
