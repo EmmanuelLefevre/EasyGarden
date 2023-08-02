@@ -18,7 +18,6 @@ class LoginCheckSubscriber implements EventSubscriberInterface
 
     /**
      * LoginCheckSubscriber constructor.
-     *
      * @param EntityManagerInterface $entityManager The EntityManagerInterface instance used for persisting entities.
      * @param UserRepository $userRepository The repository responsible for retrieving User data.
      */
@@ -31,7 +30,6 @@ class LoginCheckSubscriber implements EventSubscriberInterface
 
     /**
      * Handle the kernel.request event and perform authentication for POST requests to /api/login_check.
-     *
      * @param RequestEvent $event The event object containing the request information.
      * @return void
      */
