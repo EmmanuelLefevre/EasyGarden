@@ -7,6 +7,7 @@ use ApiPlatform\Core\DataPersister\DataPersisterInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
+
 class UserDataPersister implements DataPersisterInterface 
 {
     private $entityManager;

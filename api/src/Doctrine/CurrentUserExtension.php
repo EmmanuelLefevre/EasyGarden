@@ -14,6 +14,7 @@ use App\Entity\Watering;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\Security\Core\Security;
 
+
 /**
  * This extension makes sure normal users can only access their own Datas
  */
