@@ -43,14 +43,14 @@ export class LoginComponent implements OnDestroy, OnInit {
   }
   
   // Buttons
-  submitDisabled: boolean;
   resetDisabled: boolean;
-  isPasswordEmpty!: boolean;
+  submitDisabled: boolean;
   isEmailEmpty!: boolean;
+  isPasswordEmpty!: boolean;
 
   // Form alerts
-  invalidCredentials: boolean = false;
   errorMessage: string = '';
+  invalidCredentials: boolean = false;
   // LoginForm Group
   loginForm = this.formBuilder.group({
     email: [
@@ -72,8 +72,8 @@ export class LoginComponent implements OnDestroy, OnInit {
               private snackbarService: SnackbarService,
               private tokenService: TokenService) {
 
-    this.submitDisabled = true;
     this.resetDisabled = true;
+    this.submitDisabled = true;
   }
 
   ngOnInit(): void {
@@ -88,15 +88,11 @@ export class LoginComponent implements OnDestroy, OnInit {
     this.unsubscribeAll();
   }
 
-  get f(): { [key: string]: AbstractControl } {
-    return this.loginForm.controls;
-  }
-
   onSubmit() {
     // Handle changes to the form before submitting it
-    this.handleFormChanges();
-    this.submitDisabled = true;
     this.invalidCredentials = false;
+    this.submitDisabled = true;
+    this.handleFormChanges();
     if (this.loginForm.invalid) {
       this.invalidCredentials = true;
       return;
@@ -151,10 +147,14 @@ export class LoginComponent implements OnDestroy, OnInit {
   }
 
   onReset(formDirective: any): void {
-    this.loginForm.reset();
     formDirective.resetForm();
     this.invalidCredentials = false;
+    this.loginForm.reset();
     this.handleFormChanges();
+  }
+
+  get f(): { [key: string]: AbstractControl } {
+    return this.loginForm.controls;
   }
 
   private handleFormChanges(): void {
