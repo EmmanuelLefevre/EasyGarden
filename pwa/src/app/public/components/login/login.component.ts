@@ -41,6 +41,9 @@ export class LoginComponent implements OnDestroy {
     this.visible = !this.visible;
   }
   
+  // Buttons
+  disabledResetButtonClass: boolean | undefined;
+
   // Form alerts
   invalidCredentials: boolean = false;
   errorMessage: string = '';
@@ -135,6 +138,24 @@ export class LoginComponent implements OnDestroy {
   onInputChanged() {
     this.errorMessage = "";
     this.invalidCredentials = false;
+    // Detect change of inputs value
+    const resetButton = document.querySelector('#reset-button');
+    if (resetButton && this.onInputManuallyCleared()) {
+      resetButton.setAttribute('disabled', 'true');
+      this.disabledResetButtonClass = true;
+    } else {
+      resetButton?.removeAttribute('disabled');
+      this.disabledResetButtonClass = false;
+    }
+  }
+
+  onInputManuallyCleared(): boolean {
+    const emailInput = this.loginForm.get('email');
+    const passwordInput = this.loginForm.get('password');
+    if (emailInput?.value === '' && passwordInput?.value === '') {
+      return true;
+    }
+    return false;
   }
 
   private unsubscribeAll(): void {
