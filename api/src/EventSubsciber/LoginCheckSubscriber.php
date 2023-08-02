@@ -44,17 +44,13 @@ class LoginCheckSubscriber implements EventSubscriberInterface
 
             if ($data === null || !is_array($data)) {
                 // Malformed or empty JSON, return an error response with 400 status
-                $response = new JsonResponse(['message' => 'Invalid JSON data!'], Response::HTTP_BAD_REQUEST);
-                $event->setResponse($response);
-                return;
+                return new Response('', Response::HTTP_BAD_REQUEST);
             }
 
             // Verify the presence of the required keys
             if (!isset($data['email']) || !isset($data['password'])) {
                 // The required keys are not present in the JSON, return an error response with 400 status
-                $response = new JsonResponse(['message' => 'Invalid required keys!'], Response::HTTP_BAD_REQUEST);
-                $event->setResponse($response);
-                return;
+                return new Response('', Response::HTTP_BAD_REQUEST);
             }
 
             $email = $data['email'];
@@ -62,9 +58,7 @@ class LoginCheckSubscriber implements EventSubscriberInterface
 
             if (empty($email) || empty($plainPassword)) {
                 // Email or password is empty, return an error response with 400 status
-                $response = new JsonResponse(['message' => 'Email or password is empty!'], Response::HTTP_BAD_REQUEST);
-                $event->setResponse($response);
-                return;
+                return new Response('', Response::HTTP_BAD_REQUEST);
             }
 
             // Check if a user with the provided email already exists
