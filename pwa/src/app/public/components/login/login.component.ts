@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 // Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip in style.scss
 import { Router } from '@angular/router';
-import { AbstractControl, UntypedFormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 // Environment
 import { environment } from '../../../../environments/environment';
@@ -148,6 +148,7 @@ export class LoginComponent implements OnDestroy, OnInit {
 
   }
 
+  // Handle event when focus is removed from a form field
   onInputFocusOut(inputName: string): void {
     const control = this.loginForm.get(inputName);
     // Check if control exists (not null), is invalid (validation errors) and been touched.
@@ -160,6 +161,7 @@ export class LoginComponent implements OnDestroy, OnInit {
     }
   }
 
+  // Reset login form
   onReset(formDirective: any): void {
     formDirective.resetForm();
     this.invalidCredentials = false;
@@ -167,6 +169,7 @@ export class LoginComponent implements OnDestroy, OnInit {
     this.handleFormChanges();
   }
 
+  // Get the error message associated with a specific form field
   getErrorMessage(inputName: string): string {
     const control = this.loginForm.get(inputName);
     // Check control exists (not null) and there is validation errors.
@@ -184,6 +187,7 @@ export class LoginComponent implements OnDestroy, OnInit {
     return '';
   }
 
+  // Manage changes in login form
   private handleFormChanges(): void {
     this.errorMessage = "";
     this.invalidCredentials = false
@@ -196,15 +200,19 @@ export class LoginComponent implements OnDestroy, OnInit {
     this.submitDisabled = !this.loginForm.valid;
   }
 
+  // Mark all form fields as "touched"
   private markAllFieldsAsTouched(): void {
     for (const controlName in this.loginForm.controls) {
       const control = this.loginForm.get(controlName);
+      // Check if control exists (not null or undefined)
       if (control) {
+        // Mark control as "touched" to trigger validations and associated errors
         control.markAsTouched();
       }
     }
   }
   
+  // Unsubscribe subscriptions
   private unsubscribeAll(): void {
     if (this.accountVerificationSubscription) {
       this.accountVerificationSubscription.unsubscribe();
