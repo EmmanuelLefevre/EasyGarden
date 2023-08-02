@@ -1,4 +1,4 @@
-import { Component, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 // Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip in style.scss
 import { Router } from '@angular/router';
 import { AbstractControl, UntypedFormBuilder, Validators } from '@angular/forms';
@@ -25,15 +25,16 @@ import { ICredentials } from '../../../_interfaces/ICredentials';
 })
 
 
-export class LoginComponent implements OnDestroy {
+export class LoginComponent implements OnDestroy, OnInit {
 
   faEye = faEye;
   faEyeSlash = faEyeSlash;
   name = environment.application.name;
 
   // Declaration of subscriptions
-  private loginSubscription!: Subscription;
   private accountVerificationSubscription!: Subscription;
+  private loginFormSubscription!: Subscription;
+  private loginSubscription!: Subscription;
   
   // Toggle faEyeSlash
   visible: boolean = false;
@@ -42,7 +43,10 @@ export class LoginComponent implements OnDestroy {
   }
   
   // Buttons
-  disabledResetButtonClass: boolean | undefined;
+  submitDisabled: boolean;
+  resetDisabled: boolean;
+  isPasswordEmpty!: boolean;
+  isEmailEmpty!: boolean;
 
   // Form alerts
   invalidCredentials: boolean = false;
@@ -66,8 +70,19 @@ export class LoginComponent implements OnDestroy {
               private formBuilder: UntypedFormBuilder,
               private router: Router,
               private snackbarService: SnackbarService,
-              private tokenService: TokenService,) {}
+              private tokenService: TokenService) {
 
+    this.submitDisabled = true;
+    this.resetDisabled = true;
+  }
+
+  ngOnInit(): void {
+    // Subscribe to login form control input changes
+    this.loginFormSubscription = this.loginForm.valueChanges.subscribe(() => {
+      this.handleFormChanges();
+    });
+  }
+              
   ngOnDestroy(): void {
     // Clean up subscriptions
     this.unsubscribeAll();
@@ -78,93 +93,92 @@ export class LoginComponent implements OnDestroy {
   }
 
   onSubmit() {
+    // Handle changes to the form before submitting it
+    this.handleFormChanges();
+    this.submitDisabled = true;
     this.invalidCredentials = false;
     if (this.loginForm.invalid) {
       this.invalidCredentials = true;
       return;
-    }
-
-    const typedLoginForm: ICredentials = this.loginForm.value;
-
-    this.loginSubscription = this.authService.logIn(typedLoginForm)
-      .subscribe(
-        data => {
-          this.tokenService.saveToken(data.token);
-          const email = this.loginForm.value.email;
-          this.accountVerificationSubscription = this.authService.isAccountVerified(email)
-            .subscribe(
-              (response: any) => {
-                if (response.message === 'Account not verified!') {
+    } else {
+      const typedLoginForm: ICredentials = this.loginForm.value;
+  
+      this.loginSubscription = this.authService.logIn(typedLoginForm)
+        .subscribe(
+          // Successful processing connection
+          data => {
+            this.tokenService.saveToken(data.token);
+            const email = this.loginForm.value.email;
+            this.accountVerificationSubscription = this.authService.isAccountVerified(email)
+              .subscribe(
+                (response: any) => {
+                  if (response.message === 'Account not verified!') {
+                    this.snackbarService.showNotification(
+                      `Votre compte n'a pas encore été activé grâce au lien dans l'email qui vous a été envoyé!`
+                      ,'orange-alert'
+                    );
+                  } else if (response.message === 'Account is verified!') {
+                    this.router.navigate(['easygarden']);
+                    this.snackbarService.showNotification(
+                      `Bonjour ${this.decodedTokenService.firstNameDecoded()} `
+                      + `${this.decodedTokenService.lastNameDecoded()}.`
+                      ,'logIn-logOut'
+                    );
+                  }
+                },
+                _error => {
                   this.snackbarService.showNotification(
-                    `Votre compte n'a pas encore été activé grâce au lien dans l'email qui vous a été envoyé!`
-                    ,'orange-alert'
-                  );
-                } else if (response.message === 'Account is verified!') {
-                  this.router.navigate(['easygarden']);
-                  this.snackbarService.showNotification(
-                    `Bonjour ${this.decodedTokenService.firstNameDecoded()} `
-                    + `${this.decodedTokenService.lastNameDecoded()}.`
-                    ,'logIn-logOut'
+                    `Une erreur s'est produite lors de la vérification du compte!`
+                    ,'red-alert'
                   );
                 }
-              },
-              _error => {
-                this.snackbarService.showNotification(
-                  `Une erreur s'est produite lors de la vérification du compte!`
-                  ,'red-alert'
-                );
-              }
-            );
-        },
-        error => {
-          if (error.status === 401) {
-            this.invalidCredentials = true;
-            this.errorMessage = "Identifiants incorrects!";
-          } else {
-            this.snackbarService.showNotification(
-              `Une erreur s'est produite lors de la connexion!`
-              ,'red-alert'
-            );
+              );
+          },
+          error => {
+            if (error.status === 401) {
+              this.invalidCredentials = true;
+              this.errorMessage = "Identifiants incorrects!";
+            } else {
+              this.snackbarService.showNotification(
+                `Une erreur s'est produite lors de la connexion!`
+                ,'red-alert'
+              );
+            }
           }
-        }
-      );
+        );
+    }
+
   }
 
   onReset(formDirective: any): void {
     this.loginForm.reset();
     formDirective.resetForm();
-  }
-    
-  onInputChanged() {
-    this.errorMessage = "";
     this.invalidCredentials = false;
-    // Detect change of inputs value
-    const resetButton = document.querySelector('#reset-button');
-    if (resetButton && this.onInputManuallyCleared()) {
-      resetButton.setAttribute('disabled', 'true');
-      this.disabledResetButtonClass = true;
-    } else {
-      resetButton?.removeAttribute('disabled');
-      this.disabledResetButtonClass = false;
-    }
+    this.handleFormChanges();
   }
 
-  onInputManuallyCleared(): boolean {
-    const emailInput = this.loginForm.get('email');
-    const passwordInput = this.loginForm.get('password');
-    if (emailInput?.value === '' && passwordInput?.value === '') {
-      return true;
-    }
-    return false;
+  private handleFormChanges(): void {
+    this.errorMessage = "";
+    this.invalidCredentials = false
+    // Check if email and password fields are empty
+    this.isEmailEmpty = this.loginForm.get('email')?.value === '';
+    this.isPasswordEmpty = this.loginForm.get('password')?.value === '';
+    // Enable or disable reset button based on empty fields
+    this.resetDisabled = this.isEmailEmpty && this.isPasswordEmpty;
+    // Disable submit button if form is invalid
+    this.submitDisabled = !this.loginForm.valid;
   }
-
+  
   private unsubscribeAll(): void {
-    if (this.loginSubscription) {
-      this.loginSubscription.unsubscribe();
-    }
     if (this.accountVerificationSubscription) {
       this.accountVerificationSubscription.unsubscribe();
     }
+    if (this.loginFormSubscription) {
+      this.loginFormSubscription.unsubscribe();
+    }
+    if (this.loginSubscription) {
+      this.loginSubscription.unsubscribe();
+    }
   }
-
+  
 }
