@@ -2,8 +2,7 @@ import { Component, OnDestroy, ViewEncapsulation } from '@angular/core';
 // Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip in style.scss
 import { Router } from '@angular/router';
 import { AbstractControl, UntypedFormBuilder, Validators } from '@angular/forms';
-import { Subscription, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 // Environment
 import { environment } from '../../../../environments/environment';
 // Icons
@@ -25,6 +24,7 @@ import { ICredentials } from '../../../_interfaces/ICredentials';
   encapsulation: ViewEncapsulation.None
 })
 
+
 export class LoginComponent implements OnDestroy {
 
   faEye = faEye;
@@ -34,18 +34,17 @@ export class LoginComponent implements OnDestroy {
   // Declaration of subscriptions
   private loginSubscription!: Subscription;
   private accountVerificationSubscription!: Subscription;
-
-  // Invalid credentials
-  invalidCredentials: boolean = false;
-  errorMessage: string = '';
-
+  
   // Toggle faEyeSlash
   visible: boolean = false;
   public toggle(): void {
     this.visible = !this.visible;
   }
-
-  // loginForm Group
+  
+  // Form alerts
+  invalidCredentials: boolean = false;
+  errorMessage: string = '';
+  // LoginForm Group
   loginForm = this.formBuilder.group({
     email: [
       '',
@@ -67,80 +66,84 @@ export class LoginComponent implements OnDestroy {
               private tokenService: TokenService,) {}
 
   ngOnDestroy(): void {
-    if (this.loginSubscription && this.accountVerificationSubscription) {
-      this.loginSubscription.unsubscribe();
-      this.accountVerificationSubscription.unsubscribe();
-    }
+    // Clean up subscriptions
+    this.unsubscribeAll();
   }
 
   get f(): { [key: string]: AbstractControl } {
     return this.loginForm.controls;
   }
 
-  // Submit
   onSubmit() {
-    if (!this.loginForm.valid) {
+    this.invalidCredentials = false;
+    if (this.loginForm.invalid) {
+      this.invalidCredentials = true;
       return;
     }
-    
+
     const typedLoginForm: ICredentials = this.loginForm.value;
-  
+
     this.loginSubscription = this.authService.logIn(typedLoginForm)
       .subscribe(
         data => {
           this.tokenService.saveToken(data.token);
           const email = this.loginForm.value.email;
           this.accountVerificationSubscription = this.authService.isAccountVerified(email)
-            .pipe(
-              catchError(_error => {
-                // Handle specific error case for account verification
-                this.snackbarService.showNotification(
-                  `Votre compte n'a pas encore été activé grâce au lien dans l'email qui vous a été envoyé!`,
-                  'orange-alert'
-                );
-                // Return a false value to continue the chain
-                return of(false);
-              })
-            )
             .subscribe(
-              (isVerified) => {
-                if (isVerified) {
+              (response: any) => {
+                if (response.message === 'Account not verified!') {
+                  this.snackbarService.showNotification(
+                    `Votre compte n'a pas encore été activé grâce au lien dans l'email qui vous a été envoyé!`
+                    ,'orange-alert'
+                  );
+                } else if (response.message === 'Account is verified!') {
                   this.router.navigate(['easygarden']);
                   this.snackbarService.showNotification(
                     `Bonjour ${this.decodedTokenService.firstNameDecoded()} `
-                    + `${this.decodedTokenService.lastNameDecoded()}.`,
-                    'logIn-logOut'
-                  );
-                } else {
-                  this.snackbarService.showNotification(
-                    `Votre compte n'a pas encore été activé grâce au lien dans l'email qui vous a été envoyé!`,
-                    'orange-alert'
+                    + `${this.decodedTokenService.lastNameDecoded()}.`
+                    ,'logIn-logOut'
                   );
                 }
               },
               _error => {
                 this.snackbarService.showNotification(
-                  `Une erreur s'est produite lors de la vérification du compte!`,
-                  'red-alert'
+                  `Une erreur s'est produite lors de la vérification du compte!`
+                  ,'red-alert'
                 );
               }
             );
         },
         error => {
           if (error.status === 401) {
-            this.errorMessage = "Identifiants incorrects!";
             this.invalidCredentials = true;
-          } 
-          else {
-            this.errorMessage = "Une erreur s'est produite lors de la connexion!";
+            this.errorMessage = "Identifiants incorrects!";
+          } else {
+            this.snackbarService.showNotification(
+              `Une erreur s'est produite lors de la connexion!`
+              ,'red-alert'
+            );
           }
         }
       );
-    }
+  }
 
   onReset(formDirective: any): void {
     this.loginForm.reset();
     formDirective.resetForm();
+  }
+    
+  onInputChanged() {
+    this.errorMessage = "";
+    this.invalidCredentials = false;
+  }
+
+  private unsubscribeAll(): void {
+    if (this.loginSubscription) {
+      this.loginSubscription.unsubscribe();
+    }
+    if (this.accountVerificationSubscription) {
+      this.accountVerificationSubscription.unsubscribe();
+    }
   }
 
 }
