@@ -13,8 +13,9 @@ import { GardenService } from '../../components/garden/garden.service';
 import { GardenFilterService } from '../../_services/garden-filter.service';
 import { WateringService } from './watering.service';
 // Modeles
-import { IWatering, IWateringFilter } from './IWatering';
+import { IGarden } from '../../components/garden/IGarden';
 import { IName } from '../../_interfaces/IName';
+import { IWatering, IWateringFilter } from './IWatering';
 
 
 @Component({
@@ -120,6 +121,13 @@ export class WateringComponent implements OnInit, OnDestroy {
     );
     // Reset pagination
     this.resetPagination();
+  }
+
+  // Get list of gardens with waterings
+  getGardensWithWaterings(): IGarden[] {
+    return this.gardens.filter(garden =>
+      this.waterings.some(watering => watering.garden.id === garden.id)
+    );
   }
 
   // Update Status

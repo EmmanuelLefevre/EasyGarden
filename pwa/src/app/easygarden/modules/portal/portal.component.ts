@@ -13,8 +13,9 @@ import { GardenService } from '../../components/garden/garden.service';
 import { GardenFilterService } from '../../_services/garden-filter.service';
 import { PortalService } from './portal.service';
 // Modeles
-import { IPortal, IPortalFilter } from './IPortal';
+import { IGarden } from '../../components/garden/IGarden';
 import { IName } from '../../_interfaces/IName';
+import { IPortal, IPortalFilter } from './IPortal';
 
 
 @Component({
@@ -120,6 +121,13 @@ export class PortalComponent implements OnInit, OnDestroy {
     );
     // Reset pagination
     this.resetPagination();
+  }
+
+  // Get list of gardens with portals
+  getGardensWithPortals(): IGarden[] {
+    return this.gardens.filter(garden =>
+      this.portals.some(portal => portal.garden.id === garden.id)
+    );
   }
 
   // Update Status

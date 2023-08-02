@@ -9,10 +9,11 @@ import { faPowerOff, faPen, faTrash, faSort, faSearch, faSeedling, faXmark } fro
 import { IConfirmDialog, ConfirmDialogComponent } from 'src/app/easygarden/components/confirmDialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 // Services
-import { LawnmowerService } from './lawnmower.service';
 import { GardenService } from '../../components/garden/garden.service';
 import { GardenFilterService } from '../../_services/garden-filter.service';
+import { LawnmowerService } from './lawnmower.service';
 // Modeles
+import { IGarden } from '../../components/garden/IGarden';
 import { ILawnmower, ILawnmowerFilter } from './ILawnmower';
 import { IName } from '../../_interfaces/IName';
 
@@ -120,6 +121,13 @@ export class LawnmowerComponent implements OnInit, OnDestroy {
     );
     // Reset pagination
     this.resetPagination();
+  }
+
+  // Get list of gardens with lawnmowers
+  getGardensWithLawnmowers(): IGarden[] {
+    return this.gardens.filter(garden =>
+      this.lawnmowers.some(lawnmower => lawnmower.garden.id === garden.id)
+    );
   }
 
   // Update Status

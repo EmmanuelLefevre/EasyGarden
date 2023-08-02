@@ -13,8 +13,9 @@ import { GardenService } from '../../components/garden/garden.service';
 import { GardenFilterService } from '../../_services/garden-filter.service';
 import { PoolService } from './pool.service';
 // Modeles
-import { IPool, IPoolFilter } from './IPool';
+import { IGarden } from '../../components/garden/IGarden';
 import { IName } from '../../_interfaces/IName';
+import { IPool, IPoolFilter } from './IPool';
 
 
 @Component({
@@ -119,6 +120,13 @@ export class PoolComponent implements OnInit, OnDestroy {
     );
     // Reset pagination
     this.resetPagination();;
+  }
+
+  // Get list of gardens with pools
+  getGardensWithPools(): IGarden[] {
+    return this.gardens.filter(garden =>
+      this.pools.some(pool => pool.garden.id === garden.id)
+    );
   }
 
   // Update Status

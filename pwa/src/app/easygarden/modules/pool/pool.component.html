@@ -14,13 +14,13 @@
       </div>
 
       <div class="table-header">
-        <ng-container *ngIf="gardens.length > 1">
+        <ng-container *ngIf="getGardensWithPools().length > 1">
           <select [(ngModel)]="selectedGardenId"
                   (change)="filterByGarden()"
                   class="filter-select-garden"
                   removeNgTouched>
             <option value="">Jardins</option>
-            <option *ngFor="let garden of gardens" [value]="garden.id">{{ garden.name }}</option>
+            <option *ngFor="let garden of getGardensWithPools()" [value]="garden.id">{{ garden.name }}</option>
           </select>
         </ng-container>
         <ng-container *ngIf="pools.length > 5">
