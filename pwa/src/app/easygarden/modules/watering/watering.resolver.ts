@@ -21,7 +21,7 @@ export class WateringResolver implements Resolve<IDataWatering[]> {
       catchError(
         () => {
           this.router.navigate([""]);
-          return throwError(() => ('Aucun arrosage n\'a été trouvé.'))
+          return throwError(() => ('No waterings were found.'))
         }
       )
     );

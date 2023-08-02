@@ -21,7 +21,7 @@ export class LawnmowerResolver implements Resolve<IDataLawnmower[]> {
       catchError(
         () => {
           this.router.navigate([""]);
-          return throwError(() => ('Aucune tondeuse n\'a été trouvée.'))
+          return throwError(() => ('No lawnmowers were found.'))
         }
       )
     );

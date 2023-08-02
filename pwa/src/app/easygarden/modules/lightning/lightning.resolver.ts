@@ -21,7 +21,7 @@ export class LightningResolver implements Resolve<IDataLightning[]> {
       catchError(
         () => {
           this.router.navigate([""]);
-          return throwError(() => ('Aucun éclairage n\'a été trouvé.'))
+          return throwError(() => ('No lightnings were found.'))
         }
       )
     );

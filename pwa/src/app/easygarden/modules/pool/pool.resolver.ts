@@ -22,7 +22,7 @@ export class PoolResolver implements Resolve<IDataPool[]> {
       catchError(
         () => {
           this.router.navigate([""]);
-          return throwError(() => ('Aucun équipement n\'a été trouvé.'))
+          return throwError(() => ('No pools were found.'))
         }
       )
     );
