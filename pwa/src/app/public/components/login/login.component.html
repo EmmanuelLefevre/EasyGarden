@@ -79,8 +79,8 @@
                   type="button"
                   aria-label="Bouton effacer le formulaire" 
                   class="button-shadow cancel"
-                  [ngClass]="{'disabled-reset-button': loginForm.pristine}"
-                  [disabled]="loginForm.pristine">Annuler
+                  [ngClass]="{'disabled-reset-button': disabledResetButtonClass}"
+                  [disabled]="!loginForm.pristine">Annuler
           </button>
         </div>
       </form>
