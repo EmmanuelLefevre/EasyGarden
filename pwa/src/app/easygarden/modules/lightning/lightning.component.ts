@@ -13,6 +13,7 @@ import { GardenService } from '../../components/garden/garden.service';
 import { GardenFilterService } from '../../_services/garden-filter.service';
 import { LightningService } from './lightning.service';
 // Modeles
+import { IGarden } from '../../components/garden/IGarden';
 import { ILightning, ILightningFilter } from './ILightning';
 import { IName } from '../../_interfaces/IName';
 
@@ -119,6 +120,13 @@ export class LightningComponent implements OnInit, OnDestroy {
     );
     // Reset pagination
     this.resetPagination();
+  }
+
+  // Get list of gardens with lightnings
+  getGardensWithLightnings(): IGarden[] {
+    return this.gardens.filter(garden =>
+      this.lightnings.some(lightning => lightning.garden.id === garden.id)
+    );
   }
 
   // Update Status
