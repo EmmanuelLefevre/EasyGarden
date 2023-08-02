@@ -28,7 +28,6 @@
                placeholder="Email"
                spellcheck="false"
                class="input-inset-shadow"
-               (ngModelChange)="onInputChanged()"
                [ngClass]="{ 'invalid-feedback': (ngForm.submitted && f['password'].errors) 
                                                 || invalidCredentials }">
         <ng-container *ngIf="ngForm.submitted && f['email'].errors">
@@ -52,7 +51,6 @@
                  spellcheck="false"
                  autocomplete="off"
                  class="input-inset-shadow"
-                 (ngModelChange)="onInputChanged()"
                  [ngClass]="{ 'invalid-feedback': (ngForm.submitted && f['password'].errors) 
                                                   || invalidCredentials }">
           <fa-icon [icon]="visible ? faEyeSlash : faEye" aria-hidden="true" (click)="toggle()"></fa-icon>
@@ -71,16 +69,16 @@
           <button type="submit" 
                   aria-label="Bouton se connecter"
                   class="button-shadow"
-                  [ngClass]="{'disabled-submit-button': loginForm.invalid}"
-                  [disabled]="!loginForm.valid">Connexion
+                  [ngClass]="{'disabled-submit-button': submitDisabled}"
+                  [disabled]="submitDisabled">Connexion
           </button>
           <button (click)="onReset(formDirective)"
                   id="reset-button"
                   type="button"
                   aria-label="Bouton effacer le formulaire" 
                   class="button-shadow cancel"
-                  [ngClass]="{'disabled-reset-button': disabledResetButtonClass}"
-                  [disabled]="!loginForm.pristine">Annuler
+                  [ngClass]="{'disabled-reset-button': resetDisabled}"
+                  [disabled]="resetDisabled">Annuler
           </button>
         </div>
       </form>
