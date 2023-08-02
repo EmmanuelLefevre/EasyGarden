@@ -20,7 +20,6 @@ use Symfony\Component\Routing\RouterInterface;
 class AccountCreationController extends AbstractController
 {
     private $userDataPersister;
-    private $userPasswordHasher;
     private $emailService;
     private $userRepository;
 
@@ -96,14 +95,10 @@ class AccountCreationController extends AbstractController
      * Activate user account
      * This method is accessible via GET and POST requests to "/account_activation/{token}" 
      * @param string $token The activation token received as part of the URL.
-     * @param UserRepository $userRepository The UserRepository for retrieving User data.
-     * @param RouterInterface $router The RouterInterface instance used for generating URLs.
      * @return RedirectResponse A RedirectResponse object that redirects the user to the Angular verified account page.
      * @Route("/account_activation/{token}", name="account_activation", methods={"GET", "POST"})
      */
-    public function activateAccount(string $token,
-                                    RouterInterface $router,
-                                    UserRepository $userRepository): RedirectResponse
+    public function activateAccount(string $token): RedirectResponse
     {
         // Find the user with the given activation token
         $user = $this->userRepository->findByActivationToken($token);
