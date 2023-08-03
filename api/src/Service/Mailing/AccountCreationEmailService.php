@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service;
+namespace App\Service\Mailing;
 
 use App\Entity\User;
 use Symfony\Component\Mailer\MailerInterface;
