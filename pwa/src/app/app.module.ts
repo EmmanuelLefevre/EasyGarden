@@ -1,31 +1,32 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { BrowserModule, Meta } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
-import { AppRoutingModule } from './app-routing.module';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { BrowserModule, Meta } from '@angular/platform-browser';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-
-import { AppComponent } from './app.component';
-import { Error404Component } from './_services/utils/error/error404.component';
-import { FooterComponent } from './components/footer/footer.component';
-
+import { HttpClientModule } from '@angular/common/http';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+// Routing
+import { AppRoutingModule } from './app-routing.module';
+// Interceptor
 import { AUTHInterceptorProvider } from './_services/interceptor/auth.interceptor';
+// Components
+import { AppComponent } from './app.component';
+import { Error404Component } from './_services/utils/error/error404/error404.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    FooterComponent,
-    Error404Component
+    Error404Component,
+    FooterComponent
   ],
   imports: [
-    BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
     BrowserAnimationsModule,
-    MatSnackBarModule,
-    FontAwesomeModule
+    BrowserModule,
+    FontAwesomeModule,
+    HttpClientModule,
+    MatSnackBarModule
   ],
   providers: [AUTHInterceptorProvider, Meta],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
