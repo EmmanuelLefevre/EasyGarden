@@ -16,7 +16,7 @@ export class AuthService {
   constructor(private httpClient: HttpClient) { }
 
   logIn(credentials: ICredentials): Observable<IToken>{
-    return this.httpClient.post<IToken>(environment.apis.login.url, credentials)
+    return this.httpClient.post<IToken>(environment.apis.login.url, credentials);
   }
 
   isAccountVerified(email: string): Observable<boolean> {
