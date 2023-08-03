@@ -71,6 +71,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[SerializedName('password')]
     #[Assert\NotBlank(groups:['create'])]
+    #[Assert\Length(max:50)]
     #[Groups(['write:User'])]
     private ?string $plainPassword = null;
 
