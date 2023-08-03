@@ -2,7 +2,9 @@
 
 namespace App\Validator;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 
 class EmailValidator
@@ -11,50 +13,13 @@ class EmailValidator
      * Check if the "email" param is defined in the request, is a string, and its value is not null or empty.
      * If any of these conditions are not met, return false; otherwise, return true.
      * @param string $paramName The parameter name for the email address to be checked.
+     * @param bool $returnJsonResponse (Optional) If set to true, the method will return a JsonResponse on validation failure.
      * @param Request|null $request The HTTP request object or null if not provided.
      * @return bool True if the email is valid; otherwise, false.
      */
-    // public function isValidEmail(string $paramName, ?Request $request = null): bool
-    // {
-    //     // If the $request is null, validate the $paramName directly
-    //     if ($request === null) {
-    //         // Check email max length, not null or empty and is a string
-    //         if (strlen($paramName) > 45 
-    //             || trim($paramName) === ''
-    //             || !is_string($paramName)) {
-    //             return false;
-    //         }
-
-    //         // Check if email is in a valid format
-    //         if (!filter_var($paramName, FILTER_VALIDATE_EMAIL)) {
-    //             return false;
-    //         }
-
-    //         return true;
-    //     }
-
-    //     // Check if the email parameter is present in the query parameters of the request
-    //     if (!$request->query->has($paramName)) {
-    //         return false;
-    //     }
-
-    //     $email = $request->query->get($paramName);
-
-    //     // Check max length of email, not null or empty and is a string
-    //     if (strlen($email) > 45 
-    //         || trim($email) === ''
-    //         || !is_string($paramName)) {
-    //         return false;
-    //     }
-
-    //     // Check if email is in a valid format
-    //     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    //         return false;
-    //     }
-
-    //     return true;
-    // }
-    public function isValidEmail(string $paramName, ?Request $request = null): bool
+    public function isValidEmail(string $paramName, 
+                                bool $returnJsonResponse = false, 
+                                ?Request $request = null): JsonResponse|bool
     {
         // If the $request is null, validate the $paramName directly
         if ($request === null) {
@@ -62,22 +27,33 @@ class EmailValidator
         } else {
             // Check if the email parameter is present in the query parameters of the request
             if (!$request->query->has($paramName)) {
-                return false;
+                return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;
             }
 
             $email = $request->query->get($paramName);
         }
 
-        // Check email max length, not null or empty and is a string
-        if (strlen($email) > 45 || trim($email) === '' || !is_string($email)) {
-            return false;
-        }
+        switch (true) {
+            // Max lenght
+            case strlen($email) > 45:
+                return $returnJsonResponse ? new JsonResponse(['error' => 'Email is limited to 45 characters!'], 
+                                                              Response::HTTP_BAD_REQUEST) : false;
 
-        // Check if email is in a valid format
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            return false;
-        }
+            // Not null
+            case trim($email) === '':
+                return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;
 
-        return true;
+            // Is a string
+            case !is_string($email):
+                return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;
+
+            // Valid format
+            case !filter_var($email, FILTER_VALIDATE_EMAIL):
+                return $returnJsonResponse ? new JsonResponse(['error' => 'Invalid email format!'], 
+                                                              Response::HTTP_BAD_REQUEST) : false;
+
+            default:
+                return null;
+        }
     }
 }

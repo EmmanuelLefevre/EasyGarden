@@ -45,7 +45,7 @@ class AccountCreationController extends AbstractController
 
     /**
      * Create user account
-     * This method is accessible via GET request to "/account_creation"
+     * This method is accessible via POST request to "/account_creation"
      * @param string Request $request The HTTP request object. 
      * @return JsonResponse
      * @Route("/account_creation", name="account_creation", methods={"POST"})
@@ -64,12 +64,13 @@ class AccountCreationController extends AbstractController
 
         // Validate the email using EmailValidator
         $paramName = $data['email'];
-        if (!$this->emailValidator->isValidEmail($paramName, null)) {
-            return new JsonResponse(['message' => 'Invalid email format'], Response::HTTP_BAD_REQUEST);
+        $errorResponse = $this->emailValidator->isValidEmail($paramName, true, null);
+        if ($errorResponse !== true) {
+            // Return JsonResponse on validation failure
+            return $errorResponse;
         }
 
         // Check if a user with the provided email already exists
-        
         $existingUser = $this->userRepository->findByEmail($data['email']);
         if ($existingUser) {
             return new JsonResponse(['message' => 'Email already exists'], Response::HTTP_CONFLICT);

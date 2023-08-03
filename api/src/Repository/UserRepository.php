@@ -107,7 +107,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      */
     private function validateEmail(string $email): void
     {
-        if (!$this->emailValidator->isValidEmail($email, null)) {
+        if (!$this->emailValidator->isValidEmail($email)) {
             throw new \InvalidArgumentException('Invalid email format');
         }
     }
