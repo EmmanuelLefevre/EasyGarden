@@ -32,16 +32,6 @@ class Lightning
     private $id;
 
     #[ORM\Column(type: 'string', length: 45)]
-    #[Assert\Regex(
-        pattern: '/\^[a-zA-ZàâäãçéèêëíìîïñôöõÀÂÄÃÇÉÈÊËÌÍÎÏÑÔÖÕ0-9][a-zàâäãçéèêëíìîïñôöõ]\+([-\'\s][a-zA-ZàâäãçéèêëíìîïñôöõÀÂÄÃÇÉÈÊËÌÍÎÏÑÔÖÕ0-9][a-zàâäãçéèêëíìîïñôöõ]\+)?/',
-        match: false,
-        message: 'The lightning name cannot contain some special character',
-    )]
-    #[Assert\Regex(
-        pattern: '/\w{3,20}\$/',
-        match: false,
-        message: 'The lightning name should be between 3 and 20 characters',
-    )]
     #[Groups(['read:Lightning',
               'write:Lightning'])]
     private $name;
