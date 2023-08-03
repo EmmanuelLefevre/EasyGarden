@@ -40,8 +40,11 @@ class LoginController extends AbstractController
         $email = $request->query->get('email');
         $paramName = 'email'; 
 
-        if (!$this->emailValidator->isValidEmail($paramName, $request)) {
-            return new JsonResponse(['error' => 'Invalid email format!'], Response::HTTP_BAD_REQUEST);
+        // Validate the email parameter using EmailValidator
+        $isValid = $this->emailValidator->isValidEmail($paramName, false, $request);
+        if ($isValid !== true) {
+            // Return JsonResponse on validation failure
+            return $isValid;
         }
 
         $isVerified = $this->userRepository->isUserVerified($email);
@@ -62,8 +65,11 @@ class LoginController extends AbstractController
         $email = $request->query->get('email');
         $paramName = 'email'; 
 
-        if (!$this->emailValidator->isValidEmail($paramName, $request)) {
-            return new JsonResponse(['error' => 'Invalid email format!'], Response::HTTP_BAD_REQUEST);
+        // Validate the email parameter using EmailValidator
+        $isValid = $this->emailValidator->isValidEmail($paramName, false, $request);
+        if ($isValid !== true) {
+            // Return JsonResponse on validation failure
+            return $isValid;
         }
 
         $emailExists = $this->userRepository->checkIfUserExist($email);
