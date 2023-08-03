@@ -4,45 +4,45 @@ export const environment = {
   apis: {
     // Login
     login: {
-      url: 'http://localhost:8000/api/login_check'
+      url: '/api/login_check'
     },
     checkIfEmailExist: {
-      url: 'http://localhost:8000/api/check_if_email_exist'
+      url: '/api/check_if_email_exist'
     },
     checkAccountActivation: {
-      url: 'http://localhost:8000/api/check_account_validation'
+      url: '/api/check_account_validation'
     },
     // Register
     register: {
-      url: 'http://localhost:8000/api/account_creation'
+      url: '/api/account_creation'
     },
     // User
     user: {
-      url: 'http://localhost:8000/api/users'
+      url: '/api/users'
     },
     // Garden
     garden: {
-      url: 'http://localhost:8000/api/gardens'
+      url: '/api/gardens'
     },
     // Lawnmower
     lawnmower: {
-      url: 'http://localhost:8000/api/lawnmowers'
+      url: '/api/lawnmowers'
     },
     // Lightning
     lightning: {
-      url: 'http://localhost:8000/api/lightnings'
+      url: '/api/lightnings'
     },
     // Pool
     pool: {
-      url: 'http://localhost:8000/api/pools'
+      url: '/api/pools'
     },
     // Portal
     portal: {
-      url: 'http://localhost:8000/api/portals'
+      url: '/api/portals'
     },
     // Watering
     watering: {
-      url: 'http://localhost:8000/api/waterings'
+      url: '/api/waterings'
     }
   },
   // Application
