@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\UserRepository;
+use App\Service\Validator\EmailValidatorService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,14 +13,18 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class LoginController extends AbstractController
 {
+    private $emailValidatorService;
     private $userRepository;
 
     /**
      * CheckAccountActivationController constructor.
+     * @param EmailValidatorService $emailValidatorService The service responsible for email validation.
      * @param UserRepository $userRepository The repository responsible for retrieving User data.
      */
-    public function __construct(UserRepository $userRepository)
+    public function __construct(EmailValidatorService $emailValidatorService,
+                                UserRepository $userRepository)
     {
+        $this->emailValidatorService = $emailValidatorService;
         $this->userRepository = $userRepository;
     }
 
@@ -33,8 +38,9 @@ class LoginController extends AbstractController
     public function checkAccountValidation(Request $request): JsonResponse
     {
         $email = $request->query->get('email');
+        $paramName = 'email'; 
 
-        if (!$this->isValidEmailParam($request, $email)) {
+        if (!$this->emailValidatorService->isValidEmailParam($request, $paramName)) {
             return new JsonResponse(['error' => 'Invalid email format!'], Response::HTTP_BAD_REQUEST);
         }
 
@@ -54,8 +60,9 @@ class LoginController extends AbstractController
     public function checkIfEmailExist(Request $request): JsonResponse
     {
         $email = $request->query->get('email');
+        $paramName = 'email'; 
 
-        if (!$this->isValidEmailParam($request, $email)) {
+        if (!$this->emailValidatorService->isValidEmailParam($request, $paramName)) {
             return new JsonResponse(['error' => 'Invalid email format!'], Response::HTTP_BAD_REQUEST);
         }
 
@@ -64,36 +71,6 @@ class LoginController extends AbstractController
 
         return new JsonResponse(['message' => $message], Response::HTTP_OK);
 
-    }
-
-    /**
-     * Check if the "email" param is defined in the request, is a string, and its value is not null or empty.
-     * If any of these conditions are not met, return a JSON response with a bad request status.
-     * @param Request $request The HTTP request object.
-     * @param string $email The email address to be checked.
-     * @return bool True if the email is valid; otherwise, false.
-     */
-    private function isValidEmailParam(Request $request, string $email): bool
-    {
-        // Check if email parameter is present in the query parameters of the request
-        // and is a string and not null or empty
-        if (!$request->query->has('email') 
-            || !is_string($email) 
-            || trim($email) === '') {
-            return false;
-        }
-
-        // Check max length of email
-        if (strlen($email) > 45) {
-            return false;
-        }
-
-        // Check if email is in a valid format
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            return false;
-        }
-
-        return true;
     }
 
 }
