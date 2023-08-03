@@ -14,7 +14,7 @@ services:
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     acme_api.event.jwt_created_listener:
-        class: App\EventListener\JWTCreatedListener
+        class: App\EventListener\JWT\JWTCreatedListener
         arguments: [ '@request_stack' ]
         tags:
             - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_created, method: onJWTCreated }
