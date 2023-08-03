@@ -3,6 +3,7 @@
 namespace App\EventSubscriber;
 
 use App\Repository\UserRepository;
+use App\Service\Validator\EmailValidatorService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,17 +14,21 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class LoginCheckSubscriber implements EventSubscriberInterface
 {
+    private $emailValidatorService;
     private $userRepository;
     private $userPasswordHasher;
 
     /**
      * LoginCheckSubscriber constructor.
      * @param EntityManagerInterface $entityManager The EntityManagerInterface instance used for persisting entities.
+     * @param EmailValidatorService $emailValidatorService The service responsible for email validation.
      * @param UserRepository $userRepository The repository responsible for retrieving User data.
      */
-    public function __construct(UserPasswordHasherInterface $userPasswordHasher, 
+    public function __construct(EmailValidatorService $emailValidatorService,
+                                UserPasswordHasherInterface $userPasswordHasher, 
                                 UserRepository $userRepository)
     {
+        $this->emailValidatorService = $emailValidatorService;
         $this->userRepository = $userRepository;
         $this->userPasswordHasher = $userPasswordHasher;
     }
@@ -38,6 +43,7 @@ class LoginCheckSubscriber implements EventSubscriberInterface
         // Check if it's a POST request to /api/login_check
         $request = $event->getRequest();
         if ($request->isMethod('POST') && $request->getPathInfo() === '/api/login_check') {
+
             $data = json_decode($request->getContent(), true);
 
             if ($data === null || !is_array($data)) {
@@ -54,17 +60,16 @@ class LoginCheckSubscriber implements EventSubscriberInterface
             $email = $data['email'];
             $plainPassword = $data['password'];
 
-            // Check if email is in a valid format
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                // Invalid email format, return an error message response with 400 status
-                return new JsonResponse(['error' => 'Invalid email format!'], Response::HTTP_BAD_REQUEST);
-            }
-
             if (empty($email) || empty($plainPassword)) {
                 // Email or password is empty, return an error response with 400 status
                 return new Response('', Response::HTTP_BAD_REQUEST);
             }
-
+            
+            // Validate the email parameter using EmailValidatorService
+            if (!$this->emailValidatorService->isValidEmail($email)) {
+                return new JsonResponse(['message' => 'Invalid email format'], Response::HTTP_BAD_REQUEST);
+            }
+            
             // Check if a user with the provided email already exists
             $existingUser = $this->userRepository->findByEmail($data['email']);
             // Email exists, now check the password
