@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Utility;
+namespace App\Utility\Date;
 
-use App\Utility\UserTimeZoneAndDateTimeDetector;
+use App\Utility\User\UserTimeZoneAndDateTimeDetector;
 
 
 /**

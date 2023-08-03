@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Service\Validator;
+namespace App\Validator;
 
 use Symfony\Component\HttpFoundation\Request;
 
 
-class EmailValidatorService
+class EmailValidator
 {
    /**
      * Check if the "email" param is defined in the request, is a string, and its value is not null or empty.
