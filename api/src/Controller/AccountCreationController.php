@@ -49,6 +49,19 @@ class AccountCreationController extends AbstractController
     {
         $data = json_decode($request->getContent(), true);
 
+        // Check that all required data is present and is of the expected type
+        $requiredFields = ['email', 'plainPassword', 'pseudo', 'lastName', 'firstName', 'phoneNumber'];
+        foreach ($requiredFields as $field) {
+            if (!isset($data[$field]) || empty($data[$field])) {
+                return new JsonResponse(['message' => 'Missing or empty required fields'], Response::HTTP_BAD_REQUEST);
+            }
+        }
+
+        // Check email format
+        if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            return new JsonResponse(['message' => 'Invalid email format'], Response::HTTP_BAD_REQUEST);
+        }
+
         // Check if a user with the provided email already exists
         $existingUser = $this->userRepository->findByEmail($data['email']);
         if ($existingUser) {
@@ -87,7 +100,7 @@ class AccountCreationController extends AbstractController
         $this->userDataPersister->persist($user);
 
         // Return a success response
-        return new JsonResponse(['status' => 201], Response::HTTP_CREATED);
+        return new JsonResponse(['message' => 'Created Account!'], Response::HTTP_CREATED);
     }
 
     /**
@@ -99,6 +112,11 @@ class AccountCreationController extends AbstractController
      */
     public function activateAccount(string $token): RedirectResponse
     {
+
+        // Check if token is not null and not an empty string
+        if (!$token || !is_string($token)) {
+            return new JsonResponse(['message' => 'Null or invalid activation token!'], Response::HTTP_FORBIDDEN);
+        }
         // Find the user with the given activation token
         $user = $this->userRepository->findByActivationToken($token);
 
