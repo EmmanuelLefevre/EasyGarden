@@ -54,6 +54,12 @@ class LoginCheckSubscriber implements EventSubscriberInterface
             $email = $data['email'];
             $plainPassword = $data['password'];
 
+            // Check if email is in a valid format
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                // Invalid email format, return an error message response with 400 status
+                return new JsonResponse(['error' => 'Invalid email format!'], Response::HTTP_BAD_REQUEST);
+            }
+
             if (empty($email) || empty($plainPassword)) {
                 // Email or password is empty, return an error response with 400 status
                 return new Response('', Response::HTTP_BAD_REQUEST);
