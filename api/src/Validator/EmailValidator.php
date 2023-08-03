@@ -53,7 +53,7 @@ class EmailValidator
                                                               Response::HTTP_BAD_REQUEST) : false;
 
             default:
-                return null;
+                return true;
         }
     }
 }
