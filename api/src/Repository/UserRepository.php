@@ -29,6 +29,60 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->emailValidator = $emailValidator;
     }
 
+     /**
+     * Check if user exist in database on the provided email [UniqueEntity]
+     * @param string $email The email to check
+     * @return bool True if the email exists, false otherwise
+     * @throws \InvalidArgumentException If the email format is invalid.
+     */
+    public function checkIfUserExist(string $email): bool
+    {
+        // Validate the email using validateEmail() private method
+        $this->validateEmail($email);
+
+        $user = $this->findOneBy(['email' => $email]);
+        return $user !== null;
+    }
+
+    /**
+     * Check if a user with the given email and isVerified = true exists.
+     * @param string $email Email [UniqueEntity] of the user to look for.
+     * @return bool True if the user exists and is verified, false otherwise.
+     * @throws \InvalidArgumentException If the email format is invalid.
+     */
+    public function isUserVerified(string $email): bool
+    {
+        // Validate the email using validateEmail() private method
+        $this->validateEmail($email);
+
+        $user = $this->findOneBy(['email' => $email, 'isVerified' => true]);
+        return $user !== null;
+    }
+
+    /**
+     * Find a user by activation token.
+     * @param string $activationToken The activation token.
+     * @return User|null The user object or null if not found.
+     */
+    public function findByActivationToken(string $activationToken): ?User
+    {
+        return $this->findOneBy(['activationToken' => $activationToken]);
+    }
+
+    /**
+     * Find a user by email.
+     * @param string $email The user's email.
+     * @return User|null The user object or null if not found.
+     * @throws \InvalidArgumentException If the email format is invalid.
+     */
+    public function findByEmail(string $email): ?User
+    {
+        // Validate the email using validateEmail() private method
+        $this->validateEmail($email);
+
+        return $this->findOneBy(['email' => $email]);
+    }
+
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
      * @param PasswordAuthenticatedUserInterface|User $user The user object to upgrade the password for.
@@ -47,57 +101,15 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
     /**
-     * Check if a user with the given email and isVerified = true exists.
-     * @param string $email Email [UniqueEntity] of the user to look for.
-     * @return bool True if the user exists and is verified, false otherwise.
+     * Validates the format of the email using EmailValidator.
+     * @param string $email The email to validate.
+     * @throws \InvalidArgumentException If the email format is invalid.
      */
-    public function isUserVerified(string $email): bool
+    private function validateEmail(string $email): void
     {
-        // Validate the email using EmailValidator
         if (!$this->emailValidator->isValidEmail($email, null)) {
-            return new JsonResponse(['message' => 'Invalid email format'], Response::HTTP_BAD_REQUEST);
+            throw new \InvalidArgumentException('Invalid email format');
         }
-
-        $user = $this->findOneBy(['email' => $email, 'isVerified' => true]);
-        return $user !== null;
     }
 
-    /**
-     * Find a user by email.
-     * @param string $email The user's email.
-     * @return User|null The user object or null if not found.
-     */
-    public function findByEmail(string $email): ?User
-    {
-        // Validate the email using EmailValidator
-        if (!$this->emailValidator->isValidEmail($email, null)) {
-            return new JsonResponse(['message' => 'Invalid email format'], Response::HTTP_BAD_REQUEST);
-        }
-        return $this->findOneBy(['email' => $email]);
-    }
-
-    /**
-     * Find a user by activation token.
-     * @param string $activationToken The activation token.
-     * @return User|null The user object or null if not found.
-     */
-    public function findByActivationToken(string $activationToken): ?User
-    {
-        return $this->findOneBy(['activationToken' => $activationToken]);
-    }
-
-    /**
-     * Check if user exist in database on the provided email [UniqueEntity]
-     * @param string $email The email to check
-     * @return bool True if the email exists, false otherwise
-     */
-    public function checkIfUserExist(string $email): bool
-    {
-        // Validate the email using EmailValidator
-        if (!$this->emailValidator->isValidEmail($email, null)) {
-            return new JsonResponse(['message' => 'Invalid email format'], Response::HTTP_BAD_REQUEST);
-        }
-        $user = $this->findOneBy(['email' => $email]);
-        return $user !== null;
-    }
 }
