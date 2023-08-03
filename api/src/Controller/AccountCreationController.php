@@ -5,7 +5,8 @@ namespace App\Controller;
 use App\Entity\User;
 use App\DataPersister\UserDataPersister;
 use App\Repository\UserRepository;
-use App\Service\AccountCreationEmailService;
+use App\Service\Mailing\AccountCreationEmailService;
+use App\Service\Validator\EmailValidatorService;
 use App\Utility\TokenGenerator;
 use App\Utility\DateTimeConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,23 +19,27 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AccountCreationController extends AbstractController
 {
-    private $userDataPersister;
     private $emailService;
+    private $emailValidatorService;
+    private $userDataPersister;
     private $userRepository;
 
     /**
      * AccountCreationController constructor.
      *
      * @param AccountCreationEmailService $emailService The service responsible for sending account creation emails.
+     * @param EmailValidatorService $emailValidatorService The service responsible for email validation.
      * @param UserDataPersister $userDataPersister The service responsible for persisting user data.
      * @param UserRepository $userRepository The repository responsible for retrieving User data.
      */
     public function __construct(AccountCreationEmailService $emailService,
+                                EmailValidatorService $emailValidatorService,
                                 UserDataPersister $userDataPersister,
                                 UserRepository $userRepository)
     {
-        $this->userDataPersister = $userDataPersister;
         $this->emailService = $emailService;
+        $this->emailValidatorService = $emailValidatorService;
+        $this->userDataPersister = $userDataPersister;
         $this->userRepository = $userRepository;
     }
 
@@ -57,12 +62,14 @@ class AccountCreationController extends AbstractController
             }
         }
 
-        // Check email format
-        if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+        // Validate the email using EmailValidatorService
+        $paramName = $data['email'];
+        if (!$this->emailValidatorService->isValidEmail($paramName)) {
             return new JsonResponse(['message' => 'Invalid email format'], Response::HTTP_BAD_REQUEST);
         }
 
         // Check if a user with the provided email already exists
+        
         $existingUser = $this->userRepository->findByEmail($data['email']);
         if ($existingUser) {
             return new JsonResponse(['message' => 'Email already exists'], Response::HTTP_CONFLICT);
