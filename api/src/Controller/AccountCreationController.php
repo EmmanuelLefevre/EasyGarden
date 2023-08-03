@@ -64,10 +64,10 @@ class AccountCreationController extends AbstractController
 
         // Validate the email using EmailValidator
         $paramName = $data['email'];
-        $errorResponse = $this->emailValidator->isValidEmail($paramName, true, null);
-        if ($errorResponse !== true) {
+        $isValid = $this->emailValidator->isValidEmail($paramName, true, null);
+        if ($isValid !== true) {
             // Return JsonResponse on validation failure
-            return $errorResponse;
+            return $isValid;
         }
 
         // Check if a user with the provided email already exists
