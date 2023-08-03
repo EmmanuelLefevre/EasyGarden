@@ -54,7 +54,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     public function isUserVerified(string $email): bool
     {
         // Validate the email using EmailValidator
-        if (!$this->emailValidator->isValidEmail($email)) {
+        if (!$this->emailValidator->isValidEmail($email, null)) {
             return new JsonResponse(['message' => 'Invalid email format'], Response::HTTP_BAD_REQUEST);
         }
 
@@ -70,7 +70,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     public function findByEmail(string $email): ?User
     {
         // Validate the email using EmailValidator
-        if (!$this->emailValidator->isValidEmail($email)) {
+        if (!$this->emailValidator->isValidEmail($email, null)) {
             return new JsonResponse(['message' => 'Invalid email format'], Response::HTTP_BAD_REQUEST);
         }
         return $this->findOneBy(['email' => $email]);
@@ -94,7 +94,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     public function checkIfUserExist(string $email): bool
     {
         // Validate the email using EmailValidator
-        if (!$this->emailValidator->isValidEmail($email)) {
+        if (!$this->emailValidator->isValidEmail($email, null)) {
             return new JsonResponse(['message' => 'Invalid email format'], Response::HTTP_BAD_REQUEST);
         }
         $user = $this->findOneBy(['email' => $email]);
