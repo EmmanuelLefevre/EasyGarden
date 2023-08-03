@@ -49,11 +49,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'string', length: 180, unique: true)]
     #[Assert\NotBlank]
-    #[Assert\Regex(
-        pattern: '/\^([a-zA-Z0-9\.]\+@\+[a-zA-Z]\+(\.)\+[a-zA-Z]{2,4})\$/',
-        match: false,
-        message: "The email '{{ value }}' is not a valid email."
-    )]
     #[Groups(['read:User',
               'write:User'])]
     private $email;
@@ -64,67 +59,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'string', length: 45)]
     #[Assert\NotBlank]
-    #[Assert\Regex(
-        pattern: '/\^[a-zA-ZàâäãçéèêëíìîïñôöõÀÂÄÃÇÉÈÊËÌÍÎÏÑÔÖÕ][a-zàâäãçéèêëíìîïñôöõ]\+([-\'\s][a-zA-ZàâäãçéèêëíìîïñôöõÀÂÄÃÇÉÈÊËÌÍÎÏÑÔÖÕ][a-zàâäãçéèêëíìîïñôöõ]\+)?/',
-        match: false,
-        message: 'Your firstname cannot contain a number',
-    )]
-    #[Assert\Regex(
-        pattern: '/\w{3,20}\$/',
-        match: false,
-        message: 'Your firstname should be between 3 and 20 characters',
-    )]
     #[Groups(['read:User',
               'write:User'])]
     private $firstName;
 
     #[ORM\Column(type: 'string', length: 45)]
     #[Assert\NotBlank]
-    #[Assert\Regex(
-        pattern: '/\^[a-zA-ZàâäãçéèêëíìîïñôöõÀÂÄÃÇÉÈÊËÌÍÎÏÑÔÖÕ][a-zàâäãçéèêëíìîïñôöõ]\+([-\'\s][a-zA-ZàâäãçéèêëíìîïñôöõÀÂÄÃÇÉÈÊËÌÍÎÏÑÔÖÕ][a-zàâäãçéèêëíìîïñôöõ]\+)?/',
-        match: false,
-        message: 'Your lastname cannot contain a number',
-    )]
-    #[Assert\Regex(
-        pattern: '/\w{3,20}\$/',
-        match: false,
-        message: 'Your lastname should be between 3 and 20 characters',
-    )]
     #[Groups(['read:User',
               'write:User'])]
     private $lastName;
 
     #[SerializedName('password')]
     #[Assert\NotBlank(groups:['create'])]
-    #[Assert\Length(max:4096)]
     #[Groups(['write:User'])]
     private ?string $plainPassword = null;
 
     #[ORM\Column(type: 'string')]
     #[Assert\NotBlank]
-    #[Assert\Regex(
-        pattern: '/\^[A-Za-z0-9]\w{8,}\$/',
-        match: false,
-        message: 'Your password must be more than 8 characters',
-    )]
-    #[Assert\Regex(
-        pattern: '/\^(?=.\*\d)(?=.\*[a-z])(?=.\*[A-Z])(?=.\*[:;~µ!?§@#$%^&*]).{8,}\$/',
-        match: false,
-        message: 'Your password must be at least one uppercase letter, one lowercase letter, one number and one special character',
-    )]
     private $password;
 
     #[ORM\Column(type: 'string', length: 45)]
-    #[Assert\Regex(
-        pattern: '/\^[a-zA-ZàâäãçéèêëíìîïñôöõÀÂÄÃÇÉÈÊËÌÍÎÏÑÔÖÕ0-9][a-zàâäãçéèêëíìîïñôöõ]\+([-\'\s][a-zA-ZàâäãçéèêëíìîïñôöõÀÂÄÃÇÉÈÊËÌÍÎÏÑÔÖÕ0-9][a-zàâäãçéèêëíìîïñôöõ]\+)?/',
-        match: false,
-        message: 'Your pseudo cannot contain some special character',
-    )]
-    #[Assert\Regex(
-        pattern: '/\w{3,20}\$/',
-        match: false,
-        message: 'Your pseudo should be between 3 and 20 characters',
-    )]
     #[Groups(['read:User',
               'write:User'])]
     private $pseudo;
@@ -132,8 +86,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 20)]
     #[Assert\Regex(
         pattern: '/\^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})\$/',
-        match: false,
-        message: 'Please fill out a valid french number',
+        match: true,
+        message: 'Please fill out a valid french number!',
     )]
     #[Groups(['read:User',
               'write:User'])]
