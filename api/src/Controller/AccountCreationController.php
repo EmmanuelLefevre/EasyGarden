@@ -7,8 +7,8 @@ use App\DataPersister\UserDataPersister;
 use App\Repository\UserRepository;
 use App\Service\Mailing\AccountCreationEmailService;
 use App\Validator\EmailValidator;
-use App\Utility\Token\TokenGenerator;
 use App\Utility\Date\DateTimeConverter;
+use App\Utility\Token\TokenGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -64,7 +64,7 @@ class AccountCreationController extends AbstractController
 
         // Validate the email using EmailValidator
         $paramName = $data['email'];
-        if (!$this->emailValidator->isValidEmail($paramName)) {
+        if (!$this->emailValidator->isValidEmail($paramName, null)) {
             return new JsonResponse(['message' => 'Invalid email format'], Response::HTTP_BAD_REQUEST);
         }
 
