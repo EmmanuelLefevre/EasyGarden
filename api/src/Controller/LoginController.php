@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\UserRepository;
-use App\Service\Validator\EmailValidatorService;
+use App\Validator\EmailValidator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,18 +13,18 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class LoginController extends AbstractController
 {
-    private $emailValidatorService;
+    private $emailValidator;
     private $userRepository;
 
     /**
      * CheckAccountActivationController constructor.
-     * @param EmailValidatorService $emailValidatorService The service responsible for email validation.
+     * @param EmailValidator $emailValidator The validator responsible for email validation.
      * @param UserRepository $userRepository The repository responsible for retrieving User data.
      */
-    public function __construct(EmailValidatorService $emailValidatorService,
+    public function __construct(EmailValidator $emailValidator,
                                 UserRepository $userRepository)
     {
-        $this->emailValidatorService = $emailValidatorService;
+        $this->emailValidator = $emailValidator;
         $this->userRepository = $userRepository;
     }
 
@@ -40,7 +40,7 @@ class LoginController extends AbstractController
         $email = $request->query->get('email');
         $paramName = 'email'; 
 
-        if (!$this->emailValidatorService->isValidEmailParam($request, $paramName)) {
+        if (!$this->emailValidator->isValidEmailParam($request, $paramName)) {
             return new JsonResponse(['error' => 'Invalid email format!'], Response::HTTP_BAD_REQUEST);
         }
 
@@ -62,7 +62,7 @@ class LoginController extends AbstractController
         $email = $request->query->get('email');
         $paramName = 'email'; 
 
-        if (!$this->emailValidatorService->isValidEmailParam($request, $paramName)) {
+        if (!$this->emailValidator->isValidEmailParam($request, $paramName)) {
             return new JsonResponse(['error' => 'Invalid email format!'], Response::HTTP_BAD_REQUEST);
         }
 

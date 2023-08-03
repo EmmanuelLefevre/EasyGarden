@@ -1,9 +1,9 @@
 <?php
 
-namespace App\EventSubscriber;
+namespace App\Login\EventSubscriber;
 
 use App\Repository\UserRepository;
-use App\Service\Validator\EmailValidatorService;
+use App\Validator\EmailValidator;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,21 +14,21 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class LoginCheckSubscriber implements EventSubscriberInterface
 {
-    private $emailValidatorService;
+    private $emailValidator;
     private $userRepository;
     private $userPasswordHasher;
 
     /**
      * LoginCheckSubscriber constructor.
      * @param EntityManagerInterface $entityManager The EntityManagerInterface instance used for persisting entities.
-     * @param EmailValidatorService $emailValidatorService The service responsible for email validation.
+     * @param EmailValidator $emailValidator The validator responsible for email validation.
      * @param UserRepository $userRepository The repository responsible for retrieving User data.
      */
-    public function __construct(EmailValidatorService $emailValidatorService,
+    public function __construct(EmailValidator $emailValidator,
                                 UserPasswordHasherInterface $userPasswordHasher, 
                                 UserRepository $userRepository)
     {
-        $this->emailValidatorService = $emailValidatorService;
+        $this->emailValidator = $emailValidator;
         $this->userRepository = $userRepository;
         $this->userPasswordHasher = $userPasswordHasher;
     }
@@ -65,8 +65,8 @@ class LoginCheckSubscriber implements EventSubscriberInterface
                 return new Response('', Response::HTTP_BAD_REQUEST);
             }
             
-            // Validate the email parameter using EmailValidatorService
-            if (!$this->emailValidatorService->isValidEmail($email)) {
+            // Validate the email parameter using EmailValidator
+            if (!$this->emailValidator->isValidEmail($email)) {
                 return new JsonResponse(['message' => 'Invalid email format'], Response::HTTP_BAD_REQUEST);
             }
             

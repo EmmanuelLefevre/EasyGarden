@@ -3,7 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\User;
-use App\Service\Validator\EmailValidatorService;
+use App\Validator\EmailValidator;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -15,18 +15,18 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
-    private $emailValidatorService;
+    private $emailValidator;
 
     /**
      * UserRepository constructor.
-     * @param EmailValidatorService $emailValidatorService The service responsible for email validation.
+     * @param EmailValidator $emailValidator The validator responsible for email validation.
      * @param ManagerRegistry $registry The ManagerRegistry instance used for database access.
      */
-    public function __construct(EmailValidatorService $emailValidatorService,
+    public function __construct(EmailValidator $emailValidator,
                                 ManagerRegistry $registry)
     {
         parent::__construct($registry, User::class);
-        $this->emailValidatorService = $emailValidatorService;
+        $this->emailValidator = $emailValidator;
     }
 
     /**
@@ -53,8 +53,8 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      */
     public function isUserVerified(string $email): bool
     {
-        // Validate the email using EmailValidatorService
-        if (!$this->emailValidatorService->isValidEmail($email)) {
+        // Validate the email using EmailValidator
+        if (!$this->emailValidator->isValidEmail($email)) {
             return new JsonResponse(['message' => 'Invalid email format'], Response::HTTP_BAD_REQUEST);
         }
 
@@ -69,8 +69,8 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      */
     public function findByEmail(string $email): ?User
     {
-        // Validate the email using EmailValidatorService
-        if (!$this->emailValidatorService->isValidEmail($email)) {
+        // Validate the email using EmailValidator
+        if (!$this->emailValidator->isValidEmail($email)) {
             return new JsonResponse(['message' => 'Invalid email format'], Response::HTTP_BAD_REQUEST);
         }
         return $this->findOneBy(['email' => $email]);
@@ -93,8 +93,8 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      */
     public function checkIfUserExist(string $email): bool
     {
-        // Validate the email using EmailValidatorService
-        if (!$this->emailValidatorService->isValidEmail($email)) {
+        // Validate the email using EmailValidator
+        if (!$this->emailValidator->isValidEmail($email)) {
             return new JsonResponse(['message' => 'Invalid email format'], Response::HTTP_BAD_REQUEST);
         }
         $user = $this->findOneBy(['email' => $email]);

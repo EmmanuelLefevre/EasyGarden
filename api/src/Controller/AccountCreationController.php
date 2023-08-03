@@ -6,9 +6,9 @@ use App\Entity\User;
 use App\DataPersister\UserDataPersister;
 use App\Repository\UserRepository;
 use App\Service\Mailing\AccountCreationEmailService;
-use App\Service\Validator\EmailValidatorService;
-use App\Utility\TokenGenerator;
-use App\Utility\DateTimeConverter;
+use App\Validator\EmailValidator;
+use App\Utility\Token\TokenGenerator;
+use App\Utility\Date\DateTimeConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -20,7 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AccountCreationController extends AbstractController
 {
     private $emailService;
-    private $emailValidatorService;
+    private $emailValidator;
     private $userDataPersister;
     private $userRepository;
 
@@ -28,17 +28,17 @@ class AccountCreationController extends AbstractController
      * AccountCreationController constructor.
      *
      * @param AccountCreationEmailService $emailService The service responsible for sending account creation emails.
-     * @param EmailValidatorService $emailValidatorService The service responsible for email validation.
+     * @param EmailValidator $emailValidator The validator responsible for email validation.
      * @param UserDataPersister $userDataPersister The service responsible for persisting user data.
      * @param UserRepository $userRepository The repository responsible for retrieving User data.
      */
     public function __construct(AccountCreationEmailService $emailService,
-                                EmailValidatorService $emailValidatorService,
+                                EmailValidator $emailValidator,
                                 UserDataPersister $userDataPersister,
                                 UserRepository $userRepository)
     {
         $this->emailService = $emailService;
-        $this->emailValidatorService = $emailValidatorService;
+        $this->emailValidator = $emailValidator;
         $this->userDataPersister = $userDataPersister;
         $this->userRepository = $userRepository;
     }
@@ -62,9 +62,9 @@ class AccountCreationController extends AbstractController
             }
         }
 
-        // Validate the email using EmailValidatorService
+        // Validate the email using EmailValidator
         $paramName = $data['email'];
-        if (!$this->emailValidatorService->isValidEmail($paramName)) {
+        if (!$this->emailValidator->isValidEmail($paramName)) {
             return new JsonResponse(['message' => 'Invalid email format'], Response::HTTP_BAD_REQUEST);
         }
 

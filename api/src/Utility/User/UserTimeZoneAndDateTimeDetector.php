@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Utility;
+namespace App\Utility\User;
 
-use App\Utility\UserIpAddressDetector;
+use App\Utility\User\UserIpAddressDetector;
 use Symfony\Component\HttpClient\HttpClient;
 
 

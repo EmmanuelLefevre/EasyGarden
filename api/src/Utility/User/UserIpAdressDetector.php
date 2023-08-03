@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Utility;
+namespace App\Utility\User;
 
 use Symfony\Component\HttpClient\HttpClient;
 
