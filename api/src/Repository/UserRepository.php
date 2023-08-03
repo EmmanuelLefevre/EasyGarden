@@ -37,9 +37,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      */
     public function checkIfUserExist(string $email): bool
     {
-        // Validate the email using validateEmail() private method
-        $this->validateEmail($email);
-
         $user = $this->findOneBy(['email' => $email]);
         return $user !== null;
     }
@@ -52,9 +49,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      */
     public function isUserVerified(string $email): bool
     {
-        // Validate the email using validateEmail() private method
-        $this->validateEmail($email);
-
         $user = $this->findOneBy(['email' => $email, 'isVerified' => true]);
         return $user !== null;
     }
@@ -77,9 +71,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      */
     public function findByEmail(string $email): ?User
     {
-        // Validate the email using validateEmail() private method
-        $this->validateEmail($email);
-
         return $this->findOneBy(['email' => $email]);
     }
 
@@ -98,18 +89,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $user->setPassword($newHashedPassword);
         $this->_em->persist($user);
         $this->_em->flush();
-    }
-
-    /**
-     * Validates the format of the email using EmailValidator.
-     * @param string $email The email to validate.
-     * @throws \InvalidArgumentException If the email format is invalid.
-     */
-    private function validateEmail(string $email): void
-    {
-        if (!$this->emailValidator->isValidEmail($email)) {
-            throw new \InvalidArgumentException('Invalid email format');
-        }
     }
 
 }
