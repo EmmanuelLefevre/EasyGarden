@@ -66,7 +66,7 @@ class LoginCheckSubscriber implements EventSubscriberInterface
             }
             
             // Validate the email parameter using EmailValidator
-            if (!$this->emailValidator->isValidEmail($email)) {
+            if (!$this->emailValidator->isValidEmail($email, null)) {
                 return new JsonResponse(['message' => 'Invalid email format'], Response::HTTP_BAD_REQUEST);
             }
             
