@@ -4,7 +4,7 @@ import { environment } from 'src/environments/environment';
 // Service
 import { AuthGuardService } from './_services/guard/auth.guard';
 // Component
-import { Error404Component } from './_services/utils/error/error404.component';
+import { Error404Component } from './_services/utils/error/error404/error404.component';
 import { VerifiedAccountComponent } from './_services/utils/verified-account/verified-account.component';
 
 const name = environment.application.name;
