@@ -38,16 +38,6 @@ class Garden
 
     #[ORM\Column(type: 'string', length: 45, nullable: true)]
     #[Assert\NotBlank]
-    #[Assert\Regex(
-        pattern: '/\^[a-zA-ZàâäãçéèêëíìîïñôöõÀÂÄÃÇÉÈÊËÌÍÎÏÑÔÖÕ0-9][a-zàâäãçéèêëíìîïñôöõ]\+([-\'\s][a-zA-ZàâäãçéèêëíìîïñôöõÀÂÄÃÇÉÈÊËÌÍÎÏÑÔÖÕ0-9][a-zàâäãçéèêëíìîïñôöõ]\+)?/',
-        match: false,
-        message: 'The garden name cannot contain some special character',
-    )]
-    #[Assert\Regex(
-        pattern: '/\w{3,20}\$/',
-        match: false,
-        message: 'The garden name should be between 3 and 20 characters',
-    )]
     #[Groups(['read:Garden',
               'write:Garden'])]
     private $name;
