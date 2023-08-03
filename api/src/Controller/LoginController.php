@@ -35,7 +35,7 @@ class LoginController extends AbstractController
         $email = $request->query->get('email');
 
         if (!$this->isValidEmailParam($request, $email)) {
-            return new Response('', Response::HTTP_BAD_REQUEST);
+            return new JsonResponse(['error' => 'Invalid email format!'], Response::HTTP_BAD_REQUEST);
         }
 
         $isVerified = $this->userRepository->isUserVerified($email);
@@ -55,12 +55,12 @@ class LoginController extends AbstractController
     {
         $email = $request->query->get('email');
 
+        if (!$this->isValidEmailParam($request, $email)) {
+            return new JsonResponse(['error' => 'Invalid email format!'], Response::HTTP_BAD_REQUEST);
+        }
+
         $emailExists = $this->userRepository->checkIfUserExist($email);
         $message = $emailExists ? 'Email Exist!' : `Email doesn't exist!`;
-
-        if (!$this->isValidEmailParam($request, $email)) {
-            return new Response('', Response::HTTP_BAD_REQUEST);
-        }
 
         return new JsonResponse(['message' => $message], Response::HTTP_OK);
 
@@ -75,7 +75,21 @@ class LoginController extends AbstractController
      */
     private function isValidEmailParam(Request $request, string $email): bool
     {
-        if (!$request->query->has('email') || !is_string($email) || trim($email) === '') {
+        // Check if email parameter is present in the query parameters of the request
+        // and is a string and not null or empty
+        if (!$request->query->has('email') 
+            || !is_string($email) 
+            || trim($email) === '') {
+            return false;
+        }
+
+        // Check max length of email
+        if (strlen($email) > 45) {
+            return false;
+        }
+
+        // Check if email is in a valid format
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             return false;
         }
 
