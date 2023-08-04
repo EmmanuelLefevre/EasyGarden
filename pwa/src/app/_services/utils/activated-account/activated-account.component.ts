@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 
 
 @Component({
-  selector: 'app-verified-account',
-  templateUrl: './verified-account.component.html',
-  styleUrls: ['./verified-account.component.scss']
+  selector: 'app-activated-account',
+  templateUrl: './activated-account.component.html',
+  styleUrls: ['./activated-account.component.scss']
 })
 
-export class VerifiedAccountComponent implements OnInit {
+export class ActivatedAccountComponent implements OnInit {
 
   time: number = 10;
   timeOut: any;
