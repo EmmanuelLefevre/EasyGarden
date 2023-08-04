@@ -22,12 +22,12 @@ import { RegisterComponent } from './components/register/register.component';
   ],
   imports: [
     CommonModule,
-    DirectivesModule,
     FontAwesomeModule,
     MatTooltipModule,
     PublicComponentsModule,
     PublicRoutingModule,
     ReactiveFormsModule,
+    DirectivesModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
