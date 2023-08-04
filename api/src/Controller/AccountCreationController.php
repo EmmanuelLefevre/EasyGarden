@@ -6,7 +6,7 @@ use App\Entity\User;
 use App\DataPersister\UserDataPersister;
 use App\Repository\UserRepository;
 use App\Service\Mailing\AccountCreationEmailService;
-use App\Validator\EmailValidator;
+use App\Validator\User\EmailValidator;
 use App\Utility\Date\DateTimeConverter;
 use App\Utility\Token\TokenGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
