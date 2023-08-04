@@ -94,7 +94,7 @@ export class ProfilComponent implements OnInit, OnDestroy {
         [
           Validators.required,
           Validators.minLength(3),
-          Validators.maxLength(20),
+          Validators.maxLength(25),
           this.customValidator.validName()
         ]
       ],
@@ -106,7 +106,7 @@ export class ProfilComponent implements OnInit, OnDestroy {
         [
           Validators.required,
           Validators.minLength(3),
-          Validators.maxLength(20),
+          Validators.maxLength(25),
           this.customValidator.validName()
         ]
       ],
