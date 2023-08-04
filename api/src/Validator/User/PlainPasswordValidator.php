@@ -66,7 +66,7 @@ class PlainPasswordValidator
                                                               Response::HTTP_BAD_REQUEST) : false;
 
             // Special character
-            case !preg_match('/[!@#$%^&*§£¤µ@(),.;?":{}|<>\/]/', $plainPassword):
+            case !preg_match('/[~µ^!@#$%^&*§£¤µ@(),.;?":{}|<>\/]/', $plainPassword):
                 return $returnJsonResponse ? new JsonResponse(['error' => 'Password must contain at least one special character!'], 
                                                               Response::HTTP_BAD_REQUEST) : false;
 
