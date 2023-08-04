@@ -56,7 +56,7 @@ export class RegisterComponent implements OnDestroy {
       [
         Validators.required,
         Validators.minLength(8),
-        Validators.maxLength(40),
+        Validators.maxLength(50),
         this.customValidator.strongPassword()
       ]
     ],
