@@ -15,7 +15,7 @@ class EmailValidator
      * @param string $paramName The parameter name for the email address to be checked.
      * @param bool $returnJsonResponse (Optional) If set to true, the method will return a JsonResponse on validation failure.
      * @param Request|null $request The HTTP request object or null if not provided.
-     * @return bool True if the email is valid; otherwise, false.
+     * @return bool True if the email is valid; otherwise, false or JsonResponse with/no error message.
      */
     public function isValidEmail(string $paramName, 
                                 bool $returnJsonResponse = false, 
