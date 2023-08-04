@@ -101,7 +101,7 @@
                   Le nom doit contenir 3 caractères minimum.
                   </div>
                   <div class="text-alert" *ngIf="lastName['lastName'].errors['maxlength']">
-                  Le nom ne peut excéder 20 caractères.
+                  Le nom ne peut excéder 25 caractères.
                   </div>
                   <div class="text-alert" *ngIf="lastName['lastName'].errors['validName']">
                   Le nom ne peut contenir que des lettres, seuls le tiret et l'espace sont acceptés!
@@ -169,7 +169,7 @@
                   Le prénom doit contenir 3 caractères minimum.
                   </div>
                   <div class="text-alert" *ngIf="firstName['firstName'].errors['maxlength']">
-                  Le prénom ne peut excéder 20 caractères.
+                  Le prénom ne peut excéder 25 caractères.
                   </div>
                   <div class="text-alert" *ngIf="firstName['firstName'].errors['validName']">
                   Le prénom ne peut contenir que des lettres, seuls le tiret et l'espace sont acceptés!
@@ -237,7 +237,7 @@
                   Le pseudo doit contenir 3 caractères minimum.
                   </div>
                   <div class="text-alert" *ngIf="pseudo['pseudo'].errors['maxlength']">
-                  Le pseudo ne peut excéder 10 caractères.
+                  Le pseudo ne peut excéder 20 caractères.
                   </div>
                   <div class="text-alert" *ngIf="pseudo['pseudo'].errors['validPseudo']">
                   Le pseudo ne peut contenir que des chiffres et lettres!
