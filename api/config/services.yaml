@@ -21,7 +21,7 @@ services:
     # LoginCheckSubscriber configuration
     api_platform.login_check_subscriber:
         class: App\EventSubscriber\Login\LoginCheckSubscriber
-        arguments: ['@App\Validator\EmailValidator', 
+        arguments: ['@App\Validator\User\EmailValidator', 
                     '@event_dispatcher',
                     '@Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface', 
                     '@App\Repository\UserRepository']
