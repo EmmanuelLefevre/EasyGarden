@@ -146,7 +146,7 @@ class AccountCreationController extends AbstractController
         $this->userDataPersister->persist($user);
 
         // Redirect the user to the Angular verified account page (external URL)
-        $loginUrl = 'http://localhost:4200/verified-account';
+        $loginUrl = 'http://localhost:4200/activated-account';
         return new RedirectResponse($loginUrl);
     }
 
