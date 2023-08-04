@@ -52,7 +52,7 @@ class NameValidator
             
             // Authorized character
             case !preg_match('/[A-Za-z -]/', $name):
-                return $returnJsonResponse ? new JsonResponse(['error' => 'Name can only contain lowercase and uppercase letters (only hyphens and spaces are accepted)!'], 
+                return $returnJsonResponse ? new JsonResponse(['error' => 'Name can only contain lowercase and uppercase letters (hyphens and spaces are accepted)!'], 
                                                               Response::HTTP_BAD_REQUEST) : false;
 
             default:
