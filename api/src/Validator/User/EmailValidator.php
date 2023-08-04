@@ -36,7 +36,7 @@ class EmailValidator
         switch (true) {
             // Max lenght
             case strlen($email) > 45:
-                return $returnJsonResponse ? new JsonResponse(['error' => 'Email is limited to 45 characters!'], 
+                return $returnJsonResponse ? new JsonResponse(['error' => 'Email cannot exceed 45 characters!'], 
                                                               Response::HTTP_BAD_REQUEST) : false;
 
             // Not null
