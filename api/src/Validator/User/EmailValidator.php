@@ -34,11 +34,6 @@ class EmailValidator
         }
 
         switch (true) {
-            // Max lenght
-            case strlen($email) > 45:
-                return $returnJsonResponse ? new JsonResponse(['error' => 'Email cannot exceed 45 characters!'], 
-                                                              Response::HTTP_BAD_REQUEST) : false;
-
             // Not null
             case trim($email) === '':
                 return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;
@@ -46,6 +41,11 @@ class EmailValidator
             // Is a string
             case !is_string($email):
                 return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;
+                
+            // Max lenght
+            case strlen($email) > 45:
+                return $returnJsonResponse ? new JsonResponse(['error' => 'Email cannot exceed 45 characters!'], 
+                                                              Response::HTTP_BAD_REQUEST) : false;
 
             // Valid format
             case !filter_var($email, FILTER_VALIDATE_EMAIL):
