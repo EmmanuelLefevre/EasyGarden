@@ -105,7 +105,6 @@ export class LoginComponent implements OnDestroy, OnInit {
         .subscribe(
           // Successful processing connection
           data => {
-            this.tokenService.saveToken(data.token);
             const email = this.loginForm.value.email;
             this.accountVerificationSubscription = this.authService.isAccountVerified(email)
               .subscribe(
@@ -116,6 +115,7 @@ export class LoginComponent implements OnDestroy, OnInit {
                       ,'orange-alert'
                     );
                   } else if (response.message === 'Account is verified!') {
+                    this.tokenService.saveToken(data.token);
                     this.router.navigate(['easygarden']);
                     this.snackbarService.showNotification(
                       `Bonjour ${this.decodedTokenService.firstNameDecoded()} `
