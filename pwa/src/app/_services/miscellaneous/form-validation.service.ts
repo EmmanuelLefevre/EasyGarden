@@ -37,7 +37,7 @@ export class FormValidationService {
     return (control: AbstractControl): { [key: string]: boolean } | null => {
       if (control.value == '') return null;
 
-      let re = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[:;.~µ!?§@#$%^&*])[A-Za-z\d:;.~µ!?§@#$%^&*].{7,41}');
+      let re = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[:;.~µ!?§@#$%^&*])[A-Za-z\d:;.~µ!?§@#$%^&*].{7,51}');
       if (re.test(control.value)) {
         return null;
       } else {
