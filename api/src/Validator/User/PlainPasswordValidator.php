@@ -55,7 +55,7 @@ class PlainPasswordValidator
             return $returnJsonResponse ? new JsonResponse(['error' => 'Password must contain at least one capital letter!'], 
                                                           Response::HTTP_BAD_REQUEST) : false;
 
-            // Uppercase letter
+            // Lowercase letter
             case !preg_match('/[a-z]/', $plainPassword):
                 return $returnJsonResponse ? new JsonResponse(['error' => 'Password must contain at least one lowercase letter!'], 
                                                               Response::HTTP_BAD_REQUEST) : false;
