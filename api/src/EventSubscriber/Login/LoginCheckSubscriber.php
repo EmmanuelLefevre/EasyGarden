@@ -73,10 +73,10 @@ class LoginCheckSubscriber implements EventSubscriberInterface
             }
             
             // Validate the email parameter using EmailValidator
-            $errorResponse = $this->emailValidator->isValidEmail($email, true, null);
-            if ($errorResponse !== true) {
+            $isValid = $this->emailValidator->isValidEmail($email, true, null);
+            if ($isValid !== true) {
                 // Returns JsonResponse on validation failure
-                return $errorResponse;
+                return $isValid;
             }
             
             // Check if a user with the provided email already exists
