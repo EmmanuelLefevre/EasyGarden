@@ -41,7 +41,7 @@ export class EditEntityNameComponent implements OnDestroy {
         null as IName | null,
         [Validators.required,
         Validators.minLength(3),
-        Validators.maxLength(20),
+        Validators.maxLength(25),
         this.customValidator.validEquipmentName()]
       ],
       nonNullable: true
