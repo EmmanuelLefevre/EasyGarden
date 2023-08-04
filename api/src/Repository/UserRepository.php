@@ -3,11 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\User;
-use App\Validator\EmailValidator;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
@@ -15,18 +12,14 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
-    private $emailValidator;
 
     /**
      * UserRepository constructor.
-     * @param EmailValidator $emailValidator The validator responsible for email validation.
      * @param ManagerRegistry $registry The ManagerRegistry instance used for database access.
      */
-    public function __construct(EmailValidator $emailValidator,
-                                ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, User::class);
-        $this->emailValidator = $emailValidator;
     }
 
      /**
