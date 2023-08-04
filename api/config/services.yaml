@@ -27,7 +27,7 @@ services:
                     '@App\Repository\UserRepository']
         tags:
             - { name: kernel.event_subscriber, 
-                event: kernel.request , 
+                event: kernel.request, 
                 method: onKernelRequest }
     
     App\:
@@ -36,13 +36,3 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
-
-
-
-
-    # # Event dispatcher
-    # event_dispatcher:
-    #     class: Symfony\Component\EventDispatcher\EventDispatcherInterface
-    #     arguments: ['@event_dispatcher']
-    #     tags:
-    #         - { name: kernel.event_listener, event: kernel.request , method: onKernelRequest }
