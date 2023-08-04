@@ -62,12 +62,12 @@ class PlainPasswordValidator
             
             // Special character
             case !preg_match('/[0-9]/', $plainPassword):
-                return $returnJsonResponse ? new JsonResponse(['error' => 'Password must contain at least one special character !'], 
+                return $returnJsonResponse ? new JsonResponse(['error' => 'Password must contain at least one number!'], 
                                                               Response::HTTP_BAD_REQUEST) : false;
 
             // Number
             case !preg_match('/[!@#$%^&*§£¤µ@(),.;?":{}|<>\/]/', $plainPassword):
-                return $returnJsonResponse ? new JsonResponse(['error' => 'Password must contain at least one number!'], 
+                return $returnJsonResponse ? new JsonResponse(['error' => 'Password must contain at least one special character!'], 
                                                               Response::HTTP_BAD_REQUEST) : false;
 
 
