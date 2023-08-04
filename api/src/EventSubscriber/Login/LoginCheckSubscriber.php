@@ -3,7 +3,7 @@
 namespace App\EventSubscriber\Login;
 
 use App\Repository\UserRepository;
-use App\Validator\EmailValidator;
+use App\Validator\User\EmailValidator;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\AuthenticationFailureEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -40,7 +40,7 @@ class LoginCheckSubscriber implements EventSubscriberInterface
         $this->userPasswordHasher = $userPasswordHasher;
     }
 
-        /**
+    /**
      * Handle the kernel.request event and perform authentication for POST requests to /api/login_check.
      * @param RequestEvent $event The event object containing the request information.
      * @return void
