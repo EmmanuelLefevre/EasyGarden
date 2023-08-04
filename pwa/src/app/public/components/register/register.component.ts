@@ -33,7 +33,7 @@ export class RegisterComponent implements OnDestroy {
 
   // Check if email exist
   existingEmail: boolean = false;
-  errorMessage: String = '';
+  errorMessage: string = '';
 
   // Toggle faEyeSlash
   visible: boolean = false;
@@ -99,8 +99,6 @@ export class RegisterComponent implements OnDestroy {
   {
     validators: [this.customValidator.passwordMatch("password", "confirmPassword")],
   });
-
-  success = '';
   
   constructor(private customValidator : FormValidationService,
               private formBuilder: UntypedFormBuilder,
@@ -119,43 +117,47 @@ export class RegisterComponent implements OnDestroy {
 
   // Submit
   onSubmit() {
-    if (!this.registerForm.valid) {
+    if (this.registerForm.invalid) {
       return;
     }
+    else {
+      const formValue: IUser = this.registerForm.getRawValue();
+      delete formValue.confirmPassword;
+      this.registerSubscription = this.registerService.registerIn(formValue)
+        .subscribe(
+          (response: any) => { 
+            if (response 
+                && response.message === 'Created Account!'
+                && response.status === 201) { 
+              const firstName = formValue.firstName;
+              const lastName = formValue.lastName;
+              this.snackbarService.showNotification(
+                `Bienvenu ` 
+                + firstName 
+                + ` ` 
+                + lastName 
+                + `,` 
+                + `\nveuillez confirmer votre compte dans l\'email qui vous a été envoyé.`
+                ,'register'
+              );
+              this.router.navigate(['login'])
+            }
+          },
+          (errorResponse) => {
+            if (errorResponse.error 
+                && errorResponse.error.message === "Email already exists" 
+                && errorResponse.status === 409) {
+              this.existingEmail = true;
+              this.errorMessage = "Un utilisateur possédant cet email est déjà enregistré!";
+            } 
+            else {
+              this.existingEmail = false;
+              this.errorMessage = "Une erreur s'est produite lors de la création du compte!";
+            }
+          }
+        )
+    }
 
-    const formValue: IUser = this.registerForm.getRawValue();
-    delete formValue.confirmPassword;
-    this.registerSubscription = this.registerService.registerIn(formValue)
-      .subscribe(
-        (response: any) => { 
-          if (response && response.message === 'Created Account!') { 
-            const firstName = formValue.firstName;
-            const lastName = formValue.lastName;
-            this.snackbarService.showNotification(
-              `Bienvenu ` 
-              + firstName 
-              + ` ` 
-              + lastName 
-              + `,` 
-              + `\nveuillez confirmer votre compte dans l\'email qui vous a été envoyé.`
-              ,'register'
-            );
-            this.router.navigate(['login'])
-          }
-        },
-        (errorResponse) => {
-          if (errorResponse.error 
-              && errorResponse.error.message === "Email already exists" 
-              && errorResponse.status === 409) {
-            this.existingEmail = true;
-            this.errorMessage = "Un utilisateur possédant cet email est déjà enregistré!";
-          } 
-          else {
-            this.existingEmail = false;
-            this.errorMessage = "Une erreur s'est produite lors de la création du compte!";
-          }
-        }
-      )
   }
 
   onReset(formDirective: any): void {
