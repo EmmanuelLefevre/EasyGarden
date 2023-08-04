@@ -51,8 +51,8 @@ class PhoneNumberValidator
                                                               Response::HTTP_BAD_REQUEST) : false;
             
             // Authorized character
-            case !preg_match('/[0-9 -+/]/', $phoneNumber):
-                return $returnJsonResponse ? new JsonResponse(['error' => 'Phone number can only contain digits (only hyphens, slashes and spaces are accepted)!'], 
+            case !preg_match('/[0-9 -+/.()]/', $phoneNumber):
+                return $returnJsonResponse ? new JsonResponse(['error' => 'Phone number can only contain digits (plus sign, dot, hyphens, slashes, parenthesis and spaces are accepted)!'], 
                                                               Response::HTTP_BAD_REQUEST) : false;
 
             default:
