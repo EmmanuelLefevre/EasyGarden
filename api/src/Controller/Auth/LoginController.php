@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Auth;
 
 use App\Repository\UserRepository;
 use App\Validator\User\EmailValidator;
