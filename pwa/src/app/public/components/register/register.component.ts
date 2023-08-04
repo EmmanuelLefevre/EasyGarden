@@ -126,9 +126,7 @@ export class RegisterComponent implements OnDestroy {
       this.registerSubscription = this.registerService.registerIn(formValue)
         .subscribe(
           (response: any) => { 
-            if (response 
-                && response.message === 'Created Account!'
-                && response.status === 201) { 
+            if (response && response.message === 'Created Account!') { 
               const firstName = formValue.firstName;
               const lastName = formValue.lastName;
               this.snackbarService.showNotification(
