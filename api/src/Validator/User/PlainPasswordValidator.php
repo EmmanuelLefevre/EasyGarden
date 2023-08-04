@@ -60,12 +60,12 @@ class PlainPasswordValidator
                 return $returnJsonResponse ? new JsonResponse(['error' => 'Password must contain at least one lowercase letter!'], 
                                                               Response::HTTP_BAD_REQUEST) : false;
             
-            // Special character
+            // Number
             case !preg_match('/[0-9]/', $plainPassword):
                 return $returnJsonResponse ? new JsonResponse(['error' => 'Password must contain at least one number!'], 
                                                               Response::HTTP_BAD_REQUEST) : false;
 
-            // Number
+            // Special character
             case !preg_match('/[!@#$%^&*§£¤µ@(),.;?":{}|<>\/]/', $plainPassword):
                 return $returnJsonResponse ? new JsonResponse(['error' => 'Password must contain at least one special character!'], 
                                                               Response::HTTP_BAD_REQUEST) : false;
