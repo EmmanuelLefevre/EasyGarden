@@ -6,6 +6,10 @@ kernel:
     resource: ../src/Kernel.php
     type: annotation
 
+api_doc:
+    path: /swagger
+    controller: api_platform.swagger_ui.action
+
 login_check:
     path: /api/login_check
     methods: ['GET', 'POST']
