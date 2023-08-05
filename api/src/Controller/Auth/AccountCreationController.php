@@ -48,7 +48,7 @@ class AccountCreationController extends AbstractController
      * This method is accessible via POST request to "/account_creation"
      * @param string Request $request The HTTP request object. 
      * @return JsonResponse
-     * @Route("/account_creation", name="account_creation", methods={"POST"})
+     * @Route("/api/account_creation", name="account_creation", methods={"POST"})
      */
     public function accountCreation(Request $request): JsonResponse
     {
@@ -116,7 +116,7 @@ class AccountCreationController extends AbstractController
      * This method is accessible via GET and POST requests to "/account_activation/{token}" 
      * @param string $token The activation token received as part of the URL.
      * @return RedirectResponse A RedirectResponse object that redirects the user to the Angular verified account page.
-     * @Route("/account_activation/{token}", name="account_activation", methods={"GET", "POST"})
+     * @Route("/api/account_activation/{token}", name="account_activation", methods={"GET", "POST"})
      */
     public function activateAccount(string $token): RedirectResponse
     {
