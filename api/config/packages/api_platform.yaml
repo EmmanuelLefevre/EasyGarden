@@ -14,6 +14,3 @@ api_platform:
         json: ['application/merge-patch+json']
     swagger:
         versions: [3]
-    # eager_loading:
-    #     force_eager: false
-    #     fetch_partial: true
