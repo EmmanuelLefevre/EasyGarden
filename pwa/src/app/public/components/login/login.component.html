@@ -49,8 +49,8 @@
                  autocomplete="off"
                  class="input-inset-shadow"
                  [ngClass]="{ 'invalid-feedback': (loginForm.get('password')?.dirty 
-                                                && loginForm.get('password')?.invalid)
-                                                || invalidCredentials}">
+                                                  && loginForm.get('password')?.invalid)
+                                                  || invalidCredentials}">
           <fa-icon [icon]="visible ? faEyeSlash : faEye" aria-hidden="true" (click)="toggle()"></fa-icon>
           <ng-container *ngIf="loginForm.get('password')?.dirty 
                               && getErrorMessage('password') !== ''">
