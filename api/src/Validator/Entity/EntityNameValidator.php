@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Validator\User;
+namespace App\Validator\Entity;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
