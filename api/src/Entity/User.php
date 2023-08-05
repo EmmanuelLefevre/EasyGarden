@@ -25,6 +25,30 @@ use Symfony\Component\Validator\Constraints as Assert;
     normalizationContext: ['groups' => ['read:User']],
     denormalizationContext: ['groups' => ['write:User']],
     paginationItemsPerPage: 100,
+    itemOperations: ['check_account_validation' => [
+                        'method' => 'GET',
+                        'path' => '/check_account_validation',
+                        'controller' => LoginController::class,
+                        'openapi_context' => [
+                            'summary' => 'Check if the user has validated his account.']],
+                    'check_if_email_exist' => [
+                        'method' => 'GET',
+                        'path' => '/check_if_email_exist',
+                        'controller' => LoginController::class,
+                        'openapi_context' => [
+                            'summary' => 'Check if email exist in database.']],
+                    'account_creation' => [
+                        'method' => 'POST',
+                        'path' => '/account_creation',
+                        'controller' => AccountCreationController::class,
+                        'openapi_context' => [
+                            'summary' => 'Create an account.']],
+                    'account_activation' => [
+                        'method' => 'GET',
+                        'path' => '/account_activation/{token}',
+                        'controller' => AccountCreationController::class,
+                        'openapi_context' => [
+                            'summary' => 'Activate account by providing a valid token.']]],
     collectionOperations: ['get' => ['normalization_context' => ['groups' => ['read:User']]],
                            'post' => ['denormalization_context' => ['groups']]],
     order: ['pseudo' => 'ASC'])]
@@ -48,7 +72,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $id;
 
     #[ORM\Column(type: 'string', length: 180, unique: true)]
-    #[Assert\NotBlank]
     #[Groups(['read:User',
               'write:User'])]
     private $email;
@@ -58,25 +81,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $roles = [];
 
     #[ORM\Column(type: 'string', length: 45)]
-    #[Assert\NotBlank]
     #[Groups(['read:User',
               'write:User'])]
     private $firstName;
 
     #[ORM\Column(type: 'string', length: 45)]
-    #[Assert\NotBlank]
     #[Groups(['read:User',
               'write:User'])]
     private $lastName;
 
     #[SerializedName('password')]
-    #[Assert\NotBlank(groups:['create'])]
     #[Assert\Length(max:50)]
     #[Groups(['write:User'])]
     private ?string $plainPassword = null;
 
     #[ORM\Column(type: 'string')]
-    #[Assert\NotBlank]
     private $password;
 
     #[ORM\Column(type: 'string', length: 45)]
