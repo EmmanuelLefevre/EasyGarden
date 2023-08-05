@@ -172,16 +172,22 @@ export class LoginComponent implements OnDestroy, OnInit {
   // Get the error message associated with a specific form field
   getErrorMessage(inputName: string): string {
     const control = this.loginForm.get(inputName);
-    // Check control exists (not null) and there is validation errors.
+    // Check control exists (not null) and there are validation errors.
     if (control?.errors) {
-      if (control.errors['required']) {
-        return inputName === 'email' ? 'Veuillez saisir un email!' : 'Veuillez saisir un mot de passe!';
-      }
-      if (control.errors['email']) {
-        return 'Format d\'email invalide!';
-      }
-      if (control.errors['validEmail']) {
-        return 'L\'email doit contenir un "." + nom de domaine!';
+      if (inputName === 'email') {
+        if (control.errors['required']) {
+          return 'Veuillez saisir un email!';
+        }
+        if (control.errors['email']) {
+          return 'Format d\'email invalide!';
+        }
+        if (control.errors['validEmail']) {
+          return 'L\'email doit contenir un "." + nom de domaine!';
+        }
+      } else if (inputName === 'password') {
+        if (control.errors['required']) {
+          return 'Veuillez saisir un mot de passe!';
+        }
       }
     }
     return '';
