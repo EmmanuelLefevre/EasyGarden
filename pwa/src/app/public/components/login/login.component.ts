@@ -150,16 +150,18 @@ export class LoginComponent implements OnDestroy, OnInit {
 
   // Handle event when focus is removed from a form field
   onInputFocusOut(inputName: string): void {
-    const control = this.loginForm.get(inputName);
-    // Check if control exists (not null), is invalid (validation errors) and been touched.
-    if (control && control.invalid && control.touched) {
-      // Mark the field as modified to display error messages
-      control.markAsDirty();
-      this.invalidCredentials = true;
-    } else {
-      this.invalidCredentials = false;
+    const emailControl = this.loginForm.get('email');
+    const passwordControl = this.loginForm.get('password');
+    if ((inputName === 'email' || inputName === 'password') && emailControl && passwordControl) {
+      if (emailControl.invalid && (emailControl.touched || emailControl.pristine)) {
+        emailControl.markAsDirty();
+      }
+      if (passwordControl.invalid && (passwordControl.touched || passwordControl.pristine)) {
+        passwordControl.markAsDirty();
+      }
     }
   }
+  
 
   // Reset login form
   onReset(formDirective: any): void {
