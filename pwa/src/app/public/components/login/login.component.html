@@ -48,6 +48,7 @@
                  spellcheck="false"
                  autocomplete="off"
                  class="input-inset-shadow"
+                 (focusout)="onInputFocusOut('password')"
                  [ngClass]="{ 'invalid-feedback': (loginForm.get('password')?.dirty 
                                                   && loginForm.get('password')?.invalid)
                                                   || invalidCredentials}">
