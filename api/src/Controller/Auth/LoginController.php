@@ -30,10 +30,10 @@ class LoginController extends AbstractController
 
     /**
      * Check account activation status based on the provided email [UniqueEntity]
-     * This method is accessible via GET request to "/account_validation"
+     * This method is accessible via GET request to "/account_validation/{email}"
      * @param Request $request The HTTP request object.
      * @return JsonResponse The JSON response with the message verification status message.
-     * @Route("/api/check_account_validation", name="check_account_validation", methods={"GET"})
+     * @Route("/api/check_account_validation/{email}", name="check_account_validation", methods={"GET"})
      */
     public function checkAccountValidation(Request $request): JsonResponse
     {
@@ -55,10 +55,10 @@ class LoginController extends AbstractController
 
     /**
      * Check if user exists in the database based on the provided email [UniqueEntity]
-     * This method is accessible via GET request to "/api/check_if_email_exist"
+     * This method is accessible via GET request to "/api/check_if_email_exist/{email}"
      * @param Request $request The HTTP request object.
      * @return JsonResponse The JSON response with the indicating message whether the email exists or not.
-     * @Route("/api/check_if_email_exist", name="check_if_email_exist", methods={"GET"})
+     * @Route("/api/check_if_email_exist/{email}", name="check_if_email_exist", methods={"GET"})
      */
     public function checkIfEmailExist(Request $request): JsonResponse
     {
