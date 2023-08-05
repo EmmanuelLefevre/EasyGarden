@@ -13,19 +13,19 @@ login_check:
 account_creation:
     path: /api/account_creation
     methods: ['POST']
-    controller: App\Controller\AccountCreationController::accountCreation
+    controller: App\Controller\Auth\AccountCreationController::accountCreation
 
 account_validation:
     path: /api/account_validation
     methods: ['GET', 'POST']
-    controller: App\Controller\AccountCreationController::activateAccount
+    controller: App\Controller\Auth\AccountCreationController::activateAccount
 
 verify_account_validation:
     path: /api/check_account_validation/
     methods: ['GET']
-    controller: App\Controller\LoginController::checkAccountValidation
+    controller: App\Controller\Auth\LoginController::checkAccountValidation
 
 check_if_email_exist:
     path: /api/check_if_email_exist/
     methods: ['GET']
-    controller: App\Controller\LoginController::checkIfEmailExist
+    controller: App\Controller\Auth\LoginController::checkIfEmailExist
