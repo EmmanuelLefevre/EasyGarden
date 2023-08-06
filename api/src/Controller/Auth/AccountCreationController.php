@@ -26,7 +26,6 @@ class AccountCreationController extends AbstractController
 
     /**
      * AccountCreationController constructor.
-     *
      * @param AccountCreationEmailService $emailService The service responsible for sending account creation emails.
      * @param EmailValidator $emailValidator The validator responsible for email validation.
      * @param UserDataPersister $userDataPersister The service responsible for persisting user data.
@@ -48,7 +47,7 @@ class AccountCreationController extends AbstractController
      * This method is accessible via POST request to "/account_creation"
      * @param string Request $request The HTTP request object. 
      * @return JsonResponse
-     * @Route("/api/account_creation", name="account_creation", methods={"POST"})
+     * @Route("/account_creation", name="account_creation", methods={"POST"})
      */
     public function accountCreation(Request $request): JsonResponse
     {
