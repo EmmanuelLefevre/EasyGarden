@@ -6,8 +6,8 @@ use App\Repository\UserRepository;
 use App\Validator\User\EmailValidator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
@@ -34,6 +34,7 @@ class LoginController extends AbstractController
      * @param Request $request The HTTP request object.
      * @return JsonResponse The JSON response with the activation status message.
      * @Route("/api/check_account_activation/{email}", name="check_account_activation", methods={"GET"})
+     * use OpenApi\Annotations as OA;
      */
     public function checkAccountActivation(Request $request): JsonResponse
     {
