@@ -30,12 +30,12 @@ class LoginController extends AbstractController
 
     /**
      * Check account activation status based on the provided email [UniqueEntity]
-     * This method is accessible via GET request to "/account_validation/{email}"
+     * This method is accessible via GET request to "/account_activation/{email}"
      * @param Request $request The HTTP request object.
-     * @return JsonResponse The JSON response with the message verification status message.
-     * @Route("/api/check_account_validation/{email}", name="check_account_validation", methods={"GET"})
+     * @return JsonResponse The JSON response with the activation status message.
+     * @Route("/api/check_account_activation/{email}", name="check_account_activation", methods={"GET"})
      */
-    public function checkAccountValidation(Request $request): JsonResponse
+    public function checkAccountActivation(Request $request): JsonResponse
     {
         $email = $request->query->get('email');
         $paramName = 'email'; 
@@ -43,7 +43,7 @@ class LoginController extends AbstractController
         // Validate the email parameter using EmailValidator
         $isValid = $this->emailValidator->isValidEmail($paramName, true, $request);
         if ($isValid !== true) {
-            // Return JsonResponse on validation failure
+            // Return JsonResponse on activation failure
             return $isValid;
         }
 
