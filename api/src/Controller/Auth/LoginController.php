@@ -34,7 +34,6 @@ class LoginController extends AbstractController
      * @param Request $request The HTTP request object.
      * @return JsonResponse The JSON response with the activation status message.
      * @Route("/api/check_account_activation/{email}", name="check_account_activation", methods={"GET"})
-     * use OpenApi\Annotations as OA;
      */
     public function checkAccountActivation(Request $request): JsonResponse
     {
