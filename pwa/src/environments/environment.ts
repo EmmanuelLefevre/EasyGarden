@@ -14,7 +14,7 @@ export const environment = {
       url: '/api/check_if_email_exist'
     },
     checkAccountActivation: {
-      url: '/api/check_account_validation'
+      url: '/api/check_account_activation'
     },
     // Register
     register: {
