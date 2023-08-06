@@ -24,12 +24,12 @@ account_activation:
     methods: ['GET', 'POST']
     controller: App\Controller\Auth\AccountCreationController::activateAccount
 
-verify_account_activation:
-    path: /api/check_account_activation/{email}
+check_account_activation:
+    path: /api/check_account_activation
     methods: ['GET']
     controller: App\Controller\Auth\LoginController::checkAccountActivation
 
 check_if_email_exist:
-    path: /api/check_if_email_exist/{email}
+    path: /api/check_if_email_exist
     methods: ['GET']
     controller: App\Controller\Auth\LoginController::checkIfEmailExist
