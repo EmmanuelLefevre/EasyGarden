@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use Faker\Factory;
 use App\Entity\User;
+use DateTimeZone;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Config\FileLocator;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -27,6 +28,8 @@ class UserFixture extends Fixture
         $fileLocator = new FileLocator($configDirectories);
         $fileLocator->locate('FunctionsFixture.php', null, false);
 
+        $timezone = new DateTimeZone('Europe/Paris');
+
         $faker = Factory::create('fr_FR');
 
         // User ADMIN
@@ -38,7 +41,7 @@ class UserFixture extends Fixture
         $admin->setRoles(array('ROLE_ADMIN'));
         $admin->setEmail('admin@protonmail.fr');
         $admin->setPhoneNumber('05 12 25 48 71');
-        $admin->setCreatedAt(new \DateTimeImmutable());
+        $admin->setCreatedAt(new \DateTimeImmutable('now', $timezone));
         $admin->setIsVerified(true);
         $admin->setActivationToken(generateToken());
         $manager->persist($admin);
@@ -52,7 +55,7 @@ class UserFixture extends Fixture
         $user1->setRoles(['ROLE_USER']);
         $user1->setEmail('emmanuel@protonmail.com');
         $user1->setPhoneNumber('06 45 91 23 07');
-        $user1->setCreatedAt(new \DateTimeImmutable());
+        $user1->setCreatedAt(new \DateTimeImmutable('now', $timezone));
         $user1->setIsVerified(true); 
         $user1->setActivationToken(generateToken());
         $manager->persist($user1);
@@ -67,7 +70,7 @@ class UserFixture extends Fixture
         $user2->setRoles(['ROLE_ADMIN']);
         $user2->setEmail('nico@gmail.com');
         $user2->setPhoneNumber('07 12 45 75 64');
-        $user2->setCreatedAt(new \DateTimeImmutable());
+        $user2->setCreatedAt(new \DateTimeImmutable('now', $timezone));
         $user2->setIsVerified(true); 
         $user2->setActivationToken(generateToken());
         $manager->persist($user2);
@@ -83,7 +86,7 @@ class UserFixture extends Fixture
             $user->setRoles(['ROLE_USER']);
             $user->setEmail($fN.".".$lN.'@'.emailData());
             $user->setPhoneNumber($faker->mobileNumber());
-            $user->setCreatedAt(new \DateTimeImmutable());
+            $user->setCreatedAt(new \DateTimeImmutable('now', $timezone));
 
             // Determine if the user should be verified or not
             $isVerified = mt_rand(0, 1);
