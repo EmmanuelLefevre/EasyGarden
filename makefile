@@ -17,6 +17,7 @@ ang-serv: ## Launch Angular local server
 .PHONY: ang-serv
 
 servs: ## Launch EasyGarden local server
+	cd C:\Users\Darka\Desktop\Projets && powershell -Command "Start-Process 'php' '-S localhost:81' -NoNewWindow"
 	make -j 2 ang-serv sf-serv
 .PHONY: servs
 
@@ -33,6 +34,7 @@ ang-stop: ## Stop Angular local server
 .PHONY: ang-stop
 
 stop-servs: ## Stop EasyGarden local server
+	npx kill-port 81
 	make -j 2 ang-stop sf-stop
 .PHONY: stop-servs
 
