@@ -10,15 +10,15 @@ help: ## List of commands
 ## ============ SERVER ============
 ang: ## Launch Angular local server
 	npm cache clear --force
-	ng serve -o
+	ng serve -o --port 4201
 .PHONY: ang
 
 stop: ## Stop Angular local server
-	npx kill-port 4200
+	npx kill-port 4201
 .PHONY: stop
 
 ang-relaunch: ## Relaunch Angular with clear cache
-	npx kill-port 4200
+	npx kill-port 4201
 	npm cache clear --force
 	ng serve -o
 .PHONY: ang-relaunch
