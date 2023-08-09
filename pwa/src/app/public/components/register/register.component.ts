@@ -150,7 +150,10 @@ export class RegisterComponent implements OnDestroy {
             } 
             else {
               this.existingEmail = false;
-              this.errorMessage = "Une erreur s'est produite lors de la création du compte!";
+              this.snackbarService.showNotification(
+                `Une erreur s'est produite lors de la création du compte!`
+                ,'red-alert'
+              );
             }
           }
         )
