@@ -88,40 +88,26 @@ class LoginCheckSubscriber implements EventSubscriberInterface
                     return;
                 } 
                 else {
-                    // Incorrect password, create AuthenticationFailureEvent and set response
-                    $exception = new AuthenticationException('Invalid password!');
-                    $failureEvent = new AuthenticationFailureEvent($exception, 
-                        new JsonResponse(['message' => 'Invalid password!'], 
-                                          Response::HTTP_UNAUTHORIZED));
-
-                    // Stop other listeners from being called
-                    $event->stopPropagation();
-
-                    $this->eventDispatcher->dispatch($failureEvent, 
-                                                    'lexik_jwt_authentication.on_authentication_failure');
-
-                    $response = $failureEvent->getResponse();
-                    $event->setResponse($response);
-                    return;
+                    // Incorrect password => set errorMessage
+                    $errorMessage = 'Invalid password!';
                 }
             } 
             else {
-                // Email does not exist, create AuthenticationFailureEvent and set response
-                $exception = new AuthenticationException('No existing email!');
-                $failureEvent = new AuthenticationFailureEvent($exception, 
-                    new JsonResponse(['message' => 'No existing email!'], 
-                                      Response::HTTP_UNAUTHORIZED));
-                
-                // Stop other listeners from being called
-                $event->stopPropagation();
-                
-                $this->eventDispatcher->dispatch($failureEvent, 
-                                                'lexik_jwt_authentication.on_authentication_failure');
-
-                $response = $failureEvent->getResponse();
-                $event->setResponse($response);
-                return;
+                // Email does not exist => set errorMessage
+                $errorMessage = 'No existing email!';
             }
+
+            // Create AuthenticationFailureEvent and set response
+            $exception = new AuthenticationException($errorMessage);
+            $failureEvent = new AuthenticationFailureEvent($exception, 
+                new JsonResponse(['message' => $errorMessage], Response::HTTP_UNAUTHORIZED));
+
+            // Stop other listeners from being called
+            $event->stopPropagation();
+            $this->eventDispatcher->dispatch($failureEvent, 'lexik_jwt_authentication.on_authentication_failure');
+            
+            $response = $failureEvent->getResponse();
+            $event->setResponse($response);
         }
     }
 
