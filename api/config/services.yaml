@@ -18,18 +18,6 @@ services:
                 event: lexik_jwt_authentication.on_jwt_created, 
                 method: onJWTCreated }
     
-    # LoginCheckSubscriber configuration
-    api_platform.login_check_subscriber:
-        class: App\EventSubscriber\Login\LoginCheckSubscriber
-        arguments: ['@App\Validator\User\EmailValidator', 
-                    '@event_dispatcher',
-                    '@Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface', 
-                    '@App\Repository\UserRepository']
-        tags:
-            - { name: kernel.event_subscriber, 
-                event: kernel.request, 
-                method: onKernelRequest }
-    
     App\:
         resource: '../src/'
         exclude:
