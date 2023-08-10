@@ -11,6 +11,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
+/**
+ * Class LoginController
+ * This controller handles account activation and email existence checking.
+ * It provides endpoints for checking account activation status based on email and checking if an email exists in the database.
+ * @package App\Controller\Auth
+ */
 class LoginController extends AbstractController
 {
     private $emailValidator;
