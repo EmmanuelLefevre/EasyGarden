@@ -17,6 +17,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
+/**
+ * Class AccountCreationController
+ * This controller handles user account creation and activation.
+ * It provides endpoints for creating user accounts and activating accounts using activation tokens.
+ * @package App\Controller\AuthApp\Controller\Auth
+ */
 class AccountCreationController extends AbstractController
 {
     private $emailService;
