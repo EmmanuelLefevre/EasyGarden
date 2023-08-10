@@ -4,7 +4,8 @@ namespace App\EventSubscriber\Login;
 
 use ApiPlatform\Core\EventListener\EventPriorities;
 use App\Repository\UserRepository;
-use App\Validator\User\EmailValidator;
+use App\Service\Json\JsonDataValidatorService;
+use App\Utility\Json\JsonValidationException;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\AuthenticationFailureEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -16,27 +17,34 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
 
+/**
+ * Class LoginCheckSubscriber
+ * This class subscribes to the kernel.request event to perform authentication for POST requests to /api/login_check.
+ * It uses a JSON data validator service to validate the JSON format of the request and authenticates users based on email and password.
+ * Handles cases of existing email or incorrect password.
+ * @package App\EventSubscriber\Login
+ */
 class LoginCheckSubscriber implements EventSubscriberInterface
 {
-    private $emailValidator;
     private $eventDispatcher;
+    private $jsonDataValidator;
     private $userRepository;
     private $userPasswordHasher;
 
     /**
      * LoginCheckSubscriber constructor.
-     * @param EmailValidator $emailValidator The validator responsible for email validation.
      * @param EntityManagerInterface $entityManager The EntityManagerInterface instance used for persisting entities.
+     * @param JsonDataValidatorService $jsonDataValidator The service responsible for validating the json format of the request.
      * @param UserPasswordHasherInterface $userPasswordHasher The password hasher.
      * @param UserRepository $userRepository The repository responsible for retrieving User data.
      */
-    public function __construct(EmailValidator $emailValidator,
-                                EventDispatcherInterface $eventDispatcher,
+    public function __construct(EventDispatcherInterface $eventDispatcher,
+                                JsonDataValidatorService $jsonDataValidator,
                                 UserPasswordHasherInterface $userPasswordHasher, 
                                 UserRepository $userRepository)
     {
-        $this->emailValidator = $emailValidator;
         $this->eventDispatcher = $eventDispatcher;
+        $this->jsonDataValidator = $jsonDataValidator;
         $this->userRepository = $userRepository;
         $this->userPasswordHasher = $userPasswordHasher;
     }
@@ -53,33 +61,25 @@ class LoginCheckSubscriber implements EventSubscriberInterface
 
             $data = json_decode($request->getContent(), true);
 
-            if (// Check if json data is empty or not an array
-                empty($data) 
-                || !is_array($data) 
-                // Check the presence of the required keys
-                || !isset($data['email']) 
-                || !isset($data['password']) 
-                // Check if email and password fields are empty
-                || empty($data['email']) 
-                || empty($data['password'])) {
-
-                // Return an error response with status 400
-                return new Response('', Response::HTTP_BAD_REQUEST);
-            }
-
-            $email = $data['email'];
-            $plainPassword = $data['password'];
-            
-            // Validate the email parameter using EmailValidator
-            $isValid = $this->emailValidator->isValidEmail($email, true, null);
-            if ($isValid !== true) {
-                // Returns JsonResponse on validation failure
-                return $isValid;
+            try {
+                // Validate JSON data using JsonDataValidatorService, including email validator
+                $data = $this->jsonDataValidator->validateJsonData($request, ['email', 'password']);
+            } 
+            catch (JsonValidationException  $e) {
+                // Handle json validation exception by returning a json response with the error message
+                $response = new JsonResponse(['message' => $e->getMessage()], $e->getStatusCode());
+                // Stop other listeners from being called
+                $event->stopPropagation();
+                // Set response
+                $event->setResponse($response);
+                // Return early to exit the event handling
+                return;
             }
             
             // Check if a user with the provided email already exists
             $existingUser = $this->userRepository->findByEmail($data['email']);
             // Email exists, now check the password
+            $plainPassword = $data['password'];
             if ($existingUser !== null) {
                 if ($this->userPasswordHasher->isPasswordValid($existingUser, $plainPassword)) {
                     // Correct password, continue the authentication process
@@ -95,7 +95,7 @@ class LoginCheckSubscriber implements EventSubscriberInterface
                 $errorMessage = 'No existing email!';
             }
 
-            // Create AuthenticationFailureEvent and set response
+            // Create AuthenticationFailureEvent
             $exception = new AuthenticationException($errorMessage);
             $failureEvent = new AuthenticationFailureEvent($exception, 
                 new JsonResponse(['message' => $errorMessage], Response::HTTP_UNAUTHORIZED));
@@ -103,7 +103,7 @@ class LoginCheckSubscriber implements EventSubscriberInterface
             // Stop other listeners from being called
             $event->stopPropagation();
             $this->eventDispatcher->dispatch($failureEvent, 'lexik_jwt_authentication.on_authentication_failure');
-            
+            // Set response
             $response = $failureEvent->getResponse();
             $event->setResponse($response);
         }
@@ -111,7 +111,6 @@ class LoginCheckSubscriber implements EventSubscriberInterface
 
     /**
      * Returns the subscribed events for this listener.
-     *
      * @return array The array of subscribed events, mapping event names to the corresponding method names.
      */
     public static function getSubscribedEvents(): array
