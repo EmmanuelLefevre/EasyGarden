@@ -7,6 +7,7 @@ use Symfony\Component\HttpClient\HttpClient;
 
 /**
  * The UserIpAddressDetector class is responsible for detecting the user's IP address using an external API.
+ * @package App\Utility\User
  */
 class UserIpAddressDetector
 {
