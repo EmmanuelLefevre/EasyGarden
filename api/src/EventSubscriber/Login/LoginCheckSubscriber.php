@@ -89,9 +89,9 @@ class LoginCheckSubscriber implements EventSubscriberInterface
                 } 
                 else {
                     // Incorrect password, create AuthenticationFailureEvent and set response
-                    $exception = new AuthenticationException('Invalid credentials!');
+                    $exception = new AuthenticationException('Invalid password!');
                     $failureEvent = new AuthenticationFailureEvent($exception, 
-                        new JsonResponse(['message' => 'Invalid credentials!'], 
+                        new JsonResponse(['message' => 'Invalid password!'], 
                                           Response::HTTP_UNAUTHORIZED));
 
                     // Stop other listeners from being called
