@@ -8,8 +8,19 @@ use Symfony\Component\Config\FileLocator;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
+
+/**
+ * Class LawnmowerFixture
+ * This class represents a fixture for populating the database with lawnmower data.
+ * It creates lawnmowers and assigns them to specific gardens based on references.
+ * @package App\DataFixtures
+ */
 class LawnmowerFixture extends Fixture implements DependentFixtureInterface
 {
+    /**
+     * Load lawnmower fixture data into the database.
+     * @param ObjectManager $manager The object manager for interacting with the database.
+     */
     public function load(ObjectManager $manager): void
     {
         $configDirectories = [__DIR__.''];
@@ -60,6 +71,10 @@ class LawnmowerFixture extends Fixture implements DependentFixtureInterface
         $manager->flush();
     }
 
+    /**
+     * Get the dependencies of the current fixture.
+     * @return array An array of dependent fixture classes.
+     */
     public function getDependencies() 
     {
         return [
