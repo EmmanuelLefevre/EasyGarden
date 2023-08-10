@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Controller\User;
+
 use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Validator\User\EmailValidator;
@@ -13,6 +15,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
+/**
+ * Class UserController
+ * This controller handles user-related actions, such as registration and profile updates.
+ * It provides endpoints for registering users with validation for email, name, phone number,
+ * plain password, and pseudo using various validators.
+ * @package App\Controller\User
+ */
 class UserController extends AbstractController
 {
     private $emailValidator;
