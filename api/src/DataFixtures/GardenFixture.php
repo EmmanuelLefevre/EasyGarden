@@ -9,12 +9,23 @@ use Symfony\Component\Config\FileLocator;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
+
+/**
+ * Class GardenFixture
+ * This class represents a fixture for populating the database with garden data.
+ * It creates gardens for users and assigns them to specific users based on references.
+ * @package App\DataFixtures
+ */
 class GardenFixture extends Fixture implements DependentFixtureInterface
 {
     public const GARDEN1_REFERENCE = 'garden1_';
     public const GARDEN2_REFERENCE = 'garden2_';
     public const GARDEN3_REFERENCE = 'garden3_';
 
+    /**
+     * Load garden fixture data into the database.
+     * @param ObjectManager $manager The object manager for interacting with the database.
+     */
     public function load(ObjectManager $manager): void
     {
         $configDirectories = [__DIR__.''];
@@ -65,6 +76,10 @@ class GardenFixture extends Fixture implements DependentFixtureInterface
         $manager->flush();
     }
 
+    /**
+     * Get the dependencies of the current fixture.
+     * @return array An array of dependent fixture classes.
+     */
     public function getDependencies() 
     {
         return [
