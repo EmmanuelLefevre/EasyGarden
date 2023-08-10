@@ -5,6 +5,11 @@ namespace App\EventListener\JWT;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent;
 
 
+/**
+ * Class JWTCreatedListener
+ * This class listens to the JWTCreatedEvent event and modifies the token payload.
+ * @package App\EventListener\JWT
+ */
 class JWTCreatedListener
 {
   /**
