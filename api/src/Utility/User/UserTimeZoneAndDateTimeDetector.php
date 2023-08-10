@@ -9,6 +9,7 @@ use Symfony\Component\HttpClient\HttpClient;
 /**
  * The UserTimeZoneAndDateTimeDetector class is responsible for detecting the user's time zone and date time zone based on their IP address.
  * This class uses an external API to determine the user's geographical location and time zone information.
+ * @package App\Utility\User
  */
 class UserTimeZoneAndDateTimeDetector
 {
