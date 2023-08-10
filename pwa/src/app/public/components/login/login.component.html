@@ -31,7 +31,8 @@
                (focusout)="onInputFocusOut('email')"
                [ngClass]="{ 'invalid-feedback': (loginForm.get('email')?.dirty 
                                                 && loginForm.get('email')?.invalid )
-                                                || invalidEmail}">
+                                                || invalidEmail
+                                                || invalidCredentials}">
         <ng-container *ngIf="loginForm.get('email')?.dirty 
                             && getErrorMessage('email') !== ''">
           <div class="text-alert">
@@ -51,7 +52,8 @@
                  (focusout)="onInputFocusOut('password')"
                  [ngClass]="{ 'invalid-feedback': (loginForm.get('password')?.dirty 
                                                   && loginForm.get('password')?.invalid)
-                                                  || invalidPassword}">
+                                                  || invalidPassword
+                                                  || invalidCredentials}">
           <fa-icon [icon]="visible ? faEyeSlash : faEye" aria-hidden="true" (click)="toggle()"></fa-icon>
           <ng-container *ngIf="loginForm.get('password')?.dirty 
                               && getErrorMessage('password') !== ''">
