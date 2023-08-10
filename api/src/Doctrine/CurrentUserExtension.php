@@ -17,6 +17,7 @@ use Symfony\Component\Security\Core\Security;
 
 /**
  * This extension makes sure normal users can only access their own Datas
+ * @package App\Doctrine
  */
 final class CurrentUserExtension implements QueryCollectionExtensionInterface, QueryItemExtensionInterface
 {
