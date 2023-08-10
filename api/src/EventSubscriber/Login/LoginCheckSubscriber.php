@@ -33,7 +33,7 @@ class LoginCheckSubscriber implements EventSubscriberInterface
 
     /**
      * LoginCheckSubscriber constructor.
-     * @param EntityManagerInterface $entityManager The EntityManagerInterface instance used for persisting entities.
+     * @param EventDispatcherInterface $eventDispatcher The EventDispatcherInterface instance used for dispatching events.
      * @param JsonDataValidatorService $jsonDataValidator The service responsible for validating the json format of the request.
      * @param UserPasswordHasherInterface $userPasswordHasher The password hasher.
      * @param UserRepository $userRepository The repository responsible for retrieving User data.
