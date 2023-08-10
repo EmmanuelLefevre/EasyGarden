@@ -10,6 +10,11 @@ use ApiPlatform\Core\DataProvider\RestrictedDataProviderInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 
+/**
+ * Class UserDataProvider
+ * This class provides data for retrieving collections of User entities and getting a User entity by its identifier.
+ * @package App\DataProvider
+ */
 final class UserDataProvider implements DenormalizedIdentifiersAwareItemDataProviderInterface, ContextAwareCollectionDataProviderInterface, RestrictedDataProviderInterface
 {
     private $userRepository;
