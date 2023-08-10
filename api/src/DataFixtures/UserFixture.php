@@ -10,10 +10,21 @@ use Symfony\Component\Config\FileLocator;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
+
+/**
+ * Class UserFixture
+ * This class represents a fixture for populating the database with user data.
+ * It creates user instances with various roles and properties.
+ * @package App\DataFixtures
+ */
 class UserFixture extends Fixture
 {
     private UserPasswordHasherInterface $hasher;
 
+    /**
+     * UserFixture constructor.
+     * @param UserPasswordHasherInterface $hasher The password hasher for hashing user passwords.
+     */
     public function __construct(UserPasswordHasherInterface $hasher)
     {
         $this->hasher = $hasher;
@@ -22,6 +33,10 @@ class UserFixture extends Fixture
     public const USER1_REFERENCE = 'user1_';
     public const USER2_REFERENCE = 'user2_';
     
+    /**
+     * Load user fixture data into the database.
+     * @param ObjectManager $manager The object manager for interacting with the database.
+     */
     public function load(ObjectManager $manager): void
     {
         $configDirectories = [__DIR__.''];
