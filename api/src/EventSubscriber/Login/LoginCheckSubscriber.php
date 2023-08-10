@@ -53,24 +53,22 @@ class LoginCheckSubscriber implements EventSubscriberInterface
 
             $data = json_decode($request->getContent(), true);
 
-            if ($data === null || !is_array($data)) {
-                // Malformed or empty JSON, return an error response with 400 status
-                return new Response('', Response::HTTP_BAD_REQUEST);
-            }
+            if (// Check if json data is empty or not an array
+                empty($data) 
+                || !is_array($data) 
+                // Check the presence of the required keys
+                || !isset($data['email']) 
+                || !isset($data['password']) 
+                // Check if email and password fields are empty
+                || empty($data['email']) 
+                || empty($data['password'])) {
 
-            // Check the presence of the required keys
-            if (!isset($data['email']) || !isset($data['password'])) {
-                // The required keys are not present in the JSON, return an error response with 400 status
+                // Return an error response with status 400
                 return new Response('', Response::HTTP_BAD_REQUEST);
             }
 
             $email = $data['email'];
             $plainPassword = $data['password'];
-
-            if (empty($email) || empty($plainPassword)) {
-                // Email or password is empty, return an error response with 400 status
-                return new Response('', Response::HTTP_BAD_REQUEST);
-            }
             
             // Validate the email parameter using EmailValidator
             $isValid = $this->emailValidator->isValidEmail($email, true, null);
