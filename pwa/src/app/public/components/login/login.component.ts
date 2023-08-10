@@ -51,6 +51,7 @@ export class LoginComponent implements OnDestroy, OnInit {
   // Form alerts
   errorMessage: string = '';
   errorPasswordMessage: string = '';
+  invalidCredentials: boolean = false;
   invalidEmail: boolean = false;
   invalidPassword: boolean = false;
   // LoginForm Group
@@ -91,6 +92,7 @@ export class LoginComponent implements OnDestroy, OnInit {
   }
 
   onSubmit() {
+    this.invalidCredentials = false;
     this.invalidEmail = false;
     this.invalidPassword = false;
     this.submitDisabled = true;
@@ -99,8 +101,6 @@ export class LoginComponent implements OnDestroy, OnInit {
     // Mark all form fields as touched before submitting
     this.markAllFieldsAsTouched();
     if (this.loginForm.invalid) {
-      this.invalidEmail = false;
-      this.invalidPassword = false;
       return;
     } else {
       const typedLoginForm: ICredentials = this.loginForm.value;
@@ -142,7 +142,7 @@ export class LoginComponent implements OnDestroy, OnInit {
                 this.invalidPassword = true;
                 this.errorPasswordMessage = "Mot de passe incorrect!";
               } else if (error.error.message === 'No existing email!') {
-                this.invalidPassword = false;
+                this.invalidCredentials = true;
                 this.errorPasswordMessage = "";
                 this.snackbarService.showNotification(
                   `Veuillez créer un compte!`,
@@ -179,6 +179,7 @@ export class LoginComponent implements OnDestroy, OnInit {
   // Reset login form
   onReset(formDirective: any): void {
     formDirective.resetForm();
+    this.invalidCredentials = false;
     this.invalidEmail = false;
     this.invalidPassword = false;
     this.loginForm.reset();
@@ -212,6 +213,8 @@ export class LoginComponent implements OnDestroy, OnInit {
   // Manage changes in login form
   private handleFormChanges(): void {
     this.errorMessage = "";
+    this.errorPasswordMessage = "";
+    this.invalidCredentials = false;
     this.invalidEmail = false;
     this.invalidPassword = false;
     // Check if email and password fields are empty
