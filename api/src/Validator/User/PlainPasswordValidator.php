@@ -7,6 +7,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 
+/**
+ * Validator to check the validity of a plain passsword.
+ * @package App\Validator\User
+ */
 class PlainPasswordValidator
 {
     /**
