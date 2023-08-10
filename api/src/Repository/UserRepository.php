@@ -10,6 +10,11 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 
 
+/**
+ * Class UserRepository
+ * This class is responsible for managing user data and interactions with the database.
+ * @package App\Repository
+ */
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
 
