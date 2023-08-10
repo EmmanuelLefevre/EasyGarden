@@ -7,6 +7,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 
+/**
+ * Validator to check the validity of an entity name.
+ * @package App\Validator\Entity
+ */
 class EntityNameValidator
 {
     /**
