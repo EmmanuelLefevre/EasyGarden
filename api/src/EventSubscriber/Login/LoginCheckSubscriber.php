@@ -2,6 +2,7 @@
 
 namespace App\EventSubscriber\Login;
 
+use ApiPlatform\Core\EventListener\EventPriorities;
 use App\Repository\UserRepository;
 use App\Validator\User\EmailValidator;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\AuthenticationFailureEvent;
@@ -26,7 +27,7 @@ class LoginCheckSubscriber implements EventSubscriberInterface
      * LoginCheckSubscriber constructor.
      * @param EmailValidator $emailValidator The validator responsible for email validation.
      * @param EntityManagerInterface $entityManager The EntityManagerInterface instance used for persisting entities.
-     * @param EventDispatcherInterface $eventDispatcher The event dispatcher to dispatch events.
+     * @param UserPasswordHasherInterface $userPasswordHasher The password hasher.
      * @param UserRepository $userRepository The repository responsible for retrieving User data.
      */
     public function __construct(EmailValidator $emailValidator,
@@ -43,7 +44,6 @@ class LoginCheckSubscriber implements EventSubscriberInterface
     /**
      * Handle the kernel.request event and perform authentication for POST requests to /api/login_check.
      * @param RequestEvent $event The event object containing the request information.
-     * @return void
      */
     public function onKernelRequest(RequestEvent $event)
     {
@@ -89,9 +89,9 @@ class LoginCheckSubscriber implements EventSubscriberInterface
                 } 
                 else {
                     // Incorrect password, create AuthenticationFailureEvent and set response
-                    $exception = new AuthenticationException('Incorrect password!');
+                    $exception = new AuthenticationException('Invalid credentials!');
                     $failureEvent = new AuthenticationFailureEvent($exception, 
-                        new JsonResponse(['message' => 'Incorrect password!'], 
+                        new JsonResponse(['message' => 'Invalid credentials!'], 
                                           Response::HTTP_UNAUTHORIZED));
 
                     // Stop other listeners from being called
@@ -122,7 +122,6 @@ class LoginCheckSubscriber implements EventSubscriberInterface
                 $event->setResponse($response);
                 return;
             }
-            
         }
     }
 
@@ -131,10 +130,10 @@ class LoginCheckSubscriber implements EventSubscriberInterface
      *
      * @return array The array of subscribed events, mapping event names to the corresponding method names.
      */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
-            KernelEvents::REQUEST => 'onKernelRequest'
+            KernelEvents::REQUEST => ['onKernelRequest',EventPriorities::POST_WRITE]
         ];
     }
 
