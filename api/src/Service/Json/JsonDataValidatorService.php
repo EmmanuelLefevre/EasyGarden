@@ -5,7 +5,6 @@ namespace App\Service\Json;
 use App\Utility\Json\JsonValidationException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 
 /**
