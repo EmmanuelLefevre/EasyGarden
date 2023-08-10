@@ -50,7 +50,9 @@ export class LoginComponent implements OnDestroy, OnInit {
 
   // Form alerts
   errorMessage: string = '';
-  invalidCredentials: boolean = false;
+  errorPasswordMessage: string = '';
+  invalidEmail: boolean = false;
+  invalidPassword: boolean = false;
   // LoginForm Group
   loginForm = this.formBuilder.group({
     email: [
@@ -89,14 +91,16 @@ export class LoginComponent implements OnDestroy, OnInit {
   }
 
   onSubmit() {
-    this.invalidCredentials = false;
+    this.invalidEmail = false;
+    this.invalidPassword = false;
     this.submitDisabled = true;
     // Handle changes to the form before submitting it
     this.handleFormChanges();
     // Mark all form fields as touched before submitting
     this.markAllFieldsAsTouched();
     if (this.loginForm.invalid) {
-      this.invalidCredentials = true;
+      this.invalidEmail = false;
+      this.invalidPassword = false;
       return;
     } else {
       const typedLoginForm: ICredentials = this.loginForm.value;
@@ -134,12 +138,21 @@ export class LoginComponent implements OnDestroy, OnInit {
           },
           error => {
             if (error.status === 401) {
-              this.invalidCredentials = true;
-              this.errorMessage = "Identifiants incorrects!";
+              if (error.error.message === 'Invalid password!') {
+                this.invalidPassword = true;
+                this.errorPasswordMessage = "Mot de passe incorrect!";
+              } else if (error.error.message === 'No existing email!') {
+                this.invalidPassword = false;
+                this.errorPasswordMessage = "";
+                this.snackbarService.showNotification(
+                  `Veuillez créer un compte!`,
+                  'red-alert'
+                );
+              }
             } else {
               this.snackbarService.showNotification(
-                `Une erreur s'est produite lors de la connexion!`
-                ,'red-alert'
+                `Une erreur s'est produite lors de la connexion!`,
+                'red-alert'
               );
             }
           }
@@ -166,7 +179,8 @@ export class LoginComponent implements OnDestroy, OnInit {
   // Reset login form
   onReset(formDirective: any): void {
     formDirective.resetForm();
-    this.invalidCredentials = false;
+    this.invalidEmail = false;
+    this.invalidPassword = false;
     this.loginForm.reset();
     this.handleFormChanges();
   }
@@ -198,7 +212,8 @@ export class LoginComponent implements OnDestroy, OnInit {
   // Manage changes in login form
   private handleFormChanges(): void {
     this.errorMessage = "";
-    this.invalidCredentials = false
+    this.invalidEmail = false;
+    this.invalidPassword = false;
     // Check if email and password fields are empty
     this.isEmailEmpty = this.loginForm.get('email')?.value === '';
     this.isPasswordEmpty = this.loginForm.get('password')?.value === '';
