@@ -58,7 +58,7 @@ class LoginCheckSubscriber implements EventSubscriberInterface
                 return new Response('', Response::HTTP_BAD_REQUEST);
             }
 
-            // Verify the presence of the required keys
+            // Check the presence of the required keys
             if (!isset($data['email']) || !isset($data['password'])) {
                 // The required keys are not present in the JSON, return an error response with 400 status
                 return new Response('', Response::HTTP_BAD_REQUEST);
