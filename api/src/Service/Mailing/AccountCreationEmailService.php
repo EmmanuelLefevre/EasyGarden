@@ -8,6 +8,10 @@ use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 
+/**
+ * Service to send activation emails to newly registered users.
+ * @package App\Service\Mailing
+ */
 class AccountCreationEmailService
 {
     private $mailer;
