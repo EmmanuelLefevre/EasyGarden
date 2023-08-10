@@ -8,8 +8,19 @@ use Symfony\Component\Config\FileLocator;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
+
+/**
+ * Class PortalFixture
+ * This class represents a fixture for populating the database with portal data.
+ * It creates portal instances and associates them with specific gardens based on references.
+ * @package App\DataFixtures
+ */
 class PortalFixture extends Fixture implements DependentFixtureInterface
 {
+    /**
+     * Load portal fixture data into the database.
+     * @param ObjectManager $manager The object manager for interacting with the database.
+     */
     public function load(ObjectManager $manager): void
     {   
         $configDirectories = [__DIR__.''];
@@ -60,6 +71,10 @@ class PortalFixture extends Fixture implements DependentFixtureInterface
         $manager->flush();
     }
 
+    /**
+     * Get the dependencies of the current fixture.
+     * @return array An array of dependent fixture classes.
+     */
     public function getDependencies() 
     {
         return [
