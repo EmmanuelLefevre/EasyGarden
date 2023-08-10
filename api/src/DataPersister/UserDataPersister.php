@@ -8,6 +8,11 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
 
+/**
+ * Class UserDataPersister
+ * This class is responsible for persisting (creating or updating) and removing User entities in the database.
+ * @package App\DataPersister
+ */
 class UserDataPersister implements DataPersisterInterface 
 {
     private $entityManager;
