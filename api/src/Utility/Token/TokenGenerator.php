@@ -5,6 +5,7 @@ namespace App\Utility\Token;
 
 /**
  * The TokenGenerator class is responsible for generating random tokens.
+ * @package App\Utility\Token
  */
 class TokenGenerator
 {
