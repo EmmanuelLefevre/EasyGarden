@@ -53,11 +53,11 @@ class AccountCreationController extends AbstractController
     {
         $data = json_decode($request->getContent(), true);
 
-        // Check that all required data is present and is of the expected type
-        $requiredFields = ['email', 'plainPassword', 'pseudo', 'lastName', 'firstName', 'phoneNumber'];
-        foreach ($requiredFields as $field) {
+        // Check the presence of required keys and if their fields are empty
+        $requiredKeys = ['email', 'plainPassword', 'pseudo', 'lastName', 'firstName', 'phoneNumber'];
+        foreach ($requiredKeys as $field) {
             if (!isset($data[$field]) || empty($data[$field])) {
-                return new JsonResponse(['message' => 'Missing or empty required fields'], Response::HTTP_BAD_REQUEST);
+                return new JsonResponse(['message' => 'Missing required key or empty field!'], Response::HTTP_BAD_REQUEST);
             }
         }
 
