@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Controller\Entity;
+
 use App\Entity\Garden;
 use App\Validator\User\EntityNameValidator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -8,6 +10,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
+/**
+ * Class EntityController
+ * This controller handles the creation and updating of entities (gardens and equipments).
+ * It provides endpoints for creating and updating entities with validation using EntityNameValidator.
+ * @package App\Controller\Entity
+ */
 class EntityController extends AbstractController
 {
     /**
