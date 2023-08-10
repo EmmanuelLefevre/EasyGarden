@@ -178,12 +178,10 @@ export class LoginComponent implements OnDestroy, OnInit {
 
   // Reset login form
   onReset(formDirective: any): void {
-    formDirective.resetForm();
-    this.invalidCredentials = false;
-    this.invalidEmail = false;
-    this.invalidPassword = false;
     this.loginForm.reset();
+    formDirective.resetForm();
     this.handleFormChanges();
+    this.resetDisabled = true;
   }
 
   // Get the error message associated with a specific form field
@@ -220,7 +218,7 @@ export class LoginComponent implements OnDestroy, OnInit {
     // Check if email and password fields are empty
     this.isEmailEmpty = this.loginForm.get('email')?.value === '';
     this.isPasswordEmpty = this.loginForm.get('password')?.value === '';
-    // Enable or disable reset button based on empty fields
+    // Disable reset button based on empty fields
     this.resetDisabled = this.isEmailEmpty && this.isPasswordEmpty;
     // Disable submit button if form is invalid
     this.submitDisabled = !this.loginForm.valid;
