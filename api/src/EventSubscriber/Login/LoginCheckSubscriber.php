@@ -63,7 +63,7 @@ class LoginCheckSubscriber implements EventSubscriberInterface
 
             // Check the presence of required keys and if their fields are valid
             try {
-                // Validate JSON data using JsonDataValidatorService, including email validator
+                // Validate json data using JsonDataValidatorService, including email validator
                 $data = $this->jsonDataValidator->validateJsonData($request, ['email', 'password']);
             } 
             catch (JsonValidationException  $e) {
