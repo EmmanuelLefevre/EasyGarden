@@ -74,7 +74,7 @@ class LoginController extends AbstractController
         // Validate the email parameter using EmailValidator
         $validationResult = $this->emailValidator->isValidEmail($paramName, true, $request);
         if ($validationResult instanceof JsonResponse) {
-            // Return JsonResponse instance on validation failure
+            // Return JsonResponse instance on email exist failure
             return $validationResult;
         }
 
