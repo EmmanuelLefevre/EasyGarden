@@ -47,10 +47,10 @@ class LoginController extends AbstractController
         $paramName = 'email'; 
 
         // Validate the email parameter using EmailValidator
-        $isValid = $this->emailValidator->isValidEmail($paramName, true, $request);
-        if ($isValid !== true) {
-            // Return JsonResponse on activation failure
-            return $isValid;
+        $validationResult = $this->emailValidator->isValidEmail($paramName, true, $request);
+        if ($validationResult instanceof JsonResponse) {
+            // Return JsonResponse instance on activation failure
+            return $validationResult;
         }
 
         $isVerified = $this->userRepository->isUserVerified($email);
@@ -72,10 +72,10 @@ class LoginController extends AbstractController
         $paramName = 'email'; 
 
         // Validate the email parameter using EmailValidator
-        $isValid = $this->emailValidator->isValidEmail($paramName, true, $request);
-        if ($isValid !== true) {
-            // Return JsonResponse on validation failure
-            return $isValid;
+        $validationResult = $this->emailValidator->isValidEmail($paramName, true, $request);
+        if ($validationResult instanceof JsonResponse) {
+            // Return JsonResponse instance on validation failure
+            return $validationResult;
         }
 
         $emailExists = $this->userRepository->checkIfUserExist($email);
