@@ -19,7 +19,7 @@ class EntityNameValidator
      * @param Request|null $request The HTTP request object or null if not provided.
      * @return bool|JsonResponse True if the entityName is valid; otherwise, false or JsonResponse with/no error message.
      */
-    public function isValidName(string $paramName,
+    public function isValidEntityName(string $paramName,
                                 bool $returnJsonResponse = false,
                                 ?Request $request = null): JsonResponse|bool
     {
