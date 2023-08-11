@@ -74,6 +74,10 @@ class PlainPasswordValidator
                 return $returnJsonResponse ? new JsonResponse(['error' => 'Password must contain at least one special character!'], 
                                                               Response::HTTP_BAD_REQUEST) : false;
 
+            // No space
+            case preg_match('/\s/', $plainPassword):
+                return $returnJsonResponse ? new JsonResponse(['error' => 'Password cannot contain spaces!'], 
+                                                      Response::HTTP_BAD_REQUEST) : false;
 
             default:
                 return true;
