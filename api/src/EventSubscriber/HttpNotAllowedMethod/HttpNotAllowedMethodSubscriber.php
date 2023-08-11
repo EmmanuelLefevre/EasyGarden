@@ -1,6 +1,6 @@
 <?php
 
-namespace App\EventSubscriber\HttpAllowedMethod;
+namespace App\EventSubscriber\HttpNotAllowedMethod;
 
 use ApiPlatform\Core\EventListener\EventPriorities;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -11,11 +11,11 @@ use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 
 
 /**
- * Class HttpAllowedMethodSubscriber
+ * Class HttpNotAllowedMethodSubscriber
  * This class subscribes to the kernel.exception event to perform custom JsonResponse.
- * @package App\EventSubscriber\HttpAlloweMethod
+ * @package App\EventSubscriber\HttpNotAlloweMethod
  */
-class HttpAllowedMethodSubscriber implements EventSubscriberInterface
+class HttpNotAllowedMethodSubscriber implements EventSubscriberInterface
 {
     /**
      * Handle the kernel exception
