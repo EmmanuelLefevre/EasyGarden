@@ -20,14 +20,14 @@ class PhoneNumberValidator
      * @return bool|JsonResponse True if the phoneNumber is valid; otherwise, false or JsonResponse with/no error message.
      */
     public function isValidPhoneNumber(string $paramName,
-                                bool $returnJsonResponse = false,
-                                ?Request $request = null): JsonResponse|bool
+                                       bool $returnJsonResponse = false,
+                                       ?Request $request = null): JsonResponse|bool
     {
         // If the $request is null, validate the $paramName directly
         if ($request === null) {
             $phoneNumber = $paramName;
         } else {
-            // Check if the plain password parameter is present in the request
+            // Check if the phone number parameter is present in the request
             if (!$request->request->has($paramName)) {
                 return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;
             }
