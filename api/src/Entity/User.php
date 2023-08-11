@@ -5,6 +5,7 @@ namespace App\Entity;
 use function strtoupper;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
+use App\Utility\String\CapitalizeFirstWordLetter;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
@@ -210,7 +211,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setPseudo(string $pseudo): self
     {
-        $this->pseudo = $pseudo;
+        $this->pseudo = CapitalizeFirstWordLetter::capitalizeCompositeName($pseudo);
 
         return $this;
     }
@@ -222,7 +223,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setFirstName(string $firstName): self
     {
-        $this->firstName = $firstName;
+        $this->firstName = CapitalizeFirstWordLetter::capitalizeCompositeName($firstName);
 
         return $this;
     }
