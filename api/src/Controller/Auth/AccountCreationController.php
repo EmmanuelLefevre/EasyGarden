@@ -8,7 +8,6 @@ use App\Repository\UserRepository;
 use App\Service\Json\JsonDataValidatorService;
 use App\Utility\Json\JsonValidationException;
 use App\Service\Mailing\AccountCreationEmailService;
-use App\Validator\User\EmailValidator;
 use App\Utility\Date\DateTimeConverter;
 use App\Utility\Token\TokenGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,7 +27,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class AccountCreationController extends AbstractController
 {
     private $emailService;
-    private $emailValidator;
     private $jsonDataValidator;
     private $userDataPersister;
     private $userRepository;
@@ -36,19 +34,16 @@ class AccountCreationController extends AbstractController
     /**
      * AccountCreationController constructor.
      * @param AccountCreationEmailService $emailService The service responsible for sending account creation emails.
-     * @param EmailValidator $emailValidator The validator responsible for email validation.
      * @param JsonDataValidatorService $jsonDataValidator The service responsible for validating the json format of the request.
      * @param UserDataPersister $userDataPersister The service responsible for persisting user data.
      * @param UserRepository $userRepository The repository responsible for retrieving User data.
      */
     public function __construct(AccountCreationEmailService $emailService,
-                                EmailValidator $emailValidator,
                                 JsonDataValidatorService $jsonDataValidator,
                                 UserDataPersister $userDataPersister,
                                 UserRepository $userRepository)
     {
         $this->emailService = $emailService;
-        $this->emailValidator = $emailValidator;
         $this->jsonDataValidator = $jsonDataValidator;
         $this->userDataPersister = $userDataPersister;
         $this->userRepository = $userRepository;
