@@ -12,7 +12,7 @@ api_doc:
 
 login_check:
     path: /api/login_check
-    methods: ['GET', 'POST']
+    methods: ['POST']
 
 account_creation:
     path: /api/account_creation
