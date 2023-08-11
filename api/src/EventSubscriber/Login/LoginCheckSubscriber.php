@@ -61,6 +61,7 @@ class LoginCheckSubscriber implements EventSubscriberInterface
 
             $data = json_decode($request->getContent(), true);
 
+            // Check the presence of required keys and if their fields are valid
             try {
                 // Validate JSON data using JsonDataValidatorService, including email validator
                 $data = $this->jsonDataValidator->validateJsonData($request, ['email', 'password']);
