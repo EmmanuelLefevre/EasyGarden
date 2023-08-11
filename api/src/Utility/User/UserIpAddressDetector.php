@@ -17,7 +17,6 @@ class UserIpAddressDetector
      */
     public static function getUserIpAddress(): string
     {
-        $apiKey = $_ENV['IP_API_KEY'];
         $endpoint = "https://api.ipify.org?format=json";
 
         try {
