@@ -27,7 +27,7 @@ class PseudoValidator
         if ($request === null) {
             $pseudo = $paramName;
         } else {
-            // Check if the plain password parameter is present in the request
+            // Check if the pseudo parameter is present in the request
             if (!$request->request->has($paramName)) {
                 return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;
             }
