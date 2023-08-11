@@ -5,6 +5,8 @@ namespace App\Controller\Auth;
 use App\Entity\User;
 use App\DataPersister\UserDataPersister;
 use App\Repository\UserRepository;
+use App\Service\Json\JsonDataValidatorService;
+use App\Utility\Json\JsonValidationException;
 use App\Service\Mailing\AccountCreationEmailService;
 use App\Validator\User\EmailValidator;
 use App\Utility\Date\DateTimeConverter;
@@ -27,6 +29,7 @@ class AccountCreationController extends AbstractController
 {
     private $emailService;
     private $emailValidator;
+    private $jsonDataValidator;
     private $userDataPersister;
     private $userRepository;
 
@@ -34,16 +37,19 @@ class AccountCreationController extends AbstractController
      * AccountCreationController constructor.
      * @param AccountCreationEmailService $emailService The service responsible for sending account creation emails.
      * @param EmailValidator $emailValidator The validator responsible for email validation.
+     * @param JsonDataValidatorService $jsonDataValidator The service responsible for validating the json format of the request.
      * @param UserDataPersister $userDataPersister The service responsible for persisting user data.
      * @param UserRepository $userRepository The repository responsible for retrieving User data.
      */
     public function __construct(AccountCreationEmailService $emailService,
                                 EmailValidator $emailValidator,
+                                JsonDataValidatorService $jsonDataValidator,
                                 UserDataPersister $userDataPersister,
                                 UserRepository $userRepository)
     {
         $this->emailService = $emailService;
         $this->emailValidator = $emailValidator;
+        $this->jsonDataValidator = $jsonDataValidator;
         $this->userDataPersister = $userDataPersister;
         $this->userRepository = $userRepository;
     }
@@ -59,20 +65,19 @@ class AccountCreationController extends AbstractController
     {
         $data = json_decode($request->getContent(), true);
 
-        // Check the presence of required keys and if their fields are empty
-        $requiredKeys = ['email', 'plainPassword', 'pseudo', 'lastName', 'firstName', 'phoneNumber'];
-        foreach ($requiredKeys as $field) {
-            if (!isset($data[$field]) || empty($data[$field])) {
-                return new JsonResponse(['message' => 'Missing required key or empty field!'], Response::HTTP_BAD_REQUEST);
-            }
-        }
-
-        // Validate the email using EmailValidator
-        $paramName = $data['email'];
-        $isValid = $this->emailValidator->isValidEmail($paramName, true, null);
-        if ($isValid !== true) {
-            // Return JsonResponse on validation failure
-            return $isValid;
+        // Check the presence of required keys and if their fields are valid
+        try {
+            // Validate json data using JsonDataValidatorService, including custom validators
+            $data = $this->jsonDataValidator->validateJsonData($request, ['email', 
+                                                                         'plainPassword', 
+                                                                         'pseudo', 
+                                                                         'lastName', 
+                                                                         'firstName', 
+                                                                         'phoneNumber']);
+        } 
+        catch (JsonValidationException  $e) {
+            // Handle json validation exception by returning a json response with the error message
+            return new JsonResponse(['message' => $e->getMessage()], $e->getStatusCode());
         }
 
         // Check if a user with the provided email already exists
