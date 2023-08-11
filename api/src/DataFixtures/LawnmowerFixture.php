@@ -62,7 +62,7 @@ class LawnmowerFixture extends Fixture implements DependentFixtureInterface
         for ($nbrLawnmowers=0; $nbrLawnmowers < 15; $nbrLawnmowers++) {
             $garden = $this->getReference('garden_'.$faker->unique()->numberBetween(3, 39));
             $lawnmower = new \App\Entity\Lawnmower();
-            $lawnmower->setName('Tondeuse '.stringWithoutParenthesis($garden->getName()));
+            $lawnmower->setName('Tondeuse '.FunctionsFixture::stringWithoutParenthesis($garden->getName()));
             $lawnmower->setBatterySensor(random_int(0, 100)."%");
             $lawnmower->setStatus(mt_rand(0, 1));
             $lawnmower->setGarden($garden);

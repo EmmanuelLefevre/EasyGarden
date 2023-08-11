@@ -34,7 +34,7 @@ class LightningFixture extends Fixture implements DependentFixtureInterface
         for ($nbrLightnings=0; $nbrLightnings < 16; $nbrLightnings++) {
             $gardenUser1 = $this->getReference(gardenFixture::GARDEN1_REFERENCE);
             $lightning = new \App\Entity\Lightning();
-            $lightning->setName(lightningsData().' (Saint-Savin)');
+            $lightning->setName(FunctionsFixture::lightningsData().' (Saint-Savin)');
             $lightning->setStatus(mt_rand(0, 1));
             $lightning->setGarden($gardenUser1);
             $manager->persist($lightning);
@@ -44,7 +44,7 @@ class LightningFixture extends Fixture implements DependentFixtureInterface
         $gardenUser2 = $this->getReference(gardenFixture::GARDEN2_REFERENCE);
         for ($nbrLightnings=0; $nbrLightnings < 12; $nbrLightnings++) {
             $lightning = new \App\Entity\Lightning();
-            $lightning->setName(lightningsData().' (Cazaux)');
+            $lightning->setName(FunctionsFixture::lightningsData().' (Cazaux)');
             $lightning->setStatus(mt_rand(0, 1));
             $lightning->setGarden($gardenUser2);
             $manager->persist($lightning);
@@ -55,7 +55,7 @@ class LightningFixture extends Fixture implements DependentFixtureInterface
         $gardenUser3 = $this->getReference(gardenFixture::GARDEN3_REFERENCE);
         for ($nbrLightnings=0; $nbrLightnings < 6; $nbrLightnings++){
             $lightning = new \App\Entity\Lightning();
-            $lightning->setName(lightningsData());
+            $lightning->setName(FunctionsFixture::lightningsData());
             $lightning->setStatus(mt_rand(0, 1));
             $lightning->setGarden($gardenUser3);
             $manager->persist($lightning);
@@ -65,7 +65,7 @@ class LightningFixture extends Fixture implements DependentFixtureInterface
         for ($nbrLightnings=0; $nbrLightnings < 100; $nbrLightnings++) {
             $garden = $this->getReference('garden_'.$faker->numberBetween(3, 39));
             $lightning = new \App\Entity\Lightning();
-            $lightning->setName(lightningsData().stringWithParenthesis($garden->getName()));
+            $lightning->setName(FunctionsFixture::lightningsData().FunctionsFixture::stringWithParenthesis($garden->getName()));
             $lightning->setStatus(mt_rand(0, 1));
             $lightning->setGarden($garden);
             $manager->persist($lightning);
