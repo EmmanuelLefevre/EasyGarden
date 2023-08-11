@@ -19,7 +19,7 @@ class PhoneNumberValidator
      * @param Request|null $request The HTTP request object or null if not provided.
      * @return bool|JsonResponse True if the phoneNumber is valid; otherwise, false or JsonResponse with/no error message.
      */
-    public function isValidName(string $paramName,
+    public function isValidPhoneNumber(string $paramName,
                                 bool $returnJsonResponse = false,
                                 ?Request $request = null): JsonResponse|bool
     {
