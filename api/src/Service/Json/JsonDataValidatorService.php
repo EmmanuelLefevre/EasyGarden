@@ -81,6 +81,14 @@ class JsonDataValidatorService
             }
         }
 
+        // Validate plain password if present
+        if (isset($data['plainPassword'])) {
+            $isValidPlainPassword = $this->plainPasswordValidator->isValidPlainPassword($data['plainPassword'], true);
+            if ($isValidPlainPassword instanceof JsonResponse) {
+                throw new JsonValidationException($isValidPlainPassword->getContent());
+            }
+        }
+
         // Validate user lastName if present
         if (isset($data['lastName'])) {
             $isValidName = $this->nameValidator->isValidName($data['lastName'], true);
@@ -97,19 +105,19 @@ class JsonDataValidatorService
             }
         }
 
+        // Validate user pseudo if present
+        if (isset($data['pseudo'])) {
+            $isValidPseudo = $this->pseudoValidator->isValidPseudo($data['pseudo'], true);
+            if ($isValidPseudo instanceof JsonResponse) {
+                throw new JsonValidationException($isValidPseudo->getContent());
+            }
+        }
+
         // Validate phone number if present
         if (isset($data['phoneNumber'])) {
             $isValidPhoneNumber = $this->phoneNumberValidator->isValidPhoneNumber($data['phoneNumber'], true);
             if ($isValidPhoneNumber instanceof JsonResponse) {
                 throw new JsonValidationException($isValidPhoneNumber->getContent());
-            }
-        }
-
-        // Validate plain password if present
-        if (isset($data['password'])) {
-            $isValidPlainPassword = $this->plainPasswordValidator->isValidPlainPassword($data['password'], true);
-            if ($isValidPlainPassword instanceof JsonResponse) {
-                throw new JsonValidationException($isValidPlainPassword->getContent());
             }
         }
 
