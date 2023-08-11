@@ -4,6 +4,11 @@ namespace App\Service\Json;
 
 use App\Utility\Json\JsonValidationException;
 use App\Validator\User\EmailValidator;
+use App\Validator\Entity\EntityNameValidator;
+use App\Validator\User\NameValidator;
+use App\Validator\User\PhoneNumberValidator;
+use App\Validator\User\PlainPasswordValidator;
+use App\Validator\User\PseudoValidator;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -15,14 +20,34 @@ use Symfony\Component\HttpFoundation\Request;
 class JsonDataValidatorService
 {
 	private $emailValidator;
+    private $entityNameValidator;
+    private $nameValidator;
+    private $phoneNumberValidator;
+    private $plainPasswordValidator;
+    private $pseudoValidator;
 
 	/**
      * JsonDataValidatorService constructor.
      * @param EmailValidator $emailValidator The service for validating email.
+     * @param EntityNameValidator $entityNameValidator The service for validating entity name.
+     * @param NameValidator $nameValidator The service for validating user name.
+     * @param PhoneNumberValidator $phoneNumberValidator The service for validating phone number.
+     * @param PlainPasswordValidator $plainPasswordValidator The service for validating plain password.
+     * @param PseudoValidator $pseudoValidatorpseudoValidator The service for validating pseudo.
      */
-    public function __construct(EmailValidator $emailValidator)
+    public function __construct(EmailValidator $emailValidator,
+                                EntityNameValidator $entityNameValidator,
+                                NameValidator $nameValidator,
+                                PhoneNumberValidator $phoneNumberValidator,
+                                PlainPasswordValidator $plainPasswordValidator,
+                                PseudoValidator $pseudoValidator)
     {
         $this->emailValidator = $emailValidator;
+        $this->entityNameValidator = $entityNameValidator;
+        $this->nameValidator = $nameValidator;
+        $this->phoneNumberValidator = $phoneNumberValidator;
+        $this->plainPasswordValidator = $plainPasswordValidator;
+        $this->pseudoValidator = $pseudoValidator;
     }
 
 	/**
@@ -53,6 +78,46 @@ class JsonDataValidatorService
             $isValidEmail = $this->emailValidator->isValidEmail($data['email'], true);
             if ($isValidEmail instanceof JsonResponse) {
                 throw new JsonValidationException($isValidEmail->getContent());
+            }
+        }
+
+        // Validate user lastName if present
+        if (isset($data['lastName'])) {
+            $isValidName = $this->nameValidator->isValidName($data['lastName'], true);
+            if ($isValidName instanceof JsonResponse) {
+                throw new JsonValidationException($isValidName->getContent());
+            }
+        }
+
+        // Validate user firstName if present
+        if (isset($data['firstName'])) {
+            $isValidName = $this->nameValidator->isValidName($data['firstName'], true);
+            if ($isValidName instanceof JsonResponse) {
+                throw new JsonValidationException($isValidName->getContent());
+            }
+        }
+
+        // Validate phone number if present
+        if (isset($data['phoneNumber'])) {
+            $isValidPhoneNumber = $this->phoneNumberValidator->isValidPhoneNumber($data['phoneNumber'], true);
+            if ($isValidPhoneNumber instanceof JsonResponse) {
+                throw new JsonValidationException($isValidPhoneNumber->getContent());
+            }
+        }
+
+        // Validate plain password if present
+        if (isset($data['password'])) {
+            $isValidPlainPassword = $this->plainPasswordValidator->isValidPlainPassword($data['password'], true);
+            if ($isValidPlainPassword instanceof JsonResponse) {
+                throw new JsonValidationException($isValidPlainPassword->getContent());
+            }
+        }
+
+        // Validate entity name if present
+        if (isset($data['name'])) {
+            $isValidEntityName = $this->entityNameValidator->isValidEntityName($data['name'], true);
+            if ($isValidEntityName instanceof JsonResponse) {
+                throw new JsonValidationException($isValidEntityName->getContent());
             }
         }
 
