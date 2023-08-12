@@ -37,10 +37,6 @@ class NameValidator
         }
 
         switch (true) {
-            // Invalid name parameter
-            case $name !== 'lastName' && $name !== 'firstName':
-                return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;
-
             // Not null
             case trim($name) === '':
                 return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;

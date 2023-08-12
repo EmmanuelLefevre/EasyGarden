@@ -37,10 +37,6 @@ class PseudoValidator
         }
 
         switch (true) {
-            // Invalid pseudo parameter name
-            case $pseudo !== 'pseudo':
-                return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;
-
             // Not null
             case trim($pseudo) === '':
                 return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;

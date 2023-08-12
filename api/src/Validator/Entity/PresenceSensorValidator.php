@@ -37,10 +37,6 @@ class PresenceSensorValidator
         }
 
         switch (true) {
-            // Invalid presence sensor parameter name
-            case $presenceSensor !== 'presenceSensor':
-                return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;
-
             // Not null
             case trim($presenceSensor) === '':
                 return $returnJsonResponse ? new JsonResponse(['error' => 'Null!'], Response::HTTP_BAD_REQUEST) : false;
