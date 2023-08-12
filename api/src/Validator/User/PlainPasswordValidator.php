@@ -21,8 +21,8 @@ class PlainPasswordValidator
      * @return bool|JsonResponse True if the plainPassword is valid; otherwise, false or JsonResponse with/no error message.
      */
     public function isValidPlainPassword(string $paramName,
-                                        bool $returnJsonResponse = false,
-                                        ?Request $request = null): JsonResponse|bool
+                                         bool $returnJsonResponse = false,
+                                         ?Request $request = null): JsonResponse|bool
     {
         // If the $request is null, validate the $paramName directly
         if ($request === null) {
