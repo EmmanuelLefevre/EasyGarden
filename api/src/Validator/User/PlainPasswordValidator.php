@@ -37,6 +37,10 @@ class PlainPasswordValidator
         }
 
         switch (true) {
+            // Invalid plain password parameter name
+            case $plainPassword !== 'plainPassword':
+                return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;
+
             // Not null
             case trim($plainPassword) === '':
                 return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;
