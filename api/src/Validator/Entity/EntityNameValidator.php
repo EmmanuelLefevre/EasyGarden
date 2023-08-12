@@ -28,7 +28,7 @@ class EntityNameValidator
         if ($request === null) {
             $entityName = $paramName;
         } else {
-            // Check if the plain password parameter is present in the request
+            // Check if the entity name parameter is present in the request
             if (!$request->request->has($paramName)) {
                 return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;
             }
