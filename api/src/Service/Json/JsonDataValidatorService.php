@@ -201,7 +201,7 @@ class JsonDataValidatorService
     /**
      * Validation method for URI data.
      * @param string $paramName The name of the URI parameter.
-     * @param array $data The data array to validate against.
+     * @param array $data An array containing the URI parameter and related data.
      * @param bool $returnJsonResponse Whether to return JsonResponse in case of validation failure.
      * @throws JsonValidationException If the validation fails.
      */
@@ -218,7 +218,7 @@ class JsonDataValidatorService
     /**
      * Validation method for name data.
      * @param string $paramName The name of the name parameter.
-     * @param array $data The data array to validate against.
+     * @param array $data An array containing the name parameter and related data..
      * @param bool $returnJsonResponse Whether to return JsonResponse in case of validation failure.
      * @throws JsonValidationException If the validation fails.
      */
