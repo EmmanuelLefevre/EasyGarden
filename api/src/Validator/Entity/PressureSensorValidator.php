@@ -37,6 +37,10 @@ class PressureSensorValidator
         }
 
         switch (true) {
+            // Invalid pressure sensor parameter name
+            case $pressureSensor !== 'pressureSensor':
+                return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;
+
             // Not null
             case trim($pressureSensor) === '':
                 return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;
