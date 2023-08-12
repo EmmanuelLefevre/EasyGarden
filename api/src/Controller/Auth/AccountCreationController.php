@@ -64,11 +64,11 @@ class AccountCreationController extends AbstractController
         try {
             // Validate json data using JsonDataValidatorService, including custom validators
             $data = $this->jsonDataValidator->validateJsonData($request, ['email', 
-                                                                         'plainPassword', 
-                                                                         'pseudo', 
-                                                                         'lastName', 
-                                                                         'firstName', 
-                                                                         'phoneNumber']);
+                                                                          'plainPassword', 
+                                                                          'pseudo', 
+                                                                          'lastName', 
+                                                                          'firstName', 
+                                                                          'phoneNumber']);
         } 
         catch (JsonValidationException  $e) {
             // Handle json validation exception by returning a json response with the error message
