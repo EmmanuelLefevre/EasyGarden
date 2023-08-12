@@ -125,22 +125,6 @@ class JsonDataValidatorService
         // Validate user firstname if present
         $this->validateName('firstName', $data, true);
 
-        // // Validate user lastName if present
-        // if (isset($data['lastName'])) {
-        //     $isValidName = $this->nameValidator->isValidName($data['lastName'], true);
-        //     if ($isValidName instanceof JsonResponse) {
-        //         throw new JsonValidationException($isValidName->getContent());
-        //     }
-        // }
-
-        // // Validate user firstName if present
-        // if (isset($data['firstName'])) {
-        //     $isValidName = $this->nameValidator->isValidName($data['firstName'], true);
-        //     if ($isValidName instanceof JsonResponse) {
-        //         throw new JsonValidationException($isValidName->getContent());
-        //     }
-        // }
-
         // Validate user pseudo if present
         if (isset($data['pseudo'])) {
             $isValidPseudo = $this->pseudoValidator->isValidPseudo($data['pseudo'], true);
@@ -210,22 +194,6 @@ class JsonDataValidatorService
 
         // Validate URI user if present
         $this->validateURI('user', $data, true);
-
-        // // Validate URI garden if present
-        // if (isset($data['garden'])) {
-        //     $isValidURI = $this->URIValidator->isValidURI($data['garden'], true);
-        //     if ($isValidURI instanceof JsonResponse) {
-        //         throw new JsonValidationException($isValidURI->getContent());
-        //     }
-        // }
-
-        // // Validate URI user if present
-        // if (isset($data['user'])) {
-        //     $isValidURI = $this->URIValidator->isValidURI($data['user'], true);
-        //     if ($isValidURI instanceof JsonResponse) {
-        //         throw new JsonValidationException($isValidURI->getContent());
-        //     }
-        // }
 
         return $data;
     }
