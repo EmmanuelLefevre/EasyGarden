@@ -37,10 +37,6 @@ class PhoneNumberValidator
         }
 
         switch (true) {
-            // Invalid phone number parameter name
-            case $phoneNumber !== 'phoneNumber':
-                return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;
-
             // Not null
             case trim($phoneNumber) === '':
                 return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;

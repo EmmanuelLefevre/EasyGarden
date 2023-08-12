@@ -37,10 +37,6 @@ class FlowSensorValidator
         }
 
         switch (true) {
-            // Invalid flow sensor parameter name
-            case $flowSensor !== 'flowSensor':
-                return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;
-
             // Not null
             case trim($flowSensor) === '':
                 return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;

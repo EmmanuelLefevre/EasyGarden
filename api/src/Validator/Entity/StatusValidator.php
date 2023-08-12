@@ -37,10 +37,6 @@ class StatusValidator
         }
 
         switch (true) {
-            // Invalid status parameter name
-            case $status !== 'status':
-                return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;
-
             // Not null
             case trim($status) === '':
                 return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;
