@@ -37,6 +37,10 @@ class EntityNameValidator
         }
 
         switch (true) {
+            // Invalid entity name parameter
+            case $entityName !== 'name':
+                return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;
+
             // Not null
             case trim($entityName) === '':
                 return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;
