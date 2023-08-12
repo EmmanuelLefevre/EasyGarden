@@ -16,6 +16,7 @@ class PlainPasswordValidator
     /**
      * Check if the "plainPassword" param is defined in the request, is a string, and its value is not null or empty.
      * If any of these conditions are not met, return false; otherwise, return true.
+     * @param string $paramName The name of the plain password parameter.
      * @param Request|null $request The HTTP request object or null if not provided.
      * @return bool|JsonResponse True if the plainPassword is valid; otherwise, false or JsonResponse with/no error message.
      */
