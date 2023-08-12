@@ -26,6 +26,11 @@ class URIValidator
     {
         // If the $request is null, validate the $paramName directly
         if ($request === null) {
+            // Invalid URI parameter name
+            if ($paramName !== 'garden' && $paramName !== 'user') {
+                return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;
+            }
+
             $URI = $paramName;
         } else {
             // Check if the URI parameter is present in the request
@@ -37,10 +42,6 @@ class URIValidator
         }
 
         switch (true) {
-            // Invalid URI parameter name
-            case $URI !== 'garden' && $URI !== 'user':
-                return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;
-
             // Not null
             case trim($URI) === '':
                 return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;
