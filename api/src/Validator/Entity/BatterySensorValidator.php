@@ -37,6 +37,10 @@ class BatterySensorValidator
         }
 
         switch (true) {
+            // Invalid battery sensor parameter name
+            case $batterySensor !== 'batterySensor':
+                return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;
+
             // Not null
             case trim($batterySensor) === '':
                 return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;
