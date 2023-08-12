@@ -22,8 +22,8 @@ class EmailValidator
      * @return bool True if the email is valid; otherwise, false or JsonResponse with/no error message.
      */
     public function isValidEmail(string $paramName, 
-                                bool $returnJsonResponse = false, 
-                                ?Request $request = null): JsonResponse|bool
+                                 bool $returnJsonResponse = false, 
+                                 ?Request $request = null): JsonResponse|bool
     {
         // If the $request is null, validate the $paramName directly
         if ($request === null) {
