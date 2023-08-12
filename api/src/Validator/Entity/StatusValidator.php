@@ -37,17 +37,21 @@ class StatusValidator
         }
 
         switch (true) {
+            // Invalid status parameter name
+            case $status !== 'status':
+                return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;
+
             // Not null
             case trim($status) === '':
-                return $returnJsonResponse ? new JsonResponse(['error' => 'Null!'], Response::HTTP_BAD_REQUEST) : false;
+                return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;
 
             // Is a boolean
             case !is_bool($status):
-                return $returnJsonResponse ? new JsonResponse(['error' => 'Not boolean!'], Response::HTTP_BAD_REQUEST) : false;
+                return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;
 
             // Check if the value is either true or false
             if ($status !== true && $status !== false) {
-                return $returnJsonResponse ? new JsonResponse(['error' => 'not true, not false!'], Response::HTTP_BAD_REQUEST) : false;
+                return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;
             }
 
             default:
