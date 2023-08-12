@@ -119,21 +119,27 @@ class JsonDataValidatorService
             }
         }
 
-        // Validate user lastName if present
-        if (isset($data['lastName'])) {
-            $isValidName = $this->nameValidator->isValidName($data['lastName'], true);
-            if ($isValidName instanceof JsonResponse) {
-                throw new JsonValidationException($isValidName->getContent());
-            }
-        }
+        // Validate user lastname if present
+        $this->validateName('lastName', $data, true);
 
-        // Validate user firstName if present
-        if (isset($data['firstName'])) {
-            $isValidName = $this->nameValidator->isValidName($data['firstName'], true);
-            if ($isValidName instanceof JsonResponse) {
-                throw new JsonValidationException($isValidName->getContent());
-            }
-        }
+        // Validate user firstname if present
+        $this->validateName('firstName', $data, true);
+
+        // // Validate user lastName if present
+        // if (isset($data['lastName'])) {
+        //     $isValidName = $this->nameValidator->isValidName($data['lastName'], true);
+        //     if ($isValidName instanceof JsonResponse) {
+        //         throw new JsonValidationException($isValidName->getContent());
+        //     }
+        // }
+
+        // // Validate user firstName if present
+        // if (isset($data['firstName'])) {
+        //     $isValidName = $this->nameValidator->isValidName($data['firstName'], true);
+        //     if ($isValidName instanceof JsonResponse) {
+        //         throw new JsonValidationException($isValidName->getContent());
+        //     }
+        // }
 
         // Validate user pseudo if present
         if (isset($data['pseudo'])) {
@@ -237,6 +243,23 @@ class JsonDataValidatorService
             $isValidURI = $this->URIValidator->isValidURI($data[$paramName], $returnJsonResponse);
             if ($isValidURI instanceof JsonResponse) {
                 throw new JsonValidationException($isValidURI->getContent());
+            }
+        }
+    }
+
+    /**
+     * Validation method for name data.
+     * @param string $paramName The name of the name parameter.
+     * @param array $data The data array to validate against.
+     * @param bool $returnJsonResponse Whether to return JsonResponse in case of validation failure.
+     * @throws JsonValidationException If the validation fails.
+     */
+    private function validateName(string $paramName, array $data, bool $returnJsonResponse = true): void
+    {
+        if (isset($data[$paramName])) {
+            $isValidName = $this->nameValidator->isValidName($data[$paramName], $returnJsonResponse);
+            if ($isValidName instanceof JsonResponse) {
+                throw new JsonValidationException($isValidName->getContent());
             }
         }
     }
