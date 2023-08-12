@@ -38,6 +38,10 @@ class EmailValidator
         }
 
         switch (true) {
+            // Invalid email parameter name
+            case $email !== 'email':
+                return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;
+
             // Not null
             case trim($email) === '':
                 return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;
