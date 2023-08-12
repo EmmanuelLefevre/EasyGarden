@@ -20,7 +20,7 @@ class PresenceSensorValidator
      * @param Request|null $request The HTTP request object or null if not provided.
      * @return bool|JsonResponse True if the presenceSensor is valid; otherwise, false or JsonResponse with/no error message.
      */
-    public function isValidStatus(string $paramName,
+    public function isValidPresenceSensor(string $paramName,
                                   bool $returnJsonResponse = false,
                                   ?Request $request = null): JsonResponse|bool
     {
