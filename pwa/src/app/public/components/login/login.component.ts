@@ -52,7 +52,7 @@ export class LoginComponent implements OnDestroy, OnInit {
   falsePasswordErrorMessage: string = '';
   invalidCredentials: boolean = false;
   invalidPassword: boolean = false;
-  // LoginForm Group
+  // Form Group
   submittedForm: boolean  = false;
   form = this.formBuilder.group({
     email: [
@@ -79,7 +79,7 @@ export class LoginComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit(): void {
-    // Subscribe to login form control input changes
+    // Subscribe to form control input changes
     this.loginFormSubscription = this.form.valueChanges
       .subscribe(() => {
         this.handleFormChanges();
@@ -161,7 +161,7 @@ export class LoginComponent implements OnDestroy, OnInit {
     this.submittedForm = true;
   }
 
-  // Reset login form
+  // Reset form
   onReset(formDirective: any): void {
     this.form.reset();
     formDirective.resetForm();
@@ -194,7 +194,7 @@ export class LoginComponent implements OnDestroy, OnInit {
     return '';
   }
 
-  // Manage changes in login form
+  // Manage changes in form
   private handleFormChanges(): void {
     this.falsePasswordErrorMessage = "";
     this.invalidCredentials = false;
