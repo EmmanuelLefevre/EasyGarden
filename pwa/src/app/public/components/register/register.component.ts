@@ -59,7 +59,7 @@ export class RegisterComponent implements OnDestroy, OnInit {
   invalidFirstName: boolean = false;
   invalidPseudo: boolean = false;
   invalidPhoneNumber: boolean = false;
-  // RegisterForm Group
+  // Form Group
   submittedForm: boolean  = false;
   form = this.formBuilder.group({
     email: [
@@ -130,7 +130,7 @@ export class RegisterComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit(): void {
-    // Subscribe to register form control input changes
+    // Subscribe to form control input changes
     this.registerFormSubscription = this.form.valueChanges
       .subscribe(() => {
         this.handleFormChanges();
@@ -190,7 +190,7 @@ export class RegisterComponent implements OnDestroy, OnInit {
     this.submitDisabled = true;
   }
 
-  // Reset register form
+  // Reset form
   onReset(formDirective: any): void {
     this.form.reset();
     formDirective.resetForm();
@@ -302,7 +302,7 @@ export class RegisterComponent implements OnDestroy, OnInit {
     return '';
   }
 
-  // Manage changes in register form
+  // Manage changes in form
   private handleFormChanges(): void {
     this.existingEmailErrorMessage = "";
     // Check if input fields are empty
