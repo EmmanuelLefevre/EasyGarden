@@ -49,7 +49,7 @@ export class LoginComponent implements OnDestroy, OnInit {
   isPasswordEmpty!: boolean;
 
   // Form alerts
-  errorPasswordMessage: string = '';
+  passwordErrorMessage: string = '';
   invalidCredentials: boolean = false;
   invalidEmail: boolean = false;
   invalidPassword: boolean = false;
@@ -142,11 +142,11 @@ export class LoginComponent implements OnDestroy, OnInit {
             if (error.status === 401) {
               if (error.error.message === 'Invalid password!') {
                 this.invalidPassword = true;
-                this.errorPasswordMessage = "Mot de passe incorrect!";
+                this.passwordErrorMessage = "Mot de passe incorrect!";
               } 
               else if (error.error.message === 'No existing email!') {
                 this.invalidCredentials = true;
-                this.errorPasswordMessage = "";
+                this.passwordErrorMessage = "";
                 this.snackbarService.showNotification(
                   `Veuillez créer un compte!`,
                   'red-alert'
@@ -215,7 +215,7 @@ export class LoginComponent implements OnDestroy, OnInit {
 
   // Manage changes in login form
   private handleFormChanges(): void {
-    this.errorPasswordMessage = "";
+    this.passwordErrorMessage = "";
     this.invalidCredentials = false;
     this.invalidEmail = false;
     this.invalidPassword = false;
