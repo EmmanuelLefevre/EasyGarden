@@ -225,7 +225,19 @@ export class RegisterComponent implements OnDestroy, OnInit {
           return 'Le mot de passe ne peut excéder 50 caractères.';
         }
         if (control.errors['strongPassword']) {
-          return 'Le mot de passe doit contenir une majuscule, une minuscule, un nombre et un caractère spécial.';
+          const strongPasswordErrors = control.errors['strongPassword'];
+          if (strongPasswordErrors['missingUpperCase']) {
+            return 'Le mot de passe doit contenir au moins une majuscule.';
+          }
+          if (strongPasswordErrors['missingLowerCase']) {
+            return 'Le mot de passe doit contenir au moins une minuscule.';
+          }
+          if (strongPasswordErrors['missingNumber']) {
+            return 'Le mot de passe doit contenir au moins un nombre.';
+          }
+          if (strongPasswordErrors['missingSpecialChar']) {
+            return 'Le mot de passe doit contenir au moins un caractère spécial.';
+          }
         }
       }
       else if (inputName === 'confirmPassword') {
