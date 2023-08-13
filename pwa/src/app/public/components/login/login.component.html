@@ -62,9 +62,9 @@
             </div>
           </ng-container>
         </div>
-        <ng-container *ngIf="ngForm.submitted && errorPasswordMessage">
+        <ng-container *ngIf="ngForm.submitted && passwordErrorMessage">
           <div class="text-alert">
-            {{ errorPasswordMessage }}
+            {{ passwordErrorMessage }}
           </div>
         </ng-container>
         <div class="div-form-button">
