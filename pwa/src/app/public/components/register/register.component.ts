@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 // Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip-social in style.scss
 import { Router } from '@angular/router';
-import { FormGroup,  FormBuilder, UntypedFormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 // Environment
 import { environment } from '../../../../environments/environment';
