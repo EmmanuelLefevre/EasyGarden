@@ -46,13 +46,13 @@ class PhoneNumberValidator
                 return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;
 
             // Min length
-            case strlen($phoneNumber) < 9:
+            case strlen($phoneNumber) < 8:
                 return $returnJsonResponse ? new JsonResponse(['error' => 'Phone number must contain at least 8 diggits!'], 
                                                               Response::HTTP_BAD_REQUEST) : false;
 
             // Max lenght
-            case strlen($phoneNumber) > 16:
-                return $returnJsonResponse ? new JsonResponse(['error' => 'Phone number cannnot exceed 15 characters!'], 
+            case strlen($phoneNumber) > 15:
+                return $returnJsonResponse ? new JsonResponse(['error' => 'Phone number cannnot exceed 15 diggits!'], 
                                                               Response::HTTP_BAD_REQUEST) : false;
             
             // Authorized character
