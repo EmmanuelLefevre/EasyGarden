@@ -31,7 +31,6 @@
                class="input-inset-shadow"
                [ngClass]="{ 'invalid-feedback': (form.get('email')?.invalid 
                                                 && form.get('email')?.dirty )
-                                                || invalidEmail
                                                 || invalidCredentials}">
         <ng-container *ngIf="form.get('email')?.dirty 
                             && getErrorMessage('email') !== ''">
