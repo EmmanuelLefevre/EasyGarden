@@ -56,8 +56,8 @@ class EntityNameValidator
                                                               Response::HTTP_BAD_REQUEST) : false;
             
             // Authorized character
-            case !preg_match('/[A-Za-z -.]/', $entityName):
-                return $returnJsonResponse ? new JsonResponse(['error' => 'Name can only contain lowercase or uppercase letters (dot, hyphens and spaces are accepted)!'], 
+            case !preg_match('/[A-Za-z -()]/', $entityName):
+                return $returnJsonResponse ? new JsonResponse(['error' => 'Name can only contain lowercase or uppercase letters (hyphens, parenthesis and spaces are accepted)!'], 
                                                               Response::HTTP_BAD_REQUEST) : false;
 
             default:
