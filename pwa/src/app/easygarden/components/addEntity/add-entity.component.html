@@ -14,15 +14,17 @@
         <p class="p-form-title-content">AJOUTER</p>
       </div>
 
-      <form [formGroup]="addForm"
-            (ngSubmit)="onSubmit()"
+      <form [formGroup]="form"
             #ngForm="ngForm"
             #formDirective="ngForm"
+            (ngSubmit)="onSubmit()"
             aria-label="Formulaire de saisie utilisateur">
         <ng-container *ngIf="!currentUrl.includes('easygarden/garden/add')">
           <mat-form-field appearance="fill"
                           class="input-inset-shadow"
-                          [ngClass]="{ 'invalid-feedback': ngForm.submitted && (f['name'].errors || ngForm.invalid) }">
+                          [ngClass]="{ 'invalid-feedback': (form.get('garden')?.invalid 
+                                                            && form.get('garden')?.dirty)
+                                                            || invalidSelect }">
             <mat-label>Jardin</mat-label>
             <mat-select formControlName="garden">
               <mat-option *ngFor="let garden of gardens" [value]="garden">
@@ -30,9 +32,10 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-          <ng-container *ngIf="ngForm.submitted && f['garden'].errors">
-            <div class="text-alert" 
-                 *ngIf="f['garden'].errors['required']">Veuillez sélectionner un jardin!
+          <ng-container *ngIf="form.get('garden')?.pristine
+                               && getErrorMessage('garden') !== ''">
+            <div class="text-alert">
+              {{ getErrorMessage('garden') }}
             </div>
           </ng-container>
         </ng-container>
@@ -48,33 +51,28 @@
                spellcheck="false"
                autocomplete="off"
                class="input-inset-shadow"
-               [ngClass]="{ 'invalid-feedback': ngForm.submitted && (f['name'].errors || ngForm.invalid) }">
-        <ng-container *ngIf="ngForm.submitted && (f['name'].errors || ngForm.invalid)">
-          <div class="text-alert" 
-               *ngIf="ngForm.invalid">Le formulaire est invalide!
-          </div>
-          <div class="text-alert" 
-               *ngIf="f['name'].errors && f['name'].errors['required']">Veuillez saisir un nom!
-          </div>
-          <div class="text-alert" 
-               *ngIf="f['name'].errors && f['name'].errors['minlength']">Le nom doit contenir au minimum 3 caractères.
-          </div>
-          <div class="text-alert" 
-               *ngIf="f['name'].errors && f['name'].errors['maxlength']">Le nom doit contenir au maximum 25 caractères.
-          </div>
-          <div class="text-alert"
-               *ngIf="f['name'].errors && f['name'].errors['validEquipmentName']">Le nom ne peut contenir de caractères spéciaux!
+               [ngClass]="{ 'invalid-feedback': (form.get('name')?.invalid 
+                                                 && form.get('name')?.dirty)
+                                                 || invalidName }">
+        <ng-container *ngIf="form.get('name')?.dirty 
+                             && getErrorMessage('name') !== ''">
+          <div class="text-alert">
+            {{ getErrorMessage('name') }}
           </div>
         </ng-container>
         <div class="div-form-button">
           <button type="submit"
                   class="button-shadow"
-                  aria-label="Bouton ajouter un arrosage">Ajouter
+                  aria-label="Bouton ajouter un arrosage"
+                  [ngClass]="{'disabled-submit-button': submitDisabled}"
+                  [disabled]="submitDisabled">Ajouter
           </button>
           <button (click)="onReset(formDirective)"
                   type="button"
                   aria-label="Bouton effacer le formulaire" 
-                  class="button-shadow cancel">Annuler
+                  class="button-shadow cancel"
+                  [ngClass]="{'disabled-reset-button': resetDisabled}"
+                  [disabled]="resetDisabled">Annuler
           </button>
         </div>
       </form>
