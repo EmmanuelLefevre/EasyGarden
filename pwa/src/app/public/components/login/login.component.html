@@ -27,10 +27,10 @@
                type="email"
                placeholder="Email"
                spellcheck="false"
+               id="emailInput"
                class="input-inset-shadow"
-               (focusout)="onInputFocusOut('email')"
-               [ngClass]="{ 'invalid-feedback': (form.get('email')?.dirty 
-                                                && form.get('email')?.invalid )
+               [ngClass]="{ 'invalid-feedback': (form.get('email')?.invalid 
+                                                && form.get('email')?.dirty )
                                                 || invalidEmail
                                                 || invalidCredentials}">
         <ng-container *ngIf="form.get('email')?.dirty 
@@ -48,10 +48,10 @@
                  placeholder="Password"
                  spellcheck="false"
                  autocomplete="off"
+                 id="passwordInput"
                  class="input-inset-shadow"
-                 (focusout)="onInputFocusOut('password')"
-                 [ngClass]="{ 'invalid-feedback': (form.get('password')?.dirty 
-                                                  && form.get('password')?.invalid)
+                 [ngClass]="{ 'invalid-feedback': (form.get('password')?.invalid 
+                                                  && form.get('password')?.dirty)
                                                   || invalidPassword
                                                   || invalidCredentials}">
           <fa-icon [icon]="visible ? faEyeSlash : faEye" aria-hidden="true" (click)="toggle()"></fa-icon>
