@@ -51,7 +51,6 @@ export class LoginComponent implements OnDestroy, OnInit {
   // Form alerts
   falsePasswordErrorMessage: string = '';
   invalidCredentials: boolean = false;
-  invalidEmail: boolean = false;
   invalidPassword: boolean = false;
   // LoginForm Group
   submittedForm: boolean  = false;
@@ -94,9 +93,6 @@ export class LoginComponent implements OnDestroy, OnInit {
 
   // Submit form
   onSubmit() {
-    this.invalidCredentials = false;
-    this.invalidEmail = false;
-    this.invalidPassword = false;
     // Handle changes to the form before submitting it
     this.handleFormChanges();
     if (this.form.invalid) {
@@ -202,7 +198,6 @@ export class LoginComponent implements OnDestroy, OnInit {
   private handleFormChanges(): void {
     this.falsePasswordErrorMessage = "";
     this.invalidCredentials = false;
-    this.invalidEmail = false;
     this.invalidPassword = false;
     // Check if email and password fields are empty
     this.isEmailEmpty = this.form.get('email')?.value === '';
