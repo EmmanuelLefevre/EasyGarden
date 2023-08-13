@@ -155,17 +155,9 @@ export class AddEntityComponent implements OnInit, OnDestroy {
   
             const redirectUrl = service.getRedirectUrl();
             if (gardenCase) {
-              if (redirectUrl === null) {
-                this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => { 
-                  this.snackbarService.showNotification(notificationMessage, 'created');
-                  this.router.navigate(['/easygarden']);
-                });
-              }
-              else {
-                this.router.navigateByUrl(redirectUrl).then(() => {
-                  this.snackbarService.showNotification(notificationMessage, 'created');
-                });
-              }
+              this.router.navigateByUrl(redirectUrl).then(() => {
+                this.snackbarService.showNotification(notificationMessage, 'created');
+              });
             }
             else {
               if (gardenName && name !== gardenCase) {
