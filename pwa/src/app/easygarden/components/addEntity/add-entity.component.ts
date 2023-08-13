@@ -31,14 +31,26 @@ export class AddEntityComponent implements OnInit, OnDestroy {
 
   // Declaration of subscriptions
   private addDataSubscription!: Subscription;
+  private addDataFormSubscription!: Subscription;
   private getAllGardensSubscription: Subscription = new Subscription;
   // Private Subject to handle component destruction
   private destroy$ = new Subject<void>();
 
+  // Current URL
   currentUrl!: string;
 
-  // addWateringForm Group
-  addForm = this.formBuilder.group({
+  // Buttons
+  resetDisabled: boolean;
+  submitDisabled: boolean;
+  isNameEmpty!: boolean;
+  isGardenNotSelect!: boolean;
+
+  // Form alerts
+  invalidSelect: boolean = false;
+  invalidName: boolean = false;
+  // Form group
+  submittedForm: boolean  = false;
+  form = this.formBuilder.group({
     name:[
       '',
       [
@@ -74,15 +86,23 @@ export class AddEntityComponent implements OnInit, OnDestroy {
           if (res.hasOwnProperty('hydra:member')) 
           this.gardens = res['hydra:member'];
           if (this.gardens.length < 2) {
-            this.addForm.controls.garden.setValue(this.gardens[0]);
+            this.form.controls.garden.setValue(this.gardens[0]);
           }
         }
       );
+
+      this.resetDisabled = true;
+      this.submitDisabled = true;
   }
 
   ngOnInit(): void {
     this.currentUrl = this.router.url;
     this.updateValidators();
+    // Subscribe to form control input changes
+    this.addDataFormSubscription = this.form.valueChanges
+      .subscribe(() => {
+        this.handleFormChanges();
+      });
   }
 
   ngOnDestroy(): void {
@@ -93,77 +113,119 @@ export class AddEntityComponent implements OnInit, OnDestroy {
     this.unsubscribeAll();
   }
 
-  get f(): { [key: string]: AbstractControl } {
-    return this.addForm.controls;
-  }
-
-  // Submit button
+  // Submit form
   onSubmit() {
-    if (!this.addForm.valid) {
+    // Handle changes to the form before submitting it
+    this.handleFormChanges();
+    if (!this.form.valid) {
       return;
     }
-
-    const formValue: IAdd = this.addForm.getRawValue();
-    const url = window.location.href;
-    let service: any;
-    let gardenCase: string;
-
-    if (url.includes('/easygarden/garden/add')) {
-      service = this.gardenService;
-      gardenCase = `Le jardin`;
-    } 
-    else if (url.includes('/easygarden/lawnmower/add')) {
-      service = this.lawnmowerService;
-    } 
-    else if (url.includes('/easygarden/lightning/add')) {
-      service = this.lightningService;
-    }
-    else if (url.includes('/easygarden/pool/add')) {
-      service = this.poolService;
-    } 
-    else if (url.includes('/easygarden/portal/add')) {
-      service = this.portalService;
-    } 
-    else if (url.includes('/easygarden/watering/add')) {
-      service = this.wateringService;
-    }
-
-    if (service) {
-      this.addDataSubscription = service.addData(formValue)
-        .subscribe(() => {
-          const name = url.includes('/easygarden/garden/add') ? gardenCase : "L'équipement";
-          const gardenName = formValue.garden?.name;
-          let notificationMessage = `${name} "${formValue.name}" a bien été ajouté.`;
-
-          const redirectUrl = service.getRedirectUrl();
-          if (gardenCase) {
-            if (redirectUrl === null) {
-              this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => { 
-                this.snackbarService.showNotification(notificationMessage, 'created');
-                this.router.navigate(['/easygarden']);
-              });
+    else {
+      const typedForm: IAdd = this.form.getRawValue();
+      const url = window.location.href;
+      let service: any;
+      let gardenCase: string;
+  
+      if (url.includes('/easygarden/garden/add')) {
+        service = this.gardenService;
+        gardenCase = `Le jardin`;
+      } 
+      else if (url.includes('/easygarden/lawnmower/add')) {
+        service = this.lawnmowerService;
+      } 
+      else if (url.includes('/easygarden/lightning/add')) {
+        service = this.lightningService;
+      }
+      else if (url.includes('/easygarden/pool/add')) {
+        service = this.poolService;
+      } 
+      else if (url.includes('/easygarden/portal/add')) {
+        service = this.portalService;
+      } 
+      else if (url.includes('/easygarden/watering/add')) {
+        service = this.wateringService;
+      }
+  
+      if (service) {
+        this.addDataSubscription = service.addData(typedForm)
+          .subscribe(() => {
+            const name = url.includes('/easygarden/garden/add') ? gardenCase : "L'équipement";
+            const gardenName = typedForm.garden?.name;
+            let notificationMessage = `${name} "${typedForm.name}" a bien été ajouté.`;
+  
+            const redirectUrl = service.getRedirectUrl();
+            if (gardenCase) {
+              if (redirectUrl === null) {
+                this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => { 
+                  this.snackbarService.showNotification(notificationMessage, 'created');
+                  this.router.navigate(['/easygarden']);
+                });
+              }
+              else {
+                this.router.navigateByUrl(redirectUrl).then(() => {
+                  this.snackbarService.showNotification(notificationMessage, 'created');
+                });
+              }
             }
             else {
-              this.router.navigateByUrl(redirectUrl).then(() => {
-                this.snackbarService.showNotification(notificationMessage, 'created');
-              });
+              if (gardenName && name !== gardenCase) {
+                notificationMessage = `${name} "${typedForm.name}" a bien été ajouté au jardin "${gardenName}".`;
+              }
+              this.router.navigate([service.getRedirectUrl()]);
+              this.snackbarService.showNotification(notificationMessage, 'created');
             }
-          }
-          else {
-            if (gardenName && name !== gardenCase) {
-              notificationMessage = `${name} "${formValue.name}" a bien été ajouté au jardin "${gardenName}".`;
-            }
-            this.router.navigate([service.getRedirectUrl()]);
-            this.snackbarService.showNotification(notificationMessage, 'created');
-          }
-      });
+        });
+      }
     }
   }
 
-  // Cancel button
+  // Reset form
   onReset(formDirective: any): void {
-    this.addForm.reset();
+    this.form.reset();
     formDirective.resetForm();
+    this.handleFormChanges();
+    this.resetDisabled = true;
+  }
+
+  // Get the error message associated with a specific form field
+  getErrorMessage(inputName: string): string {
+    const control = this.form.get(inputName);
+    // Check control exists (not null) and there are validation errors.
+    if (control?.errors) {
+      if (inputName === 'garden' && control.errors['required']) {
+        return 'Veuillez sélectionner un jardin!';
+      } 
+      else if (inputName === 'name') {
+        if (control.errors['required']) {
+          return 'Veuillez saisir un nom!';
+        }
+        if (control.errors['minlength']) {
+          return 'Le nom doit contenir 3 caractères minimum.';
+        }
+        if (control.errors['maxlength']) {
+          return 'Le nom ne peut excéder 25 caractères.';
+        }
+        if (control.errors['validEquipmentName']) {
+          return 'Le nom ne peut contenir de caractères spéciaux!';
+        }
+      }
+    }
+    return '';
+  }
+
+  // Manage changes in form
+  private handleFormChanges(): void {
+    this.invalidSelect = false;
+    this.invalidName = false;
+    // Check if name field is empty
+    this.isNameEmpty = this.form.get('email')?.value === '';
+    // Check if garden is select
+    const selectedGarden = this.form.get('garden')?.value;
+    this.isGardenNotSelect = selectedGarden === null || selectedGarden === undefined;
+    // Disable reset button based on empty/not selected fields
+    this.resetDisabled = this.isNameEmpty && this.isGardenNotSelect;
+    // Disable submit button if form is invalid
+    this.submitDisabled = !this.form.valid;
   }
 
   private updateValidators() {
@@ -171,12 +233,15 @@ export class AddEntityComponent implements OnInit, OnDestroy {
     const isAddRoute = url.includes('easygarden/garden/add');
     const gardenValidators = isAddRoute ? [] : [Validators.required];
 
-    this.addForm.get('garden')?.setValidators(gardenValidators);
-    this.addForm.get('garden')?.updateValueAndValidity();
+    this.form.get('garden')?.setValidators(gardenValidators);
+    this.form.get('garden')?.updateValueAndValidity();
   }
 
   private unsubscribeAll(): void {
     this.getAllGardensSubscription.unsubscribe();
+    if (this.addDataFormSubscription) {
+      this.addDataFormSubscription.unsubscribe();
+    }
     if (this.addDataSubscription) {
       this.addDataSubscription.unsubscribe();
     }
