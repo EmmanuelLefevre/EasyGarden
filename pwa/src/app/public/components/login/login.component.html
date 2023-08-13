@@ -14,7 +14,7 @@
         <p class="p-form-title-content">Connexion</p>
       </div>
 
-      <form [formGroup]="loginForm" 
+      <form [formGroup]="form" 
             #ngForm="ngForm"
             #formDirective="ngForm"
             (ngSubmit)="onSubmit()"
@@ -29,11 +29,11 @@
                spellcheck="false"
                class="input-inset-shadow"
                (focusout)="onInputFocusOut('email')"
-               [ngClass]="{ 'invalid-feedback': (loginForm.get('email')?.dirty 
-                                                && loginForm.get('email')?.invalid )
+               [ngClass]="{ 'invalid-feedback': (form.get('email')?.dirty 
+                                                && form.get('email')?.invalid )
                                                 || invalidEmail
                                                 || invalidCredentials}">
-        <ng-container *ngIf="loginForm.get('email')?.dirty 
+        <ng-container *ngIf="form.get('email')?.dirty 
                             && getErrorMessage('email') !== ''">
           <div class="text-alert">
             {{ getErrorMessage('email') }}
@@ -50,12 +50,12 @@
                  autocomplete="off"
                  class="input-inset-shadow"
                  (focusout)="onInputFocusOut('password')"
-                 [ngClass]="{ 'invalid-feedback': (loginForm.get('password')?.dirty 
-                                                  && loginForm.get('password')?.invalid)
+                 [ngClass]="{ 'invalid-feedback': (form.get('password')?.dirty 
+                                                  && form.get('password')?.invalid)
                                                   || invalidPassword
                                                   || invalidCredentials}">
           <fa-icon [icon]="visible ? faEyeSlash : faEye" aria-hidden="true" (click)="toggle()"></fa-icon>
-          <ng-container *ngIf="loginForm.get('password')?.dirty 
+          <ng-container *ngIf="form.get('password')?.dirty 
                               && getErrorMessage('password') !== ''">
             <div class="text-alert">
               {{ getErrorMessage('password') }}
