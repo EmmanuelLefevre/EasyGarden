@@ -1,7 +1,7 @@
-import { Component, OnDestroy, ViewEncapsulation} from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 // Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip-social in style.scss
 import { Router } from '@angular/router';
-import { AbstractControl, UntypedFormBuilder, Validators } from '@angular/forms';
+import { FormGroup,  FormBuilder, UntypedFormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 // Environment
 import { environment } from '../../../../environments/environment';
@@ -22,7 +22,7 @@ import { IUser } from '../../../_interfaces/IUser';
   encapsulation: ViewEncapsulation.None
 })
 
-export class RegisterComponent implements OnDestroy {
+export class RegisterComponent implements OnDestroy, OnInit {
 
   faEye = faEye;
   faEyeSlash = faEyeSlash;
@@ -30,10 +30,7 @@ export class RegisterComponent implements OnDestroy {
 
   // Declaration of subscriptions
   private registerSubscription!: Subscription;
-
-  // Check if email exist
-  existingEmail: boolean = false;
-  errorMessage: string = '';
+  private registerFormSubscription!: Subscription;
 
   // Toggle faEyeSlash
   visible: boolean = false;
@@ -44,9 +41,27 @@ export class RegisterComponent implements OnDestroy {
   // Buttons
   resetDisabled: boolean;
   submitDisabled: boolean;
+  isEmailEmpty!: boolean;
+  isPasswordEmpty!: boolean;
+  isPlainPasswordEmpty!: boolean;
+  isLastNameEmpty!: boolean;
+  isFirstNameEmpty!: boolean;
+  isPseudoEmpty!: boolean
+  isPhoneNumberEmpty!: boolean;
 
+  // Form alerts
+  existingEmailErrorMessage: string = '';
+  existingEmail: boolean = false;
+  invalidEmail: boolean = false;
+  invalidPassword: boolean = false;
+  invalidPlainPassword: boolean = false;
+  invalidLastName: boolean = false;
+  invalidFirstName: boolean = false;
+  invalidPseudo: boolean = false;
+  invalidPhoneNumber: boolean = false;
   // RegisterForm Group
-  registerForm = this.formBuilder.group({
+  submittedForm: boolean  = false;
+  form = this.formBuilder.group({
     email: [
       '',
       [
@@ -114,30 +129,35 @@ export class RegisterComponent implements OnDestroy {
     this.submitDisabled = true;
   }
 
+  ngOnInit(): void {
+    // Subscribe to register form control input changes
+    this.registerFormSubscription = this.form.valueChanges
+      .subscribe(() => {
+        this.handleFormChanges();
+      });
+  }
+
   ngOnDestroy(): void {
     // Clean up subscriptions
     this.unsubscribeAll();
   }
-  
-  get f(): { [key: string]: AbstractControl } {
-    return this.registerForm.controls;
-  }
 
-  // Submit
+  // Submit form
   onSubmit() {
-    this.submitDisabled = true;
-    if (this.registerForm.invalid) {
+    // Handle changes to the form before submitting it
+    this.handleFormChanges();
+    if (this.form.invalid) {
       return;
     }
     else {
-      const formValue: IUser = this.registerForm.getRawValue();
-      delete formValue.confirmPassword;
-      this.registerSubscription = this.registerService.registerIn(formValue)
+      const typedForm: IUser = this.form.value;
+      delete typedForm.confirmPassword;
+      this.registerSubscription = this.registerService.registerIn(typedForm)
         .subscribe(
           (response: any) => { 
             if (response && response.message === 'Created Account!') { 
-              const firstName = formValue.firstName;
-              const lastName = formValue.lastName;
+              const firstName = typedForm.firstName;
+              const lastName = typedForm.lastName;
               this.snackbarService.showNotification(
                 `Bienvenu ` 
                 + firstName 
@@ -155,10 +175,9 @@ export class RegisterComponent implements OnDestroy {
                 && errorResponse.error.message === "Email already exists" 
                 && errorResponse.status === 409) {
               this.existingEmail = true;
-              this.errorMessage = "Un utilisateur possédant cet email est déjà enregistré!";
+              this.existingEmailErrorMessage = "Un utilisateur possédant cet email est déjà enregistré!";
             } 
             else {
-              this.existingEmail = false;
               this.snackbarService.showNotification(
                 `Une erreur s'est produite lors de la création du compte!`
                 ,'red-alert'
@@ -167,17 +186,150 @@ export class RegisterComponent implements OnDestroy {
           }
         )
     }
-
+    this.submittedForm = true;
+    this.submitDisabled = true;
   }
 
+  // Reset register form
   onReset(formDirective: any): void {
-    this.registerForm.reset();
+    this.form.reset();
     formDirective.resetForm();
+    this.handleFormChanges();
+    this.resetDisabled = true;
+  }
+
+  // Get the error message associated with a specific form field
+  getErrorMessage(inputName: string): string {
+    const control = this.form.get(inputName);
+    // Check control exists (not null) and there are validation errors.
+    if (control?.errors) {
+      if (inputName === 'email') {
+        if (control.errors['required']) {
+          return 'Veuillez saisir un email!';
+        }
+        if (control.errors['email']) {
+          return 'Format d\'email invalide!';
+        }
+        if (control.errors['validEmail']) {
+          return 'L\'email doit contenir un "." + nom de domaine!';
+        }
+      } 
+      else if (inputName === 'password') {
+        if (control.errors['required']) {
+          return 'Veuillez saisir un mot de passe!';
+        }
+        if (control.errors['minlength']) {
+          return 'Le mot de passe doit contenir 8 caractères minimum.';
+        }
+        if (control.errors['maxlength']) {
+          return 'Le mot de passe ne peut excéder 50 caractères.';
+        }
+        if (control.errors['strongPassword']) {
+          return 'Le mot de passe doit contenir une majuscule, une minuscule, un nombre et un caractère spécial.';
+        }
+      }
+      else if (inputName === 'confirmPassword') {
+        if (control.errors['required']) {
+          return 'Veuillez confirmer le mot de passe!';
+        }
+        if (control.errors['passwordMismatch']) {
+          return 'Le mot de passe n\'est pas identique!';
+        }
+      }
+      else if (inputName === 'lastName') {
+        if (control.errors['required']) {
+          return 'Nom requis!';
+        }
+        if (control.errors['minlength']) {
+          return 'Le nom doit contenir 3 caractères minimum.';
+        }
+        if (control.errors['maxlength']) {
+          return 'Le nom ne peut excéder 25 caractères.';
+        }
+        if (control.errors['validName']) {
+          return 'Le nom ne peut contenir que des lettres, seuls le tiret et l\'espace sont acceptés!';
+        }
+      }
+      else if (inputName === 'firstName') {
+        if (control.errors['required']) {
+          return 'Prénom requis!';
+        }
+        if (control.errors['minlength']) {
+          return 'Le prénom doit contenir 3 caractères minimum.';
+        }
+        if (control.errors['maxlength']) {
+          return 'Le prénom ne peut excéder 25 caractères.';
+        }
+        if (control.errors['validName']) {
+          return 'Le prénom ne peut contenir que des lettres, seuls le tiret et l\'espace sont acceptés!';
+        }
+      }
+      else if (inputName === 'pseudo') {
+        if (control.errors['required']) {
+          return 'Pseudo requis!';
+        }
+        if (control.errors['minlength']) {
+          return 'Le pseudo doit contenir 3 caractères minimum.';
+        }
+        if (control.errors['maxlength']) {
+          return 'Le pseudo ne peut excéder 20 caractères.';
+        }
+        if (control.errors['validName']) {
+          return 'Le pseudo ne peut contenir que des chiffres et lettres!';
+        }
+      }
+      else if (inputName === 'phoneNumber') {
+        if (control.errors['required']) {
+          return 'Numéro de téléphone requis!';
+        }
+        if (control.errors['validPhoneNumber']) {
+          return 'Format de numéro de téléphone invalide!';
+        }
+      }
+    }
+    return '';
+  }
+
+  // Manage changes in register form
+  private handleFormChanges(): void {
+    this.existingEmailErrorMessage = "";
+    // Check if input fields are empty
+    this.isEmailEmpty = this.form.get('email')?.value === '';
+    this.isPasswordEmpty = this.form.get('password')?.value === '';
+    this.isPlainPasswordEmpty = this.form.get('password')?.value === '';
+    this.isLastNameEmpty = this.form.get('password')?.value === '';
+    this.isFirstNameEmpty = this.form.get('password')?.value === '';
+    this.isPseudoEmpty = this.form.get('password')?.value === '';
+    this.isPhoneNumberEmpty = this.form.get('password')?.value === '';
+    // Disable reset button based on empty fields
+    this.resetDisabled = this.isEmailEmpty 
+                         && this.isPasswordEmpty
+                         && this.isPlainPasswordEmpty
+                         && this.isLastNameEmpty
+                         && this.isFirstNameEmpty
+                         && this.isPseudoEmpty
+                         && this.isPhoneNumberEmpty;
+    // Disable submit button if form is invalid
+    this.submitDisabled = !this.form.valid;
+    // Remove/Add 'invalid-feedback' class from email input
+    const emailInput = document.getElementById('emailInput');
+    if (this.submittedForm 
+        && this.form.get('email')?.dirty
+        && this.form.get('email')?.valid) {
+        emailInput!.classList.remove('invalid-feedback');
+    }
+    else if (this.form.get('email')?.invalid
+             && this.form.get('email')?.dirty) {
+      emailInput!.classList.add('invalid-feedback');
+    }
   }
 
   private unsubscribeAll(): void {
     if (this.registerSubscription) { 
       this.registerSubscription.unsubscribe();
+    }
+    if (this.registerFormSubscription) {
+      this.registerFormSubscription.unsubscribe();
     }
   }
 
