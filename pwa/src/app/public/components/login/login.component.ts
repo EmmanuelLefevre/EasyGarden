@@ -95,7 +95,6 @@ export class LoginComponent implements OnDestroy, OnInit {
     this.invalidCredentials = false;
     this.invalidEmail = false;
     this.invalidPassword = false;
-    this.submitDisabled = true;
     // Handle changes to the form before submitting it
     this.handleFormChanges();
     // Mark all form fields as touched before submitting
@@ -104,9 +103,9 @@ export class LoginComponent implements OnDestroy, OnInit {
       return;
     } 
     else {
-      const typedLoginForm: ICredentials = this.form.value;
+      const typedForm: ICredentials = this.form.value;
   
-      this.loginSubscription = this.authService.logIn(typedLoginForm)
+      this.loginSubscription = this.authService.logIn(typedForm)
         .subscribe(
           // Successful processing connection
           data => {
@@ -162,6 +161,7 @@ export class LoginComponent implements OnDestroy, OnInit {
           }
         );
     }
+    this.submitDisabled = true;
 
   }
 
