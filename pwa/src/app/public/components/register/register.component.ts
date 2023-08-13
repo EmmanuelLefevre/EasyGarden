@@ -227,16 +227,16 @@ export class RegisterComponent implements OnDestroy, OnInit {
         if (control.errors['strongPassword']) {
           const strongPasswordErrors = control.errors['strongPassword'];
           if (strongPasswordErrors['missingUpperCase']) {
-            return 'Le mot de passe doit contenir au moins une majuscule.';
+            return 'Le mot de passe doit contenir une majuscule.';
           }
           if (strongPasswordErrors['missingLowerCase']) {
-            return 'Le mot de passe doit contenir au moins une minuscule.';
+            return 'Le mot de passe doit contenir une minuscule.';
           }
           if (strongPasswordErrors['missingNumber']) {
-            return 'Le mot de passe doit contenir au moins un nombre.';
+            return 'Le mot de passe doit contenir un nombre.';
           }
           if (strongPasswordErrors['missingSpecialChar']) {
-            return 'Le mot de passe doit contenir au moins un caractère spécial.';
+            return 'Le mot de passe doit contenir un caractère spécial.';
           }
         }
       }
