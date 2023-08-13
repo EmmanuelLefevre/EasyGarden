@@ -102,7 +102,8 @@ export class LoginComponent implements OnDestroy, OnInit {
     this.markAllFieldsAsTouched();
     if (this.loginForm.invalid) {
       return;
-    } else {
+    } 
+    else {
       const typedLoginForm: ICredentials = this.loginForm.value;
   
       this.loginSubscription = this.authService.logIn(typedLoginForm)
@@ -118,7 +119,8 @@ export class LoginComponent implements OnDestroy, OnInit {
                       `Votre compte n'a pas encore été activé grâce au lien dans l'email qui vous a été envoyé!`
                       ,'orange-alert'
                     );
-                  } else if (response.message === 'Account is verified!') {
+                  } 
+                  else if (response.message === 'Account is verified!') {
                     this.tokenService.saveToken(data.token);
                     this.router.navigate(['easygarden']);
                     this.snackbarService.showNotification(
@@ -141,7 +143,8 @@ export class LoginComponent implements OnDestroy, OnInit {
               if (error.error.message === 'Invalid password!') {
                 this.invalidPassword = true;
                 this.errorPasswordMessage = "Mot de passe incorrect!";
-              } else if (error.error.message === 'No existing email!') {
+              } 
+              else if (error.error.message === 'No existing email!') {
                 this.invalidCredentials = true;
                 this.errorPasswordMessage = "";
                 this.snackbarService.showNotification(
@@ -149,7 +152,8 @@ export class LoginComponent implements OnDestroy, OnInit {
                   'red-alert'
                 );
               }
-            } else {
+            } 
+            else {
               this.snackbarService.showNotification(
                 `Une erreur s'est produite lors de la connexion!`,
                 'red-alert'
