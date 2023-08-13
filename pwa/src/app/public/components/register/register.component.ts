@@ -41,6 +41,10 @@ export class RegisterComponent implements OnDestroy {
     this.visible = !this.visible;
   }
 
+  // Buttons
+  resetDisabled: boolean;
+  submitDisabled: boolean;
+
   // RegisterForm Group
   registerForm = this.formBuilder.group({
     email: [
@@ -104,7 +108,11 @@ export class RegisterComponent implements OnDestroy {
               private formBuilder: UntypedFormBuilder,
               private registerService: RegisterService,
               private router: Router,
-              private snackbarService: SnackbarService) {}
+              private snackbarService: SnackbarService) {
+
+    this.resetDisabled = true;
+    this.submitDisabled = true;
+  }
 
   ngOnDestroy(): void {
     // Clean up subscriptions
@@ -117,6 +125,7 @@ export class RegisterComponent implements OnDestroy {
 
   // Submit
   onSubmit() {
+    this.submitDisabled = true;
     if (this.registerForm.invalid) {
       return;
     }
