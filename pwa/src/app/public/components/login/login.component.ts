@@ -49,7 +49,6 @@ export class LoginComponent implements OnDestroy, OnInit {
   isPasswordEmpty!: boolean;
 
   // Form alerts
-  errorMessage: string = '';
   errorPasswordMessage: string = '';
   invalidCredentials: boolean = false;
   invalidEmail: boolean = false;
@@ -216,7 +215,6 @@ export class LoginComponent implements OnDestroy, OnInit {
 
   // Manage changes in login form
   private handleFormChanges(): void {
-    this.errorMessage = "";
     this.errorPasswordMessage = "";
     this.invalidCredentials = false;
     this.invalidEmail = false;
