@@ -193,12 +193,16 @@
         <div class="div-form-button">
           <button type="submit"
                   aria-label="Bouton s'inscrire'"
-                  class="button-shadow">S'inscrire
+                  class="button-shadow"
+                  [ngClass]="{'disabled-submit-button': submitDisabled}"
+                  [disabled]="submitDisabled">S'inscrire
           </button>
           <button (click)="onReset(formDirective)"
                   type="button"
                   aria-label="Bouton effacer le formulaire" 
-                  class="button-shadow cancel">Annuler
+                  class="button-shadow cancel"
+                  [ngClass]="{'disabled-reset-button': resetDisabled}"
+                  [disabled]="resetDisabled">Annuler
           </button>
         </div>
       </form>
