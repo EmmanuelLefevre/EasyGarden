@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl, ValidatorFn } from '@angular/forms';
 
+// Modele
+import { IPasswordErrors } from './../../_interfaces/IPasswordErrors';
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -34,15 +38,42 @@ export class FormValidationService {
   }
 
   strongPassword(): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: boolean } | null => {
+    return (control: AbstractControl): IPasswordErrors | null => {
       if (control.value == '') return null;
 
-      let re = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[:;.~µ!?§@#$%^&*])[A-Za-z\d:;.~µ!?§@#$%^&*].{7,51}');
-      if (re.test(control.value)) {
-        return null;
-      } else {
-        return { strongPassword: true };
+      const hasUpperCase = /[A-Z]/.test(control.value);
+      const hasLowerCase = /[a-z]/.test(control.value);
+      const hasNumber = /[0-9]/.test(control.value);
+      const hasSpecialChar = /[:;.~µ!?§@#$%^&*]/.test(control.value);
+
+      const errors: IPasswordErrors = {};
+
+      if (!hasUpperCase) {
+        errors.strongPassword = {
+          ...errors.strongPassword,
+          missingUpperCase: true
+        };
       }
+      if (!hasLowerCase) {
+        errors.strongPassword = {
+          ...errors.strongPassword,
+          missingLowerCase: true
+        };
+      }
+      if (!hasNumber) {
+        errors.strongPassword = {
+          ...errors.strongPassword,
+          missingNumber: true
+        };
+      }
+      if (!hasSpecialChar) {
+        errors.strongPassword = {
+          ...errors.strongPassword,
+          missingSpecialChar: true
+        };
+      }
+
+      return errors.strongPassword ? { strongPassword: errors.strongPassword } : null;
     };
   }
     
