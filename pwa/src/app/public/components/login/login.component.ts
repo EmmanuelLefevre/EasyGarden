@@ -55,7 +55,7 @@ export class LoginComponent implements OnDestroy, OnInit {
   invalidEmail: boolean = false;
   invalidPassword: boolean = false;
   // LoginForm Group
-  loginForm = this.formBuilder.group({
+  form = this.formBuilder.group({
     email: [
       '',
       [
@@ -81,7 +81,7 @@ export class LoginComponent implements OnDestroy, OnInit {
 
   ngOnInit(): void {
     // Subscribe to login form control input changes
-    this.loginFormSubscription = this.loginForm.valueChanges.subscribe(() => {
+    this.loginFormSubscription = this.form.valueChanges.subscribe(() => {
       this.handleFormChanges();
     });
   }
@@ -91,6 +91,7 @@ export class LoginComponent implements OnDestroy, OnInit {
     this.unsubscribeAll();
   }
 
+  // Submit form
   onSubmit() {
     this.invalidCredentials = false;
     this.invalidEmail = false;
@@ -100,17 +101,17 @@ export class LoginComponent implements OnDestroy, OnInit {
     this.handleFormChanges();
     // Mark all form fields as touched before submitting
     this.markAllFieldsAsTouched();
-    if (this.loginForm.invalid) {
+    if (this.form.invalid) {
       return;
     } 
     else {
-      const typedLoginForm: ICredentials = this.loginForm.value;
+      const typedLoginForm: ICredentials = this.form.value;
   
       this.loginSubscription = this.authService.logIn(typedLoginForm)
         .subscribe(
           // Successful processing connection
           data => {
-            const email = this.loginForm.value.email;
+            const email = this.form.value.email;
             this.accountVerificationSubscription = this.authService.isAccountVerified(email)
               .subscribe(
                 (response: any) => {
@@ -167,8 +168,8 @@ export class LoginComponent implements OnDestroy, OnInit {
 
   // Handle event when focus is removed from a form field
   onInputFocusOut(inputName: string): void {
-    const emailControl = this.loginForm.get('email');
-    const passwordControl = this.loginForm.get('password');
+    const emailControl = this.form.get('email');
+    const passwordControl = this.form.get('password');
     if ((inputName === 'email' || inputName === 'password') && emailControl && passwordControl) {
       if (emailControl.invalid && (emailControl.touched || emailControl.pristine)) {
         emailControl.markAsDirty();
@@ -182,7 +183,7 @@ export class LoginComponent implements OnDestroy, OnInit {
 
   // Reset login form
   onReset(formDirective: any): void {
-    this.loginForm.reset();
+    this.form.reset();
     formDirective.resetForm();
     this.handleFormChanges();
     this.resetDisabled = true;
@@ -190,7 +191,7 @@ export class LoginComponent implements OnDestroy, OnInit {
 
   // Get the error message associated with a specific form field
   getErrorMessage(inputName: string): string {
-    const control = this.loginForm.get(inputName);
+    const control = this.form.get(inputName);
     // Check control exists (not null) and there are validation errors.
     if (control?.errors) {
       if (inputName === 'email') {
@@ -203,7 +204,8 @@ export class LoginComponent implements OnDestroy, OnInit {
         if (control.errors['validEmail']) {
           return 'L\'email doit contenir un "." + nom de domaine!';
         }
-      } else if (inputName === 'password') {
+      } 
+      else if (inputName === 'password') {
         if (control.errors['required']) {
           return 'Veuillez saisir un mot de passe!';
         }
@@ -220,18 +222,18 @@ export class LoginComponent implements OnDestroy, OnInit {
     this.invalidEmail = false;
     this.invalidPassword = false;
     // Check if email and password fields are empty
-    this.isEmailEmpty = this.loginForm.get('email')?.value === '';
-    this.isPasswordEmpty = this.loginForm.get('password')?.value === '';
+    this.isEmailEmpty = this.form.get('email')?.value === '';
+    this.isPasswordEmpty = this.form.get('password')?.value === '';
     // Disable reset button based on empty fields
     this.resetDisabled = this.isEmailEmpty && this.isPasswordEmpty;
     // Disable submit button if form is invalid
-    this.submitDisabled = !this.loginForm.valid;
+    this.submitDisabled = !this.form.valid;
   }
 
   // Mark all form fields as "touched"
   private markAllFieldsAsTouched(): void {
-    for (const controlName in this.loginForm.controls) {
-      const control = this.loginForm.get(controlName);
+    for (const controlName in this.form.controls) {
+      const control = this.form.get(controlName);
       // Check if control exists (not null or undefined)
       if (control) {
         // Mark control as "touched" to trigger validations and associated errors
