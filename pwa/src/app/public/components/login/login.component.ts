@@ -54,6 +54,7 @@ export class LoginComponent implements OnDestroy, OnInit {
   invalidEmail: boolean = false;
   invalidPassword: boolean = false;
   // LoginForm Group
+  submittedForm: boolean  = false;
   form = this.formBuilder.group({
     email: [
       '',
@@ -80,9 +81,10 @@ export class LoginComponent implements OnDestroy, OnInit {
 
   ngOnInit(): void {
     // Subscribe to login form control input changes
-    this.loginFormSubscription = this.form.valueChanges.subscribe(() => {
-      this.handleFormChanges();
-    });
+    this.loginFormSubscription = this.form.valueChanges
+      .subscribe(() => {
+        this.handleFormChanges();
+      });
   }
               
   ngOnDestroy(): void {
@@ -97,8 +99,6 @@ export class LoginComponent implements OnDestroy, OnInit {
     this.invalidPassword = false;
     // Handle changes to the form before submitting it
     this.handleFormChanges();
-    // Mark all form fields as touched before submitting
-    this.markAllFieldsAsTouched();
     if (this.form.invalid) {
       return;
     } 
@@ -162,23 +162,8 @@ export class LoginComponent implements OnDestroy, OnInit {
         );
     }
     this.submitDisabled = true;
-
+    this.submittedForm = true;
   }
-
-  // Handle event when focus is removed from a form field
-  onInputFocusOut(inputName: string): void {
-    const emailControl = this.form.get('email');
-    const passwordControl = this.form.get('password');
-    if ((inputName === 'email' || inputName === 'password') && emailControl && passwordControl) {
-      if (emailControl.invalid && (emailControl.touched || emailControl.pristine)) {
-        emailControl.markAsDirty();
-      }
-      if (passwordControl.invalid && (passwordControl.touched || passwordControl.pristine)) {
-        passwordControl.markAsDirty();
-      }
-    }
-  }
-  
 
   // Reset login form
   onReset(formDirective: any): void {
@@ -226,17 +211,27 @@ export class LoginComponent implements OnDestroy, OnInit {
     this.resetDisabled = this.isEmailEmpty && this.isPasswordEmpty;
     // Disable submit button if form is invalid
     this.submitDisabled = !this.form.valid;
-  }
-
-  // Mark all form fields as "touched"
-  private markAllFieldsAsTouched(): void {
-    for (const controlName in this.form.controls) {
-      const control = this.form.get(controlName);
-      // Check if control exists (not null or undefined)
-      if (control) {
-        // Mark control as "touched" to trigger validations and associated errors
-        control.markAsTouched();
-      }
+    // Remove/Add 'invalid-feedback' class from email input
+    const emailInput = document.getElementById('emailInput');
+    if (this.submittedForm 
+        && this.form.get('email')?.dirty
+        && this.form.get('email')?.valid) {
+        emailInput!.classList.remove('invalid-feedback');
+    }
+    else if (this.form.get('email')?.invalid
+             && this.form.get('email')?.dirty) {
+      emailInput!.classList.add('invalid-feedback');
+    }
+    // Remove/Add 'invalid-feedback' class from password input
+    const passwordInput = document.getElementById('passwordInput');
+    if (this.submittedForm 
+        && this.form.get('password')?.dirty
+        && this.form.get('password')?.valid) {
+        passwordInput!.classList.remove('invalid-feedback');
+    }
+    else if (this.form.get('password')?.invalid
+             && this.form.get('password')?.dirty) {
+      passwordInput!.classList.add('invalid-feedback');
     }
   }
   
