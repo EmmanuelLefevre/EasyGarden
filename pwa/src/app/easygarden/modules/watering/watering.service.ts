@@ -56,7 +56,7 @@ export class WateringService {
 
   // Get redirection
   getRedirectUrl(): string {
-    return '/easygarden/watering/';
+    return '/easygarden/watering';
   }
   
 }
