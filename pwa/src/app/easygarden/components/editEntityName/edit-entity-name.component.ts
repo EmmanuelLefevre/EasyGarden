@@ -244,12 +244,7 @@ export class EditEntityNameComponent implements OnDestroy, OnInit {
     // Check if name field is empty
     this.isNameEmpty = this.form.get('name')?.value === '';
     // Disable reset button based on empty field
-    if (this.isNameEmpty) {
-      this.resetDisabled = true;
-    }
-    else {
-      this.resetDisabled = false;
-    }
+    this.resetDisabled = this.isNameEmpty;
     // Disable submit button if form is invalid
     this.submitDisabled = !this.form.valid;
   }
