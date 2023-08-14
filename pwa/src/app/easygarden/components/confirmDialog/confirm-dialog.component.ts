@@ -30,12 +30,32 @@ export class ConfirmDialogComponent implements OnInit {
   onConfirm(): void {
     this.dialogRef.close(true);
     // Snackbar
-    if (this.router.url === '/easygarden') {
-      this.snackbarService.showNotification(`Le jardin "${this.value}" a bien 
-        été supprimé ainsi que tous ses équipements.`, 'deleted');
+    const url = window.location.href;
+    let notificationMessage: string;
+    let equipmentString: string;
+
+    const cases = [
+      { urlPart: '/easygarden/lawnmower', string: `La tondeuse` },
+      { urlPart: '/easygarden/lightning', string: `L'éclairage` },
+      { urlPart: '/easygarden/pool', string: `L'équipement de bassin` },
+      { urlPart: '/easygarden/portal', string: `Le portail` },
+      { urlPart: '/easygarden/watering', string: `L'arrosage` },
+      { urlPart: '/easygarden', string: `Le jardin` }
+    ];
+
+    const matchedCase = cases.find(item => url.includes(item.urlPart));
+
+    if (matchedCase) {
+      equipmentString = matchedCase.string;
+
+      if (this.router.url === '/easygarden') {
+        notificationMessage = `${equipmentString} "${this.value}" a bien été supprimé ainsi que tous ses équipements.`;
+      }
+      else {
+        notificationMessage = `${equipmentString} "${this.value}" a bien été supprimé.`;
+      }
+      this.snackbarService.showNotification(notificationMessage, 'deleted');
     }
-    else this.snackbarService.showNotification(`L\'équipement "${this.value}" 
-      a bien été supprimé.`, 'deleted');
   }
 
   onDismiss(): void {
@@ -53,3 +73,20 @@ export class IConfirmDialog {
   }
 
 }
+
+
+// if (matchedCase) {
+//   equipmentString = matchedCase.string;
+
+//   if (this.router.url === '/easygarden/lawnmower'
+//                           || '/easygarden/lightning'
+//                           || '/easygarden/pool'
+//                           || '/easygarden/portal'
+//                           || '/easygarden/watering') {
+//     notificationMessage = `${equipmentString} "${this.value}" a bien été supprimé.`;
+//   }
+//   else {
+//     notificationMessage = `${equipmentString} "${this.value}" a bien été supprimé ainsi que tous ses équipements.`;
+//   }
+//   this.snackbarService.showNotification(notificationMessage, 'deleted');
+// }
