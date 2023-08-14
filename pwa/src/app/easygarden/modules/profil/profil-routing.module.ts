@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
-import { ProfilComponent } from './components/profil/profil.component';
+import { ProfilComponent } from './profil.component';
 
 const name = environment.application.name;
 
