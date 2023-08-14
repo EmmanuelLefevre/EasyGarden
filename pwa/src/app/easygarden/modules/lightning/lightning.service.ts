@@ -53,7 +53,7 @@ export class LightningService {
 
   // Get redirection
   getRedirectUrl(): string {
-    return '/easygarden/lightning/';
+    return '/easygarden/lightning';
   }
 
 }
