@@ -54,7 +54,7 @@ export class PortalService {
 
   // Get redirection
   getRedirectUrl(): string {
-    return '/easygarden/portal/';
+    return '/easygarden/portal';
   }
 
 }
