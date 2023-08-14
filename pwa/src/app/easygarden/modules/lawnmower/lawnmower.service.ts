@@ -54,7 +54,7 @@ export class LawnmowerService {
 
   // Get redirection
   getRedirectUrl(): string {
-    return '/easygarden/lawnmower/';
+    return '/easygarden/lawnmower';
   }
 
 }
