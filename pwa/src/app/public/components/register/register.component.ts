@@ -103,7 +103,7 @@ export class RegisterComponent implements OnDestroy, OnInit {
       [
         Validators.required,
         Validators.minLength(3),
-        Validators.maxLength(20),
+        Validators.maxLength(25),
         this.customValidator.validPseudo()
       ]
     ],
@@ -284,7 +284,7 @@ export class RegisterComponent implements OnDestroy, OnInit {
           return 'Le pseudo doit contenir 3 caractères minimum.';
         }
         if (control.errors['maxlength']) {
-          return 'Le pseudo ne peut excéder 20 caractères.';
+          return 'Le pseudo ne peut excéder 25 caractères.';
         }
         if (control.errors['validName']) {
           return 'Le pseudo ne peut contenir que des chiffres et lettres!';
