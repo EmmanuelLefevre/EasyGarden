@@ -60,7 +60,7 @@ export class AppComponent implements OnInit {
     )
   }
 
-  getChild(activatedRoute: ActivatedRoute): any {
+  private getChild(activatedRoute: ActivatedRoute): any {
     if (activatedRoute.firstChild) {
       return this.getChild(activatedRoute.firstChild);
     } else {
