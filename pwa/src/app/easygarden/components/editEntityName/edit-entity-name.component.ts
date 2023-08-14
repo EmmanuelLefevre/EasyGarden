@@ -1,6 +1,6 @@
-import { Component, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 // Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip in style.scss
-import { AbstractControl, UntypedFormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subject, Subscription, takeUntil } from 'rxjs';
 // Environment
@@ -24,18 +24,27 @@ import { IName } from '../../_interfaces/IName';
   encapsulation: ViewEncapsulation.None
 })
 
-export class EditEntityNameComponent implements OnDestroy {
+export class EditEntityNameComponent implements OnDestroy, OnInit {
 
   name = environment.application.name;
 
   // Declaration of subscriptions
   private getDataSubscription: Subscription = new Subscription();
   private updateDataSubscription!: Subscription;
+  private updateDataFormSubscription!: Subscription;
   // Private Subject to handle component destruction
   private destroy$ = new Subject<void>();
 
-  // EditWateringForm Group
-  editName = this.formBuilder.group({
+  // Buttons
+  resetDisabled: boolean;
+  submitDisabled: boolean;
+  isNameEmpty!: boolean;
+
+  // Form alerts
+  invalidName: boolean = false;
+  // Form group
+  submittedForm: boolean  = false;
+  form = this.formBuilder.group({
     name:
       [
         null as IName | null,
@@ -116,6 +125,16 @@ export class EditEntityNameComponent implements OnDestroy {
         });
     }
 
+    this.resetDisabled = true;
+    this.submitDisabled = true;
+  }
+
+  ngOnInit(): void {
+    // Subscribe to form control input changes
+    this.updateDataFormSubscription = this.form.valueChanges
+      .subscribe(() => {
+        this.handleFormChanges();
+      });
   }
 
   ngOnDestroy(): void {
@@ -126,83 +145,117 @@ export class EditEntityNameComponent implements OnDestroy {
     this.unsubscribeAll();
   }
 
-  get f(): { [key: string]: AbstractControl } {
-    return this.editName.controls;
-  }
-
-  // Submit
+  // Submit form
   onSubmit() {
-    if (!this.editName.valid) {
+    // Handle changes to the form before submitting it
+    this.handleFormChanges();
+    if (!this.form.valid) {
       return;
     }
-
-    const formValue: IName = this.editName.getRawValue();
-    const id = Number(this.activated.snapshot.paramMap.get('id'));
-    const url = window.location.href;
-    let service: any;
-    let gardenCase: string;
-
-    if (url.includes('/easygarden/garden/edit/')) {
-      service = this.gardenService;
-      gardenCase = `Le jardin`;
-    } 
-    else if (url.includes('/easygarden/lawnmower/edit/')) {
-      service = this.lawnmowerService;
-    } 
-    else if (url.includes('/easygarden/lightning/edit/')) {
-      service = this.lightningService;
-    }
-    else if (url.includes('/easygarden/pool/edit/')) {
-      service = this.poolService;
-    } 
-    else if (url.includes('/easygarden/portal/edit/')) {
-      service = this.portalService;
-    } 
-    else if (url.includes('/easygarden/watering/edit/')) {
-      service = this.wateringService;
-    }
+    else {
+      const typedForm: IName = this.form.getRawValue();
+      const id = Number(this.activated.snapshot.paramMap.get('id'));
+      const url = window.location.href;
+      let service: any;
+      let gardenCase: string;
   
-    if (service) {
-      this.updateDataSubscription = service.updateData(formValue, id)
-        .subscribe(() => {
-          const name = url.includes('/easygarden/garden/edit/') ? gardenCase : "L'équipement";
-          const newName = formValue.name;
-          let notificationMessage = `${name} "${this.IName.name}" a bien été renommé en "${newName}".`;
-
-          const redirectUrl = service.getRedirectUrl();
-          if (gardenCase) {
-            if (redirectUrl === null) {
-              this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => { 
-                this.snackbarService.showNotification(notificationMessage, 'modified');
-                this.router.navigate(['/easygarden']);
-              });
+      if (url.includes('/easygarden/garden/edit/')) {
+        service = this.gardenService;
+        gardenCase = `Le jardin`;
+      } 
+      else if (url.includes('/easygarden/lawnmower/edit/')) {
+        service = this.lawnmowerService;
+      } 
+      else if (url.includes('/easygarden/lightning/edit/')) {
+        service = this.lightningService;
+      }
+      else if (url.includes('/easygarden/pool/edit/')) {
+        service = this.poolService;
+      } 
+      else if (url.includes('/easygarden/portal/edit/')) {
+        service = this.portalService;
+      } 
+      else if (url.includes('/easygarden/watering/edit/')) {
+        service = this.wateringService;
+      }
+    
+      if (service) {
+        this.updateDataSubscription = service.updateData(typedForm, id)
+          .subscribe(() => {
+            const name = url.includes('/easygarden/garden/edit/') ? gardenCase : "L'équipement";
+            const newName = typedForm.name;
+            let notificationMessage = `${name} "${this.IName.name}" a bien été renommé en "${newName}".`;
+  
+            const redirectUrl = service.getRedirectUrl();
+            if (gardenCase) {
+              if (redirectUrl === null) {
+                this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => { 
+                  this.snackbarService.showNotification(notificationMessage, 'modified');
+                  this.router.navigate(['/easygarden']);
+                });
+              }
+              else {
+                this.router.navigateByUrl(redirectUrl).then(() => {
+                  this.snackbarService.showNotification(notificationMessage, 'modified');
+                });
+              }
             }
             else {
-              this.router.navigateByUrl(redirectUrl).then(() => {
-                this.snackbarService.showNotification(notificationMessage, 'modified');
-              });
+              this.router.navigate([service.getRedirectUrl()]);
+              this.snackbarService.showNotification(notificationMessage, 'modified');
             }
-          }
-          else {
-            this.router.navigate([service.getRedirectUrl()]);
-            this.snackbarService.showNotification(notificationMessage, 'modified');
-          }
-        });
+          });
+      }
     }
   }
 
-  // Cancel button
+  // Reset form
   onReset(formDirective: any): void {
-    this.editName.reset();
+    this.form.reset();
     formDirective.resetForm();
+    this.handleFormChanges();
+    this.resetDisabled = true;
+  }
+
+  // Get the error message associated with a specific form field
+  getErrorMessage(inputName: string): string {
+    const control = this.form.get(inputName);
+    // Check control exists (not null) and there are validation errors.
+    if (control?.errors && inputName === 'name') {
+      if (control.errors['required']) {
+        return 'Veuillez saisir un nom!';
+      }
+      if (control.errors['minlength']) {
+        return 'Le nom doit contenir 3 caractères minimum.';
+      }
+      if (control.errors['maxlength']) {
+        return 'Le nom ne peut excéder 25 caractères.';
+      }
+      if (control.errors['validEquipmentName']) {
+        return 'Le nom ne peut contenir de caractères spéciaux!';
+      }
+    }
+    return '';
+  }
+
+  // Manage changes in form
+  private handleFormChanges(): void {
+    this.invalidName = false;
+    // Check if name field is empty
+    this.isNameEmpty = this.form.get('email')?.value === '';
+    // Disable reset button based on empty/not selected fields
+    this.resetDisabled = this.isNameEmpty;
+    // Disable submit button if form is invalid
+    this.submitDisabled = !this.form.valid;
   }
 
   private unsubscribeAll(): void {
     this.getDataSubscription.unsubscribe();
-    console.log('getDataSubscription s\'est désabonnée avec succès.');
     if (this.updateDataSubscription) {
       this.updateDataSubscription.unsubscribe();
-      console.log('updateDataSubscription s\'est désabonnée avec succès.');
+    }
+    if (this.updateDataFormSubscription) {
+      this.updateDataFormSubscription.unsubscribe();
     }
   }
 
