@@ -7,11 +7,11 @@ import { faEye, faEyeSlash, faPen } from '@fortawesome/free-solid-svg-icons';
 import { MatDialog } from '@angular/material/dialog';
 import { IConfirmDialog, ConfirmDialogComponent } from 'src/app/easygarden/components/confirmDialog/confirm-dialog.component';
 
-import { FormValidationService } from '../../../../../_services/miscellaneous/form-validation.service';
-import { ProfilService } from '../../profil.service';
-import { TokenService } from '../../../../../_services/auth/token.service';
+import { FormValidationService } from '../../../_services/miscellaneous/form-validation.service';
+import { ProfilService } from './profil.service';
+import { TokenService } from '../../../_services/auth/token.service';
 
-import { IUser } from '../../../../../_interfaces/IUser';
+import { IUser } from '../../../_interfaces/IUser';
 
 
 @Component({

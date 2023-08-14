@@ -7,7 +7,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { ProfilRoutingModule } from './profil-routing.module';
-import { ProfilComponent } from './components/profil/profil.component';
+import { ProfilComponent } from './profil.component';
 
 
 @NgModule({
