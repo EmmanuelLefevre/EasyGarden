@@ -51,8 +51,8 @@ class PseudoValidator
                                                               Response::HTTP_BAD_REQUEST) : false;
 
             // Max lenght
-            case strlen($pseudo) > 20:
-                return $returnJsonResponse ? new JsonResponse(['error' => 'Pseudo cannnot exceed 20 characters!'], 
+            case strlen($pseudo) > 25:
+                return $returnJsonResponse ? new JsonResponse(['error' => 'Pseudo cannnot exceed 25 characters!'], 
                                                               Response::HTTP_BAD_REQUEST) : false;
             
             // Authorized character
