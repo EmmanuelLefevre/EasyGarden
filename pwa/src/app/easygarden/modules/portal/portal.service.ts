@@ -57,5 +57,4 @@ export class PortalService {
     return '/easygarden/portal/';
   }
 
-
 }
