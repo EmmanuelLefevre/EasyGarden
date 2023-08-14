@@ -14,7 +14,7 @@
         <p class="p-form-title-content">MODIFIER</p>
       </div>
 
-      <form [formGroup]="editName" 
+      <form [formGroup]="form" 
             (ngSubmit)="onSubmit()"
             #ngForm="ngForm"
             #formDirective="ngForm"
@@ -22,42 +22,37 @@
         <label class="visually-hidden" for="name">Nom</label>
         <input formControlName="name"
                name="name"
-               inputTrim
                inputFocus
+               inputTrim
                inputTitleCase
                id="name"
                type="text"
                spellcheck="false"
                autocomplete="off"
                class="input-inset-shadow"
-               [ngClass]="{ 'invalid-feedback': ngForm.submitted && (f['name'].errors || ngForm.invalid) }"
-               value={{value}}>
-        <ng-container *ngIf="ngForm.submitted && (f['name'].errors || ngForm.invalid)">
-          <div class="text-alert" 
-               *ngIf="ngForm.invalid">Le formulaire est invalide!
-          </div>
-          <div class="text-alert" 
-               *ngIf="f['name'].errors && f['name'].errors['required']">Veuillez saisir un nom!
-          </div>
-          <div class="text-alert" 
-               *ngIf="f['name'].errors && f['name'].errors['minlength']">Le nom doit contenir au minimum 3 caractères.
-          </div>
-          <div class="text-alert" 
-               *ngIf="f['name'].errors && f['name'].errors['maxlength']">Le nom doit contenir au maximum 25 caractères.
-          </div>
-          <div class="text-alert" 
-               *ngIf="f['name'].errors && f['name'].errors['validEquipmentName']">Le nom ne peut contenir de caractères spéciaux!
+               value={{value}}
+               [ngClass]="{ 'invalid-feedback': (form.get('name')?.invalid 
+                                                 && form.get('name')?.dirty)
+                                                 || invalidName }">
+        <ng-container *ngIf="form.get('name')?.dirty 
+                             && getErrorMessage('name') !== ''">
+          <div class="text-alert">
+            {{ getErrorMessage('name') }}
           </div>
         </ng-container>
         <div class="div-form-button">
           <button type="submit"
                   class="button-shadow"
-                  aria-label="Bouton modifier le nom d'un arrosage">Modifier
+                  aria-label="Bouton modifier le nom d'un arrosage"
+                  [ngClass]="{'disabled-submit-button': submitDisabled}"
+                  [disabled]="submitDisabled">Modifier
           </button>
           <button (click)="onReset(formDirective)"
                   type="button"
                   aria-label="Bouton effacer le formulaire" 
-                  class="button-shadow cancel">Annuler
+                  class="button-shadow cancel"
+                  [ngClass]="{'disabled-reset-button': resetDisabled}"
+                  [disabled]="resetDisabled">Annuler
           </button>
         </div>
       </form>
