@@ -124,60 +124,58 @@ export class AddEntityComponent implements OnInit, OnDestroy {
       const typedForm: IAdd = this.form.getRawValue();
       const url = window.location.href;
       let service: any;
-      let gardenCase: string;
-  
-      if (url.includes('/easygarden/garden/add')) {
-        service = this.gardenService;
-        gardenCase = `Le jardin`;
-      } 
-      else if (url.includes('/easygarden/lawnmower/add')) {
-        service = this.lawnmowerService;
-      } 
-      else if (url.includes('/easygarden/lightning/add')) {
-        service = this.lightningService;
-      }
-      else if (url.includes('/easygarden/pool/add')) {
-        service = this.poolService;
-      } 
-      else if (url.includes('/easygarden/portal/add')) {
-        service = this.portalService;
-      } 
-      else if (url.includes('/easygarden/watering/add')) {
-        service = this.wateringService;
-      }
-  
-      if (service) {
-        this.addDataSubscription = service.addData(typedForm)
-          .subscribe(() => {
-            const name = url.includes('/easygarden/garden/add') ? gardenCase : "L'équipement";
-            const gardenName = typedForm.garden?.name;
-            let notificationMessage = `${name} "${typedForm.name}" a bien été ajouté.`;
-  
+      let notificationMessage: string;
+      let equipmentString: string;
+
+      const equipmentCases = [
+        { urlPart: '/easygarden/garden/add', service: this.gardenService, string: `Le jardin` },
+        { urlPart: '/easygarden/lawnmower/add', service: this.lawnmowerService, string: `La tondeuse` },
+        { urlPart: '/easygarden/lightning/add', service: this.lightningService, string: `L'éclairage` },
+        { urlPart: '/easygarden/pool/add', service: this.poolService, string: `L'équipement de bassin` },
+        { urlPart: '/easygarden/portal/add', service: this.portalService, string: `Le portail` },
+        { urlPart: '/easygarden/watering/add', service: this.wateringService, string: `L'arrosage` }
+      ];
+
+      const matchedCase = equipmentCases.find(item => url.includes(item.urlPart));
+
+      if (matchedCase) {
+        service = matchedCase.service;
+        equipmentString = matchedCase.string;
+
+        this.addDataSubscription = service.addData(typedForm).subscribe(() => {
+          const gardenName = typedForm.garden?.name;
+          // Garden case
+          if (url.includes('/easygarden/garden/add')) {
             const redirectUrl = service.getRedirectUrl();
-            if (gardenCase) {
-              if (redirectUrl === null) {
-                this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => { 
-                  this.snackbarService.showNotification(notificationMessage, 'created');
-                  this.router.navigate(['/easygarden']);
-                });
-              }
-              else {
-                this.router.navigateByUrl(redirectUrl).then(() => {
-                  this.snackbarService.showNotification(notificationMessage, 'created');
-                });
-              }
+            if (redirectUrl === null) {
+              this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+                this.router.navigate(['/easygarden']);
+              });
             }
             else {
-              if (gardenName && name !== gardenCase) {
-                notificationMessage = `${name} "${typedForm.name}" a bien été ajouté au jardin "${gardenName}".`;
-              }
-              this.router.navigate([service.getRedirectUrl()]);
-              this.snackbarService.showNotification(notificationMessage, 'created');
+              this.router.navigateByUrl(redirectUrl);
             }
+            notificationMessage = `${equipmentString} "${typedForm.name}" a bien été ajouté.`;
+            this.snackbarService.showNotification(notificationMessage, 'created');
+          }
+          // Equipments case
+          else {
+            if (gardenName) {
+              notificationMessage = `${equipmentString} "${typedForm.name}" a bien été ajouté au jardin "${gardenName}".`;
+            }
+            this.router.navigate([service.getRedirectUrl()]);
+            this.snackbarService.showNotification(notificationMessage, 'created');
+          }
         });
       }
-    }
-  }
+      else {
+        this.snackbarService.showNotification(
+          `Une erreur s'est produite!`,
+          'red-alert'
+        );
+      }
+    } 
+  } 
 
   // Reset form
   onReset(formDirective: any): void {
