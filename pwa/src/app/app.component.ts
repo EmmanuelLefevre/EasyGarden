@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { Router, ResolveStart, ResolveEnd, ActivatedRoute, NavigationEnd } from '@angular/router';
-
-import { faLeaf } from '@fortawesome/free-solid-svg-icons';
 import { filter, mapTo, merge, Observable } from 'rxjs';
-
+// Icons
+import { faLeaf } from '@fortawesome/free-solid-svg-icons';
+// Service
 import { SeoService } from './_services/miscellaneous/seo.service';
 
 
