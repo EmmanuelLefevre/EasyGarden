@@ -218,7 +218,7 @@ export class AddEntityComponent implements OnInit, OnDestroy {
     this.invalidSelect = false;
     this.invalidName = false;
     // Check if name field is empty
-    this.isNameEmpty = this.form.get('email')?.value === '';
+    this.isNameEmpty = this.form.get('name')?.value === '';
     // Check if garden is select
     const selectedGarden = this.form.get('garden')?.value;
     this.isGardenNotSelect = selectedGarden === null || selectedGarden === undefined;
