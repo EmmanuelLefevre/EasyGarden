@@ -127,7 +127,7 @@ export class AddEntityComponent implements OnInit, OnDestroy {
       let notificationMessage: string;
       let equipmentString: string;
 
-      const equipmentCases = [
+      const cases = [
         { urlPart: '/easygarden/garden/add', service: this.gardenService, string: `Le jardin` },
         { urlPart: '/easygarden/lawnmower/add', service: this.lawnmowerService, string: `La tondeuse` },
         { urlPart: '/easygarden/lightning/add', service: this.lightningService, string: `L'éclairage` },
@@ -136,7 +136,7 @@ export class AddEntityComponent implements OnInit, OnDestroy {
         { urlPart: '/easygarden/watering/add', service: this.wateringService, string: `L'arrosage` }
       ];
 
-      const matchedCase = equipmentCases.find(item => url.includes(item.urlPart));
+      const matchedCase = cases.find(item => url.includes(item.urlPart));
 
       if (matchedCase) {
         service = matchedCase.service;
