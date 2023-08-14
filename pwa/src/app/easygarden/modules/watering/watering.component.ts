@@ -143,7 +143,7 @@ export class WateringComponent implements OnInit, OnDestroy {
   // Delete Watering
   confirmDialog(id: number, name: string): void {
     const value = name;
-    const message = `Êtes-vous certain de vouloir supprimer l\'équipement "${name}"?`;
+    const message = `Êtes-vous certain de vouloir supprimer l\'arrosage "${name}"?`;
     const dialogData = new IConfirmDialog("Confirmer l'action!", message, value);
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       maxWidth: "400px",

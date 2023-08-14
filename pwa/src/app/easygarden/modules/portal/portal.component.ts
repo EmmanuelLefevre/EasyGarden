@@ -143,7 +143,7 @@ export class PortalComponent implements OnInit, OnDestroy {
   // Delete Portal
   confirmDialog(id: number, name: string): void {
     const value = name;
-    const message = `Êtes-vous certain de vouloir supprimer l\'équipement "${name}"?`;
+    const message = `Êtes-vous certain de vouloir supprimer le portail "${name}"?`;
     const dialogData = new IConfirmDialog("Confirmer l'action!", message, value);
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       maxWidth: "400px",

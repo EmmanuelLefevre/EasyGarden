@@ -143,7 +143,7 @@ export class LawnmowerComponent implements OnInit, OnDestroy {
   // Delete Lawnmower
   confirmDialog(id: number, name: string): void {
     const value = name;
-    const message = `Êtes-vous certain de vouloir supprimer l\'équipement "${name}"?`;
+    const message = `Êtes-vous certain de vouloir supprimer la tondeuse "${name}"?`;
     const dialogData = new IConfirmDialog(
       "Confirmer l'action!",
       message,
