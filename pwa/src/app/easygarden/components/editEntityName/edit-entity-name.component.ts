@@ -156,55 +156,56 @@ export class EditEntityNameComponent implements OnDestroy, OnInit {
       const typedForm: IName = this.form.getRawValue();
       const id = Number(this.activated.snapshot.paramMap.get('id'));
       const url = window.location.href;
-      let service: any;
+      let equipmentString: string;
       let gardenCase: string;
-  
-      if (url.includes('/easygarden/garden/edit/')) {
-        service = this.gardenService;
-        gardenCase = `Le jardin`;
-      } 
-      else if (url.includes('/easygarden/lawnmower/edit/')) {
-        service = this.lawnmowerService;
-      } 
-      else if (url.includes('/easygarden/lightning/edit/')) {
-        service = this.lightningService;
-      }
-      else if (url.includes('/easygarden/pool/edit/')) {
-        service = this.poolService;
-      } 
-      else if (url.includes('/easygarden/portal/edit/')) {
-        service = this.portalService;
-      } 
-      else if (url.includes('/easygarden/watering/edit/')) {
-        service = this.wateringService;
-      }
+      let notificationMessage: string;
+      let service: any;
     
-      if (service) {
-        this.updateDataSubscription = service.updateData(typedForm, id)
-          .subscribe(() => {
-            const name = url.includes('/easygarden/garden/edit/') ? gardenCase : "L'équipement";
-            const newName = typedForm.name;
-            let notificationMessage = `${name} "${this.IName.name}" a bien été renommé en "${newName}".`;
-  
-            const redirectUrl = service.getRedirectUrl();
-            if (gardenCase) {
-              if (redirectUrl === null) {
-                this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => { 
-                  this.snackbarService.showNotification(notificationMessage, 'modified');
-                  this.router.navigate(['/easygarden']);
-                });
-              }
-              else {
-                this.router.navigateByUrl(redirectUrl).then(() => {
-                  this.snackbarService.showNotification(notificationMessage, 'modified');
-                });
-              }
+      const cases = [
+        { urlPart: '/easygarden/garden/edit/', service: this.gardenService, string: `Le jardin` },
+        { urlPart: '/easygarden/lawnmower/edit/', service: this.lawnmowerService, string: `La tondeuse` },
+        { urlPart: '/easygarden/lightning/edit/', service: this.lightningService, string: `L'éclairage` },
+        { urlPart: '/easygarden/pool/edit/', service: this.poolService, string: `L'équipement de bassin` },
+        { urlPart: '/easygarden/portal/edit/', service: this.portalService, string: `Le portail` },
+        { urlPart: '/easygarden/watering/edit/', service: this.wateringService, string: `L'arrosage` }
+      ];
+    
+      const matchedCase = cases.find(item => url.includes(item.urlPart));
+    
+      if (matchedCase) {
+        service = matchedCase.service;
+        equipmentString = matchedCase.string;
+        gardenCase = matchedCase.string;
+    
+        this.updateDataSubscription = service.updateData(typedForm, id).subscribe(() => {
+          const newName = typedForm.name;
+          const redirectUrl = service.getRedirectUrl();
+          // Garden case
+          if (gardenCase) {
+            if (redirectUrl === null) {
+              this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => { 
+                this.router.navigate(['/easygarden']);
+              });
             }
             else {
-              this.router.navigate([service.getRedirectUrl()]);
-              this.snackbarService.showNotification(notificationMessage, 'modified');
+              this.router.navigateByUrl(redirectUrl);
             }
-          });
+            notificationMessage = `${gardenCase} "${this.IName.name}" a bien été renommé en "${newName}".`;
+            this.snackbarService.showNotification(notificationMessage, 'created');
+          }
+          // Equipments case
+          else {
+            this.router.navigate([service.getRedirectUrl()]);
+            notificationMessage = `${equipmentString} "${equipmentString} "${this.IName.name}" a bien été renommé en "${newName}".`;
+            this.snackbarService.showNotification(notificationMessage, 'created');
+          }
+        });
+      }
+      else {
+        this.snackbarService.showNotification(
+          `Une erreur s'est produite!`,
+          'red-alert'
+        );
       }
     }
   }
