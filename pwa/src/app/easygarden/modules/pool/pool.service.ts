@@ -52,7 +52,7 @@ export class PoolService {
 
   // Get redirection
   getRedirectUrl(): string {
-    return '/easygarden/pool/';
+    return '/easygarden/pool';
   }
 
 
