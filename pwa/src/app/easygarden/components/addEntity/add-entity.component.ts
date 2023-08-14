@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 // Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip in style.scss
-import { AbstractControl, NonNullableFormBuilder, Validators } from '@angular/forms';
+import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subject, Subscription, takeUntil } from 'rxjs';
 // Environment
