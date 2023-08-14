@@ -133,7 +133,7 @@ export class FormValidationService {
     return (control: AbstractControl): { [key: string]: boolean } | null => {
       if (control.value == '') return null;
 
-      let re = new RegExp('^([a-zA-Z -()]){3,25}$');
+      let re = new RegExp('^([a-zA-Z0-9 -()]){3,25}$');
       if (re.test(control.value)) {
         return null;
       } else {
