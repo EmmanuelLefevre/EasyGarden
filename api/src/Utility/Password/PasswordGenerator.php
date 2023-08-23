@@ -18,7 +18,7 @@ class PasswordGenerator
         $uppercaseChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $lowercaseChars = 'abcdefghijklmnopqrstuvwxyz';
         $numberChars = '0123456789';
-        $specialChars = '^!@#$%&*£µ@();?":{}\/';
+        $specialChars = '^!@#$%&*£µ@;?":';
         
         $password = '';
         
