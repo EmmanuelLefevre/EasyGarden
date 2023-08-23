@@ -77,19 +77,18 @@ export class ForgottenPasswordComponent implements OnDestroy, OnInit {
       return;
     } 
     else {
-      const typedForm = this.form.value;
+      const email = this.form.value.email;
   
-      this.forgottenPasswordSubscription = this.authService.forgottenPassword(typedForm)
+      this.forgottenPasswordSubscription = this.authService.forgottenPassword(email)
         .subscribe(
           (response: any) => {
-            if (response && response.message === 'New password created!') { 
-              const email = typedForm.email;
+            if (response && response.message === 'New password generated successfully!') {
               this.snackbarService.showNotification(
                 `Le nouveau mot de passe a bien été envoyé à  ` 
                 + email 
                 + `,` 
                 + `\nveuillez vous connecter en utilisant celui-ci.`
-                ,'logIn-logOut'
+                ,'register'
               );
               this.router.navigate(['login']);
             }
