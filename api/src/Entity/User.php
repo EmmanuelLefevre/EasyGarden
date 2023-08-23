@@ -50,7 +50,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups(['read:User'])]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 180, unique: true)]
+    #[ORM\Column(type: 'string', length: 45, unique: true)]
     #[Groups(['read:User',
               'write:User'])]
     private $email;
@@ -59,25 +59,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups(['write:User'])]
     private $roles = [];
 
-    #[ORM\Column(type: 'string', length: 45)]
+    #[ORM\Column(type: 'string', length: 25)]
     #[Groups(['read:User',
               'write:User'])]
     private $firstName;
 
-    #[ORM\Column(type: 'string', length: 45)]
+    #[ORM\Column(type: 'string', length: 25)]
     #[Groups(['read:User',
               'write:User'])]
     private $lastName;
 
     #[SerializedName('password')]
-    #[Assert\Length(max:50)]
     #[Groups(['write:User'])]
     private ?string $plainPassword = null;
 
     #[ORM\Column(type: 'string')]
     private $password;
 
-    #[ORM\Column(type: 'string', length: 45)]
+    #[ORM\Column(type: 'string', length: 25)]
     #[Groups(['read:User',
               'write:User'])]
     private $pseudo;
@@ -102,7 +101,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
               'write:User'])]
     private $isVerified;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', nullable: true, length: 255)]
     private $activationToken;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Garden::class, orphanRemoval: true)]
