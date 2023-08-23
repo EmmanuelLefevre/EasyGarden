@@ -51,8 +51,8 @@ class PhoneNumberValidator
                                                               Response::HTTP_BAD_REQUEST) : false;
 
             // Max lenght
-            case strlen($phoneNumber) > 15:
-                return $returnJsonResponse ? new JsonResponse(['error' => 'Phone number cannnot exceed 15 diggits!'], 
+            case strlen($phoneNumber) > 20:
+                return $returnJsonResponse ? new JsonResponse(['error' => 'Phone number cannnot exceed 20 diggits!'], 
                                                               Response::HTTP_BAD_REQUEST) : false;
             
             // Authorized character
