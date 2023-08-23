@@ -229,6 +229,11 @@ export class LoginComponent implements OnDestroy, OnInit {
       passwordInput!.classList.add('invalid-feedback');
     }
   }
+
+  // Redirection to forgotten password component
+  redirectToForgottenPasswordComponent() {
+    this.router.navigate(['/forgottenPassword']);
+  }
   
   // Unsubscribe subscriptions
   private unsubscribeAll(): void {
