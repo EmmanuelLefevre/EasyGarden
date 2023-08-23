@@ -129,6 +129,8 @@ export class ProfilComponent implements OnInit, OnDestroy {
         '',
         [
           Validators.required,
+          Validators.minLength(8),
+          Validators.maxLength(20),
           this.customValidator.validPhoneNumber()
         ]
       ],
