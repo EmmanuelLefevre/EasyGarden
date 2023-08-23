@@ -78,7 +78,7 @@ class AccountCreationController extends AbstractController
         // Check if a user with the provided email already exists
         $existingUser = $this->userRepository->findByEmail($data['email']);
         if ($existingUser) {
-            return new JsonResponse(['message' => 'Email already exists'], Response::HTTP_CONFLICT);
+            return new JsonResponse(['message' => 'Email already exists!'], Response::HTTP_CONFLICT);
         }
 
         // Create new user with the received JSON
