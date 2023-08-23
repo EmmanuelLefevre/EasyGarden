@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { environment } from 'src/environments/environment';
 // Components
-import { ForgottenPasswordComponent } from './components/forgottenPassword/forgotten-password/forgotten-password.component';
+import { ForgottenPasswordComponent } from './components/forgottenPassword/forgotten-password.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';

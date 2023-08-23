@@ -9,7 +9,7 @@ import { PublicComponentsModule } from '../components/public-components.module';
 // Routing
 import { PublicRoutingModule } from './public-routing.module';
 // Component
-import { ForgottenPasswordComponent } from './components/forgottenPassword/forgotten-password/forgotten-password.component';
+import { ForgottenPasswordComponent } from './components/forgottenPassword/forgotten-password.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
