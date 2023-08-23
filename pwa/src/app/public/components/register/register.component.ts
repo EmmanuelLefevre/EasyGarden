@@ -174,7 +174,7 @@ export class RegisterComponent implements OnDestroy, OnInit {
           },
           (errorResponse) => {
             if (errorResponse.error 
-                && errorResponse.error.message === "Email already exists" 
+                && errorResponse.error.message === "Email already exists!" 
                 && errorResponse.status === 409) {
               this.existingEmail = true;
               this.existingEmailErrorMessage = "Un utilisateur possédant cet email est déjà enregistré!";
