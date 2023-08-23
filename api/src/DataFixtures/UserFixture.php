@@ -58,7 +58,7 @@ class UserFixture extends Fixture
         $admin->setPhoneNumber('05 12 25 48 71');
         $admin->setCreatedAt(new \DateTimeImmutable('now', $timezone));
         $admin->setIsVerified(true);
-        $admin->setActivationToken(FunctionsFixture::generateToken());
+        $admin->setActivationToken(null);
         $manager->persist($admin);
        
         // User Manu
@@ -72,7 +72,7 @@ class UserFixture extends Fixture
         $user1->setPhoneNumber('06 45 91 23 07');
         $user1->setCreatedAt(new \DateTimeImmutable('now', $timezone));
         $user1->setIsVerified(true); 
-        $user1->setActivationToken(FunctionsFixture::generateToken());
+        $user1->setActivationToken(null);
         $manager->persist($user1);
         $this->addReference(self::USER1_REFERENCE , $user1);
 
@@ -87,7 +87,7 @@ class UserFixture extends Fixture
         $user2->setPhoneNumber('07 12 45 75 64');
         $user2->setCreatedAt(new \DateTimeImmutable('now', $timezone));
         $user2->setIsVerified(true); 
-        $user2->setActivationToken(FunctionsFixture::generateToken());
+        $user2->setActivationToken(null);
         $manager->persist($user2);
         $this->addReference(self::USER2_REFERENCE , $user2);
 
@@ -108,10 +108,10 @@ class UserFixture extends Fixture
             $user->setIsVerified($isVerified);
 
             // Generate activation token only if the user is verified
-            if ($isVerified === 1) {
+            if ($isVerified === 0) {
                 $user->setActivationToken(FunctionsFixture::generateToken());
             } else {
-                $user->setActivationToken('');
+                $user->setActivationToken(null);
             }
 
             $manager->persist($user);
