@@ -300,6 +300,12 @@
                        [ngClass]="{ 'invalid-feedback': submitted && phoneNumber['phoneNumber'].errors }">
                 <div *ngIf="submitted && phoneNumber['phoneNumber'].errors">
                   <div class="text-alert" *ngIf="phoneNumber['phoneNumber'].errors['required']">Numéro de téléphone requis!</div>
+                  <div class="text-alert" *ngIf="phoneNumber['phoneNumber'].errors['minlength']">
+                    Le numéro de téléphone doit contenir 8 caractères minimum.
+                    </div>
+                    <div class="text-alert" *ngIf="phoneNumber['phoneNumber'].errors['maxlength']">
+                    Le numéro de téléphone ne peut excéder 20 caractères.
+                    </div>
                   <div class="text-alert" *ngIf="phoneNumber['phoneNumber'].errors['validPhoneNumber']">
                   Format de numéro de téléphone invalide!
                   </div>
