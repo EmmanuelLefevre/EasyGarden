@@ -76,7 +76,7 @@ class ForgottenPasswordController extends AbstractController
         $user = $this->userRepository->findByEmail($email);
         // No user found
         if (!$user) {
-            return new JsonResponse(['message' => 'No existing user!'], Response::HTTP_FORBIDDEN);
+            return new JsonResponse(['message' => 'No existing email!'], Response::HTTP_FORBIDDEN);
         }
 
         // If user found we generate a new password using PasswordGenerator class
