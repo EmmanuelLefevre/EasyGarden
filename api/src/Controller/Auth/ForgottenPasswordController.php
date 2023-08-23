@@ -101,6 +101,6 @@ class ForgottenPasswordController extends AbstractController
         $this->userDataPersister->persist($user);
 
         // Return a success response
-        return new JsonResponse(['message' => 'New password generated successfully'], Response::HTTP_OK);
+        return new JsonResponse(['message' => 'New password generated successfully!'], Response::HTTP_OK);
     }
 }
