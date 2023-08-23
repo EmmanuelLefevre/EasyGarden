@@ -9,8 +9,6 @@ import { environment } from '../../../../environments/environment';
 import { AuthService } from '../../../_services/auth/auth.service';
 import { FormValidationService } from '../../../_services/miscellaneous/form-validation.service';
 import { SnackbarService } from 'src/app/_services/miscellaneous/snackbar.service';
-// Modeles
-import { IEmail } from '../../../_interfaces/IEmail';
 
 
 @Component({
