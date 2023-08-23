@@ -33,3 +33,8 @@ check_if_email_exist:
     path: /api/check_if_email_exist
     methods: ['GET']
     controller: App\Controller\Auth\LoginController::checkIfEmailExist
+
+forgotten_password:
+    path: /api/forgotten_password
+    methods: ['GET', 'POST']
+    controller: App\Controller\Auth\ForgottenPasswordController::generateNewPassword
