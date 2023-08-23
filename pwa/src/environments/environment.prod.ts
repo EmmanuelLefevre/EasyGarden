@@ -12,6 +12,9 @@ export const environment = {
     checkAccountActivation: {
       url: '/api/check_account_activation'
     },
+    forgottenPassword: {
+      url: '/api/forgotten_password'
+    },
     // Register
     register: {
       url: '/api/account_creation'
