@@ -67,7 +67,7 @@
           </div>
         </ng-container>
         <div class="forgotten-password">
-          <a [routerLink]="['forgottenPassword']"
+          <a (click)="redirectToForgottenPasswordComponent()" 
              type="button"           
              aria-label="Bouton menant au formulaire de mot de passe oublié">Mot de passe oublié
           </a>
