@@ -111,6 +111,8 @@ export class RegisterComponent implements OnDestroy, OnInit {
       '',
       [
         Validators.required,
+        Validators.minLength(8),
+        Validators.maxLength(20),
         this.customValidator.validPhoneNumber()
       ]
     ],
@@ -293,6 +295,12 @@ export class RegisterComponent implements OnDestroy, OnInit {
       else if (inputName === 'phoneNumber') {
         if (control.errors['required']) {
           return 'Numéro de téléphone requis!';
+        }
+        if (control.errors['minlength']) {
+          return 'Le numéro de téléphone doit contenir 8 caractères minimum.';
+        }
+        if (control.errors['maxlength']) {
+          return 'Le numéro de téléphone ne peut excéder 20 caractères.';
         }
         if (control.errors['validPhoneNumber']) {
           return 'Format de numéro de téléphone invalide!';
