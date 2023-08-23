@@ -32,6 +32,8 @@ export class ForgottenPasswordComponent implements OnDestroy, OnInit {
   isEmailEmpty!: boolean;
 
   // Form alerts
+  noExistingEmailErrorMessage: string = '';
+  noExistingEmail: boolean = false;
   invalidEmail: boolean = false;
   // Form Group
   submittedForm: boolean  = false;
@@ -93,11 +95,19 @@ export class ForgottenPasswordComponent implements OnDestroy, OnInit {
               this.router.navigate(['login']);
             }
           },
-          (_errorResponse) => {
-            this.snackbarService.showNotification(
-              `Une erreur s'est produite lors de la création du nouveau mot de passe!`
-              ,'red-alert'
-            );
+          (errorResponse) => {
+            if (errorResponse.error 
+              && errorResponse.error.message === "No existing email!" 
+              && errorResponse.status === 403) {
+                this.noExistingEmail = true;
+                this.noExistingEmailErrorMessage = "Aucun utilisateur possédant cet email est enregistré!";
+            }
+            else {
+              this.snackbarService.showNotification(
+                `Une erreur s'est produite lors de la création du nouveau mot de passe!`
+                ,'red-alert'
+              );
+            }
           }
         )
     }
@@ -135,6 +145,7 @@ export class ForgottenPasswordComponent implements OnDestroy, OnInit {
 
   // Manage changes in form
   private handleFormChanges(): void {
+    this.noExistingEmailErrorMessage = "";
     this.invalidEmail = false;
     // Check if email field is empty
     this.isEmailEmpty = this.form.get('email')?.value === '';
