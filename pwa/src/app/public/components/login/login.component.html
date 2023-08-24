@@ -1,94 +1,96 @@
-<div class="div-wrapper ambiance-bg" 
-     id="login-component">
-  <div class="logo-h1">
-    <app-easygarden-logo></app-easygarden-logo>
-    <h1 class="form-title title-form-shadow">{{name}}</h1>
-    <h2 class="visually-hidden">Formulaire de mot de passe oublié</h2>
-  </div>
+<main>
+  <div class="div-wrapper ambiance-bg" 
+       id="login-component">
+    <div class="logo-h1">
+      <app-easygarden-logo></app-easygarden-logo>
+      <h1 class="form-title title-form-shadow">{{name}}</h1>
+      <h2 class="visually-hidden">Formulaire de mot de passe oublié</h2>
+    </div>
+    
+    <div class="animate__animated animate__fadeInDown div-wrapper">
+      <div class="form-content form-border form-shadow">
+        <app-close-form-button></app-close-form-button>
+        <div class="form-title-content">
+          <p class="p-form-title-content">Connexion</p>
+        </div>
   
-  <div class="animate__animated animate__fadeInDown div-wrapper">
-    <div class="form-content form-border form-shadow">
-      <app-close-form-button></app-close-form-button>
-      <div class="form-title-content">
-        <p class="p-form-title-content">Connexion</p>
-      </div>
-
-      <form [formGroup]="form" 
-            #ngForm="ngForm"
-            #formDirective="ngForm"
-            (ngSubmit)="onSubmit()"
-            aria-label="Formulaire de saisie utilisateur">
-        <label class="visually-hidden" for="name">Email</label>
-        <input formControlName="email" 
-               name="email"
-               inputFocus
-               inputTrim
-               type="email"
-               placeholder="Email"
-               spellcheck="false"
-               id="emailInput"
-               class="input-inset-shadow"
-               [ngClass]="{ 'invalid-feedback': (form.get('email')?.invalid 
-                                                && form.get('email')?.dirty )
-                                                || invalidCredentials}">
-        <ng-container *ngIf="form.get('email')?.dirty 
-                            && getErrorMessage('email') !== ''">
-          <div class="text-alert">
-            {{ getErrorMessage('email') }}
-          </div>
-        </ng-container>
-        <div class="div-password-icon">
-          <label class="visually-hidden" for="name">Mot de passe</label>
-          <input formControlName="password"
-                 name="password"
+        <form [formGroup]="form" 
+              #ngForm="ngForm"
+              #formDirective="ngForm"
+              (ngSubmit)="onSubmit()"
+              aria-label="Formulaire de saisie utilisateur">
+          <label class="visually-hidden" for="name">Email</label>
+          <input formControlName="email" 
+                 name="email"
+                 inputFocus
                  inputTrim
-                 [type]=" visible ? 'text' : 'password' "
-                 placeholder="Password"
+                 type="email"
+                 placeholder="Email"
                  spellcheck="false"
-                 autocomplete="off"
-                 id="passwordInput"
+                 id="emailInput"
                  class="input-inset-shadow"
-                 [ngClass]="{ 'invalid-feedback': (form.get('password')?.invalid 
-                                                  && form.get('password')?.dirty)
-                                                  || invalidPassword
+                 [ngClass]="{ 'invalid-feedback': (form.get('email')?.invalid 
+                                                  && form.get('email')?.dirty )
                                                   || invalidCredentials}">
-          <fa-icon [icon]="visible ? faEyeSlash : faEye" aria-hidden="true" (click)="toggle()"></fa-icon>
-          <ng-container *ngIf="form.get('password')?.dirty 
-                              && getErrorMessage('password') !== ''">
+          <ng-container *ngIf="form.get('email')?.dirty 
+                              && getErrorMessage('email') !== ''">
             <div class="text-alert">
-              {{ getErrorMessage('password') }}
+              {{ getErrorMessage('email') }}
             </div>
           </ng-container>
-        </div>
-        <ng-container *ngIf="ngForm.submitted && falsePasswordErrorMessage">
-          <div class="text-alert">
-            {{ falsePasswordErrorMessage }}
+          <div class="div-password-icon">
+            <label class="visually-hidden" for="name">Mot de passe</label>
+            <input formControlName="password"
+                   name="password"
+                   inputTrim
+                   [type]=" visible ? 'text' : 'password' "
+                   placeholder="Password"
+                   spellcheck="false"
+                   autocomplete="off"
+                   id="passwordInput"
+                   class="input-inset-shadow"
+                   [ngClass]="{ 'invalid-feedback': (form.get('password')?.invalid 
+                                                    && form.get('password')?.dirty)
+                                                    || invalidPassword
+                                                    || invalidCredentials}">
+            <fa-icon [icon]="visible ? faEyeSlash : faEye" aria-hidden="true" (click)="toggle()"></fa-icon>
+            <ng-container *ngIf="form.get('password')?.dirty 
+                                && getErrorMessage('password') !== ''">
+              <div class="text-alert">
+                {{ getErrorMessage('password') }}
+              </div>
+            </ng-container>
           </div>
-        </ng-container>
-        <div class="div-form-button">
-          <button type="submit" 
-                  aria-label="Bouton se connecter"
-                  class="button-shadow"
-                  [ngClass]="{'disabled-submit-button': submitDisabled}"
-                  [disabled]="submitDisabled">Connexion
-          </button>
-          <button (click)="onReset(formDirective)"
-                  id="reset-button"
-                  type="button"
-                  aria-label="Bouton effacer le formulaire" 
-                  class="button-shadow cancel"
-                  [ngClass]="{'disabled-reset-button': resetDisabled}"
-                  [disabled]="resetDisabled">Annuler
-          </button>
+          <ng-container *ngIf="ngForm.submitted && falsePasswordErrorMessage">
+            <div class="text-alert">
+              {{ falsePasswordErrorMessage }}
+            </div>
+          </ng-container>
+          <div class="div-form-button">
+            <button type="submit" 
+                    aria-label="Bouton se connecter"
+                    class="button-shadow"
+                    [ngClass]="{'disabled-submit-button': submitDisabled}"
+                    [disabled]="submitDisabled">Connexion
+            </button>
+            <button (click)="onReset(formDirective)"
+                    id="reset-button"
+                    type="button"
+                    aria-label="Bouton effacer le formulaire" 
+                    class="button-shadow cancel"
+                    [ngClass]="{'disabled-reset-button': resetDisabled}"
+                    [disabled]="resetDisabled">Annuler
+            </button>
+          </div>
+        </form>
+  
+        <div class="forgotten-password">
+          <a (click)="redirectToForgottenPasswordComponent()" 
+             type="button"           
+             aria-label="Bouton menant au formulaire de mot de passe oublié">Mot de passe oublié
+          </a>
         </div>
-      </form>
-
-      <div class="forgotten-password">
-        <a (click)="redirectToForgottenPasswordComponent()" 
-           type="button"           
-           aria-label="Bouton menant au formulaire de mot de passe oublié">Mot de passe oublié
-        </a>
       </div>
     </div>
   </div>
-</div>
+</main>
