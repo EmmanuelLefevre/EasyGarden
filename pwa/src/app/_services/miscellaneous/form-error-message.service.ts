@@ -84,7 +84,7 @@ export class FormErrorMessageService {
     else if (inputName === 'garden' && errorName === 'required') {
       return 'Veuillez sélectionner un jardin!';
     }
-    // Equipment name
+    // Equipment / Garden name
     else if (inputName === 'name') {
       if (errorName === 'required') {
         return 'Veuillez saisir un nom!';
