@@ -1,16 +1,18 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 // Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip-social in style.scss
 import { AbstractControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subject, Subscription, takeUntil } from 'rxjs';
+// Icons
 import { faEye, faEyeSlash, faPen } from '@fortawesome/free-solid-svg-icons';
-
-import { MatDialog } from '@angular/material/dialog';
-import { IConfirmDialog, ConfirmDialogComponent } from 'src/app/easygarden/components/confirmDialog/confirm-dialog.component';
-
+// Services
 import { FormValidationService } from '../../../_services/miscellaneous/form-validation.service';
 import { ProfilService } from './profil.service';
 import { TokenService } from '../../../_services/auth/token.service';
-
+// Components
+import { MatDialog } from '@angular/material/dialog';
+import { IConfirmDialog, ConfirmDialogComponent } from 'src/app/easygarden/components/confirmDialog/confirm-dialog.component';
+// Modeles
 import { IUser } from '../../../_interfaces/IUser';
 
 
@@ -20,6 +22,7 @@ import { IUser } from '../../../_interfaces/IUser';
   styleUrls: ['./profil.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
+
 
 export class ProfilComponent implements OnInit, OnDestroy {
 
@@ -71,11 +74,13 @@ export class ProfilComponent implements OnInit, OnDestroy {
 
   users: IUser[] = [];
 
-  constructor(private formBuilder: UntypedFormBuilder,
-              private customValidator : FormValidationService,
+  constructor(private customValidator : FormValidationService,
+              private dialog: MatDialog,
+              private formBuilder: UntypedFormBuilder,
               private profilService: ProfilService,
-              private tokenService: TokenService,
-              private dialog: MatDialog) {
+              private router: Router,
+              private tokenService: TokenService) {
+
     window.scrollTo(0, 0)
     this.emailForm = this.formBuilder.group({
       email: [
@@ -252,7 +257,8 @@ export class ProfilComponent implements OnInit, OnDestroy {
           this.updateUserSubscription = this.profilService.updateUser(typedEmailForm, id)
             .subscribe(
               () => {
-                this.tokenService.clearToken()
+                this.tokenService.clearToken();
+                this.router.navigate(['/']);
               }
             )
         }   
@@ -328,7 +334,8 @@ export class ProfilComponent implements OnInit, OnDestroy {
           this.deleteUserSubscription = this.profilService.deleteUser(id)
             .subscribe(
               () => {
-                this.tokenService.clearToken()
+                this.tokenService.clearToken();
+                this.router.navigate(['/']);
               }
             )
         }   
