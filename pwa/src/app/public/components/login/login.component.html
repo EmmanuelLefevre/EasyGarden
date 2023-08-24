@@ -66,12 +66,6 @@
             {{ falsePasswordErrorMessage }}
           </div>
         </ng-container>
-        <div class="forgotten-password">
-          <a (click)="redirectToForgottenPasswordComponent()" 
-             type="button"           
-             aria-label="Bouton menant au formulaire de mot de passe oublié">Mot de passe oublié
-          </a>
-        </div>
         <div class="div-form-button">
           <button type="submit" 
                   aria-label="Bouton se connecter"
@@ -90,6 +84,12 @@
         </div>
       </form>
 
+      <div class="forgotten-password">
+        <a (click)="redirectToForgottenPasswordComponent()" 
+           type="button"           
+           aria-label="Bouton menant au formulaire de mot de passe oublié">Mot de passe oublié
+        </a>
+      </div>
     </div>
   </div>
 </div>
