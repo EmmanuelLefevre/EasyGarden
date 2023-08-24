@@ -80,6 +80,25 @@ export class FormErrorMessageService {
         return 'Format de numéro de téléphone invalide!';
       }
     }
+    // Garden select
+    else if (inputName === 'garden' && errorName === 'required') {
+      return 'Veuillez sélectionner un jardin!';
+    }
+    // Equipment name
+    else if (inputName === 'name') {
+      if (errorName === 'required') {
+        return 'Veuillez saisir un nom!';
+      }
+      if (errorName === 'minlength') {
+        return 'Le nom doit contenir 3 caractères minimum.';
+      }
+      if (errorName === 'maxlength') {
+        return 'Le nom ne peut excéder 25 caractères.';
+      }
+      if (errorName === 'validEquipmentName') {
+        return 'Le nom ne peut contenir de caractères spéciaux!';
+      }
+    }
     return '';
   }
 
