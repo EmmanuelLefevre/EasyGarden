@@ -109,7 +109,7 @@ export class FormErrorMessageService {
       return `${fieldNameCapitalized} requis!`;
     }
     if (errorName === 'minlength') {
-      return `Le ${fieldNameCapitalized} doit contenir 3 caractères minimum.`;
+      return `Le ${fieldName} doit contenir 3 caractères minimum.`;
     }
     if (errorName === 'maxlength') {
       return `Le ${fieldName} ne peut excéder 25 caractères.`;
