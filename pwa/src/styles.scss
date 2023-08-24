@@ -173,7 +173,7 @@ body {
       font-size: 1.7rem;
       font-weight: 700;
       letter-spacing: 1.2px;
-      padding-bottom: 2rem;
+      padding-bottom: 0.9rem;
     }
   }
   /*------Button------*/
@@ -261,7 +261,7 @@ body {
   .form-content {
     color: var(--ang-color-grey);
     background: var(--ang-color-white);
-    padding: 20px 0px;
+    padding: 0 0 20px 0;
     width: 75%;
     max-width: 400px;
     position: relative;
@@ -299,6 +299,10 @@ body {
     margin-bottom: 20px;
     margin-top: 20px;
   }
+  input.first-input {
+    margin-top: 7px;
+  }
+
   .div-password-icon {
     display: flex;
     flex-direction: column;
