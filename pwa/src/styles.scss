@@ -158,10 +158,9 @@ body {
   }
   .form-title {
     font-family: "Charlotte Southern";
-    font-size: 3.5rem;
+    font-size: 3.2rem;
     font-weight: 900;
     color: var(--ang-color-green);
-    margin-bottom: 1.5rem;
   }
   .form-title-content {
     position: relative;
@@ -281,6 +280,9 @@ body {
     justify-content: center;
     width: 100%;
     padding: 20px;
+  }
+  .logo-h1 {
+    margin-bottom: 5vh;
   }
   /*------Ambiance Background------*/
   .ambiance-bg {
