@@ -28,7 +28,6 @@ export class TokenService {
 
   clearToken(): void{
     localStorage.removeItem('token');
-    this.router.navigate(['/']);
   }
 
   isTokenExpired(token: string): boolean{
@@ -37,7 +36,6 @@ export class TokenService {
       // Convert the expiration date to milliseconds
       const expirationDate = new Date(decodedToken.exp * 1000);  
       // Check if the expiration date is in the past
-      
       return expirationDate.getTime() <= Date.now();
     }
     // In the event of an error during decoding, the token is considered expired as a precaution.
