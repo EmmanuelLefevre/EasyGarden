@@ -8,6 +8,7 @@ import { environment } from '../../../../environments/environment';
 // Icons
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 // Services
+import { FormErrorMessageService } from 'src/app/_services/miscellaneous/form-error-message.service';
 import { FormValidationService } from '../../../_services/miscellaneous/form-validation.service';
 import { RegisterService } from 'src/app/_services/register/register.service';
 import { SnackbarService } from 'src/app/_services/miscellaneous/snackbar.service';
@@ -123,6 +124,7 @@ export class RegisterComponent implements OnDestroy, OnInit {
   
   constructor(private customValidator : FormValidationService,
               private formBuilder: UntypedFormBuilder,
+              private formErrorMessageService: FormErrorMessageService,
               private registerService: RegisterService,
               private router: Router,
               private snackbarService: SnackbarService) {
@@ -203,111 +205,8 @@ export class RegisterComponent implements OnDestroy, OnInit {
   // Get the error message associated with a specific form field
   getErrorMessage(inputName: string): string {
     const control = this.form.get(inputName);
-    // Check control exists (not null) and there are validation errors.
-    if (control?.errors) {
-      if (inputName === 'email') {
-        if (control.errors['required']) {
-          return 'Veuillez saisir un email!';
-        }
-        if (control.errors['email']) {
-          return 'Format d\'email invalide!';
-        }
-        if (control.errors['validEmail']) {
-          return 'L\'email doit contenir un "." + nom de domaine!';
-        }
-      } 
-      else if (inputName === 'password') {
-        if (control.errors['required']) {
-          return 'Veuillez saisir un mot de passe!';
-        }
-        if (control.errors['minlength']) {
-          return 'Le mot de passe doit contenir 8 caractères minimum.';
-        }
-        if (control.errors['maxlength']) {
-          return 'Le mot de passe ne peut excéder 50 caractères.';
-        }
-        if (control.errors['strongPassword']) {
-          const strongPasswordErrors = control.errors['strongPassword'];
-          if (strongPasswordErrors['missingUpperCase']) {
-            return 'Le mot de passe doit contenir une majuscule.';
-          }
-          if (strongPasswordErrors['missingLowerCase']) {
-            return 'Le mot de passe doit contenir une minuscule.';
-          }
-          if (strongPasswordErrors['missingNumber']) {
-            return 'Le mot de passe doit contenir un nombre.';
-          }
-          if (strongPasswordErrors['missingSpecialChar']) {
-            return 'Le mot de passe doit contenir un caractère spécial.';
-          }
-        }
-      }
-      else if (inputName === 'confirmPassword') {
-        if (control.errors['required']) {
-          return 'Veuillez confirmer le mot de passe!';
-        }
-        if (control.errors['passwordMismatch']) {
-          return 'Le mot de passe n\'est pas identique!';
-        }
-      }
-      else if (inputName === 'lastName') {
-        if (control.errors['required']) {
-          return 'Nom requis!';
-        }
-        if (control.errors['minlength']) {
-          return 'Le nom doit contenir 3 caractères minimum.';
-        }
-        if (control.errors['maxlength']) {
-          return 'Le nom ne peut excéder 25 caractères.';
-        }
-        if (control.errors['validName']) {
-          return 'Le nom ne peut contenir que des lettres, seuls le tiret et l\'espace sont acceptés!';
-        }
-      }
-      else if (inputName === 'firstName') {
-        if (control.errors['required']) {
-          return 'Prénom requis!';
-        }
-        if (control.errors['minlength']) {
-          return 'Le prénom doit contenir 3 caractères minimum.';
-        }
-        if (control.errors['maxlength']) {
-          return 'Le prénom ne peut excéder 25 caractères.';
-        }
-        if (control.errors['validName']) {
-          return 'Le prénom ne peut contenir que des lettres, seuls le tiret et l\'espace sont acceptés!';
-        }
-      }
-      else if (inputName === 'pseudo') {
-        if (control.errors['required']) {
-          return 'Pseudo requis!';
-        }
-        if (control.errors['minlength']) {
-          return 'Le pseudo doit contenir 3 caractères minimum.';
-        }
-        if (control.errors['maxlength']) {
-          return 'Le pseudo ne peut excéder 25 caractères.';
-        }
-        if (control.errors['validName']) {
-          return 'Le pseudo ne peut contenir que des chiffres et lettres!';
-        }
-      }
-      else if (inputName === 'phoneNumber') {
-        if (control.errors['required']) {
-          return 'Numéro de téléphone requis!';
-        }
-        if (control.errors['minlength']) {
-          return 'Le numéro de téléphone doit contenir 8 caractères minimum.';
-        }
-        if (control.errors['maxlength']) {
-          return 'Le numéro de téléphone ne peut excéder 20 caractères.';
-        }
-        if (control.errors['validPhoneNumber']) {
-          return 'Format de numéro de téléphone invalide!';
-        }
-      }
-    }
-    return '';
+    const errorKey = control?.errors && Object.keys(control.errors)[0];
+    return errorKey ? this.formErrorMessageService.getErrorMessage(inputName, errorKey) : '';
   }
 
   // Manage changes in form
