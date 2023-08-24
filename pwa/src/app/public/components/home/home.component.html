@@ -1,27 +1,29 @@
-<div id="homePage">
-  <div class="connexion">
-    <div class="icon">
-      <button [routerLink]="['login']"
-              type="button" 
-              aria-label="Bouton menant au formulaire de connexion"
-              class="button-circle"
-              matTooltip="Connexion"
-              matTooltipPosition="left"
-              matTooltipShowDelay="200"
-              matTooltipClass="'mat-tooltip'">
-        <fa-icon [icon]="faUserCircle"></fa-icon>
+<main>
+  <div id="homePage">
+    <div class="connexion">
+      <div class="icon">
+        <button [routerLink]="['login']"
+                type="button" 
+                aria-label="Bouton menant au formulaire de connexion"
+                class="button-circle"
+                matTooltip="Connexion"
+                matTooltipPosition="left"
+                matTooltipShowDelay="200"
+                matTooltipClass="'mat-tooltip'">
+          <fa-icon [icon]="faUserCircle"></fa-icon>
+        </button>
+        <p>Log In</p>
+      </div>
+    </div>
+    <div class="logo">{{name}}</div>
+    <div class="resume">
+      Easy Garden l'application qui vous facilite la gestion de vos équipements de parcs et jardins.
+      Une application all-in-one pour gérer tout les équipements tels que vos systèmes d'arrosage
+      intégrés, vos jeux de lumières, l'ouverture de votre portail, votre tondeuse intelligente et bien plus encore!<br>
+      <button [routerLink]="['register']"
+              type="button"           
+              aria-label="Bouton menant au formulaire d'inscription">Inscription
       </button>
-      <p>Log In</p>
     </div>
   </div>
-  <div class="logo">{{name}}</div>
-  <div class="resume">
-    Easy Garden l'application qui vous facilite la gestion de vos équipements de parcs et jardins.
-    Une application all-in-one pour gérer tout les équipements tels que vos systèmes d'arrosage
-    intégrés, vos jeux de lumières, l'ouverture de votre portail, votre tondeuse intelligente et bien plus encore!<br>
-    <button [routerLink]="['register']"
-            type="button"           
-            aria-label="Bouton menant au formulaire d'inscription">Inscription
-    </button>
-  </div>
-</div>
+</main>
