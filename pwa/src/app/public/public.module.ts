@@ -8,7 +8,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { PublicComponentsModule } from '../components/public-components.module';
-// Component
+// Components
 import { ForgottenPasswordComponent } from './components/forgottenPassword/forgotten-password.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
