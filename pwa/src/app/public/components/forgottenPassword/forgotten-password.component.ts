@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 // Services
 import { AuthService } from '../../../_services/auth/auth.service';
+import { FormErrorMessageService } from 'src/app/_services/miscellaneous/form-error-message.service';
 import { FormValidationService } from '../../../_services/miscellaneous/form-validation.service';
 import { SnackbarService } from 'src/app/_services/miscellaneous/snackbar.service';
 
@@ -51,6 +52,7 @@ export class ForgottenPasswordComponent implements OnDestroy, OnInit {
   constructor(private authService: AuthService,
               private customValidator : FormValidationService,              
               private formBuilder: UntypedFormBuilder,
+              private formErrorMessageService: FormErrorMessageService,
               private router: Router,
               private snackbarService: SnackbarService) { 
 
@@ -126,21 +128,8 @@ export class ForgottenPasswordComponent implements OnDestroy, OnInit {
   // Get the error message associated with a specific form field
   getErrorMessage(inputName: string): string {
     const control = this.form.get(inputName);
-    // Check control exists (not null) and there are validation errors.
-    if (control?.errors) {
-      if (inputName === 'email') {
-        if (control.errors['required']) {
-          return 'Veuillez saisir un email!';
-        }
-        if (control.errors['email']) {
-          return 'Format d\'email invalide!';
-        }
-        if (control.errors['validEmail']) {
-          return 'L\'email doit contenir un "." + nom de domaine!';
-        }
-      }
-    }
-    return '';
+    const errorKey = control?.errors && Object.keys(control.errors)[0];
+    return errorKey ? this.formErrorMessageService.getErrorMessage(inputName, errorKey) : '';
   }
 
   // Manage changes in form
