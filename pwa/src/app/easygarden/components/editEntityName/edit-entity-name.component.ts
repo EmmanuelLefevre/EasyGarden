@@ -6,6 +6,7 @@ import { Subject, Subscription, takeUntil } from 'rxjs';
 // Environment
 import { environment } from 'src/environments/environment';
 // Services
+import { FormErrorMessageService } from 'src/app/_services/miscellaneous/form-error-message.service';
 import { FormValidationService } from '../../../_services/miscellaneous/form-validation.service';
 import { GardenService } from '../garden/garden.service';
 import { LawnmowerService } from '../../modules/lawnmower/lawnmower.service';
@@ -62,6 +63,7 @@ export class EditEntityNameComponent implements OnDestroy, OnInit {
   constructor(private activated: ActivatedRoute,
               private customValidator : FormValidationService,
               private formBuilder: UntypedFormBuilder,
+              private formErrorMessageService: FormErrorMessageService,
               private gardenService: GardenService,          
               private lawnmowerService: LawnmowerService,          
               private lightningService: LightningService,            
@@ -221,22 +223,8 @@ export class EditEntityNameComponent implements OnDestroy, OnInit {
   // Get the error message associated with a specific form field
   getErrorMessage(inputName: string): string {
     const control = this.form.get(inputName);
-    // Check control exists (not null) and there are validation errors.
-    if (control?.errors && inputName === 'name') {
-      if (control.errors['required']) {
-        return 'Veuillez saisir un nom!';
-      }
-      if (control.errors['minlength']) {
-        return 'Le nom doit contenir 3 caractères minimum.';
-      }
-      if (control.errors['maxlength']) {
-        return 'Le nom ne peut excéder 25 caractères.';
-      }
-      if (control.errors['validEquipmentName']) {
-        return 'Le nom ne peut contenir de caractères spéciaux!';
-      }
-    }
-    return '';
+    const errorKey = control?.errors && Object.keys(control.errors)[0];
+    return errorKey ? this.formErrorMessageService.getErrorMessage(inputName, errorKey) : '';
   }
 
   // Manage changes in form
