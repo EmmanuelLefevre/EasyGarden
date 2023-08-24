@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-
-import { TokenService } from '../../../_services/auth/token.service';
+import { Router } from '@angular/router';
+// Services
 import { DecodedTokenService } from 'src/app/_services/miscellaneous/decoded-token.service';
 import { SnackbarService } from 'src/app/_services/miscellaneous/snackbar.service';
+import { TokenService } from '../../../_services/auth/token.service';
 
 
 @Component({
@@ -11,19 +12,22 @@ import { SnackbarService } from 'src/app/_services/miscellaneous/snackbar.servic
   styleUrls: ['./navbar.component.scss']
 })
 
+
 export class NavbarComponent implements OnInit {
 
-  constructor(private tokenService: TokenService,
+  constructor(private decodedTokenService: DecodedTokenService,
+              private router: Router,
               private snackbarService: SnackbarService,
-              private decodedTokenService: DecodedTokenService) { }
+              private tokenService: TokenService) { }
 
   ngOnInit(): void {
   }
 
   logOut(): void{
     this.snackbarService.showNotification(`A bientôt ${this.decodedTokenService.firstNameDecoded()} 
-                                          ${this.decodedTokenService.lastNameDecoded()}.`, 'logIn-logOut')
-    this.tokenService.clearToken()
+                                          ${this.decodedTokenService.lastNameDecoded()}.`, 'logIn-logOut');
+    this.tokenService.clearToken();
+    this.router.navigate(['/']);
   }
 
 }
