@@ -104,7 +104,6 @@ export class FormErrorMessageService {
 
   private getNameErrorMessage(fieldName: string, errorName: string): string {
     const fieldNameCapitalized = fieldName.charAt(0).toUpperCase() + fieldName.slice(1);
-    
     if (errorName === 'required') {
       return `${fieldNameCapitalized} requis!`;
     }
