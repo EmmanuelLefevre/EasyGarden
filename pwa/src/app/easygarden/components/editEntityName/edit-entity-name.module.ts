@@ -2,11 +2,10 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { DirectivesModule } from 'src/app/_directives/directives.module';
-
-import { CloseFormButtonModule } from 'src/app/components/closeFormButton/close-form-button.module';
-
+// Modules
+import { PublicComponentsModule } from 'src/app/components/public-components.module';
+// Components
 import { EditEntityNameComponent } from './edit-entity-name.component';
-
 
 
 @NgModule({
@@ -18,7 +17,7 @@ import { EditEntityNameComponent } from './edit-entity-name.component';
     ReactiveFormsModule,
     FormsModule,
     DirectivesModule,
-    CloseFormButtonModule
+    PublicComponentsModule
   ],
   exports: [
     EditEntityNameComponent
