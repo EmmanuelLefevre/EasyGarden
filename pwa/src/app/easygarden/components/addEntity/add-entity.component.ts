@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 // Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip in style.scss
 import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -23,7 +23,7 @@ import { IGarden } from '../garden/IGarden';
 @Component({
   selector: 'app-add-entity',
   templateUrl: './add-entity.component.html',
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./add-entity-name.component.scss']
 })
 
 export class AddEntityComponent implements OnInit, OnDestroy {
