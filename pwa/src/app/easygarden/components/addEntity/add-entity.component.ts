@@ -23,7 +23,7 @@ import { IGarden } from '../garden/IGarden';
 @Component({
   selector: 'app-add-entity',
   templateUrl: './add-entity.component.html',
-  styleUrls: ['./add-entity-name.component.scss']
+  styleUrls: ['./add-entity.component.scss']
 })
 
 export class AddEntityComponent implements OnInit, OnDestroy {
