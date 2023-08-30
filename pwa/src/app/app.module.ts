@@ -1,9 +1,11 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule, Meta } from '@angular/platform-browser';
+// Modules
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 // Routing
 import { AppRoutingModule } from './app-routing.module';
 // Interceptor
@@ -26,7 +28,8 @@ import { FooterComponent } from './components/footer/footer.component';
     BrowserModule,
     FontAwesomeModule,
     HttpClientModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTooltipModule
   ],
   providers: [AUTHInterceptorProvider, Meta],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
