@@ -5,55 +5,57 @@
       <h1 class="form-title title-form-shadow">{{name}}</h1>
     </div>
 
-    <div class="form-content form-border form-shadow animate__animated animate__fadeInDown">
+    <div class="animate__animated animate__fadeInDown form-wrapper">
       <app-close-form-button></app-close-form-button>
-      <div class="form-title-content">
-        <p class="p-form-title-content">MODIFIER</p>
-      </div>
-
-      <form [formGroup]="form" 
-            (ngSubmit)="onSubmit()"
-            #ngForm="ngForm"
-            #formDirective="ngForm"
-            aria-label="Formulaire de saisie utilisateur">
-        <label class="visually-hidden" for="name">Nom</label>
-        <input formControlName="name"
-               name="name"
-               inputFocus
-               inputTrim
-               inputTitleCase
-               id="name"
-               type="text"
-               spellcheck="false"
-               autocomplete="off"
-               class="input-inset-shadow first-input"
-               value={{value}}
-               [ngClass]="{ 'invalid-feedback': (form.get('name')?.invalid 
-                                                 && form.get('name')?.dirty)
-                                                 || invalidName }">
-        <ng-container *ngIf="form.get('name')?.dirty 
-                             && getErrorMessage('name') !== ''">
-          <div class="text-alert">
-            {{ getErrorMessage('name') }}
-          </div>
-        </ng-container>
-        <div class="div-form-button">
-          <button type="submit"
-                  class="button-shadow"
-                  aria-label="Bouton modifier le nom d'un équipement ou du jardin"
-                  [ngClass]="{'disabled-submit-button': submitDisabled}"
-                  [disabled]="submitDisabled">Modifier
-          </button>
-          <button (click)="onReset(formDirective)"
-                  type="button"
-                  aria-label="Bouton effacer le formulaire" 
-                  class="button-shadow cancel"
-                  [ngClass]="{'disabled-reset-button': resetDisabled}"
-                  [disabled]="resetDisabled">Annuler
-          </button>
+      <div class="form-content form-border form-shadow">
+        <div class="form-title-content">
+          <p class="p-form-title-content">MODIFIER</p>
         </div>
-      </form>
-
+  
+        <form [formGroup]="form" 
+              (ngSubmit)="onSubmit()"
+              #ngForm="ngForm"
+              #formDirective="ngForm"
+              aria-label="Formulaire de saisie utilisateur">
+          <label class="visually-hidden" for="name">Nom</label>
+          <input formControlName="name"
+                 name="name"
+                 inputFocus
+                 inputTrim
+                 inputTitleCase
+                 id="name"
+                 type="text"
+                 spellcheck="false"
+                 autocomplete="off"
+                 class="input-inset-shadow first-input"
+                 value={{value}}
+                 [ngClass]="{ 'invalid-feedback': (form.get('name')?.invalid 
+                                                   && form.get('name')?.dirty)
+                                                   || invalidName }">
+          <ng-container *ngIf="form.get('name')?.dirty 
+                               && getErrorMessage('name') !== ''">
+            <div class="text-alert">
+              {{ getErrorMessage('name') }}
+            </div>
+          </ng-container>
+          <div class="div-form-button">
+            <button type="submit"
+                    class="button-shadow"
+                    aria-label="Bouton modifier le nom d'un équipement ou du jardin"
+                    [ngClass]="{'disabled-submit-button': submitDisabled}"
+                    [disabled]="submitDisabled">Modifier
+            </button>
+            <button (click)="onReset(formDirective)"
+                    type="button"
+                    aria-label="Bouton effacer le formulaire" 
+                    class="button-shadow cancel"
+                    [ngClass]="{'disabled-reset-button': resetDisabled}"
+                    [disabled]="resetDisabled">Annuler
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
+
   </div>
 </main>
