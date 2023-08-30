@@ -1,7 +1,9 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
+// Modules
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-
+import { MatTooltipModule } from '@angular/material/tooltip';
+// Components
 import { CloseFormButtonComponent } from './close-form-button.component';
 
 
@@ -11,7 +13,8 @@ import { CloseFormButtonComponent } from './close-form-button.component';
   ],
   imports: [
     CommonModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    MatTooltipModule
   ],
   exports: [
     CloseFormButtonComponent
