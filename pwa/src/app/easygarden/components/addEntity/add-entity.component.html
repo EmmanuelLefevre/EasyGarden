@@ -5,75 +5,77 @@
       <h1 class="form-title title-form-shadow">{{name}}</h1>
     </div>
 
-    <div class="form-content form-border form-shadow animate__animated animate__fadeInDown">
+    <div class="animate__animated animate__fadeInDown form-wrapper">
       <app-close-form-button></app-close-form-button>
-      <div class="form-title-content">
-        <p class="p-form-title-content">AJOUTER</p>
-      </div>
-
-      <form [formGroup]="form"
-            #ngForm="ngForm"
-            #formDirective="ngForm"
-            (ngSubmit)="onSubmit()"
-            aria-label="Formulaire de saisie utilisateur">
-        <ng-container *ngIf="!currentUrl.includes('easygarden/garden/add')">
-          <mat-form-field appearance="fill"
-                          class="input-inset-shadow"
-                          [ngClass]="{ 'invalid-feedback': (form.get('garden')?.invalid 
-                                                            && form.get('garden')?.dirty)
-                                                            || invalidSelect }">
-            <mat-label>Jardin</mat-label>
-            <mat-select formControlName="garden">
-              <mat-option *ngFor="let garden of gardens" [value]="garden">
-                {{ garden.name }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          <ng-container *ngIf="form.get('garden')?.pristine
-                               && getErrorMessage('garden') !== ''">
+      <div class="form-content form-border form-shadow">
+        <div class="form-title-content">
+          <p class="p-form-title-content">AJOUTER</p>
+        </div>
+  
+        <form [formGroup]="form"
+              #ngForm="ngForm"
+              #formDirective="ngForm"
+              (ngSubmit)="onSubmit()"
+              aria-label="Formulaire de saisie utilisateur">
+          <ng-container *ngIf="!currentUrl.includes('easygarden/garden/add')">
+            <mat-form-field appearance="fill"
+                            class="input-inset-shadow first-input"
+                            [ngClass]="{ 'invalid-feedback': (form.get('garden')?.invalid 
+                                                              && form.get('garden')?.dirty)
+                                                              || invalidSelect }">
+              <mat-label>Jardin</mat-label>
+              <mat-select formControlName="garden">
+                <mat-option *ngFor="let garden of gardens" [value]="garden">
+                  {{ garden.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <ng-container *ngIf="form.get('garden')?.pristine
+                                 && getErrorMessage('garden') !== ''">
+              <div class="text-alert">
+                {{ getErrorMessage('garden') }}
+              </div>
+            </ng-container>
+          </ng-container>
+          <label class="visually-hidden" for="name">Name</label>
+          <input formControlName="name"
+                 name="name"
+                 inputTrim
+                 inputFocus
+                 inputTitleCase
+                 id="name"
+                 type="text"
+                 placeholder="Nom"
+                 spellcheck="false"
+                 autocomplete="off"
+                 class="input-inset-shadow first-input"
+                 [ngClass]="{ 'invalid-feedback': (form.get('name')?.invalid 
+                                                   && form.get('name')?.dirty)
+                                                   || invalidName }">
+          <ng-container *ngIf="form.get('name')?.dirty 
+                               && getErrorMessage('name') !== ''">
             <div class="text-alert">
-              {{ getErrorMessage('garden') }}
+              {{ getErrorMessage('name') }}
             </div>
           </ng-container>
-        </ng-container>
-        <label class="visually-hidden" for="name">Name</label>
-        <input formControlName="name"
-               name="name"
-               inputTrim
-               inputFocus
-               inputTitleCase
-               id="name"
-               type="text"
-               placeholder="Nom"
-               spellcheck="false"
-               autocomplete="off"
-               class="input-inset-shadow first-input"
-               [ngClass]="{ 'invalid-feedback': (form.get('name')?.invalid 
-                                                 && form.get('name')?.dirty)
-                                                 || invalidName }">
-        <ng-container *ngIf="form.get('name')?.dirty 
-                             && getErrorMessage('name') !== ''">
-          <div class="text-alert">
-            {{ getErrorMessage('name') }}
+          <div class="div-form-button">
+            <button type="submit"
+                    class="button-shadow"
+                    aria-label="Bouton ajouter un équipement ou un jardin"
+                    [ngClass]="{'disabled-submit-button': submitDisabled}"
+                    [disabled]="submitDisabled">Ajouter
+            </button>
+            <button (click)="onReset(formDirective)"
+                    type="button"
+                    aria-label="Bouton effacer le formulaire" 
+                    class="button-shadow cancel"
+                    [ngClass]="{'disabled-reset-button': resetDisabled}"
+                    [disabled]="resetDisabled">Annuler
+            </button>
           </div>
-        </ng-container>
-        <div class="div-form-button">
-          <button type="submit"
-                  class="button-shadow"
-                  aria-label="Bouton ajouter un équipement ou un jardin"
-                  [ngClass]="{'disabled-submit-button': submitDisabled}"
-                  [disabled]="submitDisabled">Ajouter
-          </button>
-          <button (click)="onReset(formDirective)"
-                  type="button"
-                  aria-label="Bouton effacer le formulaire" 
-                  class="button-shadow cancel"
-                  [ngClass]="{'disabled-reset-button': resetDisabled}"
-                  [disabled]="resetDisabled">Annuler
-          </button>
-        </div>
-      </form>
-
+        </form>
+      </div>
     </div>
+
   </div>
 </main>
