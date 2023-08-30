@@ -15,7 +15,7 @@ import { SnackbarService } from 'src/app/_services/miscellaneous/snackbar.servic
 @Component({
   selector: 'app-forgotten-password',
   templateUrl: './forgotten-password.component.html',
-  styleUrls: ['./forgotten-password.component.css'],
+  styleUrls: ['./forgotten-password.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 
