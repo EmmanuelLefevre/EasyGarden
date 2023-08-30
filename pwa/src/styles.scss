@@ -292,9 +292,9 @@ body {
     display: flex;
     align-items: center;
     flex-direction: column; 
-    justify-content: center;
+    justify-content: flex-start;
     width: 100%;
-    padding: 20px;
+    padding: 8vh 20px 20px 20px;
   }
   .logo-h1 {
     margin-bottom: 5vh;
