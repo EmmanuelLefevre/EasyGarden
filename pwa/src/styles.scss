@@ -36,6 +36,7 @@ $easygardenAngular-theme: mat.define-light-theme((
 :root {
   /*------Main Colors------*/
   --ang-color-green: #95cb11;
+  --ang-color-dark-green: #006835;
   --ang-color-green-rgba: rgba(149,203,17,0.55);
   --ang-color-white: #ffffff;
   --ang-color-grey: #666666;
@@ -162,27 +163,13 @@ body {
     font-weight: 900;
     color: var(--ang-color-green);
   }
-  .form-title-content {
-    position: relative;
-    color: var(--ang-color-green);
-    text-transform: uppercase;
-    border-bottom: 2px solid var(--ang-color-green);
-    top: -2.2rem;
-    .p-form-title-content {
-      font-family: "Charlotte Southern";
-      font-size: 1.7rem;
-      font-weight: 700;
-      letter-spacing: 1.2px;
-      padding-bottom: 0.9rem;
-    }
-  }
   /*------Button------*/
   button {
     font-family: var(--ang-font-button-text);
     font-weight: var(--ang-button-font-weight-regular);
     color: var(--ang-color-white);
     background-color: var(--ang-color-green);
-    margin: 20px 0px 20px 0px;
+    margin: 10px 0px 20px 0px;
     padding: 0.5rem 1rem;
     border: 2px solid var(--color-border);
     border-radius: 4px;
@@ -257,21 +244,49 @@ body {
     -webkit-box-shadow: 0 30px 60px 0 var(--ang-color-form-shadow-rgba);
     box-shadow: 0 30px 60px 0 var(--ang-color-form-shadow-rgba);
   }
+
   /*------Form------*/
-  .form-content {
-    color: var(--ang-color-grey);
-    background: var(--ang-color-white);
-    padding: 0 0 20px 0;
-    width: 75%;
-    max-width: 400px;
+  .form-wrapper {
     position: relative;
-    text-align: center;
-  }
-  form {
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    flex-direction: column; 
     justify-content: center;
+    width: 330px;
+    z-index: 1;
+    .form-content {
+      background-color: var(--ang-color-white);
+      color: var(--ang-color-grey);
+      padding: 0 0 20px 0;
+      width: 330px;
+      position: relative;
+      text-align: center;
+      overflow: hidden;
+      .form-title-content {
+        color: var(--ang-color-white);
+        text-transform: uppercase;
+        border-bottom: 2px solid var(--ang-color-green);
+        background: radial-gradient(at center top, #96CC12, #006835);
+        .p-form-title-content {
+          font-family: "Charlotte Southern";
+          font-size: 1.7rem;
+          font-weight: 700;
+          letter-spacing: 1.2px;
+          padding: 0.9rem 0;
+        }
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+        .first-input {
+          margin-top: 30px;
+        }
+      }
+    }
   }
+
   /*------Wrapper------*/
   .div-wrapper {
     display: flex;
@@ -282,7 +297,7 @@ body {
     padding: 20px;
   }
   .logo-h1 {
-    margin-bottom: 4vh;
+    margin-bottom: 5vh;
   }
   /*------Ambiance Background------*/
   .ambiance-bg {
@@ -300,7 +315,7 @@ body {
     margin-top: 20px;
   }
   input.first-input {
-    margin-top: 7px;
+    margin-top: 10px;
   }
 
   .div-password-icon {
