@@ -9,7 +9,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 // Routing
 import { AppRoutingModule } from './app-routing.module';
 // Interceptor
-import { AUTHInterceptorProvider } from './_services/interceptor/auth.interceptor';
+import { AUTHInterceptorProvider } from './_services/middleware/auth.interceptor';
 // Components
 import { AppComponent } from './app.component';
 import { Error404Component } from './_services/utils/error/error404/error404.component';
