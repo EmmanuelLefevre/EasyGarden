@@ -1,5 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-// Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip in style.scss
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subject, Subscription, takeUntil } from 'rxjs';
@@ -22,7 +21,7 @@ import { IName } from '../../_interfaces/IName';
 @Component({
   selector: 'app-edit-entity-name',
   templateUrl: './edit-entity-name.component.html',
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./edit-entity-name.component.scss']
 })
 
 export class EditEntityNameComponent implements OnDestroy, OnInit {
