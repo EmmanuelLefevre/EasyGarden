@@ -105,6 +105,15 @@ export class FormErrorMessageService {
     return '';
   }
 
+  getInvalidInitialValueErrorMessage(currentName: string, initialValue: string): { isModified: boolean; errorMessage: string } {
+    const isModified = currentName !== initialValue;
+    let errorMessage = '';
+    if (!isModified) {
+      errorMessage = 'La valeur est identique à sa valeur initiale!';
+    }
+    return { isModified, errorMessage };
+  }
+
   private getNameErrorMessage(fieldName: string, errorName: string): string {
     const fieldNameCapitalized = fieldName.charAt(0).toUpperCase() + fieldName.slice(1);
     if (errorName === 'required') {
