@@ -137,7 +137,7 @@ export class EditEntityNameComponent implements OnDestroy, OnInit {
     this.updateDataFormSubscription = this.form.valueChanges
       .subscribe(() => {
         this.handleFormChanges();
-        this.checkIfValueHasChanged();
+        this.checkIfInputValueHasChanged();
       });
     // Add the appropriate custom validator based on the route
     if (this.url.includes('/easygarden/garden/edit/')) {
@@ -252,7 +252,7 @@ export class EditEntityNameComponent implements OnDestroy, OnInit {
   }
 
   // Check if input value has changed from its initial value
-  private checkIfValueHasChanged(): void {
+  private checkIfInputValueHasChanged(): void {
     const currentName = this.form.get('name')?.value;
     const { isModified, errorMessage } = this.formErrorMessageService.getInvalidInitialValueErrorMessage(currentName, this.value);
     this.invalidInitialValue = !isModified;
