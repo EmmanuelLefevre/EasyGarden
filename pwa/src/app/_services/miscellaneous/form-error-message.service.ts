@@ -98,6 +98,9 @@ export class FormErrorMessageService {
       if (errorName === 'validEquipmentName') {
         return 'Le nom ne peut contenir de caractères spéciaux!';
       }
+      if (errorName === 'validName') {
+        return 'Le nom ne peut contenir de chiffres ou de caractères spéciaux!';
+      }
     }
     return '';
   }
