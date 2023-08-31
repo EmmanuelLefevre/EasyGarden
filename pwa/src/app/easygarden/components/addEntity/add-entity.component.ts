@@ -46,6 +46,9 @@ export class AddEntityComponent implements OnInit, OnDestroy {
   isNameEmpty!: boolean;
   isGardenNotSelect!: boolean;
 
+  // Get entire url
+  url = window.location.href;
+
   // Form alerts
   invalidSelect: boolean = false;
   invalidName: boolean = false;
@@ -57,8 +60,7 @@ export class AddEntityComponent implements OnInit, OnDestroy {
       [
         Validators.required,
         Validators.minLength(3),
-        Validators.maxLength(25),
-        this.customValidator.validEquipmentName()
+        Validators.maxLength(25)
       ]
     ],
     garden:
@@ -105,6 +107,16 @@ export class AddEntityComponent implements OnInit, OnDestroy {
       .subscribe(() => {
         this.handleFormChanges();
       });
+    // Add the appropriate custom validator based on the route
+    if (this.url.includes('/easygarden/garden/add')) {
+      this.form.get('name')?.addValidators([
+        this.customValidator.validName()
+      ]);
+    } else {
+      this.form.get('name')?.addValidators([
+        this.customValidator.validEquipmentName()
+      ]);
+    }
   }
 
   ngOnDestroy(): void {
