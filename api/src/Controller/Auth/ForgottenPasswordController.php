@@ -79,6 +79,13 @@ class ForgottenPasswordController extends AbstractController
             return new JsonResponse(['message' => 'No existing email!'], Response::HTTP_FORBIDDEN);
         }
 
+        // Check if user's account is verified
+        $verifiedAccount = $this->userRepository->isUserVerified($email);
+        // Account is not verified
+        if (!$verifiedAccount) {
+            return new JsonResponse(['message' => 'No verified account!'], Response::HTTP_FORBIDDEN);
+        }
+
         // If user found we generate a new password using PasswordGenerator class
         $newPassword = PasswordGenerator::generatePassword();
         // Hash the new password using the userPasswordHasher
