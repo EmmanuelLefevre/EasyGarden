@@ -251,7 +251,7 @@ export class EditEntityNameComponent implements OnDestroy, OnInit {
     this.submitDisabled = !this.form.valid;
   }
 
-  // Check if input value has been changed from its initial value
+  // Check if input value has changed from its initial value
   private checkIfValueHasChanged(): void {
     const currentName = this.form.get('name')?.value;
     const { isModified, errorMessage } = this.formErrorMessageService.getInvalidInitialValueErrorMessage(currentName, this.value);
