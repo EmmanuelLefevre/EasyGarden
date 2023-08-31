@@ -1,4 +1,30 @@
-User-agent: *
+Allow: /
+Allow: /home
+Allow: /login
+Allow: /forgottenPassword
+Allow: /register
+Allow: /contact
+Allow: /account-verified
+Allow: /easygarden
+Allow: /garden/edit
+Allow: /garden/add
+Allow: /watering
+Allow: /watering/add
+Allow: /watering/edit
+Allow: /lightning
+Allow: /lightning/add
+Allow: /lightning/edit
+Allow: /lawnmower
+Allow: /lawnmower/add
+Allow: /lawnmower/edit
+Allow: /pool
+Allow: /pool/add
+Allow: /pool/edit
+Allow: /portal
+Allow: /portal/add
+Allow: /portal/edit
+Allow: /profil
+Allow: /404
 
 #Sitemap
-Sitemap: https://www.cabinet-curiosites.fr/sitemap.xml
+Sitemap: https://www.easygarden.com/sitemap.xml
