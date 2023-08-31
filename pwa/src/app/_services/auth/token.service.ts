@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-
+// Library
 import jwt_decode from "jwt-decode";
 
 
@@ -11,7 +10,7 @@ import jwt_decode from "jwt-decode";
 export class TokenService {
   token: any;
 
-  constructor(private router: Router) { }
+  constructor() { }
 
   getToken(): string | null{
     return localStorage.getItem('token');
