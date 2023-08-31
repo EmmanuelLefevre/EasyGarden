@@ -40,6 +40,9 @@ export class EditEntityNameComponent implements OnDestroy, OnInit {
   submitDisabled: boolean;
   isNameEmpty!: boolean;
 
+  // Get entire url
+  url = window.location.href;
+
   // Form alerts
   invalidName: boolean = false;
   // Form group
@@ -50,8 +53,7 @@ export class EditEntityNameComponent implements OnDestroy, OnInit {
         null as IName | null,
         [Validators.required,
         Validators.minLength(3),
-        Validators.maxLength(25),
-        this.customValidator.validEquipmentName()]
+        Validators.maxLength(25)]
       ],
       nonNullable: true
   });
@@ -73,23 +75,21 @@ export class EditEntityNameComponent implements OnDestroy, OnInit {
               private wateringService: WateringService,) {
 
     const id = Number(this.activated.snapshot.paramMap.get('id'));
-    // Get entire url
-    const url = window.location.href;
     
     let service: any;
     let type: string = '';
 
-    if (url.includes('/easygarden/garden/edit/')) {
+    if (this.url.includes('/easygarden/garden/edit/')) {
       type = 'garden';
-    } else if (url.includes('/easygarden/lawnmower/edit/')) {
+    } else if (this.url.includes('/easygarden/lawnmower/edit/')) {
       type = 'lawnmower';
-    } else if (url.includes('/easygarden/lightning/edit/')) {
+    } else if (this.url.includes('/easygarden/lightning/edit/')) {
       type = 'lightning';
-    } else if (url.includes('/easygarden/pool/edit/')) {
+    } else if (this.url.includes('/easygarden/pool/edit/')) {
       type = 'pool';
-    } else if (url.includes('/easygarden/portal/edit/')) {
+    } else if (this.url.includes('/easygarden/portal/edit/')) {
       type = 'portal';
-    } else if (url.includes('/easygarden/watering/edit/')) {
+    } else if (this.url.includes('/easygarden/watering/edit/')) {
       type = 'watering';
     }
 
@@ -136,6 +136,16 @@ export class EditEntityNameComponent implements OnDestroy, OnInit {
       .subscribe(() => {
         this.handleFormChanges();
       });
+    // Add the appropriate custom validator based on the route
+    if (this.url.includes('/easygarden/garden/edit/')) {
+      this.form.get('name')?.addValidators([
+        this.customValidator.validName()
+      ]);
+    } else {
+      this.form.get('name')?.addValidators([
+        this.customValidator.validEquipmentName()
+      ]);
+    }
   }
 
   ngOnDestroy(): void {
