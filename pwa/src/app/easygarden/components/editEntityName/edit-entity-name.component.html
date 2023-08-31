@@ -31,11 +31,14 @@
                  value={{value}}
                  [ngClass]="{ 'invalid-feedback': (form.get('name')?.invalid 
                                                    && form.get('name')?.dirty)
-                                                   || invalidName }">
+                                                   || invalidName
+                                                   || invalidInitialValue}">
           <ng-container *ngIf="form.get('name')?.dirty 
-                               && getErrorMessage('name') !== ''">
+                               && (getErrorMessage('name') !== ''
+                                  || invalidInitialValue)">
             <div class="text-alert">
-              {{ getErrorMessage('name') }}
+              <div *ngIf="invalidInitialValue">{{ invalidInitialValueErrorMessage }}</div>
+              <div *ngIf="getErrorMessage('name')">{{ getErrorMessage('name') }}</div>
             </div>
           </ng-container>
           <div class="div-form-button">
