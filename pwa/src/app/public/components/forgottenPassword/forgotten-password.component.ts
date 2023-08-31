@@ -98,20 +98,6 @@ export class ForgottenPasswordComponent implements OnDestroy, OnInit {
             }
           },
           (errorResponse) => {
-            // if (errorResponse.error 
-            //     && errorResponse.status === 403) {
-            //   if (errorResponse.error.message === "No existing email!") {
-            //     this.noExistingEmail = true;
-            //     this.noExistingEmailErrorMessage = "Aucun utilisateur possédant cet email est enregistré!";
-            //   }
-            //   else {
-            //     this.snackbarService.showNotification(
-            //       `Veuillez en premier lieu activer votre compte svp!`
-            //       ,'red-alert'
-            //     );
-            //     this.router.navigate(['login']);
-            //   }
-            // }
             if (errorResponse.error 
                 && errorResponse.status === 403
                 && errorResponse.error.message === "No existing email!") {
