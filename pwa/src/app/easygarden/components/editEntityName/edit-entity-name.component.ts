@@ -40,11 +40,13 @@ export class EditEntityNameComponent implements OnDestroy, OnInit {
   submitDisabled: boolean;
   isNameEmpty!: boolean;
 
-  // Get entire url
+  // Get URL
   url = window.location.href;
 
   // Form alerts
   invalidName: boolean = false;
+  invalidInitialValue: boolean = false;
+  invalidInitialValueErrorMessage: string = '';
   // Form group
   submittedForm: boolean  = false;
   form = this.formBuilder.group({
@@ -135,6 +137,7 @@ export class EditEntityNameComponent implements OnDestroy, OnInit {
     this.updateDataFormSubscription = this.form.valueChanges
       .subscribe(() => {
         this.handleFormChanges();
+        this.checkIfValueHasChanged();
       });
     // Add the appropriate custom validator based on the route
     if (this.url.includes('/easygarden/garden/edit/')) {
@@ -239,12 +242,22 @@ export class EditEntityNameComponent implements OnDestroy, OnInit {
   // Manage changes in form
   private handleFormChanges(): void {
     this.invalidName = false;
+    this.invalidInitialValue = false;
     // Check if name field is empty
     this.isNameEmpty = this.form.get('name')?.value === '';
     // Disable reset button based on empty field
     this.resetDisabled = this.isNameEmpty;
     // Disable submit button if form is invalid
     this.submitDisabled = !this.form.valid;
+  }
+
+  // Check if value has been modified from its initial value
+  private checkIfValueHasChanged(): void {
+    const currentName = this.form.get('name')?.value;
+    const { isModified, errorMessage } = this.formErrorMessageService.getInvalidInitialValueErrorMessage(currentName, this.value);
+    this.invalidInitialValue = !isModified;
+    this.submitDisabled = this.invalidInitialValue;
+    this.invalidInitialValueErrorMessage = errorMessage;
   }
 
   private unsubscribeAll(): void {
