@@ -6,45 +6,48 @@ use App\Entity\Pool;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
+
 /**
- * @method Pool|null find($id, $lockMode = null, $lockVersion = null)
- * @method Pool|null findOneBy(array $criteria, array $orderBy = null)
- * @method Pool[]    findAll()
- * @method Pool[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * Class PoolRepository
+ * This class is responsible for managing pool data and interactions with the database.
+ * @package App\Repository
  */
 class PoolRepository extends ServiceEntityRepository
 {
+    /**
+     * PoolRepository constructor.
+     * @param ManagerRegistry $registry The ManagerRegistry instance used for database access.
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Pool::class);
     }
 
-    // /**
-    //  * @return Pool[] Returns an array of Pool objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * Find a pool by id.
+     * @param string $email The ligtning's id.
+     * @return Pool|null The pool object or null if not found.
+     */
+    public function findById(string $id): ?Pool
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        return $this->findOneBy(['id' => $id]);
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Pool
+    /**
+     * Update pool status
+     * @param Pool $pool Pool equipment to update.
+     * @param bool $status New status
+     * @throws UnsupportedPoolException If the provided pool object is not an instance of Pool.
+     */
+    public function updateStatus(Pool $pool, bool $status): void
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        if (!$pool instanceof Pool) {
+            throw new \InvalidArgumentException(sprintf('Instances of "%s" are not supported.', \get_class($pool)));
+        }
+
+        $pool->setStatus($status);
+        $this->_em->persist($pool);
+        $this->_em->flush();
     }
-    */
+
 }
