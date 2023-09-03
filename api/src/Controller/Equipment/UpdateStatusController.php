@@ -2,9 +2,13 @@
 
 namespace App\Controller\Equipment;
 
-use App\Entity\Lightning;
-use App\Validator\Entity\StatusValidator;
+use App\Service\Json\JsonDataValidatorService;
+use App\Service\Header\UpdateStatusHeaderValueExtractorService;
+use App\Service\Repository\UpdateStatusCorrectRepositoryService;
+use App\Utility\Json\JsonValidationException;
+use App\Validator\Entity\IdParameterValidator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,28 +22,82 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class UpdateStatusController extends AbstractController
 {
+    private $headerValueExtractor;
+    private $idParameterValidator;
+    private $jsonDataValidator;
+    private $repositoryService;
+
+    /**
+     * UpdateStatusController constructor.
+     * @param IdParameterValidator $idParameterValidator The service responsible for validating the id parameter.
+     * @param JsonDataValidatorService $jsonDataValidator The service responsible for validating the json format of the request.
+     * @param UpdateStatusCorrectRepositoryService $repositoryService The service responsible for interacting with the repository for updating status.
+     * @param UpdateStatusHeaderValueExtractorService $headerValueExtractor The service responsible for extracting header values.
+     */
+    public function __construct(IdParameterValidator $idParameterValidator,
+                                JsonDataValidatorService $jsonDataValidator,
+                                UpdateStatusCorrectRepositoryService $repositoryService,
+                                UpdateStatusHeaderValueExtractorService $headerValueExtractor)
+    {
+        $this->headerValueExtractor = $headerValueExtractor;
+        $this->idParameterValidator = $idParameterValidator;
+        $this->jsonDataValidator = $jsonDataValidator;
+        $this->repositoryService = $repositoryService;
+    }
+
     /**
      * @Route("/api/update_status/{id}", methods={"PUT"})
      */
-    public function updateStatus(Request $request, StatusValidator $statusValidator)
+    public function updateStatus(Request $request)
     {
         // Get JSON request data
+        $data = json_decode($request->getContent(), true);
 
-        // validate "status" field with StatusValidator
-        $isValidStatus = $statusValidator->isValidStatus('status', true, $request);
-        if ($isValidStatus !== true) {
-          // Retourner une réponse d'erreur JSON si la validation échoue
-            return $isValidStatus;
+        // // Check the presence of required keys and if their fields are valid
+        // try {
+        //     // Validate json data using JsonDataValidatorService, including custom validators
+        //     $data = $this->jsonDataValidator->validateJsonData($request, ['status']);
+        // } 
+        // catch (JsonValidationException  $e) {
+        //     // Handle json validation exception by returning a json response with the error message
+        //     return new JsonResponse(['message' => $e->getMessage()], $e->getStatusCode());
+        // }
+
+        // Extract the value of {id} from the route
+        $idValue = $request->attributes->get('id');
+        // Validate {id} parameter by passing $idValue as an argument
+        $isValidIdParameter = $this->idParameterValidator->isValidIdParameter($idValue, true);
+        if ($isValidIdParameter !== true) {
+          // Return JSON error response if validation fails
+            return $isValidIdParameter;
         }
 
-        // Validate {id} parameter
+        // Get HEADER type
+        $xType = $this->headerValueExtractor->getXTypeHeaderValue();
+        
+        // Use the service to get the correct repository
+        $repository = $this->repositoryService->getCorrectRepositoryForUpdateStatus($xType);
+        if ($repository === null) {
+            // Handle the case where the correct repository is not found
+            return new JsonResponse(['message' => 'Repository not found for X-Type: ' . $xType], Response::HTTP_NOT_FOUND);
+        }
 
-        // Get HEADER type and call correct repository
+         // Use the repository to retrieve the equipment by ID
+        $equipment = $repository->findById($idValue);
+        if (!$equipment) {
+            // Handle the case where equipment with the given ID is not found
+            return new JsonResponse(['message' => 'Equipment not found'], Response::HTTP_NOT_FOUND);
+        }
 
-        // Persist
+        // Get the status from $data
+        $status = $data['status'];
+        // Call the correct repository based on $xType and persist the status
+        $repository->updateStatus($equipment, $status);
 
         // Call Arduino => Open bluetooth connexion (if possible in SSH)
-
-        // Return HTTP_OK (200) JSON Response ...
+        
+        // Message based on the equipment status
+        $message = ($status === true) ? 'L\'équipement a été allumé!' : 'L\'équipement a été éteint!';
+        return new JsonResponse(['message' => $message], Response::HTTP_OK);
     }
 }
