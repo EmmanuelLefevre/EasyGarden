@@ -57,6 +57,8 @@ security:
         - { path: ^/api/pools, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/api/portals, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/api/waterings, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/update_status, roles: IS_AUTHENTICATED_FULLY,
+            methods: [PUT] }
 
     role_hierarchy:
         ROLE_ADMIN: ROLE_USER
