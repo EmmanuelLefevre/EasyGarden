@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -39,7 +39,13 @@ export class LawnmowerService {
 
   // Update Status
   updateStatus(status: boolean, id: number): Observable<IDataLawnmower[]> {
-    return this.httpClient.put<IDataLawnmower[]>(environment.apis.lawnmower.url+'/'+id, {status});
+    // Create a custom HTTP headers object to specify the "lightning" type
+    const headers = new HttpHeaders({
+      'X-Type': 'lightning'
+    });
+    // Use custom headers in HTTP request
+    const options = { headers: headers };
+    return this.httpClient.put<IDataLawnmower[]>(environment.apis.status.url+'/'+id, {status}, options);
   }
 
   // Update Lawnmower
