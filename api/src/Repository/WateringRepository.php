@@ -6,45 +6,48 @@ use App\Entity\Watering;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
+
 /**
- * @method Watering|null find($id, $lockMode = null, $lockVersion = null)
- * @method Watering|null findOneBy(array $criteria, array $orderBy = null)
- * @method Watering[]    findAll()
- * @method Watering[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * Class WateringRepository
+ * This class is responsible for managing watering data and interactions with the database.
+ * @package App\Repository
  */
 class WateringRepository extends ServiceEntityRepository
 {
+    /**
+     * WateringRepository constructor.
+     * @param ManagerRegistry $registry The ManagerRegistry instance used for database access.
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Watering::class);
     }
 
-    // /**
-    //  * @return Watering[] Returns an array of Watering objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * Find a watering by id.
+     * @param string $email The watering's id.
+     * @return Watering|null The watering object or null if not found.
+     */
+    public function findById(string $id): ?Watering
     {
-        return $this->createQueryBuilder('w')
-            ->andWhere('w.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('w.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        return $this->findOneBy(['id' => $id]);
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Watering
+    /**
+     * Update watering status
+     * @param Watering $watering Watering equipment to update.
+     * @param bool $status New status
+     * @throws UnsupportedWateringException If the provided watering object is not an instance of Watering.
+     */
+    public function updateStatus(Watering $watering, bool $status): void
     {
-        return $this->createQueryBuilder('w')
-            ->andWhere('w.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        if (!$watering instanceof Watering) {
+            throw new \InvalidArgumentException(sprintf('Instances of "%s" are not supported.', \get_class($watering)));
+        }
+
+        $watering->setStatus($status);
+        $this->_em->persist($watering);
+        $this->_em->flush();
     }
-    */
+
 }
