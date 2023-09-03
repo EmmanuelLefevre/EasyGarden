@@ -46,6 +46,10 @@ export const environment = {
     // Watering
     watering: {
       url: '/api/waterings'
+    },
+    // Status
+    status: {
+      url: '/api/update_status'
     }
   },
   // Application
