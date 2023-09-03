@@ -38,3 +38,8 @@ forgotten_password:
     path: /api/forgotten_password
     methods: ['GET', 'POST']
     controller: App\Controller\Auth\ForgottenPasswordController::generateNewPassword
+
+update_status:
+    path: /api/update_status/{id}
+    methods: ['PUT']
+    controller: App\Controller\Equipment\UpdateStatusController::updateStatus
