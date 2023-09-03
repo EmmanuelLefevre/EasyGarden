@@ -15,19 +15,19 @@ class IdParameterValidator
 {
     /**
      * Check if parameter is a string and a number.
-     * @param string $paramValue The value of the parameter to validate.
+     * @param string $idValue The value of the id to validate.
      * @param bool $returnJsonResponse Indicates whether an error JSON response should be returned if invalid.
-     * @return bool|JsonResponse True if the parameter is valid; otherwise, false or JsonResponse with/no error message.
+     * @return bool|JsonResponse True if the id is valid; otherwise, false or JsonResponse with/no error message.
      */
-    public function isValidIdParameter(string $paramValue, bool $returnJsonResponse = false): JsonResponse|bool
+    public function isValidIdParameter(string $idValue, bool $returnJsonResponse = false): JsonResponse|bool
     {
         switch (true) {
             // Is a string
-            case !is_string($paramValue):
+            case !is_string($idValue):
                 return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;
 
             // Is a number
-            case !is_numeric($paramValue):
+            case !is_numeric($idValue):
                 return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;
 
             default:
