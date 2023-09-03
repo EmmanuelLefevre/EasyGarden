@@ -6,45 +6,48 @@ use App\Entity\Portal;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
+
 /**
- * @method Portal|null find($id, $lockMode = null, $lockVersion = null)
- * @method Portal|null findOneBy(array $criteria, array $orderBy = null)
- * @method Portal[]    findAll()
- * @method Portal[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * Class PortalRepository
+ * This class is responsible for managing portal data and interactions with the database.
+ * @package App\Repository
  */
 class PortalRepository extends ServiceEntityRepository
 {
+    /**
+     * PortalRepository constructor.
+     * @param ManagerRegistry $registry The ManagerRegistry instance used for database access.
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Portal::class);
     }
 
-    // /**
-    //  * @return Portal[] Returns an array of Portal objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * Find a portal by id.
+     * @param string $email The portal's id.
+     * @return Portal|null The portal object or null if not found.
+     */
+    public function findById(string $id): ?Portal
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        return $this->findOneBy(['id' => $id]);
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Portal
+    /**
+     * Update portal status
+     * @param Portal $portal Portal equipment to update.
+     * @param bool $status New status
+     * @throws UnsupportedPortalException If the provided portal object is not an instance of Portal.
+     */
+    public function updateStatus(Portal $portal, bool $status): void
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        if (!$portal instanceof Portal) {
+            throw new \InvalidArgumentException(sprintf('Instances of "%s" are not supported.', \get_class($portal)));
+        }
+
+        $portal->setStatus($status);
+        $this->_em->persist($portal);
+        $this->_em->flush();
     }
-    */
+
 }
