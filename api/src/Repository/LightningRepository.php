@@ -6,45 +6,38 @@ use App\Entity\Lightning;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
+
 /**
- * @method Lightning|null find($id, $lockMode = null, $lockVersion = null)
- * @method Lightning|null findOneBy(array $criteria, array $orderBy = null)
- * @method Lightning[]    findAll()
- * @method Lightning[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * Class LightningRepository
+ * This class is responsible for managing lightning data and interactions with the database.
+ * @package App\Repository
  */
 class LightningRepository extends ServiceEntityRepository
 {
+    /**
+     * LightningRepository constructor.
+     * @param ManagerRegistry $registry The ManagerRegistry instance used for database access.
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Lightning::class);
     }
 
-    // /**
-    //  * @return Lightning[] Returns an array of Lightning objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * Update lightning status
+     * @param Lightning $lightning Lightning equipment to update.
+     * @param bool $status New status
+     * @throws UnsupportedUserException If the provided lightning object is not an instance of Lightning.
+     */
+    public function updateStatus(Lightning $lightning, bool $status): void
     {
-        return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('l.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        if (!$lightning instanceof Lightning) {
+            throw new \InvalidArgumentException(sprintf('Instances of "%s" are not supported.', \get_class($lightning)));
+        }
 
-    /*
-    public function findOneBySomeField($value): ?Lightning
-    {
-        return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $lightning->setStatus($status);
+        $this->_em->persist($lightning);
+        $this->_em->flush();
     }
-    */
+    
 }
