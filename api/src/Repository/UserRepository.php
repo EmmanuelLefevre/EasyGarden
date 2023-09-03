@@ -17,7 +17,6 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
  */
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
-
     /**
      * UserRepository constructor.
      * @param ManagerRegistry $registry The ManagerRegistry instance used for database access.
