@@ -24,6 +24,16 @@ class LightningRepository extends ServiceEntityRepository
     }
 
     /**
+     * Find a lightning by id.
+     * @param string $email The ligtning's id.
+     * @return User|null The lightning object or null if not found.
+     */
+    public function findById(string $id): ?Lightning
+    {
+        return $this->findOneBy(['id' => $id]);
+    }
+
+    /**
      * Update lightning status
      * @param Lightning $lightning Lightning equipment to update.
      * @param bool $status New status
