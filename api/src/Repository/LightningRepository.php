@@ -26,7 +26,7 @@ class LightningRepository extends ServiceEntityRepository
     /**
      * Find a lightning by id.
      * @param string $email The ligtning's id.
-     * @return User|null The lightning object or null if not found.
+     * @return Lightning|null The lightning object or null if not found.
      */
     public function findById(string $id): ?Lightning
     {
@@ -37,7 +37,7 @@ class LightningRepository extends ServiceEntityRepository
      * Update lightning status
      * @param Lightning $lightning Lightning equipment to update.
      * @param bool $status New status
-     * @throws UnsupportedUserException If the provided lightning object is not an instance of Lightning.
+     * @throws UnsupportedLightningException If the provided lightning object is not an instance of Lightning.
      */
     public function updateStatus(Lightning $lightning, bool $status): void
     {
