@@ -40,7 +40,7 @@ export class LightningService {
   updateStatus(status: boolean, id: number): Observable<IDataLightning[]> {
     // Create a custom HTTP headers object to specify the "lightning" type
     const headers = new HttpHeaders({
-      'X-Lightning-Type': 'lightning'
+      'X-Type': 'lightning'
     });
     // Use custom headers in HTTP request
     const options = { headers: headers };
