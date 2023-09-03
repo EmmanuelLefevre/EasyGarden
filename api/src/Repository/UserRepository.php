@@ -42,7 +42,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      * Check if a user with the given email and isVerified = true exists.
      * @param string $email Email [UniqueEntity] of the user to look for.
      * @return bool True if the user exists and is verified, false otherwise.
-     * @throws \InvalidArgumentException If the email format is invalid.
      */
     public function isUserVerified(string $email): bool
     {
