@@ -6,45 +6,48 @@ use App\Entity\Lawnmower;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
+
 /**
- * @method Lawnmower|null find($id, $lockMode = null, $lockVersion = null)
- * @method Lawnmower|null findOneBy(array $criteria, array $orderBy = null)
- * @method Lawnmower[]    findAll()
- * @method Lawnmower[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * Class LawnmowerRepository
+ * This class is responsible for managing lawnmower data and interactions with the database.
+ * @package App\Repository
  */
 class LawnmowerRepository extends ServiceEntityRepository
 {
+    /**
+     * LawnmowerRepository constructor.
+     * @param ManagerRegistry $registry The ManagerRegistry instance used for database access.
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Lawnmower::class);
     }
 
-    // /**
-    //  * @return Lawnmower[] Returns an array of Lawnmower objects
-    //  */
-    /*
-    public function findByExampleField($value)
+        /**
+     * Find a lawnmower by id.
+     * @param string $email The lawnmower's id.
+     * @return Lawnmower|null The lawnmower object or null if not found.
+     */
+    public function findById(string $id): ?Lawnmower
     {
-        return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('l.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        return $this->findOneBy(['id' => $id]);
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Lawnmower
+    /**
+     * Update lawnmower status
+     * @param Lawnmower $lawnmower Lawnmower equipment to update.
+     * @param bool $status New status
+     * @throws UnsupportedLawnmowerException If the provided lawnmower object is not an instance of Lawnmower.
+     */
+    public function updateStatus(Lawnmower $lawnmower, bool $status): void
     {
-        return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        if (!$lawnmower instanceof Lawnmower) {
+            throw new \InvalidArgumentException(sprintf('Instances of "%s" are not supported.', \get_class($lawnmower)));
+        }
+
+        $lawnmower->setStatus($status);
+        $this->_em->persist($lawnmower);
+        $this->_em->flush();
     }
-    */
+
 }
