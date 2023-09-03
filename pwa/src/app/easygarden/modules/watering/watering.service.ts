@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { share } from 'rxjs/operators';
@@ -41,7 +41,13 @@ export class WateringService {
 
   // Update Status
   updateStatus(status: boolean, id: number): Observable<IDataWatering[]> {
-    return this.httpClient.put<IDataWatering[]>(environment.apis.watering.url+'/'+id, {status});
+    // Create a custom HTTP headers object to specify the "lightning" type
+    const headers = new HttpHeaders({
+      'X-Type': 'watering'
+    });
+    // Use custom headers in HTTP request
+    const options = { headers: headers };
+    return this.httpClient.put<IDataWatering[]>(environment.apis.watering.url+'/'+id, {status}, options);
   }
 
   // Update Watering
