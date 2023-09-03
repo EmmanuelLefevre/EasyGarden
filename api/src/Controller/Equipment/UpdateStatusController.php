@@ -46,6 +46,10 @@ class UpdateStatusController extends AbstractController
     }
 
     /**
+     * Update the status of an equipment entity.
+     * This method is accessible via a PUT request to "/api/update_status/{id}" where "{id}" is the equipment's ID.
+     * @param Request $request The HTTP request object containing the equipment's ID and status data in JSON format.
+     * @return JsonResponse A JSON response indicating the result of the status update.
      * @Route("/api/update_status/{id}", methods={"PUT"})
      */
     public function updateStatus(Request $request)
