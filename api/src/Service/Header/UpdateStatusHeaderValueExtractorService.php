@@ -2,8 +2,6 @@
 
 namespace App\Service\Header;
 
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 
@@ -11,12 +9,12 @@ use Symfony\Component\HttpFoundation\RequestStack;
  * Service for extracting the value of the 'X-Type' header from the current HTTP request.
  * @package App\Service\Header
  */
-class HeaderValueExtractor
+class UpdateStatusHeaderValueExtractorService
 {
     private $requestStack;
 
     /**
-     * HeaderValueExtractor constructor.
+     * UpdateStatusHeaderValueExtractorService constructor.
      * @param RequestStack $requestStack The RequestStack instance.
      */
     public function __construct(RequestStack $requestStack)
