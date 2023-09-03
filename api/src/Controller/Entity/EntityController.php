@@ -3,7 +3,7 @@
 namespace App\Controller\Entity;
 
 use App\Entity\Garden;
-use App\Validator\User\EntityNameValidator;
+use App\Validator\Entity\EntityNameValidator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,7 +26,7 @@ class EntityController extends AbstractController
         // ... récupérer les données de la requête et créer une instance de l'entité Garden ...
 
         // Valider le champ "entityName" avec EntityNameValidator
-        $isValidEntityName = $entityNameValidator->isValidName('entityName', true, $request);
+        $isValidEntityName = $entityNameValidator->isValidEntityName('entityName', true, $request);
         if ($isValidEntityName !== true) {
             return $isValidEntityName; // Retourner une réponse d'erreur JSON si la validation échoue
         }
@@ -42,7 +42,7 @@ class EntityController extends AbstractController
         // ... récupérer les données de la requête et créer une instance de l'entité Garden ...
 
         // Valider le champ "entityName" avec EntityNameValidator
-        $isValidEntityName = $entityNameValidator->isValidName('entityName', true, $request);
+        $isValidEntityName = $entityNameValidator->isValidEntityName('entityName', true, $request);
         if ($isValidEntityName !== true) {
             return $isValidEntityName; // Retourner une réponse d'erreur JSON si la validation échoue
         }
