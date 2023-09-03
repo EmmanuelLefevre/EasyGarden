@@ -44,7 +44,7 @@ class UpdateStatusCorrectRepositoryService
             case 'watering':
                 return $this->wateringRepository;
             default:
-                throw new \Exception('Unsupported X-Type header value');
+                throw new \Exception('Unsupported X-Type header value!');
         }
     }
 }
