@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -39,7 +39,13 @@ export class PortalService {
 
   // Update Status
   updateStatus(status: boolean, id: number): Observable<IDataPortal[]> {
-    return this.httpClient.put<IDataPortal[]>(environment.apis.portal.url+'/'+id, {status});
+    // Create a custom HTTP headers object to specify the "lightning" type
+    const headers = new HttpHeaders({
+      'X-Type': 'portal'
+    });
+    // Use custom headers in HTTP request
+    const options = { headers: headers };
+    return this.httpClient.put<IDataPortal[]>(environment.apis.portal.url+'/'+id, {status}, options);
   }
 
   // Update Portal
