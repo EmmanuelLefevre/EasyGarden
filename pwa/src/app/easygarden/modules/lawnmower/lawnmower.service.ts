@@ -41,7 +41,7 @@ export class LawnmowerService {
   updateStatus(status: boolean, id: number): Observable<IDataLawnmower[]> {
     // Create a custom HTTP headers object to specify the "lightning" type
     const headers = new HttpHeaders({
-      'X-Type': 'lightning'
+      'X-Type': 'lawnmower'
     });
     // Use custom headers in HTTP request
     const options = { headers: headers };
