@@ -36,7 +36,7 @@ class LawnmowerRepository extends ServiceEntityRepository
     /**
      * Update lawnmower status
      * @param Lawnmower $lawnmower Lawnmower equipment to update.
-     * @param bool $status New status
+     * @param bool $status New status.
      * @throws UnsupportedLawnmowerException If the provided lawnmower object is not an instance of Lawnmower.
      */
     public function updateStatus(Lawnmower $lawnmower, bool $status): void
