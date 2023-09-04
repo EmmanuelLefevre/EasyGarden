@@ -36,7 +36,7 @@ class WateringRepository extends ServiceEntityRepository
     /**
      * Update watering status
      * @param Watering $watering Watering equipment to update.
-     * @param bool $status New status
+     * @param bool $status New status.
      * @throws UnsupportedWateringException If the provided watering object is not an instance of Watering.
      */
     public function updateStatus(Watering $watering, bool $status): void
