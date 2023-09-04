@@ -72,7 +72,7 @@
                 | filterBy: searchInput
                 | paginate: { itemsPerPage: 5, currentPage: p, totalItems: count }">
               <td class="power">
-                <button (click)="updateStatus(lightning.id, lightning.status)"
+                <button (click)="updateStatus(lightning.id, lightning.status, lightning.name)"
                         type="submit" 
                         [attr.aria-label]="lightning.status ? 'Eteindre l\'éclairage' : 'Allumer l\'éclairage'"
                         [matTooltip]="lightning.status ? 'Eteindre' : 'Allumer'"
