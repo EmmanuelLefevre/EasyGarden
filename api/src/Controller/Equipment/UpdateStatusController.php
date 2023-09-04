@@ -2,7 +2,7 @@
 
 namespace App\Controller\Equipment;
 
-use App\Service\BluetoothConnectionService;
+use App\Service\ArduinoConnectionService;
 use App\Service\Header\UpdateStatusHeaderValueExtractorService;
 use App\Service\Json\JsonDataValidatorService;
 use App\Service\Repository\UpdateStatusCorrectRepositoryService;
@@ -23,7 +23,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class UpdateStatusController extends AbstractController
 {
-    private $bluetoothConnectionService;
+    private $arduinoConnectionService;
     private $headerValueExtractor;
     private $idParameterValidator;
     private $jsonDataValidator;
@@ -31,19 +31,19 @@ class UpdateStatusController extends AbstractController
 
     /**
      * UpdateStatusController constructor.
-     * @param BluetoothConnectionService $bluetoothConnectionService The service responsible for open the bluetooth connection with Arduinos.
+     * @param ArduinoConnectionService $arduinoConnectionService The service responsible for open the bluetooth connection with Arduinos.
      * @param IdParameterValidator $idParameterValidator The service responsible for validating the id parameter.
      * @param JsonDataValidatorService $jsonDataValidator The service responsible for validating the json format of the request.
      * @param UpdateStatusCorrectRepositoryService $repositoryService The service responsible for interacting with the repository for updating status.
      * @param UpdateStatusHeaderValueExtractorService $headerValueExtractor The service responsible for extracting header values.
      */
-    public function __construct(BluetoothConnectionService $bluetoothConnectionService,
+    public function __construct(ArduinoConnectionService $arduinoConnectionService,
                                 IdParameterValidator $idParameterValidator,
                                 JsonDataValidatorService $jsonDataValidator,
                                 UpdateStatusCorrectRepositoryService $repositoryService,
                                 UpdateStatusHeaderValueExtractorService $headerValueExtractor)
     {
-        $this->bluetoothConnectionService = $bluetoothConnectionService;
+        $this->arduinoConnectionService = $arduinoConnectionService;
         $this->headerValueExtractor = $headerValueExtractor;
         $this->idParameterValidator = $idParameterValidator;
         $this->jsonDataValidator = $jsonDataValidator;
@@ -103,13 +103,21 @@ class UpdateStatusController extends AbstractController
         // Call the correct repository based on $xType and persist the status
         $repository->updateStatus($equipment, $status);
 
-        // Open bluetooth connection with Arduino
-        try {
-            $this->bluetoothConnectionService->openBluetoothConnection($status);
-        } catch (\Exception $e) {
-            // Manage Bluetooth connection errors
-            return new JsonResponse(['message' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
-        }
+        // // Open bluetooth connection with Arduino
+        // try {
+        //     $this->arduinoConnectionService->openBluetoothConnection($status);
+        // } catch (\Exception $e) {
+        //     // Manage Bluetooth connection errors
+        //     return new JsonResponse(['message' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+        // }
+
+        // // Open serial connection with Arduino
+        // try {
+        //     $this->arduinoConnectionService->openSerialConnection($status);
+        // } catch (\Exception $e) {
+        //     // Manage serial connection errors
+        //     return new JsonResponse(['message' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+        // }
         
         // Message based on the equipment status
         $message = ($status === true) ? 'L\'équipement a été allumé!' : 'L\'équipement a été éteint!';
