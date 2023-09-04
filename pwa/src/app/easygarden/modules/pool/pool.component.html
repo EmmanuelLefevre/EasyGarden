@@ -72,7 +72,7 @@
                 | filterBy: searchInput
                 | paginate: { itemsPerPage: 5, currentPage: p, totalItems: count }">
               <td class="power">
-                <button (click)="updateStatus(pool.id, pool.status)"
+                <button (click)="updateStatus(pool.id, pool.status, pool.name)"
                         type="submit" 
                         [attr.aria-label]="pool.status ? 'Eteindre l\'équipement' : 'Allumer l\'équipement'"
                         [matTooltip]="pool.status ? 'Eteindre' : 'Allumer'"
