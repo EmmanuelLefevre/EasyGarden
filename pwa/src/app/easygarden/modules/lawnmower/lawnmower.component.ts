@@ -139,6 +139,7 @@ export class LawnmowerComponent implements OnInit, OnDestroy {
       .subscribe((res: any) => {
         this.status = res;
         this.fetchLawnmowers();
+        // Snackbar
         const action = status ? 'allumée' : 'éteinte';
         const notificationMessage = `La tondeuse "${name}" a été ${action}.`;
         this.snackbarService.showNotification(notificationMessage, 'modified');
