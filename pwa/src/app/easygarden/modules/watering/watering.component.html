@@ -82,7 +82,7 @@
                 | filterBy: searchInput
                 | paginate: { itemsPerPage: 5, currentPage: p, totalItems: count }">
               <td class="power">
-                <button (click)="updateStatus(watering.id, watering.status)"
+                <button (click)="updateStatus(watering.id, watering.status, watering.name)"
                         type="submit" 
                         [attr.aria-label]="watering.status ? 'Eteindre l\'arrosage' : 'Allumer l\'arrosage'"
                         [matTooltip]="watering.status ? 'Eteindre' : 'Allumer'"
