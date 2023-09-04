@@ -36,7 +36,7 @@ class LightningRepository extends ServiceEntityRepository
     /**
      * Update lightning status
      * @param Lightning $lightning Lightning equipment to update.
-     * @param bool $status New status
+     * @param bool $status New status.
      * @throws UnsupportedLightningException If the provided lightning object is not an instance of Lightning.
      */
     public function updateStatus(Lightning $lightning, bool $status): void
