@@ -205,13 +205,13 @@ export class EditEntityNameComponent implements OnDestroy, OnInit {
               this.router.navigateByUrl(redirectUrl);
             }
             notificationMessage = `${gardenCase} "${this.IName.name}" a bien été renommé en "${newName}".`;
-            this.snackbarService.showNotification(notificationMessage, 'created');
+            this.snackbarService.showNotification(notificationMessage, 'modified');
           }
           // Equipments case
           else {
             this.router.navigate([service.getRedirectUrl()]);
             notificationMessage = `${equipmentString} "${equipmentString} "${this.IName.name}" a bien été renommé en "${newName}".`;
-            this.snackbarService.showNotification(notificationMessage, 'created');
+            this.snackbarService.showNotification(notificationMessage, 'modified');
           }
         });
       }
