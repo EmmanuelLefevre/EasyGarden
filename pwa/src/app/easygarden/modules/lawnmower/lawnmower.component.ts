@@ -12,6 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { GardenService } from '../../components/garden/garden.service';
 import { GardenFilterService } from '../../_services/garden-filter.service';
 import { LawnmowerService } from './lawnmower.service';
+import { SnackbarService } from 'src/app/_services/miscellaneous/snackbar.service';
 // Modeles
 import { IGarden } from '../../components/garden/IGarden';
 import { ILawnmower, ILawnmowerFilter } from './ILawnmower';
@@ -73,7 +74,8 @@ export class LawnmowerComponent implements OnInit, OnDestroy {
   constructor(private dialog: MatDialog,
               private gardenFilterService: GardenFilterService,
               private gardenService: GardenService,
-              private lawnmowerService: LawnmowerService) {}
+              private lawnmowerService: LawnmowerService,
+              private snackbarService: SnackbarService) {}
 
   ngOnInit(): void {
     this.fetchGardens();
@@ -131,12 +133,15 @@ export class LawnmowerComponent implements OnInit, OnDestroy {
   }
 
   // Update Status
-  updateStatus(id: number, status: boolean): void {
+  updateStatus(id: number, status: boolean, name:string): void {
     status = !status;
     this.updateStatusSubscription = this.lawnmowerService.updateStatus(status, id)
       .subscribe((res: any) => {
         this.status = res;
         this.fetchLawnmowers();
+        const action = status ? 'allumée' : 'éteinte';
+        const notificationMessage = `La tondeuse "${name}" a été ${action}.`;
+        this.snackbarService.showNotification(notificationMessage, 'modified');
       });
   }
 
