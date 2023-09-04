@@ -77,7 +77,7 @@
                 | filterBy: searchInput
                 | paginate: { itemsPerPage: 5, currentPage: p, totalItems: count }">
               <td class="power">
-                <button (click)="updateStatus(portal.id, portal.status)"
+                <button (click)="updateStatus(portal.id, portal.status, portal.name)"
                         type="submit" 
                         [attr.aria-label]="portal.status ? 'Fermer le portail' : 'Ouvrir le portail'"
                         [matTooltip]="portal.status ? 'Fermer' : 'Ouvrir'"
