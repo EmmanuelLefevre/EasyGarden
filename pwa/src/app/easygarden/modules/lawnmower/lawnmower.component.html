@@ -77,7 +77,7 @@
                 | filterBy: searchInput
                 | paginate: { itemsPerPage: 5, currentPage: p, totalItems: count }">
               <td class="power">
-                <button (click)="updateStatus(lawnmower.id, lawnmower.status)"
+                <button (click)="updateStatus(lawnmower.id, lawnmower.status, lawnmower.name)"
                         type="submit" 
                         [attr.aria-label]="lawnmower.status ? 'Eteindre la tondeuse' : 'Allumer la tondeuse'"
                         [matTooltip]="lawnmower.status ? 'Eteindre' : 'Allumer'"
