@@ -12,6 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { GardenService } from '../../components/garden/garden.service';
 import { GardenFilterService } from '../../_services/garden-filter.service';
 import { PoolService } from './pool.service';
+import { SnackbarService } from 'src/app/_services/miscellaneous/snackbar.service';
 // Modeles
 import { IGarden } from '../../components/garden/IGarden';
 import { IName } from '../../_interfaces/IName';
@@ -72,7 +73,8 @@ export class PoolComponent implements OnInit, OnDestroy {
   constructor(private dialog: MatDialog,
               private gardenFilterService: GardenFilterService,
               private gardenService: GardenService,
-              private poolService: PoolService,) {}
+              private poolService: PoolService,
+              private snackbarService: SnackbarService) {}
 
   ngOnInit(): void {
     this.fetchGardens();
@@ -130,12 +132,16 @@ export class PoolComponent implements OnInit, OnDestroy {
   }
 
   // Update Status
-  updateStatus(id: number, status: boolean): void {
+  updateStatus(id: number, status: boolean, name: string): void {
     status = !status;
     this.updateStatusSubscription = this.poolService.updateStatus(status, id)
       .subscribe((res: any) => {
         this.status = res;
         this.fetchPools();
+        // Snackbar
+        const action = status ? 'allumé' : 'éteint';
+        const notificationMessage = `L\'équipement de bassin "${name}" a été ${action}.`;
+        this.snackbarService.showNotification(notificationMessage, 'modified');
       });
   }
 
