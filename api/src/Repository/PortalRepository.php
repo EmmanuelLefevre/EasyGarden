@@ -36,7 +36,7 @@ class PortalRepository extends ServiceEntityRepository
     /**
      * Update portal status
      * @param Portal $portal Portal equipment to update.
-     * @param bool $status New status
+     * @param bool $status New status.
      * @throws UnsupportedPortalException If the provided portal object is not an instance of Portal.
      */
     public function updateStatus(Portal $portal, bool $status): void
