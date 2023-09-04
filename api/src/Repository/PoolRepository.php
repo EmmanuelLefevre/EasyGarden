@@ -36,7 +36,7 @@ class PoolRepository extends ServiceEntityRepository
     /**
      * Update pool status
      * @param Pool $pool Pool equipment to update.
-     * @param bool $status New status
+     * @param bool $status New status.
      * @throws UnsupportedPoolException If the provided pool object is not an instance of Pool.
      */
     public function updateStatus(Pool $pool, bool $status): void
