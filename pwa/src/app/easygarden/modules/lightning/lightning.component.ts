@@ -12,6 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { GardenService } from '../../components/garden/garden.service';
 import { GardenFilterService } from '../../_services/garden-filter.service';
 import { LightningService } from './lightning.service';
+import { SnackbarService } from 'src/app/_services/miscellaneous/snackbar.service';
 // Modeles
 import { IGarden } from '../../components/garden/IGarden';
 import { ILightning, ILightningFilter } from './ILightning';
@@ -72,7 +73,8 @@ export class LightningComponent implements OnInit, OnDestroy {
   constructor(private dialog: MatDialog,
               private gardenFilterService: GardenFilterService,
               private gardenService: GardenService,
-              private lightningService: LightningService,) {}
+              private lightningService: LightningService,
+              private snackbarService: SnackbarService) {}
 
   ngOnInit(): void {
     this.fetchGardens();
@@ -130,12 +132,16 @@ export class LightningComponent implements OnInit, OnDestroy {
   }
 
   // Update Status
-  updateStatus(id: number, status: boolean): void {
+  updateStatus(id: number, status: boolean, name: string): void {
     status = !status;
     this.updateStatusSubscription = this.lightningService.updateStatus(status, id)
       .subscribe((res: any) => {
         this.status = res;
         this.fetchLightnings();
+        // Snackbar
+        const action = status ? 'allumé' : 'éteint';
+        const notificationMessage = `L'\éclairage "${name}" a été ${action}.`;
+        this.snackbarService.showNotification(notificationMessage, 'modified');
       });
   }
 
