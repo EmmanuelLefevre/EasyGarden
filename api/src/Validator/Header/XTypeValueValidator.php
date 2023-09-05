@@ -17,21 +17,22 @@ class XTypeValueValidator {
      * @param bool $returnJsonResponse Indicates whether the method should return a JSON response on error.
      * @return bool|JsonResponse True if the xType is valid; otherwise, false or JsonResponse with/no error message.
      */
-    public function isValidXTypeValue(string $xType, bool $returnJsonResponse = false): JsonResponse|bool
+    public function isValidXTypeValue(string $xType): JsonResponse|bool
     {
-        // Is a string
-        if (!is_string($xType)) {
-            return $returnJsonResponse ? new JsonResponse('X-Type must be a string!', Response::HTTP_BAD_REQUEST) : false;
-        }
-
         // Defined array
         $allowedXTypes = ['lawnmower', 'lightning', 'pool', 'portal', 'watering'];
 
-        // Is in defined array
-        if (!in_array($xType, $allowedXTypes, true)) {
-            return $returnJsonResponse ? new JsonResponse('Wrong defined X-Type!', Response::HTTP_BAD_REQUEST) : false;
-        }
+        switch (true) {
+            // Is a string
+            case !is_string($xType):
+                return new JsonResponse('X-Type must be a string!', Response::HTTP_BAD_REQUEST);
 
-        return true;
+            // Is in defined array
+            case !in_array($xType, $allowedXTypes):
+                return new JsonResponse('Wrong defined X-Type!', Response::HTTP_BAD_REQUEST);
+
+            default:
+                return true;
+        }
     }
 }
