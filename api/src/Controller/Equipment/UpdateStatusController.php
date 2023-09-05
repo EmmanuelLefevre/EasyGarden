@@ -87,7 +87,7 @@ class UpdateStatusController extends AbstractController
         }
 
         // Get HEADER type and validate it
-        $xType = $this->xTypeValueService->getXTypeHeaderValue();
+        $xType = $this->xTypeValueService->getXTypeValue();
 
         // Validate X-Type header
         $xTypeValidationResult = $this->xTypeValueValidator->isValidXTypeValue($xType);
