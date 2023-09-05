@@ -2,12 +2,13 @@
 
 namespace App\Controller\Equipment;
 
-use App\Service\ArduinoConnectionService;
-use App\Service\Header\UpdateStatusHeaderValueExtractorService;
+use App\Service\Arduino\ArduinoConnectionService;
+use App\Service\Header\XTypeValueService;
 use App\Service\Json\JsonDataValidatorService;
 use App\Service\Repository\UpdateStatusCorrectRepositoryService;
 use App\Utility\Json\JsonValidationException;
 use App\Validator\Entity\IdParameterValidator;
+use App\Validator\Header\XTypeValueValidator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,10 +25,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class UpdateStatusController extends AbstractController
 {
     private $arduinoConnectionService;
-    private $headerValueExtractor;
     private $idParameterValidator;
     private $jsonDataValidator;
     private $repositoryService;
+    private $xTypeValueService;
+    private $xTypeValueValidator;
 
     /**
      * UpdateStatusController constructor.
@@ -35,19 +37,22 @@ class UpdateStatusController extends AbstractController
      * @param IdParameterValidator $idParameterValidator The service responsible for validating the id parameter.
      * @param JsonDataValidatorService $jsonDataValidator The service responsible for validating the json format of the request.
      * @param UpdateStatusCorrectRepositoryService $repositoryService The service responsible for interacting with the repository for updating status.
-     * @param UpdateStatusHeaderValueExtractorService $headerValueExtractor The service responsible for extracting header values.
+     * @param XTypeValueService $xTypeValueService The service responsible for extracting header values.
+     * @param XTypeValueValidator $xTypeValueValidator The service responsible for validating the X-Type header.
      */
     public function __construct(ArduinoConnectionService $arduinoConnectionService,
                                 IdParameterValidator $idParameterValidator,
                                 JsonDataValidatorService $jsonDataValidator,
                                 UpdateStatusCorrectRepositoryService $repositoryService,
-                                UpdateStatusHeaderValueExtractorService $headerValueExtractor)
+                                XTypeValueService $xTypeValueService,
+                                XTypeValueValidator $xTypeValueValidator)
     {
         $this->arduinoConnectionService = $arduinoConnectionService;
-        $this->headerValueExtractor = $headerValueExtractor;
+        $this->xTypeValueService = $xTypeValueService;
         $this->idParameterValidator = $idParameterValidator;
         $this->jsonDataValidator = $jsonDataValidator;
         $this->repositoryService = $repositoryService;
+        $this->xTypeValueValidator = $xTypeValueValidator;
     }
 
     /**
@@ -81,8 +86,15 @@ class UpdateStatusController extends AbstractController
             return $isValidIdParameter;
         }
 
-        // Get HEADER type
-        $xType = $this->headerValueExtractor->getXTypeHeaderValue();
+        // Get HEADER type and validate it
+        $xType = $this->xTypeValueService->getXTypeHeaderValue();
+
+        // Validate X-Type header
+        $xTypeValidationResult = $this->xTypeValueValidator->isValidXTypeValue($xType);
+        if ($xTypeValidationResult instanceof JsonResponse) {
+            // Return JSON error response if validation fails
+            return $xTypeValidationResult;
+        }
         
         // Use the service to get the correct repository
         $repository = $this->repositoryService->getCorrectRepositoryForUpdateStatus($xType);
@@ -103,9 +115,13 @@ class UpdateStatusController extends AbstractController
         // Call the correct repository based on $xType and persist the status
         $repository->updateStatus($equipment, $status);
 
-        // // Open bluetooth connection with Arduino
+        // Create an instance of ArduinoConnectionService and pass the values
+        // $arduinoService = new ArduinoConnectionService($bluetoothDevice, $serialDevice);
+        // Open bluetooth connection with Arduino
         // try {
-        //     $this->arduinoConnectionService->openBluetoothConnection($status);
+        //     $arduinoService->openBluetoothConnection($status);
+        // OR
+            // $this->arduinoConnectionService->openBluetoothConnection($status);
         // } catch (\Exception $e) {
         //     // Manage Bluetooth connection errors
         //     return new JsonResponse(['message' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -113,7 +129,9 @@ class UpdateStatusController extends AbstractController
 
         // // Open serial connection with Arduino
         // try {
-        //     $this->arduinoConnectionService->openSerialConnection($status);
+        //     $arduinoService->openSerialConnection($status);
+        // OR
+            // $this->arduinoConnectionService->openSerialConnection($status);
         // } catch (\Exception $e) {
         //     // Manage serial connection errors
         //     return new JsonResponse(['message' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
