@@ -38,6 +38,6 @@ class XTypeValueService
             }
         }
 
-        throw new \Exception('X-Type header is missing or invalid!');
+        throw new \Exception('X-Type header is missing!');
     }
 }
