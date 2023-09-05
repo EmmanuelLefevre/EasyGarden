@@ -30,7 +30,7 @@ class UpdateStatusCorrectRepositoryService
         $this->wateringRepository = $wateringRepository;
     }
 
-    public function getCorrectRepositoryForUpdateStatus(string $xType)
+    public function getCorrectRepositoryForUpdateStatus(string $xType): Object
     {
         switch ($xType) {
             case 'lawnmower':
