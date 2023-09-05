@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 
 /**
- * Service for extracting the value of the 'X-Type' header from the current HTTP request.
+ * Service for extracting the value of the 'X-Type' in header from the current HTTP request.
  * @package App\Service\Header
  */
 class XTypeValueService
@@ -14,7 +14,7 @@ class XTypeValueService
     private $requestStack;
 
     /**
-     * XTypeHeaderValueService constructor.
+     * XTypeValueService constructor.
      * @param RequestStack $requestStack The RequestStack instance.
      */
     public function __construct(RequestStack $requestStack)
@@ -23,18 +23,18 @@ class XTypeValueService
     }
 
     /**
-     * Get the value of the 'X-Type' header from the current HTTP request.
+     * Get the value of the 'X-Type' in header from the current HTTP request.
      * @return string The value of the 'X-Type' header if it exists.
-     * @throws \Exception If the 'X-Type' header is missing, throw an exception.
+     * @throws \Exception If the 'X-Type' in header is missing, throw an exception.
      */
-    public function getXTypeHeaderValue(): string
+    public function getXTypeValue(): string
     {
         $request = $this->requestStack->getCurrentRequest();
         
         if ($request) {
-            $xTypeHeader = $request->headers->get('X-Type');
-            if ($xTypeHeader !== null) {
-                return $xTypeHeader;
+            $xType = $request->headers->get('X-Type');
+            if ($xType !== null) {
+                return $xType;
             }
         }
 
