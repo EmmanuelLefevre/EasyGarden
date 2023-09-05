@@ -98,10 +98,6 @@ class UpdateStatusController extends AbstractController
         
         // Use the service to get the correct repository
         $repository = $this->repositoryService->getCorrectRepositoryForUpdateStatus($xType);
-        if ($repository === null) {
-            // Handle the case where the correct repository is not found
-            return new JsonResponse(['message' => 'Repository not found for X-Type: ' . $xType], Response::HTTP_NOT_FOUND);
-        }
 
          // Use the repository to retrieve the equipment by ID
         $equipment = $repository->findById($idValue);
