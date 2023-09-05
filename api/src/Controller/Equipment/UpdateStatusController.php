@@ -48,10 +48,10 @@ class UpdateStatusController extends AbstractController
                                 XTypeValueValidator $xTypeValueValidator)
     {
         $this->arduinoConnectionService = $arduinoConnectionService;
-        $this->xTypeValueService = $xTypeValueService;
         $this->idParameterValidator = $idParameterValidator;
         $this->jsonDataValidator = $jsonDataValidator;
         $this->repositoryService = $repositoryService;
+        $this->xTypeValueService = $xTypeValueService;
         $this->xTypeValueValidator = $xTypeValueValidator;
     }
 
