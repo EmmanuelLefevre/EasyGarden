@@ -46,6 +46,7 @@ class UpdateStatusCorrectRepositoryService
      * Retrieves the appropriate repository for status updating based on X-Type.
      * @param string $xType The type to get the repository for.
      * @return object The repository object matching the specified type.
+     * @throws \Exception If the repository is not found, throw an exception.
      */
     public function getCorrectRepositoryForUpdateStatus(string $xType): Object
     {
@@ -60,6 +61,8 @@ class UpdateStatusCorrectRepositoryService
                 return $this->portalRepository;
             case 'watering':
                 return $this->wateringRepository;
+            default:
+                throw new \Exception('Repository not found for X-Type: ' . $xType);
         }
     }
 }
