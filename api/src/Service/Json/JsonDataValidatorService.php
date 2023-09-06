@@ -2,7 +2,7 @@
 
 namespace App\Service\Json;
 
-use App\Utility\Json\JsonValidationException;
+use App\Exception\JsonValidationException;
 use App\Validator\Entity\BatterySensorValidator;
 use App\Validator\Entity\EntityNameValidator;
 use App\Validator\Entity\FlowSensorValidator;
