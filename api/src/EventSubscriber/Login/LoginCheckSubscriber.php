@@ -3,9 +3,9 @@
 namespace App\EventSubscriber\Login;
 
 use ApiPlatform\Core\EventListener\EventPriorities;
+use App\Exception\JsonValidationException;
 use App\Repository\UserRepository;
 use App\Service\Json\JsonDataValidatorService;
-use App\Utility\Json\JsonValidationException;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\AuthenticationFailureEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
