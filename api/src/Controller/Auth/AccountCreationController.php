@@ -6,7 +6,7 @@ use App\Entity\User;
 use App\Exception\JsonValidationException;
 use App\DataPersister\UserDataPersister;
 use App\Repository\UserRepository;
-use App\Service\Json\JsonDataValidatorService;
+use App\Validator\Json\JsonDataValidator;
 use App\Service\Mailing\AccountCreationEmailService;
 use App\Utility\Date\DateTimeConverter;
 use App\Utility\Token\TokenGenerator;
@@ -34,12 +34,12 @@ class AccountCreationController extends AbstractController
     /**
      * AccountCreationController constructor.
      * @param AccountCreationEmailService $emailService The service responsible for sending account creation emails.
-     * @param JsonDataValidatorService $jsonDataValidator The service responsible for validating the json format of the request.
+     * @param JsonDataValidator $jsonDataValidator The validator responsible for validating the json format of the request.
      * @param UserDataPersister $userDataPersister The service responsible for persisting user data.
      * @param UserRepository $userRepository The repository responsible for retrieving User data.
      */
     public function __construct(AccountCreationEmailService $emailService,
-                                JsonDataValidatorService $jsonDataValidator,
+                                JsonDataValidator $jsonDataValidator,
                                 UserDataPersister $userDataPersister,
                                 UserRepository $userRepository)
     {
