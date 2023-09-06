@@ -2,11 +2,11 @@
 
 namespace App\Controller\Equipment;
 
+use App\Exception\JsonValidationException;
 use App\Service\Arduino\ArduinoConnectionService;
 use App\Service\Header\XTypeValueService;
 use App\Service\Json\JsonDataValidatorService;
 use App\Service\Repository\UpdateStatusCorrectRepositoryService;
-use App\Utility\Json\JsonValidationException;
 use App\Validator\Entity\IdParameterValidator;
 use App\Validator\Header\XTypeValueValidator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
