@@ -116,6 +116,7 @@ export class LoginComponent implements OnDestroy, OnInit {
                       `Votre compte n'a pas encore été activé grâce au lien dans l'email qui vous a été envoyé!`
                       ,'orange-alert'
                     );
+                    this.submitDisabled = false;
                   } 
                   else if (response.message === 'Account is verified!') {
                     this.tokenService.saveToken(data.token);
@@ -132,6 +133,7 @@ export class LoginComponent implements OnDestroy, OnInit {
                     `Une erreur s'est produite lors de la vérification du compte!`
                     ,'red-alert'
                   );
+                  this.submitDisabled = false;
                 }
               );
           },
@@ -156,6 +158,7 @@ export class LoginComponent implements OnDestroy, OnInit {
                 'red-alert'
               );
             }
+            this.submitDisabled = false;
           }
         );
     }
