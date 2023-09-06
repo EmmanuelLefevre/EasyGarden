@@ -186,6 +186,7 @@ export class RegisterComponent implements OnDestroy, OnInit {
                 `Une erreur s'est produite lors de la création du compte!`
                 ,'red-alert'
               );
+              this.submitDisabled = false;
             }
           }
         )
