@@ -8,7 +8,7 @@ use App\Service\Header\XTypeValueService;
 use App\Service\Repository\UpdateStatusCorrectRepositoryService;
 use App\Validator\Entity\IdParameterValidator;
 use App\Validator\Header\XTypeValueValidator;
-use App\Validator\Json\JsonDataValidator;
+use App\Validator\Json\JsonRequestValidator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,7 +26,7 @@ class UpdateStatusController extends AbstractController
 {
     private $arduinoConnectionService;
     private $idParameterValidator;
-    private $jsonDataValidator;
+    private $jsonRequestValidator;
     private $repositoryService;
     private $xTypeValueService;
     private $xTypeValueValidator;
@@ -34,22 +34,22 @@ class UpdateStatusController extends AbstractController
     /**
      * UpdateStatusController constructor.
      * @param ArduinoConnectionService $arduinoConnectionService The service responsible for open the bluetooth connection with Arduinos.
-     * @param IdParameterValidator $idParameterValidator The service responsible for validating the id parameter.
-     * @param JsonDataValidator $jsonDataValidator The validator responsible for validating the json format of the request.
+     * @param IdParameterValidator $idParameterValidator The validator responsible for validating the id parameter.
+     * @param JsonRequestValidator $jsonRequestValidator The validator responsible for validating the json format of the request.
      * @param UpdateStatusCorrectRepositoryService $repositoryService The service responsible for interacting with the repository for updating status.
      * @param XTypeValueService $xTypeValueService The service responsible for extracting header values.
      * @param XTypeValueValidator $xTypeValueValidator The service responsible for validating the X-Type header.
      */
     public function __construct(ArduinoConnectionService $arduinoConnectionService,
                                 IdParameterValidator $idParameterValidator,
-                                JsonDataValidator $jsonDataValidator,
+                                JsonRequestValidator $jsonRequestValidator,
                                 UpdateStatusCorrectRepositoryService $repositoryService,
                                 XTypeValueService $xTypeValueService,
                                 XTypeValueValidator $xTypeValueValidator)
     {
         $this->arduinoConnectionService = $arduinoConnectionService;
         $this->idParameterValidator = $idParameterValidator;
-        $this->jsonDataValidator = $jsonDataValidator;
+        $this->jsonRequestValidator = $jsonRequestValidator;
         $this->repositoryService = $repositoryService;
         $this->xTypeValueService = $xTypeValueService;
         $this->xTypeValueValidator = $xTypeValueValidator;
@@ -70,7 +70,7 @@ class UpdateStatusController extends AbstractController
         // // Check the presence of required keys and if their fields are valid
         // try {
         //     // Validate json data using JsonDataValidatorService, including custom validators
-        //     $data = $this->jsonDataValidator->validateJsonData($request, ['status']);
+        //     $data = $this->jsonRequestValidator->validateJsonData($request, ['status']);
         // } 
         // catch (JsonValidationException  $e) {
         //     // Handle json validation exception by returning a json response with the error message
