@@ -5,10 +5,10 @@ namespace App\Controller\Equipment;
 use App\Exception\JsonValidationException;
 use App\Service\Arduino\ArduinoConnectionService;
 use App\Service\Header\XTypeValueService;
-use App\Service\Json\JsonDataValidatorService;
 use App\Service\Repository\UpdateStatusCorrectRepositoryService;
 use App\Validator\Entity\IdParameterValidator;
 use App\Validator\Header\XTypeValueValidator;
+use App\Validator\Json\JsonDataValidator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,14 +35,14 @@ class UpdateStatusController extends AbstractController
      * UpdateStatusController constructor.
      * @param ArduinoConnectionService $arduinoConnectionService The service responsible for open the bluetooth connection with Arduinos.
      * @param IdParameterValidator $idParameterValidator The service responsible for validating the id parameter.
-     * @param JsonDataValidatorService $jsonDataValidator The service responsible for validating the json format of the request.
+     * @param JsonDataValidator $jsonDataValidator The validator responsible for validating the json format of the request.
      * @param UpdateStatusCorrectRepositoryService $repositoryService The service responsible for interacting with the repository for updating status.
      * @param XTypeValueService $xTypeValueService The service responsible for extracting header values.
      * @param XTypeValueValidator $xTypeValueValidator The service responsible for validating the X-Type header.
      */
     public function __construct(ArduinoConnectionService $arduinoConnectionService,
                                 IdParameterValidator $idParameterValidator,
-                                JsonDataValidatorService $jsonDataValidator,
+                                JsonDataValidator $jsonDataValidator,
                                 UpdateStatusCorrectRepositoryService $repositoryService,
                                 XTypeValueService $xTypeValueService,
                                 XTypeValueValidator $xTypeValueValidator)
