@@ -22,6 +22,6 @@ class FailSendEmailException extends HttpException
      */
     public function __construct(string $message)
     {
-        parent::__construct(Response::HTTP_BAD_REQUEST, $message);
+        parent::__construct(Response::HTTP_INTERNAL_SERVER_ERROR, $message);
     }
 }
