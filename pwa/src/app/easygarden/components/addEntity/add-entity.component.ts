@@ -187,6 +187,7 @@ export class AddEntityComponent implements OnInit, OnDestroy {
           `Une erreur s'est produite!`,
           'red-alert'
         );
+        this.submitDisabled = false;
       }
     } 
   } 
