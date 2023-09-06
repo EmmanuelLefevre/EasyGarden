@@ -2,8 +2,8 @@
 
 namespace App\Controller\Auth;
 
-use App\Entity\User;
 use App\DataPersister\UserDataPersister;
+use App\Exception\FailSendEmailException;
 use App\Repository\UserRepository;
 use App\Validator\User\EmailValidator;
 use App\Service\Mailing\NewPasswordEmailService;
@@ -98,7 +98,7 @@ class ForgottenPasswordController extends AbstractController
         try {
             $this->passwordService->sendNewPasswordEmail($user, $user->getEmail(), $newPassword);
         } catch (\Exception $e) {
-            return new JsonResponse(['message' => 'Failed to send email!'], Response::HTTP_INTERNAL_SERVER_ERROR);
+            throw new FailSendEmailException('Failed to send email!');
         }
 
         // Persist new password
