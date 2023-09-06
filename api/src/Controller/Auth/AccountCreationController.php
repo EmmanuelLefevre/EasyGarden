@@ -3,6 +3,7 @@
 namespace App\Controller\Auth;
 
 use App\Entity\User;
+use App\Exception\FailSendEmailException;
 use App\Exception\JsonValidationException;
 use App\DataPersister\UserDataPersister;
 use App\Repository\UserRepository;
@@ -54,6 +55,7 @@ class AccountCreationController extends AbstractController
      * This method is accessible via POST request to "/account_creation"
      * @param string Request $request The HTTP request object. 
      * @return JsonResponse
+     * @throws FailSendEmailException If there is an issue sending the confirmation email.
      * @Route("/account_creation", name="account_creation", methods={"POST"})
      */
     public function accountCreation(Request $request): JsonResponse
@@ -106,7 +108,7 @@ class AccountCreationController extends AbstractController
         try {
             $this->emailService->sendActivationEmail($user, $user->getEmail(), $activationToken);
         } catch (\Exception $e) {
-            return new JsonResponse(['message' => 'Failed to send email!'], Response::HTTP_INTERNAL_SERVER_ERROR);
+            throw new FailSendEmailException('Failed to send email!');
         }
         
         // Persist User
