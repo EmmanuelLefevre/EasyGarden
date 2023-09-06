@@ -5,7 +5,7 @@ namespace App\EventSubscriber\Login;
 use ApiPlatform\Core\EventListener\EventPriorities;
 use App\Exception\JsonValidationException;
 use App\Repository\UserRepository;
-use App\Service\Json\JsonDataValidatorService;
+use App\Validator\Json\JsonDataValidator;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\AuthenticationFailureEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -34,12 +34,12 @@ class LoginCheckSubscriber implements EventSubscriberInterface
     /**
      * LoginCheckSubscriber constructor.
      * @param EventDispatcherInterface $eventDispatcher The EventDispatcherInterface instance used for dispatching events.
-     * @param JsonDataValidatorService $jsonDataValidator The service responsible for validating the json format of the request.
+     * @param JsonDataValidator $jsonDataValidator The validator responsible for validating the json format of the request.
      * @param UserPasswordHasherInterface $userPasswordHasher The password hasher.
      * @param UserRepository $userRepository The repository responsible for retrieving User data.
      */
     public function __construct(EventDispatcherInterface $eventDispatcher,
-                                JsonDataValidatorService $jsonDataValidator,
+                                JsonDataValidator $jsonDataValidator,
                                 UserPasswordHasherInterface $userPasswordHasher, 
                                 UserRepository $userRepository)
     {
