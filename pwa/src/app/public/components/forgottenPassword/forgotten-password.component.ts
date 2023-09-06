@@ -118,6 +118,7 @@ export class ForgottenPasswordComponent implements OnDestroy, OnInit {
                 `Une erreur s'est produite lors de la création du nouveau mot de passe!`
                 ,'red-alert'
               );
+              this.submitDisabled = false;
             }
           }
         )
