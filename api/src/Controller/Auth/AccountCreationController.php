@@ -3,10 +3,10 @@
 namespace App\Controller\Auth;
 
 use App\Entity\User;
+use App\Exception\JsonValidationException;
 use App\DataPersister\UserDataPersister;
 use App\Repository\UserRepository;
 use App\Service\Json\JsonDataValidatorService;
-use App\Utility\Json\JsonValidationException;
 use App\Service\Mailing\AccountCreationEmailService;
 use App\Utility\Date\DateTimeConverter;
 use App\Utility\Token\TokenGenerator;
