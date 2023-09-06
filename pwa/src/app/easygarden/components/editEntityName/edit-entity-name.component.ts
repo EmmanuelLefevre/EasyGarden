@@ -220,6 +220,7 @@ export class EditEntityNameComponent implements OnDestroy, OnInit {
           `Une erreur s'est produite!`,
           'red-alert'
         );
+        this.submitDisabled = false;
       }
     }
   }
