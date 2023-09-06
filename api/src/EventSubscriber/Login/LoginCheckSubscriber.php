@@ -5,7 +5,7 @@ namespace App\EventSubscriber\Login;
 use ApiPlatform\Core\EventListener\EventPriorities;
 use App\Exception\JsonValidationException;
 use App\Repository\UserRepository;
-use App\Validator\Json\JsonDataValidator;
+use App\Validator\Json\JsonRequestValidator;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\AuthenticationFailureEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -27,24 +27,24 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 class LoginCheckSubscriber implements EventSubscriberInterface
 {
     private $eventDispatcher;
-    private $jsonDataValidator;
+    private $jsonRequestValidator;
     private $userRepository;
     private $userPasswordHasher;
 
     /**
      * LoginCheckSubscriber constructor.
      * @param EventDispatcherInterface $eventDispatcher The EventDispatcherInterface instance used for dispatching events.
-     * @param JsonDataValidator $jsonDataValidator The validator responsible for validating the json format of the request.
+     * @param JsonRequestValidator $jsonRequestValidator The validator responsible for validating the json format of the request.
      * @param UserPasswordHasherInterface $userPasswordHasher The password hasher.
      * @param UserRepository $userRepository The repository responsible for retrieving User data.
      */
     public function __construct(EventDispatcherInterface $eventDispatcher,
-                                JsonDataValidator $jsonDataValidator,
+                                JsonRequestValidator $jsonRequestValidator,
                                 UserPasswordHasherInterface $userPasswordHasher, 
                                 UserRepository $userRepository)
     {
         $this->eventDispatcher = $eventDispatcher;
-        $this->jsonDataValidator = $jsonDataValidator;
+        $this->jsonRequestValidator = $jsonRequestValidator;
         $this->userRepository = $userRepository;
         $this->userPasswordHasher = $userPasswordHasher;
     }
@@ -64,7 +64,7 @@ class LoginCheckSubscriber implements EventSubscriberInterface
             // Check the presence of required keys and if their fields are valid
             try {
                 // Validate json data using JsonDataValidatorService, including custom validators
-                $data = $this->jsonDataValidator->validateJsonData($request, ['email', 'password']);
+                $data = $this->jsonRequestValidator->validateJsonData($request, ['email', 'password']);
             } 
             catch (JsonValidationException  $e) {
                 // Handle json validation exception by returning a json response with the error message
