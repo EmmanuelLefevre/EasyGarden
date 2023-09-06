@@ -6,7 +6,7 @@ use App\Entity\User;
 use App\Exception\JsonValidationException;
 use App\DataPersister\UserDataPersister;
 use App\Repository\UserRepository;
-use App\Validator\Json\JsonDataValidator;
+use App\Validator\Json\JsonRequestValidator;
 use App\Service\Mailing\AccountCreationEmailService;
 use App\Utility\Date\DateTimeConverter;
 use App\Utility\Token\TokenGenerator;
@@ -27,24 +27,24 @@ use Symfony\Component\Routing\Annotation\Route;
 class AccountCreationController extends AbstractController
 {
     private $emailService;
-    private $jsonDataValidator;
+    private $jsonRequestValidator;
     private $userDataPersister;
     private $userRepository;
 
     /**
      * AccountCreationController constructor.
      * @param AccountCreationEmailService $emailService The service responsible for sending account creation emails.
-     * @param JsonDataValidator $jsonDataValidator The validator responsible for validating the json format of the request.
+     * @param JsonRequestValidator $jsonRequestValidator The validator responsible for validating the json format of the request.
      * @param UserDataPersister $userDataPersister The service responsible for persisting user data.
      * @param UserRepository $userRepository The repository responsible for retrieving User data.
      */
     public function __construct(AccountCreationEmailService $emailService,
-                                JsonDataValidator $jsonDataValidator,
+                                JsonRequestValidator $jsonRequestValidator,
                                 UserDataPersister $userDataPersister,
                                 UserRepository $userRepository)
     {
         $this->emailService = $emailService;
-        $this->jsonDataValidator = $jsonDataValidator;
+        $this->jsonRequestValidator = $jsonRequestValidator;
         $this->userDataPersister = $userDataPersister;
         $this->userRepository = $userRepository;
     }
@@ -63,7 +63,7 @@ class AccountCreationController extends AbstractController
         // Check the presence of required keys and if their fields are valid
         try {
             // Validate json data using JsonDataValidatorService, including custom validators
-            $data = $this->jsonDataValidator->validateJsonData($request, ['email', 
+            $data = $this->jsonRequestValidator->validateJsonData($request, ['email', 
                                                                           'plainPassword', 
                                                                           'pseudo', 
                                                                           'lastName', 
