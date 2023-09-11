@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 // Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip in style.scss
+import { HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter, Subject, Subscription } from 'rxjs';
 // Environment
@@ -12,6 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
 // Services
 import { DecodedTokenService } from 'src/app/_services/miscellaneous/decoded-token.service';
 import { GardenService } from './garden.service';
+import { SnackbarService } from 'src/app/_services/miscellaneous/snackbar.service';
 // Modeles
 import { IGarden, IGardenFilter } from './IGarden';
 
@@ -65,7 +67,8 @@ export class GardenComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute,            
               private decodedTokenService: DecodedTokenService,
               private dialog: MatDialog,
-              private gardenService: GardenService) {}
+              private gardenService: GardenService,
+              private snackbarService: SnackbarService) {}
 
   ngOnInit(): void {
     this.fetchGardens();
@@ -122,9 +125,21 @@ export class GardenComponent implements OnInit, OnDestroy {
         this.result = dialogResult;
         if (this.result === true) {
           this.deleteGardenSubscription = this.gardenService.deleteGarden(id)
-            .subscribe(() => {
-              this.fetchGardens();
-            });
+          .subscribe(
+            (response: HttpResponse<any>) => {
+              if (response.status === 204) {
+                const notificationMessage = this.snackbarService.getNotificationMessage();
+                this.snackbarService.showNotification(notificationMessage, 'deleted');
+                this.fetchGardens();
+              }
+            },
+            (_error) => {
+              this.snackbarService.showNotification(
+                `Une erreur s'est produite!`,
+                'red-alert'
+              );
+            }
+          )
         }
       });
   }
