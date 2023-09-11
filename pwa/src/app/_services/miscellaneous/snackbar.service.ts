@@ -9,6 +9,8 @@ import { SnackbarComponent } from 'src/app/easygarden/components/snackbar/snackb
 
 export class SnackbarService {
 
+  private notificationMessage: string = '';
+
   constructor(private snackbar: MatSnackBar) { }
 
   showNotification(displayMessage: string, messageType: 'created' 
@@ -50,6 +52,14 @@ export class SnackbarService {
         verticalPosition: 'bottom',
         horizontalPosition: 'start'
       });
+  }
+
+  setNotificationMessage(message: string) {
+    this.notificationMessage = message;
+  }
+
+  getNotificationMessage(): string {
+    return this.notificationMessage;
   }
   
 }
