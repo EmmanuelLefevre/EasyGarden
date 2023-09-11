@@ -1,8 +1,9 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, share } from 'rxjs';
+// Environment
 import { environment } from 'src/environments/environment';
-
+// Modeles
 import { ILawnmower, IDataLawnmower } from './ILawnmower';
 import { IName } from '../../_interfaces/IName';
 import { IAdd } from '../../_interfaces/IAdd';
@@ -18,7 +19,7 @@ export class LawnmowerService {
 
   // Get List of Lawnmowers
   getAllLawnmowers(): Observable<IDataLawnmower[]> {
-    return this.httpClient.get<IDataLawnmower[]>(environment.apis.lawnmower.url);
+    return this.httpClient.get<IDataLawnmower[]>(environment.apis.lawnmower.url).pipe(share());
   }
 
   // Add Lawnmower
@@ -54,8 +55,8 @@ export class LawnmowerService {
   }
 
   // Delete Lawnmower
-  deleteLawnmower(id: number): Observable<ILawnmower> {
-    return this.httpClient.delete<ILawnmower>(environment.apis.lawnmower.url+'/'+id);
+  deleteLawnmower(id: number): Observable<HttpResponse<any>> {
+    return this.httpClient.delete(environment.apis.lawnmower.url+'/'+id, { observe: 'response' });
   }
 
   // Get redirection
