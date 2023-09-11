@@ -1,8 +1,9 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, share } from 'rxjs';
+// Environment
 import { environment } from 'src/environments/environment';
-
+// Modeles
 import { ILightning, IDataLightning } from './ILightning';
 import { IName } from '../../_interfaces/IName';
 import { IAdd } from '../../_interfaces/IAdd';
@@ -18,7 +19,7 @@ export class LightningService {
 
   // Get List of Lightnings
   getAllLightnings(): Observable<IDataLightning[]> {
-    return this.httpClient.get<IDataLightning[]>(environment.apis.lightning.url);
+    return this.httpClient.get<IDataLightning[]>(environment.apis.lightning.url).pipe(share());
   }
 
   // Add Lightning
@@ -53,8 +54,8 @@ export class LightningService {
   }
 
   // Delete Lightning
-  deleteLightning(id: number): Observable<ILightning> {
-    return this.httpClient.delete<ILightning>(environment.apis.lightning.url+'/'+id);
+  deleteLightning(id: number): Observable<HttpResponse<any>> {
+    return this.httpClient.delete(environment.apis.lightning.url+'/'+id, { observe: 'response' });
   }
 
   // Get redirection
