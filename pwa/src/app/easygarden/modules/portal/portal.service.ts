@@ -1,9 +1,9 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, share } from 'rxjs';
+// Environment
 import { environment } from 'src/environments/environment';
-
+// Modeles
 import { IPortal, IDataPortal } from './IPortal';
 import { IName } from '../../_interfaces/IName';
 import { IAdd } from '../../_interfaces/IAdd';
@@ -19,7 +19,7 @@ export class PortalService {
 
   // Get List of Portals
   getAllPortals(): Observable<IDataPortal[]> {
-    return this.httpClient.get<IDataPortal[]>(environment.apis.portal.url);
+    return this.httpClient.get<IDataPortal[]>(environment.apis.portal.url).pipe(share());
   }
 
   // Add Portal
