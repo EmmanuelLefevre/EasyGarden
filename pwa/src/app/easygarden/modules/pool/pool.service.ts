@@ -1,8 +1,9 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, share } from 'rxjs';
+// Environment
 import { environment } from 'src/environments/environment';
-
+// Modeles
 import { IPool, IDataPool } from './IPool';
 import { IName } from '../../_interfaces/IName';
 import { IAdd } from '../../_interfaces/IAdd';
@@ -17,7 +18,7 @@ export class PoolService {
 
   // Get List of Pools
   getAllPools(): Observable<IDataPool[]> {
-    return this.httpClient.get<IDataPool[]>(environment.apis.pool.url);
+    return this.httpClient.get<IDataPool[]>(environment.apis.pool.url).pipe(share());
   }
 
   // Add Pool
@@ -52,8 +53,8 @@ export class PoolService {
   }
 
   // Delete Pool
-  deletePool(id: number): Observable<IPool> {
-    return this.httpClient.delete<IPool>(environment.apis.pool.url+'/'+id)
+  deletePool(id: number): Observable<HttpResponse<any>> {
+    return this.httpClient.delete(environment.apis.pool.url+'/'+id, { observe: 'response' })
   }
 
   // Get redirection
