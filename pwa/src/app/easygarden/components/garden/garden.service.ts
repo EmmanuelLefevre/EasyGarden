@@ -1,11 +1,12 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Location } from '@angular/common';
-import { Observable } from 'rxjs';
+import { Observable, share } from 'rxjs';
+// Environment
 import { environment } from 'src/environments/environment';
-
+// Services
 import { DecodedTokenService } from 'src/app/_services/miscellaneous/decoded-token.service';
-
+// Modeles
 import { IGarden, IDataGarden } from './IGarden';
 import { IName } from '../../_interfaces/IName';
 import { IAdd } from '../../_interfaces/IAdd';
@@ -23,7 +24,7 @@ export class GardenService {
 
   // Get List of Gardens
   getAllGardens(): Observable<IDataGarden[]> {
-    return this.httpClient.get<IDataGarden[]>(environment.apis.garden.url);
+    return this.httpClient.get<IDataGarden[]>(environment.apis.garden.url).pipe(share());
   }
 
   // Add Garden
@@ -47,8 +48,8 @@ export class GardenService {
   }
 
   // Delete Garden
-  deleteGarden(id: number): Observable<IGarden> {
-    return this.httpClient.delete<IGarden>(environment.apis.garden.url+'/'+id);
+  deleteGarden(id: number): Observable<HttpResponse<any>> {
+    return this.httpClient.delete(environment.apis.garden.url+'/'+id, { observe: 'response' });
   }
 
   // Get redirection
