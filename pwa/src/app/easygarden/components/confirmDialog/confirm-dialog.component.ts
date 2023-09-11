@@ -4,11 +4,13 @@ import { Router } from '@angular/router';
 
 import { SnackbarService } from 'src/app/_services/miscellaneous/snackbar.service';
 
+
 @Component({
   selector: 'app-confirm-dialog',
   templateUrl: './confirm-dialog.component.html',
   styleUrls: ['./confirm-dialog.component.scss']
 })
+
 export class ConfirmDialogComponent implements OnInit {
 
   title: string;
@@ -54,7 +56,7 @@ export class ConfirmDialogComponent implements OnInit {
       else {
         notificationMessage = `${equipmentString} "${this.value}" a été supprimé.`;
       }
-      this.snackbarService.showNotification(notificationMessage, 'deleted');
+      this.snackbarService.setNotificationMessage(notificationMessage);
     }
   }
 
