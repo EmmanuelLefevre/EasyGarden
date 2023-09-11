@@ -49,10 +49,10 @@ export class ConfirmDialogComponent implements OnInit {
       equipmentString = matchedCase.string;
 
       if (this.router.url === '/easygarden') {
-        notificationMessage = `${equipmentString} "${this.value}" a bien été supprimé ainsi que tous ses équipements.`;
+        notificationMessage = `${equipmentString} "${this.value}" a été supprimé ainsi que tous ses équipements.`;
       }
       else {
-        notificationMessage = `${equipmentString} "${this.value}" a bien été supprimé.`;
+        notificationMessage = `${equipmentString} "${this.value}" a été supprimé.`;
       }
       this.snackbarService.showNotification(notificationMessage, 'deleted');
     }
@@ -73,20 +73,3 @@ export class IConfirmDialog {
   }
 
 }
-
-
-// if (matchedCase) {
-//   equipmentString = matchedCase.string;
-
-//   if (this.router.url === '/easygarden/lawnmower'
-//                           || '/easygarden/lightning'
-//                           || '/easygarden/pool'
-//                           || '/easygarden/portal'
-//                           || '/easygarden/watering') {
-//     notificationMessage = `${equipmentString} "${this.value}" a bien été supprimé.`;
-//   }
-//   else {
-//     notificationMessage = `${equipmentString} "${this.value}" a bien été supprimé ainsi que tous ses équipements.`;
-//   }
-//   this.snackbarService.showNotification(notificationMessage, 'deleted');
-// }
