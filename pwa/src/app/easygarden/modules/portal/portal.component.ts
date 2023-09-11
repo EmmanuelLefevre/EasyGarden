@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 // Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip-social in style.scss
+import { HttpResponse } from '@angular/common/http';
 import { Subject, Subscription, takeUntil } from 'rxjs';
 // Environment
 import { environment } from 'src/environments/environment';
@@ -162,8 +163,18 @@ export class PortalComponent implements OnInit, OnDestroy {
         if (this.result === true) {
           this.deletePortalSubscription = this.portalService.deletePortal(id)
             .subscribe(
-              () => {
-                this.fetchPortals();
+              (response: HttpResponse<any>) => {
+                if (response.status === 204) {
+                  const notificationMessage = this.snackbarService.getNotificationMessage();
+                  this.snackbarService.showNotification(notificationMessage, 'deleted');
+                  this.fetchPortals();
+                }
+              },
+              (_error) => {
+                this.snackbarService.showNotification(
+                  `Une erreur s'est produite!`,
+                  'red-alert'
+                );
               }
             )
         }   
