@@ -1,9 +1,10 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { share } from 'rxjs/operators';
+// Environment
 import { environment } from 'src/environments/environment';
-
+// Modeles
 import { IWatering, IDataWatering } from './IWatering';
 import { IName } from '../../_interfaces/IName';
 import { IAdd } from '../../_interfaces/IAdd';
@@ -56,8 +57,8 @@ export class WateringService {
   }
 
   // Delete Watering
-  deleteWatering(id: number): Observable<IWatering> {
-    return this.httpClient.delete<IWatering>(environment.apis.watering.url+'/'+id);
+  deleteWatering(id: number): Observable<HttpResponse<any>> {
+    return this.httpClient.delete(environment.apis.watering.url+'/'+id, { observe: 'response' });
   }
 
   // Get redirection
