@@ -1,4 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -54,8 +55,8 @@ export class PortalService {
   }
 
   // Delete Portal
-  deletePortal(id: number): Observable<IPortal> {
-    return this.httpClient.delete<IPortal>(environment.apis.portal.url+'/'+id)
+  deletePortal(id: number): Observable<HttpResponse<any>> {
+    return this.httpClient.delete(environment.apis.portal.url+'/'+id, { observe: 'response' })
   }
 
   // Get redirection
