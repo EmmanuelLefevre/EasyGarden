@@ -23,7 +23,7 @@ class LawnmowerRepository extends ServiceEntityRepository
         parent::__construct($registry, Lawnmower::class);
     }
 
-        /**
+    /**
      * Find a lawnmower by id.
      * @param string $email The lawnmower's id.
      * @return Lawnmower|null The lawnmower object or null if not found.

@@ -26,7 +26,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         parent::__construct($registry, User::class);
     }
 
-     /**
+    /**
      * Check if user exist in database on the provided email [UniqueEntity]
      * @param string $email The email to check
      * @return bool True if the email exists, false otherwise
