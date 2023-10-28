@@ -36,13 +36,13 @@ export class LoginComponent implements OnDestroy, OnInit {
   private accountVerificationSubscription!: Subscription;
   private loginFormSubscription!: Subscription;
   private loginSubscription!: Subscription;
-  
+
   // Toggle faEyeSlash
   visible: boolean = false;
   public toggle(): void {
     this.visible = !this.visible;
   }
-  
+
   // Buttons
   resetDisabled: boolean;
   submitDisabled: boolean;
@@ -69,7 +69,7 @@ export class LoginComponent implements OnDestroy, OnInit {
 
   constructor(private authService: AuthService,
               private customValidator : FormValidationService,
-              private decodedTokenService: DecodedTokenService,              
+              private decodedTokenService: DecodedTokenService,
               private formBuilder: UntypedFormBuilder,
               private formErrorMessageService: FormErrorMessageService,
               private router: Router,
@@ -87,7 +87,7 @@ export class LoginComponent implements OnDestroy, OnInit {
         this.handleFormChanges();
       });
   }
-              
+
   ngOnDestroy(): void {
     // Clean up subscriptions
     this.unsubscribeAll();
@@ -99,10 +99,10 @@ export class LoginComponent implements OnDestroy, OnInit {
     this.handleFormChanges();
     if (this.form.invalid) {
       return;
-    } 
+    }
     else {
       const typedForm: ICredentials = this.form.value;
-  
+
       this.loginSubscription = this.authService.logIn(typedForm)
         .subscribe(
           // Successful processing connection
@@ -117,7 +117,7 @@ export class LoginComponent implements OnDestroy, OnInit {
                       ,'orange-alert'
                     );
                     this.submitDisabled = false;
-                  } 
+                  }
                   else if (response.message === 'Account is verified!') {
                     this.tokenService.saveToken(data.token);
                     this.router.navigate(['easygarden']);
@@ -142,7 +142,7 @@ export class LoginComponent implements OnDestroy, OnInit {
               if (error.error.message === 'Invalid password!') {
                 this.invalidPassword = true;
                 this.falsePasswordErrorMessage = "Mot de passe incorrect!";
-              } 
+              }
               else if (error.error.message === 'No existing email!') {
                 this.invalidCredentials = true;
                 this.falsePasswordErrorMessage = "";
@@ -151,7 +151,7 @@ export class LoginComponent implements OnDestroy, OnInit {
                   'red-alert'
                 );
               }
-            } 
+            }
             else {
               this.snackbarService.showNotification(
                 `Une erreur s'est produite lors de la connexion!`,
@@ -180,7 +180,6 @@ export class LoginComponent implements OnDestroy, OnInit {
     const errorKey = control?.errors && Object.keys(control.errors)[0];
     return errorKey ? this.formErrorMessageService.getErrorMessage(inputName, errorKey) : '';
   }
-  
 
   // Manage changes in form
   private handleFormChanges(): void {
@@ -196,7 +195,7 @@ export class LoginComponent implements OnDestroy, OnInit {
     this.submitDisabled = !this.form.valid;
     // Remove/Add 'invalid-feedback' class from email input
     const emailInput = document.getElementById('emailInput');
-    if (this.submittedForm 
+    if (this.submittedForm
         && this.form.get('email')?.dirty
         && this.form.get('email')?.valid) {
         emailInput!.classList.remove('invalid-feedback');
@@ -207,7 +206,7 @@ export class LoginComponent implements OnDestroy, OnInit {
     }
     // Remove/Add 'invalid-feedback' class from password input
     const passwordInput = document.getElementById('passwordInput');
-    if (this.submittedForm 
+    if (this.submittedForm
         && this.form.get('password')?.dirty
         && this.form.get('password')?.valid) {
         passwordInput!.classList.remove('invalid-feedback');
@@ -222,7 +221,7 @@ export class LoginComponent implements OnDestroy, OnInit {
   redirectToForgottenPasswordComponent() {
     this.router.navigate(['/forgottenPassword']);
   }
-  
+
   // Unsubscribe subscriptions
   private unsubscribeAll(): void {
     if (this.accountVerificationSubscription) {
@@ -235,5 +234,5 @@ export class LoginComponent implements OnDestroy, OnInit {
       this.loginSubscription.unsubscribe();
     }
   }
-  
+
 }
