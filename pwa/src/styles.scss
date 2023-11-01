@@ -36,7 +36,6 @@ $easygardenAngular-theme: mat.define-light-theme((
 :root {
   /*------Main Colors------*/
   --ang-color-green: #95cb11;
-  --ang-color-dark-green: #006835;
   --ang-color-green-rgba: rgba(149,203,17,0.55);
   --ang-color-white: #ffffff;
   --ang-color-grey: #666666;
@@ -266,7 +265,7 @@ body {
         color: var(--ang-color-white);
         text-transform: uppercase;
         border-bottom: 2px solid var(--ang-color-green);
-        background: radial-gradient(at center top, #96CC12, #006835);
+        background: radial-gradient(at center top, #006835, #95cb11);
         .p-form-title-content {
           font-family: "Charlotte Southern";
           font-size: 1.7rem;
