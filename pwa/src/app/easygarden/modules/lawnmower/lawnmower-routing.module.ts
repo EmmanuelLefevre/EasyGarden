@@ -17,7 +17,7 @@ const routes: Routes = [
       ogTitle: `Page tondeuse de l\'application ${name}`
     }, 
     resolve: {
-      lawnmower: LawnmowerResolver
+      data: LawnmowerResolver
     } 
   },
   { path: 'edit/:id', component: EditEntityNameComponent,
