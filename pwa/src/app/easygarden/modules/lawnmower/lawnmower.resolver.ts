@@ -6,8 +6,8 @@ import { catchError, Observable, throwError, forkJoin } from 'rxjs';
 import { GardenService } from '../../components/garden/garden.service';
 import { LawnmowerService } from './lawnmower.service';
 // Models
-import { IDataLawnmower } from './ILawnmower';
 import { IDataGarden } from '../../components/garden/IGarden';
+import { IDataLawnmower } from './ILawnmower';
 
 
 @Injectable({
