@@ -31,7 +31,7 @@ export class EditEntityNameComponent implements OnDestroy, OnInit {
   // Declaration of subscriptions
   private getDataSubscription: Subscription = new Subscription();
   private updateDataSubscription!: Subscription;
-  private updateDataFormSubscription!: Subscription;
+  private inputChangesSubscription!: Subscription;
   // Private Subject to handle component destruction
   private destroy$ = new Subject<void>();
 
@@ -134,7 +134,7 @@ export class EditEntityNameComponent implements OnDestroy, OnInit {
 
   ngOnInit(): void {
     // Subscribe to form control input changes
-    this.updateDataFormSubscription = this.form.valueChanges
+    this.inputChangesSubscription = this.form.valueChanges
       .subscribe(() => {
         this.handleFormChanges();
         this.checkIfInputValueHasChanged();
@@ -266,8 +266,8 @@ export class EditEntityNameComponent implements OnDestroy, OnInit {
     if (this.updateDataSubscription) {
       this.updateDataSubscription.unsubscribe();
     }
-    if (this.updateDataFormSubscription) {
-      this.updateDataFormSubscription.unsubscribe();
+    if (this.inputChangesSubscription) {
+      this.inputChangesSubscription.unsubscribe();
     }
   }
 
