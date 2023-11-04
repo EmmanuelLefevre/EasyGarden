@@ -1,8 +1,11 @@
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, share } from 'rxjs';
+// RXJS
+import { BehaviorSubject, Observable, share, tap } from 'rxjs';
 // Environment
 import { environment } from 'src/environments/environment';
+// Services
+import { SnackbarService } from 'src/app/_services/miscellaneous/snackbar.service';
 // Modeles
 import { ILawnmower, IDataLawnmower } from './ILawnmower';
 import { IName } from '../../_interfaces/IName';
@@ -14,8 +17,15 @@ import { IAdd } from '../../_interfaces/IAdd';
 })
 
 export class LawnmowerService {
+  // Update status behavior subject
+  private updateStatusSubject = new BehaviorSubject<IDataLawnmower[]>([]);
+  public updateStatus$ = this.updateStatusSubject.asObservable();
+  // Delete lawnmower behavior subject
+  private deleteLawnmowerSubject = new BehaviorSubject<IDataLawnmower[]>([]);
+  public deleteLawnmower$ = this.deleteLawnmowerSubject.asObservable();
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient,
+              private snackbarService: SnackbarService) { }
 
   // Get List of Lawnmowers
   getAllLawnmowers(): Observable<IDataLawnmower[]> {
@@ -46,7 +56,13 @@ export class LawnmowerService {
     });
     // Use custom headers in HTTP request
     const options = { headers: headers };
-    return this.httpClient.put<IDataLawnmower[]>(environment.apis.status.url+'/'+id, {status}, options);
+    return this.httpClient.put<IDataLawnmower[]>(environment.apis.status.url+'/'+id, {status}, options)
+    .pipe(
+      tap((updatedStatusLawnmowers) => {
+        // Update new data locally
+        this.updateStatusSubject.next(updatedStatusLawnmowers);
+      })
+    );
   }
 
   // Update Lawnmower
@@ -56,7 +72,13 @@ export class LawnmowerService {
 
   // Delete Lawnmower
   deleteLawnmower(id: number): Observable<HttpResponse<any>> {
-    return this.httpClient.delete(environment.apis.lawnmower.url+'/'+id, { observe: 'response' });
+    return this.httpClient.delete(environment.apis.lawnmower.url+'/'+id, { observe: 'response' })
+    .pipe(
+      tap(() => {
+        const deletedLawnmowers = this.deleteLawnmowerSubject.getValue().filter(lawnmower => lawnmower.id !== id);
+        this.deleteLawnmowerSubject.next(deletedLawnmowers);
+      })
+    );
   }
 
   // Get redirection
@@ -65,3 +87,30 @@ export class LawnmowerService {
   }
 
 }
+
+
+
+  // deleteLawnmower(id: number): Observable<HttpResponse<any>> {
+  //   return this.httpClient.delete(environment.apis.lawnmower.url + '/' + id, { observe: 'response' })
+  //     .pipe(
+  //       tap((res$) => {
+  //         if (res$.status === 204) {
+  //           this.refreshData();
+  //           const notificationMessage = this.snackbarService.getNotificationMessage();
+  //           this.snackbarService.showNotification(notificationMessage, 'deleted');
+  //         } else {
+  //           this.snackbarService.showNotification(
+  //             `Une erreur s'est produite lors de la suppression!`,
+  //             'red-alert'
+  //           );
+  //         }
+  //       })
+  //     );
+  // }
+
+  // refreshData() {
+  //   this.getAllLawnmowers()
+  //     .subscribe((deletedLawnmowers) => {
+  //       this.lawnmowersSubject.next(deletedLawnmowers);
+  //     });
+  // }

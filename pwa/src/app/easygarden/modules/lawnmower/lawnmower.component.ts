@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse } from '@angular/common/http';
 // RXJS
-import { Subject, Subscription, takeUntil } from 'rxjs';
+import { Subscription } from 'rxjs';
 // Environment
 import { environment } from 'src/environments/environment';
 // Icons
@@ -16,7 +16,7 @@ import { LawnmowerService } from './lawnmower.service';
 import { SnackbarService } from 'src/app/_services/miscellaneous/snackbar.service';
 // Modeles
 import { IGarden } from '../../components/garden/IGarden';
-import { ILawnmower, ILawnmowerFilter } from './ILawnmower';
+import { IDataLawnmower, ILawnmower, ILawnmowerFilter } from './ILawnmower';
 import { IName } from '../../_interfaces/IName';
 
 
@@ -40,13 +40,10 @@ export class LawnmowerComponent implements OnInit, OnDestroy {
   title = 'Tableau tondeuse';
 
   // Declaration of subscriptions
-  private getAllGardensSubscription: Subscription = new Subscription;
-  private getAllLawnmowersSubscription: Subscription = new Subscription;
+  private fetchDataSubscription: Subscription = new Subscription;
   private deleteLawnmowerSubscription!: Subscription;
-  private updateStatusSubscription!: Subscription;
   private dialogRefSubscription!: Subscription;
-  // Private Subject to handle component destruction
-  private destroy$ = new Subject<void>();
+  private updateStatusSubscription!: Subscription;
 
   // Confirm Dialog this.result = boolean
   result: boolean | undefined;
@@ -71,6 +68,7 @@ export class LawnmowerComponent implements OnInit, OnDestroy {
 
   lawnmowers: ILawnmower[] = [];
   filteredLawnmowers: ILawnmower[] = [];
+  updateStatusBehaviorSubject: IDataLawnmower[] = [];
 
   constructor(private activatedRoute: ActivatedRoute,
               private dialog: MatDialog,
@@ -79,39 +77,28 @@ export class LawnmowerComponent implements OnInit, OnDestroy {
               private snackbarService: SnackbarService) {}
 
   ngOnInit(): void {
-    this.fetchGardens();
-    this.fetchLawnmowers();
-  }
-
-  ngOnDestroy(): void {
-    // Destroy Subject
-    this.destroy$.next();
-    this.destroy$.complete();
-    // Clean up subscriptions
-    this.unsubscribeAll();
-  }
-
-  // Display Lawnmowers
-  fetchLawnmowers(): void {
-    this.getAllLawnmowersSubscription = this.activatedRoute.data.pipe(
-      // Use takeUntil to automatically unsubscribe
-      takeUntil(this.destroy$)
-    ).subscribe((res) => {
-      if (res && res['data'] && res['data']['lawnmowers'].hasOwnProperty('hydra:member')) {
-        this.lawnmowers = res['data']['lawnmowers']['hydra:member'];
-        this.filterByGarden();
-      }
+    this.fetchData();
+    this.lawnmowerService.updateStatus$.subscribe((data$: IDataLawnmower[]) => {
+      this.updateStatusBehaviorSubject = data$;
     });
   }
 
-  // Recover Gardens
-  fetchGardens(): void {
-    this.getAllGardensSubscription = this.activatedRoute.data.pipe(
-      // Use takeUntil to automatically unsubscribe
-      takeUntil(this.destroy$)
-    ).subscribe((res) => {
-      if (res && res['data'] && res['data']['gardens'].hasOwnProperty('hydra:member')) {
-        this.gardens = res['data']['gardens']['hydra:member'];
+  ngOnDestroy(): void {
+    this.unsubscribeAll();
+  }
+
+  // Fetch gardens and lawnmowers
+  fetchData(): void {
+    this.fetchDataSubscription = this.activatedRoute.data
+    .subscribe((data$) => {
+      const lawnmowerData = data$['data']['lawnmowers'];
+      const gardenData = data$['data']['gardens'];
+      if (lawnmowerData && lawnmowerData.hasOwnProperty('hydra:member')) {
+        this.lawnmowers = lawnmowerData['hydra:member'];
+        this.filterByGarden();
+      }
+      if (gardenData && gardenData.hasOwnProperty('hydra:member')) {
+        this.gardens = gardenData['hydra:member'];
       }
     });
   }
@@ -139,13 +126,27 @@ export class LawnmowerComponent implements OnInit, OnDestroy {
   updateStatus(id: number, status: boolean, name:string): void {
     status = !status;
     this.updateStatusSubscription = this.lawnmowerService.updateStatus(status, id)
-      .subscribe((res: any) => {
-        this.status = res;
-        this.fetchLawnmowers();
+      .subscribe(() => {
         // Snackbar
         const action = status ? 'allumée' : 'éteinte';
         const notificationMessage = `La tondeuse "${name}" a été ${action}.`;
         this.snackbarService.showNotification(notificationMessage, 'modified');
+        // Display modified data locally
+        this.filteredLawnmowers = this.filteredLawnmowers.map(lawnmower => {
+          if (lawnmower.id === id) {
+            return { ...lawnmower, status: status };
+          }
+          return lawnmower;
+        });
+      },
+      (_error) => {
+        let errorMessage;
+        if (!status) {
+          errorMessage = `Impossible de démarrer la tondeuse en raison d'une erreur!`;
+        } else {
+          errorMessage = `Impossible d'arrêter la tondeuse en raison d'une erreur!`;
+        }
+        this.snackbarService.showNotification(errorMessage,'red-alert');
       });
   }
 
@@ -164,25 +165,26 @@ export class LawnmowerComponent implements OnInit, OnDestroy {
     });
 
     this.dialogRefSubscription = dialogRef.afterClosed()
-      .subscribe((dialogResult) => {
-        this.result = dialogResult;
+      .subscribe((dialogResult$) => {
+        this.result = dialogResult$;
         if (this.result === true) {
           this.deleteLawnmowerSubscription = this.lawnmowerService.deleteLawnmower(id)
           .subscribe(
-            (response: HttpResponse<any>) => {
-              if (response.status === 204) {
+            (res$: HttpResponse<any>) => {
+              if (res$.status === 204) {
                 const notificationMessage = this.snackbarService.getNotificationMessage();
                 this.snackbarService.showNotification(notificationMessage, 'deleted');
-                this.fetchLawnmowers();
+                // Update data locally
+                this.filteredLawnmowers = this.filteredLawnmowers.filter(lawnmower => lawnmower.id !== id);
               }
             },
             (_error) => {
               this.snackbarService.showNotification(
-                `Une erreur s'est produite!`,
+                `Une erreur s'est produite lors de la suppression!`,
                 'red-alert'
               );
             }
-          )
+            );
         }
       });
   }
@@ -192,13 +194,14 @@ export class LawnmowerComponent implements OnInit, OnDestroy {
   }
 
   private unsubscribeAll(): void {
-    this.getAllGardensSubscription.unsubscribe();
-    this.getAllLawnmowersSubscription.unsubscribe();
+    this.fetchDataSubscription.unsubscribe();
     if (this.updateStatusSubscription) {
       this.updateStatusSubscription.unsubscribe();
     }
-    if (this.dialogRefSubscription && this.deleteLawnmowerSubscription) {
+    if (this.dialogRefSubscription) {
       this.dialogRefSubscription.unsubscribe();
+    }
+    if (this.deleteLawnmowerSubscription) {
       this.deleteLawnmowerSubscription.unsubscribe();
     }
   }
