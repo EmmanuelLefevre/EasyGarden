@@ -15,8 +15,8 @@ import { GardenFilterService } from '../../_services/garden-filter.service';
 import { LawnmowerService } from './lawnmower.service';
 import { SnackbarService } from 'src/app/_services/miscellaneous/snackbar.service';
 // Modeles
-import { IGarden } from '../../components/garden/IGarden';
 import { IDataLawnmower, ILawnmower, ILawnmowerFilter } from './ILawnmower';
+import { IGarden } from '../../components/garden/IGarden';
 import { IName } from '../../_interfaces/IName';
 
 
@@ -141,7 +141,7 @@ export class LawnmowerComponent implements OnInit, OnDestroy {
       },
       (_error) => {
         let errorMessage;
-        if (!status) {
+        if (status === false) {
           errorMessage = `Impossible de démarrer la tondeuse en raison d'une erreur!`;
         } else {
           errorMessage = `Impossible d'arrêter la tondeuse en raison d'une erreur!`;
@@ -184,7 +184,7 @@ export class LawnmowerComponent implements OnInit, OnDestroy {
                 'red-alert'
               );
             }
-            );
+          );
         }
       });
   }
