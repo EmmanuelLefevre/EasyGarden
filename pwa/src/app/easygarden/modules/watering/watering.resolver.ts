@@ -1,8 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Router, Resolve, ActivatedRouteSnapshot } from '@angular/router';
-import { catchError, Observable, throwError, delay } from 'rxjs';
-
+import { Router, Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+// RXJS
+import { catchError, forkJoin, Observable, throwError } from 'rxjs';
+// Service
+import { GardenService } from '../../components/garden/garden.service';
 import { WateringService } from './watering.service';
+// Models
+import { IDataGarden } from '../../components/garden/IGarden';
 import { IDataWatering } from './IWatering';
 
 
@@ -10,20 +14,21 @@ import { IDataWatering } from './IWatering';
   providedIn: 'root'
 })
 
-export class WateringResolver implements Resolve<IDataWatering[]> {
+export class WateringResolver implements Resolve<{ waterings: IDataWatering[], gardens: IDataGarden[] }> {
 
-  constructor(private wateringService: WateringService,
+  constructor(private gardenService: GardenService,
+              private wateringService: WateringService,
               private router: Router) {}
 
-  resolve(_route: ActivatedRouteSnapshot): Observable<IDataWatering[]> {
-    return this.wateringService.getAllWaterings().pipe(
-      // delay(1000),
-      catchError(
-        () => {
-          this.router.navigate([""]);
-          return throwError(() => ('No waterings were found.'))
-        }
-      )
+  resolve(_route: ActivatedRouteSnapshot, _state: RouterStateSnapshot): Observable<{ waterings: IDataWatering[], gardens: IDataGarden[] }> {
+    const waterings$: Observable<IDataWatering[]> = this.wateringService.getAllWaterings();
+    const gardens$: Observable<IDataGarden[]> = this.gardenService.getAllGardens();
+
+    return forkJoin({ waterings: waterings$, gardens: gardens$ }).pipe(
+      catchError(() => {
+        this.router.navigate([""]);
+        return throwError(() => ('Failed to fetch data.'));
+      })
     );
   }
 
