@@ -12,7 +12,8 @@ export interface IPortal {
 }
 
 export interface IDataPortal {
-  'hydra:member': IPortal[]
+  id?: number;
+  'hydra:member': IPortal[];
 }
 
 export interface IAddPortal {
