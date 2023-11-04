@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
-// Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip-social in style.scss
+import { ActivatedRoute } from '@angular/router';
 import { HttpResponse } from '@angular/common/http';
-import { Subject, Subscription, takeUntil } from 'rxjs';
+// RXJS
+import { Subscription } from 'rxjs';
 // Environment
 import { environment } from 'src/environments/environment';
 // Icons
@@ -10,14 +11,13 @@ import { faPowerOff, faPen, faTrash, faSort, faSearch, faFish, faXmark } from '@
 import { IConfirmDialog, ConfirmDialogComponent } from 'src/app/easygarden/components/confirmDialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 // Services
-import { GardenService } from '../../components/garden/garden.service';
 import { GardenFilterService } from '../../_services/garden-filter.service';
 import { PoolService } from './pool.service';
 import { SnackbarService } from 'src/app/_services/miscellaneous/snackbar.service';
 // Modeles
+import { IDataLigthning, IPool, IPoolFilter } from './IPool';
 import { IGarden } from '../../components/garden/IGarden';
 import { IName } from '../../_interfaces/IName';
-import { IPool, IPoolFilter } from './IPool';
 
 
 @Component({
@@ -39,13 +39,10 @@ export class PoolComponent implements OnInit, OnDestroy {
   title = 'Tableau bassin';
 
   // Declaration of subscriptions
-  private getAllGardensSubscription: Subscription = new Subscription;
-  private getAllPoolsSubscription: Subscription = new Subscription;
+  private fetchDataSubscription: Subscription = new Subscription;
   private deletePoolSubscription!: Subscription;
   private updateStatusSubscription!: Subscription;
   private dialogRefSubscription!: Subscription;
-  // Private Subject to handle component destruction
-  private destroy$ = new Subject<void>();
 
   // Confirm Dialog this.result = boolean
   result: boolean | undefined;
@@ -70,47 +67,40 @@ export class PoolComponent implements OnInit, OnDestroy {
 
   pools: IPool[] = [];
   filteredPools: IPool[] = [];
+  updateStatusBehaviorSubject: IDataPool[] = [];
 
-  constructor(private dialog: MatDialog,
+  constructor(private activatedRoute: ActivatedRoute,
+              private dialog: MatDialog,
               private gardenFilterService: GardenFilterService,
-              private gardenService: GardenService,
               private poolService: PoolService,
               private snackbarService: SnackbarService) {}
 
+
   ngOnInit(): void {
-    this.fetchGardens();
-    this.fetchPools();
+    this.fetchData();
+    this.poolService.updateStatus$.subscribe((data$: IDataPool[]) => {
+      this.updateStatusBehaviorSubject = data$;
+    });
   }
 
   ngOnDestroy(): void {
-    // Destroy Subject
-    this.destroy$.next();
-    this.destroy$.complete();
-    // Clean up subscriptions
     this.unsubscribeAll();
   }
 
-  // Recover Gardens
-  fetchGardens(): void {
-    this.getAllGardensSubscription = this.gardenService.getAllGardens() 
-      .subscribe((res: any) => {
-        if (res.hasOwnProperty('hydra:member')) {
-          this.gardens = res['hydra:member'];
-        }
-      });
-  }
-
-  // Display Pools
-  fetchPools(): void {
-    this.getAllPoolsSubscription = this.poolService.getAllPools()
-      // Use takeUntil to automatically unsubscribe
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((res: any) => {
-        if (res.hasOwnProperty('hydra:member')) {
-          this.pools = res['hydra:member'];
-          this.filterByGarden();       
-        }
-      });
+  // Fetch gardens and pools
+  fetchData(): void {
+    this.fetchDataSubscription = this.activatedRoute.data
+    .subscribe((data$) => {
+      const poolData = data$['data']['pools'];
+      const gardenData = data$['data']['gardens'];
+      if (poolData && poolData.hasOwnProperty('hydra:member')) {
+        this.pools = poolData['hydra:member'];
+        this.filterByGarden();
+      }
+      if (gardenData && gardenData.hasOwnProperty('hydra:member')) {
+        this.gardens = gardenData['hydra:member'];
+      }
+    });
   }
 
   // Filter by garden
@@ -136,14 +126,28 @@ export class PoolComponent implements OnInit, OnDestroy {
   updateStatus(id: number, status: boolean, name: string): void {
     status = !status;
     this.updateStatusSubscription = this.poolService.updateStatus(status, id)
-      .subscribe((res: any) => {
-        this.status = res;
-        this.fetchPools();
+      .subscribe(() => {
         // Snackbar
         const action = status ? 'allumé' : 'éteint';
         const notificationMessage = `L\'équipement de bassin "${name}" a été ${action}.`;
         this.snackbarService.showNotification(notificationMessage, 'modified');
-      });
+        // Display modified data locally
+        this.filteredPools = this.filteredPools.map(pool => {
+          if (pool.id === id) {
+            return { ...pool, status: status };
+          }
+          return pool;
+        });
+      },
+      (_error) => {
+        let errorMessage;
+        if (status === false) {
+          errorMessage = `Impossible de démarrer l'équipement de bassin en raison d'une erreur!`;
+        } else {
+          errorMessage = `Impossible d'arrêter  l'équipement de bassin en raison d'une erreur!`;
+        }
+        this.snackbarService.showNotification(errorMessage,'red-alert');
+    });
   }
 
   // Delete Pool
@@ -161,25 +165,26 @@ export class PoolComponent implements OnInit, OnDestroy {
     });
 
     this.dialogRefSubscription = dialogRef.afterClosed()
-      .subscribe((dialogResult) => {
-        this.result = dialogResult;
+      .subscribe((dialogResult$) => {
+        this.result = dialogResult$;
         if (this.result === true) {
           this.deletePoolSubscription = this.poolService.deletePool(id)
           .subscribe(
-            (response: HttpResponse<any>) => {
-              if (response.status === 204) {
+            (res$: HttpResponse<any>) => {
+              if (res$.status === 204) {
                 const notificationMessage = this.snackbarService.getNotificationMessage();
                 this.snackbarService.showNotification(notificationMessage, 'deleted');
-                this.fetchPools();
+                // Update data locally
+                this.filteredPools = this.filteredPools.filter(pool => pool.id !== id);
               }
             },
             (_error) => {
               this.snackbarService.showNotification(
-                `Une erreur s'est produite!`,
+                `Une erreur s'est produite lors de la suppression!`,
                 'red-alert'
               );
             }
-          )
+          );
         }
       });
   }
@@ -189,13 +194,14 @@ export class PoolComponent implements OnInit, OnDestroy {
   }
 
   private unsubscribeAll(): void {
-    this.getAllGardensSubscription.unsubscribe();
-    this.getAllPoolsSubscription.unsubscribe();
+    this.fetchDataSubscription.unsubscribe();
     if (this.updateStatusSubscription) {
       this.updateStatusSubscription.unsubscribe();
     }
-    if (this.dialogRefSubscription && this.deletePoolSubscription) {
+    if (this.dialogRefSubscription) {
       this.dialogRefSubscription.unsubscribe();
+    }
+    if (this.deletePoolSubscription) {
       this.deletePoolSubscription.unsubscribe();
     }
   }
