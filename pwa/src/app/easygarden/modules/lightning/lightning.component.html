@@ -2,17 +2,17 @@
       searchInputReset
       [searchInput]="searchInput">
   <div class="div-wrapper ambiance-bg">
-  
+
     <div class="animate__animated animate__jackInTheBox">
       <h1 class="visually-hidden">{{name}}</h1>
       <h2 class="visually-hidden">{{title}}</h2>
       <div class="icon-container">
         <div class="circle"></div>
-        <fa-icon [icon]="faLightbulb" 
+        <fa-icon [icon]="faLightbulb"
                  aria-label="Icône d'illustration de la page représentant une ampoule">
         </fa-icon>
       </div>
-  
+
       <div class="table-header">
         <ng-container *ngIf="getGardensWithLightnings().length > 1">
           <select [(ngModel)]="selectedGardenId"
@@ -36,8 +36,8 @@
                      spellcheck="false"
                      placeholder="Rechercher...">
               <fa-icon [icon]="faSearch"></fa-icon>
-              <fa-icon [icon]="faXmark" 
-                        class="icon-right" 
+              <fa-icon [icon]="faXmark"
+                        class="icon-right"
                         *ngIf="searchInput.name"
                         (click)="resetPagination(); searchInput.name=''"
                         aria-label="Fermer">
@@ -46,34 +46,34 @@
           </div>
         </ng-container>
       </div>
-  
+
       <div class="table form-border form-shadow animate__animated animate__jackInTheBox">
         <table class="t-hover" aria-label="Tableau des éclairages">
-    
-          <thead>             
+
+          <thead>
             <tr>
               <th (click)="sort('status')"
                   class="power order"
-                  aria-label="Trier par statut">On/Off 
+                  aria-label="Trier par statut">On/Off
                 <fa-icon [icon]="faSort"></fa-icon>
               </th>
               <th (click)="sort('name')"
                   class="order"
-                  aria-label="Trier par nom">Nom 
+                  aria-label="Trier par nom">Nom
                 <fa-icon [icon]="faSort"></fa-icon>
               </th>
-              <th>Action</th>                   
+              <th>Action</th>
             </tr>
           </thead>
-    
+
           <tbody>
-            <tr *ngFor="let lightning of filteredLightnings 
+            <tr *ngFor="let lightning of filteredLightnings
                 | orderBy: orderHeader: isDescOrder
                 | filterBy: searchInput
                 | paginate: { itemsPerPage: 5, currentPage: p, totalItems: count }">
               <td class="power">
                 <button (click)="updateStatus(lightning.id, lightning.status, lightning.name)"
-                        type="submit" 
+                        type="submit"
                         [attr.aria-label]="lightning.status ? 'Eteindre l\'éclairage' : 'Allumer l\'éclairage'"
                         [matTooltip]="lightning.status ? 'Eteindre' : 'Allumer'"
                         matTooltipPosition="left"
@@ -107,7 +107,7 @@
               </td>
             </tr>
           </tbody>
-          
+
         </table>
         <ng-container *ngIf="lightnings.length > 5">
           <ng-container class="no-search-match" *ngIf="(lightnings | filterBy: searchInput).length === 0">
@@ -116,21 +116,21 @@
         </ng-container>
       </div>
     </div>
-  
+
     <div class="pagination">
-      <pagination-controls (pageChange)="p = $event" 
-                            previousLabel="" 
+      <pagination-controls (pageChange)="p = $event"
+                            previousLabel=""
                             nextLabel=""
                             [autoHide]="true"
                             [responsive]="true"
                             aria-label="Pagination">
       </pagination-controls>
     </div>
-  
+
     <div class="submit">
       <button routerLink="/easygarden/lightning/add"
-              type="button" 
-              id="submit" 
+              type="button"
+              id="submit"
               class="button-shadow">Ajouter
       </button>
     </div>
