@@ -72,17 +72,15 @@ export class GardenComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.fetchGardens();
-
     // Observing route changes with NavigationEnd
     this.navigationEndSubscription = this.router.events.pipe(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd)
-    )
-      .subscribe((_event: NavigationEnd) => {
+    ).subscribe((_event$: NavigationEnd) => {
       // Check if the current route matches a child route
-        if (this.route.snapshot.firstChild) {
-          this.unsubscribeAll();
-        }
-      });
+      if (this.route.snapshot.firstChild) {
+        this.unsubscribeAll();
+      }
+    });
   }
 
   ngOnDestroy(): void {
@@ -91,15 +89,14 @@ export class GardenComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
     // Clean up subscriptions
     this.unsubscribeAll();
-    this.navigationEndSubscription.unsubscribe();
   }
 
   // Display Gardens
   fetchGardens(): void {
     this.getAllGardensInGardenSubscription = this.gardenService.getAllGardens()
-      .subscribe((res: any) => {
-        if (res.hasOwnProperty('hydra:member')) {
-          this.gardens = res['hydra:member'];
+      .subscribe((res$: any) => {
+        if (res$.hasOwnProperty('hydra:member')) {
+          this.gardens = res$['hydra:member'];
         }
         this.id = this.decodedTokenService.idDecoded();
       });
@@ -121,13 +118,13 @@ export class GardenComponent implements OnInit, OnDestroy {
     });
 
     this.dialogRefInGardenSubscription = dialogRef.afterClosed()
-      .subscribe((dialogResult) => {
-        this.result = dialogResult;
+      .subscribe((dialogResult$) => {
+        this.result = dialogResult$;
         if (this.result === true) {
           this.deleteGardenSubscription = this.gardenService.deleteGarden(id)
           .subscribe(
-            (response: HttpResponse<any>) => {
-              if (response.status === 204) {
+            (res$: HttpResponse<any>) => {
+              if (res$.status === 204) {
                 const notificationMessage = this.snackbarService.getNotificationMessage();
                 this.snackbarService.showNotification(notificationMessage, 'deleted');
                 this.fetchGardens();
@@ -150,8 +147,13 @@ export class GardenComponent implements OnInit, OnDestroy {
 
   private unsubscribeAll(): void {
     this.getAllGardensInGardenSubscription.unsubscribe();
-    if (this.dialogRefInGardenSubscription && this.deleteGardenSubscription) {
+    if(this.navigationEndSubscription) {
+      this.navigationEndSubscription.unsubscribe();
+    }
+    if (this.dialogRefInGardenSubscription) {
       this.dialogRefInGardenSubscription.unsubscribe();
+    }
+    if(this.deleteGardenSubscription) {
       this.deleteGardenSubscription.unsubscribe();
     }
   }
