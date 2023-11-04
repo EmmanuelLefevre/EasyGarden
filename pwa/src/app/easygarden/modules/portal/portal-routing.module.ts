@@ -17,7 +17,7 @@ const routes: Routes = [
       ogTitle: `Page portail de l\'application ${name}`
     }, 
     resolve: {
-      portal: PortalResolver
+      data: PortalResolver
       }
     },
   { path: 'edit/:id', component: EditEntityNameComponent,
