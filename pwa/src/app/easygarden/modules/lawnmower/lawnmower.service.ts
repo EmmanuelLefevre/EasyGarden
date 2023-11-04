@@ -4,8 +4,6 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, share, tap } from 'rxjs';
 // Environment
 import { environment } from 'src/environments/environment';
-// Services
-import { SnackbarService } from 'src/app/_services/miscellaneous/snackbar.service';
 // Modeles
 import { ILawnmower, IDataLawnmower } from './ILawnmower';
 import { IName } from '../../_interfaces/IName';
@@ -24,8 +22,7 @@ export class LawnmowerService {
   private deleteLawnmowerSubject = new BehaviorSubject<IDataLawnmower[]>([]);
   public deleteLawnmower$ = this.deleteLawnmowerSubject.asObservable();
 
-  constructor(private httpClient: HttpClient,
-              private snackbarService: SnackbarService) { }
+  constructor(private httpClient: HttpClient) { }
 
   // Get List of Lawnmowers
   getAllLawnmowers(): Observable<IDataLawnmower[]> {
@@ -58,9 +55,9 @@ export class LawnmowerService {
     const options = { headers: headers };
     return this.httpClient.put<IDataLawnmower[]>(environment.apis.status.url+'/'+id, {status}, options)
     .pipe(
-      tap((updatedStatusLawnmowers) => {
-        // Update new data locally
-        this.updateStatusSubject.next(updatedStatusLawnmowers);
+      tap((updatedStatusLawnmowers$) => {
+        // Update data locally
+        this.updateStatusSubject.next(updatedStatusLawnmowers$);
       })
     );
   }
@@ -87,30 +84,3 @@ export class LawnmowerService {
   }
 
 }
-
-
-
-  // deleteLawnmower(id: number): Observable<HttpResponse<any>> {
-  //   return this.httpClient.delete(environment.apis.lawnmower.url + '/' + id, { observe: 'response' })
-  //     .pipe(
-  //       tap((res$) => {
-  //         if (res$.status === 204) {
-  //           this.refreshData();
-  //           const notificationMessage = this.snackbarService.getNotificationMessage();
-  //           this.snackbarService.showNotification(notificationMessage, 'deleted');
-  //         } else {
-  //           this.snackbarService.showNotification(
-  //             `Une erreur s'est produite lors de la suppression!`,
-  //             'red-alert'
-  //           );
-  //         }
-  //       })
-  //     );
-  // }
-
-  // refreshData() {
-  //   this.getAllLawnmowers()
-  //     .subscribe((deletedLawnmowers) => {
-  //       this.lawnmowersSubject.next(deletedLawnmowers);
-  //     });
-  // }
