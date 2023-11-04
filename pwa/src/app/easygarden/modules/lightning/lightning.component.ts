@@ -67,7 +67,7 @@ export class LightningComponent implements OnInit, OnDestroy {
 
   lightnings: ILightning[] = [];
   filteredLightnings: ILightning[] = [];
-  updateStatusBehaviorSubject: IDataLigthning[] = [];
+  updateStatusBehaviorSubject: IDataLightning[] = [];
 
   constructor(private activatedRoute: ActivatedRoute,
               private dialog: MatDialog,
