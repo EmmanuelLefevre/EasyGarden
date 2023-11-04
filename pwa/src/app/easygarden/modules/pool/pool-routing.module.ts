@@ -17,7 +17,7 @@ const routes: Routes = [
       ogTitle: `Page équipement de bassin de l\'application ${name}`
     }, 
     resolve: {
-      pool: PoolResolver
+      data: PoolResolver
     }
   },
   { path: 'edit/:id', component: EditEntityNameComponent,
