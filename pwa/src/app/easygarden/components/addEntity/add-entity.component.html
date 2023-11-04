@@ -11,7 +11,7 @@
         <div class="form-title-content">
           <p class="p-form-title-content">AJOUTER</p>
         </div>
-  
+
         <form [formGroup]="form"
               #ngForm="ngForm"
               #formDirective="ngForm"
@@ -20,7 +20,7 @@
           <ng-container *ngIf="!currentUrl.includes('easygarden/garden/add')">
             <mat-form-field appearance="fill"
                             class="input-inset-shadow first-input"
-                            [ngClass]="{ 'invalid-feedback': (form.get('garden')?.invalid 
+                            [ngClass]="{ 'invalid-feedback': (form.get('garden')?.invalid
                                                               && form.get('garden')?.dirty)
                                                               || invalidSelect }">
               <mat-label>Jardin</mat-label>
@@ -49,10 +49,10 @@
                  spellcheck="false"
                  autocomplete="off"
                  class="input-inset-shadow first-input"
-                 [ngClass]="{ 'invalid-feedback': (form.get('name')?.invalid 
+                 [ngClass]="{ 'invalid-feedback': (form.get('name')?.invalid
                                                    && form.get('name')?.dirty)
                                                    || invalidName }">
-          <ng-container *ngIf="form.get('name')?.dirty 
+          <ng-container *ngIf="form.get('name')?.dirty
                                && getErrorMessage('name') !== ''">
             <div class="text-alert">
               {{ getErrorMessage('name') }}
@@ -67,7 +67,7 @@
             </button>
             <button (click)="onReset(formDirective)"
                     type="button"
-                    aria-label="Bouton effacer le formulaire" 
+                    aria-label="Bouton effacer le formulaire"
                     class="button-shadow cancel"
                     [ngClass]="{'disabled-reset-button': resetDisabled}"
                     [disabled]="resetDisabled">Annuler

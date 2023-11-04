@@ -11,8 +11,8 @@
         <div class="form-title-content">
           <p class="p-form-title-content">MODIFIER</p>
         </div>
-  
-        <form [formGroup]="form" 
+
+        <form [formGroup]="form"
               (ngSubmit)="onSubmit()"
               #ngForm="ngForm"
               #formDirective="ngForm"
@@ -29,11 +29,11 @@
                  autocomplete="off"
                  class="input-inset-shadow first-input"
                  value={{value}}
-                 [ngClass]="{ 'invalid-feedback': (form.get('name')?.invalid 
+                 [ngClass]="{ 'invalid-feedback': (form.get('name')?.invalid
                                                    && form.get('name')?.dirty)
                                                    || invalidName
                                                    || invalidInitialValue}">
-          <ng-container *ngIf="form.get('name')?.dirty 
+          <ng-container *ngIf="form.get('name')?.dirty
                                && (getErrorMessage('name') !== ''
                                   || invalidInitialValue)">
             <div class="text-alert">
@@ -50,7 +50,7 @@
             </button>
             <button (click)="onReset(formDirective)"
                     type="button"
-                    aria-label="Bouton effacer le formulaire" 
+                    aria-label="Bouton effacer le formulaire"
                     class="button-shadow cancel"
                     [ngClass]="{'disabled-reset-button': resetDisabled}"
                     [disabled]="resetDisabled">Annuler
