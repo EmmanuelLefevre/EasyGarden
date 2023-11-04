@@ -11,7 +11,8 @@ export interface ILightning {
 }
 
 export interface IDataLightning {
-  'hydra:member': ILightning[]
+  id?: number;
+  'hydra:member': ILightning[];
 }
 
 export interface IAddLightning {
