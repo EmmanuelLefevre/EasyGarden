@@ -73,13 +73,13 @@ export class AddEntityComponent implements OnInit, OnDestroy {
   constructor(private customValidator : FormValidationService,
               private formBuilder: NonNullableFormBuilder,
               private formErrorMessageService: FormErrorMessageService,
-              private gardenService: GardenService,          
-              private lawnmowerService: LawnmowerService,          
-              private lightningService: LightningService,            
-              private poolService: PoolService,            
+              private gardenService: GardenService,
+              private lawnmowerService: LawnmowerService,
+              private lightningService: LightningService,
+              private poolService: PoolService,
               private portalService: PortalService,
               private router: Router,
-              private snackbarService: SnackbarService,          
+              private snackbarService: SnackbarService,
               private wateringService: WateringService,) {
 
     this.getAllGardensSubscription = this.gardenService.getAllGardens()
@@ -87,7 +87,7 @@ export class AddEntityComponent implements OnInit, OnDestroy {
     .pipe(takeUntil(this.destroy$))
       .subscribe(
         (res:any) => {
-          if (res.hasOwnProperty('hydra:member')) 
+          if (res.hasOwnProperty('hydra:member'))
           this.gardens = res['hydra:member'];
           if (this.gardens.length < 2) {
             this.form.controls.garden.setValue(this.gardens[0]);
@@ -189,8 +189,8 @@ export class AddEntityComponent implements OnInit, OnDestroy {
         );
         this.submitDisabled = false;
       }
-    } 
-  } 
+    }
+  }
 
   // Reset form
   onReset(formDirective: any): void {
