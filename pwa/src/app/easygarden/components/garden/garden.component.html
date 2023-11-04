@@ -12,11 +12,11 @@
       <h2 class="visually-hidden">{{title}}</h2>
       <div class="icon-container">
         <div class="circle"></div>
-        <fa-icon [icon]="faTree" 
+        <fa-icon [icon]="faTree"
                  aria-label="Icône d'illustration de la page représentant un arbre">
         </fa-icon>
       </div>
-  
+
       <div class="table-header">
         <ng-container *ngIf="gardens.length > 5">
           <div class="search-div">
@@ -31,8 +31,8 @@
                      spellcheck="false"
                      placeholder="Rechercher...">
               <fa-icon [icon]="faSearch"></fa-icon>
-              <fa-icon [icon]="faXmark" 
-                       class="icon-right" 
+              <fa-icon [icon]="faXmark"
+                       class="icon-right"
                        *ngIf="searchInput.name"
                        (click)="resetPagination(); searchInput.name=''"
                        aria-label="Fermer">
@@ -41,25 +41,25 @@
           </div>
         </ng-container>
       </div>
-  
+
       <div class="table form-border form-shadow animate__animated animate__jackInTheBox">
         <table class="t-hover" aria-label="Tableau des jardins">
-    
-          <thead>             
+
+          <thead>
             <tr>
-              <th (click)="sort('name')" 
+              <th (click)="sort('name')"
                   matTooltip="Trier"
                   matTooltipPosition="above"
                   matTooltipShowDelay="800"
                   matTooltipClass="'mat-tooltip'"
-                  class="order">Nom 
+                  class="order">Nom
                 <fa-icon [icon]="faSort">
                 </fa-icon>
               </th>
-              <th>Action</th>                   
+              <th>Action</th>
             </tr>
           </thead>
-    
+
           <tbody>
             <tr *ngFor="let garden of gardens
                 | orderBy: orderHeader: isDescOrder
@@ -78,7 +78,7 @@
                 </button>
                 <button (click)="confirmDialog(garden.id, garden.name)"
                         type="submit"
-                        aria-label="Bouton permettant de supprimer le jardin"                  
+                        aria-label="Bouton permettant de supprimer le jardin"
                         matTooltip="Supprimer"
                         matTooltipPosition="after"
                         matTooltipShowDelay="500"
@@ -89,20 +89,20 @@
               </td>
             </tr>
           </tbody>
-          
+
         </table>
         <ng-container *ngIf="gardens.length > 5">
-          <ng-container class="no-search-match" 
+          <ng-container class="no-search-match"
                         *ngIf="(gardens | filterBy: searchInput).length === 0">
             Aucune correspondance trouvée..
           </ng-container>
         </ng-container>
       </div>
     </div>
-      
+
     <div class="pagination">
-      <pagination-controls (pageChange)="p = $event" 
-                            previousLabel="" 
+      <pagination-controls (pageChange)="p = $event"
+                            previousLabel=""
                             nextLabel=""
                             [autoHide]="true"
                             [responsive]="true"
@@ -112,8 +112,8 @@
 
     <div class="submit">
       <button [routerLink]="['/easygarden/garden/add']"
-              type="button" 
-              id="submit" 
+              type="button"
+              id="submit"
               class="button-shadow"
               aria-label="Bouton ajouter un jardin">Ajouter
       </button>

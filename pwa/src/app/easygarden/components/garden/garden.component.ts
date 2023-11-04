@@ -25,7 +25,7 @@ import { IGarden, IGardenFilter } from './IGarden';
 })
 
 export class GardenComponent implements OnInit, OnDestroy {
-  
+
   faPen = faPen;
   faTrash = faTrash;
   faSort = faSort;
@@ -63,8 +63,8 @@ export class GardenComponent implements OnInit, OnDestroy {
 
   gardens: IGarden[] = [];
 
-  constructor(public router: Router, 
-              private route: ActivatedRoute,            
+  constructor(public router: Router,
+              private route: ActivatedRoute,
               private decodedTokenService: DecodedTokenService,
               private dialog: MatDialog,
               private gardenService: GardenService,
