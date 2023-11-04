@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 // Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip-social in style.scss
 import { HttpResponse } from '@angular/common/http';
 import { Subject, Subscription, takeUntil } from 'rxjs';
@@ -10,7 +11,6 @@ import { faPowerOff, faPen, faTrash, faSort, faSearch, faSeedling, faXmark } fro
 import { IConfirmDialog, ConfirmDialogComponent } from 'src/app/easygarden/components/confirmDialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 // Services
-import { GardenService } from '../../components/garden/garden.service';
 import { GardenFilterService } from '../../_services/garden-filter.service';
 import { LawnmowerService } from './lawnmower.service';
 import { SnackbarService } from 'src/app/_services/miscellaneous/snackbar.service';
@@ -72,9 +72,9 @@ export class LawnmowerComponent implements OnInit, OnDestroy {
   lawnmowers: ILawnmower[] = [];
   filteredLawnmowers: ILawnmower[] = [];
 
-  constructor(private dialog: MatDialog,
+  constructor(private activatedRoute: ActivatedRoute,
+              private dialog: MatDialog,
               private gardenFilterService: GardenFilterService,
-              private gardenService: GardenService,
               private lawnmowerService: LawnmowerService,
               private snackbarService: SnackbarService) {}
 
@@ -91,27 +91,27 @@ export class LawnmowerComponent implements OnInit, OnDestroy {
     this.unsubscribeAll();
   }
 
-  // Recover Gardens
-  fetchGardens(): void {
-    this.getAllGardensSubscription = this.gardenService.getAllGardens()
-      .subscribe((res: any) => {
-        if (res.hasOwnProperty('hydra:member')) {
-          this.gardens = res['hydra:member'];
-        }
-      });
-  }
-
   // Display Lawnmowers
   fetchLawnmowers(): void {
-    this.getAllLawnmowersSubscription = this.lawnmowerService.getAllLawnmowers()
-      // Use takeUntil to automatically unsubscribe
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((res:any) => {
-        if (res.hasOwnProperty('hydra:member')) {
-          this.lawnmowers = res['hydra:member'];
-          this.filterByGarden();
-        }
-      });
+    this.getAllLawnmowersSubscription = this.activatedRoute.data.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe((res) => {
+      if (res && res['data'] && res['data']['lawnmowers'].hasOwnProperty('hydra:member')) {
+        this.lawnmowers = res['data']['lawnmowers']['hydra:member'];
+        this.filterByGarden();
+      }
+    });
+  }
+
+  // Recover Gardens
+  fetchGardens(): void {
+    this.getAllGardensSubscription = this.activatedRoute.data.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe((res) => {
+      if (res && res['data'] && res['data']['gardens'].hasOwnProperty('hydra:member')) {
+        this.gardens = res['data']['gardens']['hydra:member'];
+      }
+    });
   }
 
   // Filter by garden
