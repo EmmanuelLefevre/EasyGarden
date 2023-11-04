@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, share } from 'rxjs';
+// RXJS
+import { BehaviorSubject, Observable, share, tap } from 'rxjs';
 // Environment
 import { environment } from 'src/environments/environment';
 // Modeles
@@ -14,6 +15,12 @@ import { IAdd } from '../../_interfaces/IAdd';
 })
 
 export class PortalService {
+  // Update status behavior subject
+  private updateStatusSubject = new BehaviorSubject<IDataPortal[]>([]);
+  public updateStatus$ = this.updateStatusSubject.asObservable();
+  // Delete portal behavior subject
+  private deletePortalSubject = new BehaviorSubject<IDataPortal[]>([]);
+  public deletePortal$ = this.deletePortalSubject.asObservable();
 
   constructor(private httpClient: HttpClient) { }
 
@@ -46,7 +53,13 @@ export class PortalService {
     });
     // Use custom headers in HTTP request
     const options = { headers: headers };
-    return this.httpClient.put<IDataPortal[]>(environment.apis.portal.url+'/'+id, {status}, options);
+    return this.httpClient.put<IDataPortal[]>(environment.apis.portal.url+'/'+id, {status}, options)
+    .pipe(
+      tap((updatedStatusPortals$) => {
+        // Update data locally
+        this.updateStatusSubject.next(updatedStatusPortals$);
+      })
+    );
   }
 
   // Update Portal
@@ -57,6 +70,12 @@ export class PortalService {
   // Delete Portal
   deletePortal(id: number): Observable<HttpResponse<any>> {
     return this.httpClient.delete(environment.apis.portal.url+'/'+id, { observe: 'response' })
+    .pipe(
+      tap(() => {
+        const deletedPortals = this.deletePortalSubject.getValue().filter(portal => portal.id !== id);
+        this.deletePortalSubject.next(deletedPortals);
+      })
+    );
   }
 
   // Get redirection
