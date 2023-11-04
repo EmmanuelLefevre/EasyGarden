@@ -15,7 +15,7 @@ import { GardenFilterService } from '../../_services/garden-filter.service';
 import { PoolService } from './pool.service';
 import { SnackbarService } from 'src/app/_services/miscellaneous/snackbar.service';
 // Modeles
-import { IDataLigthning, IPool, IPoolFilter } from './IPool';
+import { IDataPool, IPool, IPoolFilter } from './IPool';
 import { IGarden } from '../../components/garden/IGarden';
 import { IName } from '../../_interfaces/IName';
 
