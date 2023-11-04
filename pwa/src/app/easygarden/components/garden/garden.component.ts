@@ -147,13 +147,13 @@ export class GardenComponent implements OnInit, OnDestroy {
 
   private unsubscribeAll(): void {
     this.getAllGardensInGardenSubscription.unsubscribe();
-    if(this.navigationEndSubscription) {
+    if (this.navigationEndSubscription) {
       this.navigationEndSubscription.unsubscribe();
     }
     if (this.dialogRefInGardenSubscription) {
       this.dialogRefInGardenSubscription.unsubscribe();
     }
-    if(this.deleteGardenSubscription) {
+    if (this.deleteGardenSubscription) {
       this.deleteGardenSubscription.unsubscribe();
     }
   }
