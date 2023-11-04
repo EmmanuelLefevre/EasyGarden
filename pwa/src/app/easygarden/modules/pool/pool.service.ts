@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, share } from 'rxjs';
+// RXJS
+import { BehaviorSubject, Observable, share, tap } from 'rxjs';
 // Environment
 import { environment } from 'src/environments/environment';
 // Modeles
@@ -13,6 +14,12 @@ import { IAdd } from '../../_interfaces/IAdd';
   providedIn: 'root'
 })
 export class PoolService {
+  // Update status behavior subject
+  private updateStatusSubject = new BehaviorSubject<IDataPool[]>([]);
+  public updateStatus$ = this.updateStatusSubject.asObservable();
+  // Delete pool behavior subject
+  private deletePoolSubject = new BehaviorSubject<IDataPool[]>([]);
+  public deletePool$ = this.deletePoolSubject.asObservable();
 
   constructor(private httpClient: HttpClient) { }
 
@@ -44,7 +51,13 @@ export class PoolService {
     });
     // Use custom headers in HTTP request
     const options = { headers: headers };
-    return this.httpClient.put<IDataPool[]>(environment.apis.pool.url+'/'+id, {status}, options);
+    return this.httpClient.put<IDataPool[]>(environment.apis.pool.url+'/'+id, {status}, options)
+    .pipe(
+      tap((updatedStatusPools$) => {
+        // Update data locally
+        this.updateStatusSubject.next(updatedStatusPools$);
+      })
+    );
   }
 
   // Update Lawnmower
@@ -55,6 +68,12 @@ export class PoolService {
   // Delete Pool
   deletePool(id: number): Observable<HttpResponse<any>> {
     return this.httpClient.delete(environment.apis.pool.url+'/'+id, { observe: 'response' })
+    .pipe(
+      tap(() => {
+        const deletedPools = this.deletePoolSubject.getValue().filter(pool => pool.id !== id);
+        this.deletePoolSubject.next(deletedPools);
+      })
+    );
   }
 
   // Get redirection
