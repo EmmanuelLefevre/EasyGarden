@@ -17,7 +17,7 @@ const routes: Routes = [
       ogTitle: `Page arrosage de l\'application ${name}`
     }, 
     resolve: {
-        watering: WateringResolver
+        data: WateringResolver
       }
     },
   { path: 'edit/:id', component: EditEntityNameComponent,
