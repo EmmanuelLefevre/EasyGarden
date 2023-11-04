@@ -12,7 +12,8 @@ export interface ILawnmower {
 }
 
 export interface IDataLawnmower {
-  'hydra:member': ILawnmower[]
+  id?: number;
+  'hydra:member'?: ILawnmower[];
 }
 
 export interface IAddLawnmower {
