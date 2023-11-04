@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
-// Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip-social in style.scss
-import { HttpResponse } from '@angular/common/http';
-import { Subject, Subscription, takeUntil } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+// RXJS
+import { Subscription } from 'rxjs';
 // Environment
 import { environment } from 'src/environments/environment';
 // Icons
@@ -10,13 +10,12 @@ import { faPowerOff, faPen, faTrash, faSort, faSearch, faLightbulb, faXmark } fr
 import { IConfirmDialog, ConfirmDialogComponent } from 'src/app/easygarden/components/confirmDialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 // Services
-import { GardenService } from '../../components/garden/garden.service';
 import { GardenFilterService } from '../../_services/garden-filter.service';
 import { LightningService } from './lightning.service';
 import { SnackbarService } from 'src/app/_services/miscellaneous/snackbar.service';
 // Modeles
 import { IGarden } from '../../components/garden/IGarden';
-import { ILightning, ILightningFilter } from './ILightning';
+import { IDataLightning, ILightning, ILightningFilter } from './ILightning';
 import { IName } from '../../_interfaces/IName';
 
 
@@ -39,13 +38,10 @@ export class LightningComponent implements OnInit, OnDestroy {
   title = 'Tableau éclairage';
 
   // Declaration of subscriptions
-  private getAllGardensSubscription: Subscription = new Subscription;
-  private getAllLightningsSubscription: Subscription = new Subscription;
+  private fetchDataSubscription: Subscription = new Subscription;
   private deleteLightningSubscription!: Subscription;
-  private updateStatusSubscription!: Subscription;
   private dialogRefSubscription!: Subscription;
-  // Private Subject to handle component destruction
-  private destroy$ = new Subject<void>();
+  private updateStatusSubscription!: Subscription;
 
   // Confirm Dialog this.result = boolean
   result: boolean | undefined;
@@ -70,47 +66,40 @@ export class LightningComponent implements OnInit, OnDestroy {
 
   lightnings: ILightning[] = [];
   filteredLightnings: ILightning[] = [];
+  lightningsBehaviorSubject: IDataLightning[] = [];
 
-  constructor(private dialog: MatDialog,
+  constructor(private activatedRoute: ActivatedRoute,
+              private dialog: MatDialog,
               private gardenFilterService: GardenFilterService,
-              private gardenService: GardenService,
               private lightningService: LightningService,
               private snackbarService: SnackbarService) {}
 
   ngOnInit(): void {
-    this.fetchGardens();
-    this.fetchLightnings();
+    this.fetchData();
+    this.lightningService.lightnings$.subscribe((data$: IDataLightning[]) => {
+      this.lightningsBehaviorSubject = data$;
+    });
   }
 
   ngOnDestroy(): void {
-    // Destroy Subject
-    this.destroy$.next();
-    this.destroy$.complete();
     // Clean up subscriptions
     this.unsubscribeAll();
   }
 
-  // Recover Gardens
-  fetchGardens(): void {
-    this.getAllGardensSubscription = this.gardenService.getAllGardens()
-      .subscribe((res: any) => {
-        if (res.hasOwnProperty('hydra:member')) {
-          this.gardens = res['hydra:member'];
-        }
-      });
-  }
-
-  // Display Lightnings
-  fetchLightnings(): void {
-    this.getAllLightningsSubscription = this.lightningService.getAllLightnings()
-      // Use takeUntil to automatically unsubscribe
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((res: any) => {
-        if (res.hasOwnProperty('hydra:member')) {
-          this.lightnings = res['hydra:member'];
-          this.filterByGarden();        
-        }
-      });
+  // Fetch gardens and lightnings
+  fetchData(): void {
+    this.fetchDataSubscription = this.activatedRoute.data
+    .subscribe((data$) => {
+      const lightningData = data$['data']['lightnings'];
+      const gardenData = data$['data']['gardens'];
+      if (lightningData && lightningData.hasOwnProperty('hydra:member')) {
+        this.lightnings = lightningData['hydra:member'];
+        this.filterByGarden();
+      }
+      if (gardenData && gardenData.hasOwnProperty('hydra:member')) {
+        this.gardens = gardenData['hydra:member'];
+      }
+    });
   }
 
   // Filter by garden
@@ -136,13 +125,27 @@ export class LightningComponent implements OnInit, OnDestroy {
   updateStatus(id: number, status: boolean, name: string): void {
     status = !status;
     this.updateStatusSubscription = this.lightningService.updateStatus(status, id)
-      .subscribe((res: any) => {
-        this.status = res;
-        this.fetchLightnings();
+      .subscribe(() => {
         // Snackbar
         const action = status ? 'allumé' : 'éteint';
         const notificationMessage = `L'\éclairage "${name}" a été ${action}.`;
         this.snackbarService.showNotification(notificationMessage, 'modified');
+        // Display modified data locally
+        this.filteredLightnings = this.filteredLightnings.map(lightning => {
+          if (lightning.id === id) {
+            return { ...lightning, status: status };
+          }
+          return lightning;
+        });
+      },
+      (_error) => {
+        let errorMessage;
+        if (!status) {
+          errorMessage = `Impossible d'allumer l'éclairage en raison d'une erreur!`;
+        } else {
+          errorMessage = `Impossible d'éteindre l'éclairage en raison d'une erreur!`;
+        }
+        this.snackbarService.showNotification(errorMessage,'red-alert');
       });
   }
 
@@ -161,25 +164,14 @@ export class LightningComponent implements OnInit, OnDestroy {
     });
 
     this.dialogRefSubscription = dialogRef.afterClosed()
-      .subscribe((dialogResult) => {
-        this.result = dialogResult;
+      .subscribe((dialogResult$) => {
+        this.result = dialogResult$;
         if (this.result === true) {
           this.deleteLightningSubscription = this.lightningService.deleteLightning(id)
-          .subscribe(
-            (response: HttpResponse<any>) => {
-              if (response.status === 204) {
-                const notificationMessage = this.snackbarService.getNotificationMessage();
-                this.snackbarService.showNotification(notificationMessage, 'deleted');
-                this.fetchLightnings();
-              }
-            },
-            (_error) => {
-              this.snackbarService.showNotification(
-                `Une erreur s'est produite!`,
-                'red-alert'
-              );
-            }
-          )
+          .subscribe(() => {
+            // Delete data locally
+            this.filteredLightnings = this.filteredLightnings.filter(lightning => lightning.id !== id);
+          });
         }
       });
   }
@@ -189,13 +181,14 @@ export class LightningComponent implements OnInit, OnDestroy {
   }
 
   private unsubscribeAll(): void {
-    this.getAllGardensSubscription.unsubscribe();
-    this.getAllLightningsSubscription.unsubscribe();
+    this.fetchDataSubscription.unsubscribe();
     if (this.updateStatusSubscription) {
       this.updateStatusSubscription.unsubscribe();
     }
-    if (this.dialogRefSubscription && this.deleteLightningSubscription) {
+    if (this.dialogRefSubscription) {
       this.dialogRefSubscription.unsubscribe();
+    }
+    if (this.deleteLightningSubscription) {
       this.deleteLightningSubscription.unsubscribe();
     }
   }
