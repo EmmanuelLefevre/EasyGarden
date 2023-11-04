@@ -2,7 +2,7 @@
       searchInputReset
       [searchInput]="searchInput">
   <div class="div-wrapper ambiance-bg">
-       
+
     <div class="animate__animated animate__jackInTheBox">
       <h1 class="visually-hidden">{{name}}</h1>
       <h2 class="visually-hidden">{{title}}</h2>
@@ -36,8 +36,8 @@
                      spellcheck="false"
                      placeholder="Rechercher...">
               <fa-icon [icon]="faSearch"></fa-icon>
-              <fa-icon [icon]="faXmark" 
-                        class="icon-right" 
+              <fa-icon [icon]="faXmark"
+                        class="icon-right"
                         *ngIf="searchInput.name"
                         (click)="resetPagination(); searchInput.name=''"
                         aria-label="Fermer">
@@ -46,44 +46,44 @@
           </div>
         </ng-container>
       </div>
-  
+
       <div class="table form-border form-shadow">
         <table class="t-hover" aria-label="Tableau des arrosages">
-    
-          <thead>             
+
+          <thead>
             <tr>
               <th (click)="sort('status')"
                   class="power order"
-                  aria-label="Trier par statut">On/Off 
+                  aria-label="Trier par statut">On/Off
                 <fa-icon [icon]="faSort"></fa-icon>
               </th>
               <th (click)="sort('name')"
                   class="order"
-                  aria-label="Trier par nom">Nom 
+                  aria-label="Trier par nom">Nom
                 <fa-icon [icon]="faSort"></fa-icon>
               </th>
               <th (click)="sort('flowSensor')"
                   class="order"
-                  aria-label="Trier par débit">Débit 
+                  aria-label="Trier par débit">Débit
                 <fa-icon [icon]="faSort"></fa-icon>
               </th>
               <th (click)="sort('pressureSensor')"
                   class="order"
-                  aria-label="Trier par pression">Pression 
+                  aria-label="Trier par pression">Pression
                 <fa-icon [icon]="faSort"></fa-icon>
               </th>
-              <th>Action</th>                   
+              <th>Action</th>
             </tr>
           </thead>
-    
+
           <tbody>
-            <tr *ngFor="let watering of filteredWaterings  
+            <tr *ngFor="let watering of filteredWaterings
                 | orderBy: orderHeader: isDescOrder
                 | filterBy: searchInput
                 | paginate: { itemsPerPage: 5, currentPage: p, totalItems: count }">
               <td class="power">
                 <button (click)="updateStatus(watering.id, watering.status, watering.name)"
-                        type="submit" 
+                        type="submit"
                         [attr.aria-label]="watering.status ? 'Eteindre l\'arrosage' : 'Allumer l\'arrosage'"
                         [matTooltip]="watering.status ? 'Eteindre' : 'Allumer'"
                         matTooltipPosition="left"
@@ -121,31 +121,31 @@
               </td>
             </tr>
           </tbody>
-          
+
         </table>
         <ng-container *ngIf="waterings.length > 5">
-          <ng-container class="no-search-match" 
+          <ng-container class="no-search-match"
                         *ngIf="(waterings | filterBy: searchInput).length === 0">
             Aucune correspondance trouvée..
           </ng-container>
         </ng-container>
       </div>
     </div>
-  
+
     <div class="pagination">
       <pagination-controls (pageChange)="p = $event"
-                           previousLabel="" 
+                           previousLabel=""
                            nextLabel=""
                            [autoHide]="true"
                            [responsive]="true"
                            aria-label="Pagination">
       </pagination-controls>
     </div>
-  
+
     <div class="submit">
       <button routerLink="/easygarden/watering/add"
-              type="button" 
-              id="submit" 
+              type="button"
+              id="submit"
               class="button-shadow">Ajouter
       </button>
     </div>
