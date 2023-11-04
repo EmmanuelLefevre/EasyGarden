@@ -67,17 +67,17 @@ export class EditEntityNameComponent implements OnDestroy, OnInit {
               private customValidator : FormValidationService,
               private formBuilder: UntypedFormBuilder,
               private formErrorMessageService: FormErrorMessageService,
-              private gardenService: GardenService,          
-              private lawnmowerService: LawnmowerService,          
-              private lightningService: LightningService,            
-              private poolService: PoolService,            
+              private gardenService: GardenService,
+              private lawnmowerService: LawnmowerService,
+              private lightningService: LightningService,
+              private poolService: PoolService,
               private portalService: PortalService,
               private router: Router,
-              private snackbarService: SnackbarService,          
+              private snackbarService: SnackbarService,
               private wateringService: WateringService,) {
 
     const id = Number(this.activated.snapshot.paramMap.get('id'));
-    
+
     let service: any;
     let type: string = '';
 
@@ -174,7 +174,7 @@ export class EditEntityNameComponent implements OnDestroy, OnInit {
       let gardenCase: string;
       let notificationMessage: string;
       let service: any;
-    
+
       const cases = [
         { urlPart: '/easygarden/garden/edit/', service: this.gardenService, string: `Le jardin` },
         { urlPart: '/easygarden/lawnmower/edit/', service: this.lawnmowerService, string: `La tondeuse` },
@@ -183,21 +183,21 @@ export class EditEntityNameComponent implements OnDestroy, OnInit {
         { urlPart: '/easygarden/portal/edit/', service: this.portalService, string: `Le portail` },
         { urlPart: '/easygarden/watering/edit/', service: this.wateringService, string: `L'arrosage` }
       ];
-    
+
       const matchedCase = cases.find(item => url.includes(item.urlPart));
-    
+
       if (matchedCase) {
         service = matchedCase.service;
         equipmentString = matchedCase.string;
         gardenCase = matchedCase.string;
-    
+
         this.updateDataSubscription = service.updateData(typedForm, id).subscribe(() => {
           const newName = typedForm.name;
           const redirectUrl = service.getRedirectUrl();
           // Garden case
           if (gardenCase) {
             if (redirectUrl === null) {
-              this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => { 
+              this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
                 this.router.navigate(['/easygarden']);
               });
             }
