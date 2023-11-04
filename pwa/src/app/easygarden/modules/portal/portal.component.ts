@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
-// Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip-social in style.scss
+import { ActivatedRoute } from '@angular/router';
 import { HttpResponse } from '@angular/common/http';
-import { Subject, Subscription, takeUntil } from 'rxjs';
+// RXJS
+import { Subscription } from 'rxjs';
 // Environment
 import { environment } from 'src/environments/environment';
 // Icons
@@ -10,14 +11,13 @@ import { faPowerOff, faPen, faTrash, faSort, faSearch, faDoorOpen, faXmark } fro
 import { IConfirmDialog, ConfirmDialogComponent } from 'src/app/easygarden/components/confirmDialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 // Services
-import { GardenService } from '../../components/garden/garden.service';
 import { GardenFilterService } from '../../_services/garden-filter.service';
 import { PortalService } from './portal.service';
 import { SnackbarService } from 'src/app/_services/miscellaneous/snackbar.service';
 // Modeles
+import { IDataPortal, IPortal, IPortalFilter } from './IPortal';
 import { IGarden } from '../../components/garden/IGarden';
 import { IName } from '../../_interfaces/IName';
-import { IPortal, IPortalFilter } from './IPortal';
 
 
 @Component({
@@ -40,13 +40,10 @@ export class PortalComponent implements OnInit, OnDestroy {
   title = "Tableau portail";
 
   // Declaration of subscriptions
-  private getAllGardensSubscription: Subscription = new Subscription;
-  private getAllPortalsSubscription: Subscription = new Subscription;
+  private fetchDataSubscription: Subscription = new Subscription;
   private deletePortalSubscription!: Subscription;
   private updateStatusSubscription!: Subscription;
   private dialogRefSubscription!: Subscription;
-  // Private Subject to handle component destruction
-  private destroy$ = new Subject<void>();
 
   // Confirm Dialog this.result = boolean
   result: boolean | undefined;
@@ -71,47 +68,39 @@ export class PortalComponent implements OnInit, OnDestroy {
 
   portals: IPortal[] = [];
   filteredPortals: IPortal[] = [];
+  updateStatusBehaviorSubject: IDataPortal[] = [];
 
-  constructor(private dialog: MatDialog,              
+  constructor(private activatedRoute: ActivatedRoute,
+              private dialog: MatDialog,
               private gardenFilterService: GardenFilterService,
-              private gardenService: GardenService,
               private portalService: PortalService,
               private snackbarService: SnackbarService) {}
 
   ngOnInit(): void {
-    this.fetchGardens();
-    this.fetchPortals();
+    this.fetchData();
+    this.portalService.updateStatus$.subscribe((data$: IDataPortal[]) => {
+      this.updateStatusBehaviorSubject = data$;
+    });
   }
 
   ngOnDestroy(): void {
-    // Destroy Subject
-    this.destroy$.next();
-    this.destroy$.complete();
-    // Clean up subscriptions
     this.unsubscribeAll();
   }
 
-  // Recover Gardens
-  fetchGardens(): void {
-    this.getAllGardensSubscription = this.gardenService.getAllGardens()
-      .subscribe((res: any) => {
-        if (res.hasOwnProperty('hydra:member')) {
-          this.gardens = res['hydra:member'];
-        }
-      });
-  }
-
-  // Display Portals
-  fetchPortals(): void {
-    this.getAllPortalsSubscription = this.portalService.getAllPortals()
-      // Use takeUntil to automatically unsubscribe
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((res:any) => {
-        if (res.hasOwnProperty('hydra:member')) {
-          this.portals = res['hydra:member'];
-          this.filterByGarden();
-        }
-      });
+  // Fetch gardens and portals
+  fetchData(): void {
+    this.fetchDataSubscription = this.activatedRoute.data
+    .subscribe((data$) => {
+      const portalData = data$['data']['portals'];
+      const gardenData = data$['data']['gardens'];
+      if (portalData && portalData.hasOwnProperty('hydra:member')) {
+        this.portals = portalData['hydra:member'];
+        this.filterByGarden();
+      }
+      if (gardenData && gardenData.hasOwnProperty('hydra:member')) {
+        this.gardens = gardenData['hydra:member'];
+      }
+    });
   }
 
   // Filter by garden
@@ -137,13 +126,27 @@ export class PortalComponent implements OnInit, OnDestroy {
   updateStatus(id: number, status: boolean, name: string): void {
     status = !status;
     this.updateStatusSubscription = this.portalService.updateStatus(status, id)
-      .subscribe((res: any) => {
-        this.status = res;
-        this.fetchPortals();
+      .subscribe(() => {
         // Snackbar
         const action = status ? 'ouvert' : 'fermé';
         const notificationMessage = `Le portail "${name}" a été ${action}.`;
         this.snackbarService.showNotification(notificationMessage, 'modified');
+        // Display modified data locally
+        this.filteredPortals = this.filteredPortals.map(portal => {
+          if (portal.id === id) {
+            return { ...portal, status: status };
+          }
+          return portal;
+        });
+      },
+      (_error) => {
+        let errorMessage;
+        if (status === false) {
+          errorMessage = `Impossible d'ouvrir le portail en raison d'une erreur!`;
+        } else {
+          errorMessage = `Impossible de fermer le portail en raison d'une erreur!`;
+        }
+        this.snackbarService.showNotification(errorMessage,'red-alert');
       });
   }
 
@@ -156,28 +159,29 @@ export class PortalComponent implements OnInit, OnDestroy {
       maxWidth: "400px",
       data: dialogData
     })
-    
+
     this.dialogRefSubscription = dialogRef.afterClosed()
-      .subscribe(dialogResult => {
-        this.result = dialogResult;
+      .subscribe((dialogResult$) => {
+        this.result = dialogResult$;
         if (this.result === true) {
           this.deletePortalSubscription = this.portalService.deletePortal(id)
-            .subscribe(
-              (response: HttpResponse<any>) => {
-                if (response.status === 204) {
-                  const notificationMessage = this.snackbarService.getNotificationMessage();
-                  this.snackbarService.showNotification(notificationMessage, 'deleted');
-                  this.fetchPortals();
-                }
-              },
-              (_error) => {
-                this.snackbarService.showNotification(
-                  `Une erreur s'est produite!`,
-                  'red-alert'
-                );
+          .subscribe(
+            (res$: HttpResponse<any>) => {
+              if (res$.status === 204) {
+                const notificationMessage = this.snackbarService.getNotificationMessage();
+                this.snackbarService.showNotification(notificationMessage, 'deleted');
+                // Update data locally
+                this.filteredPortals = this.filteredPortals.filter(portal => portal.id !== id);
               }
-            )
-        }   
+            },
+            (_error) => {
+              this.snackbarService.showNotification(
+                `Une erreur s'est produite lors de la suppression!`,
+                'red-alert'
+              );
+            }
+          );
+        }
       })
   }
 
@@ -186,13 +190,14 @@ export class PortalComponent implements OnInit, OnDestroy {
   }
 
   private unsubscribeAll(): void {
-    this.getAllGardensSubscription.unsubscribe();
-    this.getAllPortalsSubscription.unsubscribe();
+    this.fetchDataSubscription.unsubscribe();
     if (this.updateStatusSubscription) {
       this.updateStatusSubscription.unsubscribe();
     }
-    if (this.dialogRefSubscription && this.deletePortalSubscription) {
+    if (this.dialogRefSubscription) {
       this.dialogRefSubscription.unsubscribe();
+    }
+    if (this.deletePortalSubscription) {
       this.deletePortalSubscription.unsubscribe();
     }
   }

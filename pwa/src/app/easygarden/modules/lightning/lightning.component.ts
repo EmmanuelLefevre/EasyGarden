@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { HttpResponse } from '@angular/common/http';
 // RXJS
 import { Subscription } from 'rxjs';
 // Environment
@@ -14,8 +15,8 @@ import { GardenFilterService } from '../../_services/garden-filter.service';
 import { LightningService } from './lightning.service';
 import { SnackbarService } from 'src/app/_services/miscellaneous/snackbar.service';
 // Modeles
-import { IGarden } from '../../components/garden/IGarden';
 import { IDataLightning, ILightning, ILightningFilter } from './ILightning';
+import { IGarden } from '../../components/garden/IGarden';
 import { IName } from '../../_interfaces/IName';
 
 
@@ -66,7 +67,7 @@ export class LightningComponent implements OnInit, OnDestroy {
 
   lightnings: ILightning[] = [];
   filteredLightnings: ILightning[] = [];
-  lightningsBehaviorSubject: IDataLightning[] = [];
+  updateStatusBehaviorSubject: IDataLigthning[] = [];
 
   constructor(private activatedRoute: ActivatedRoute,
               private dialog: MatDialog,
@@ -76,8 +77,8 @@ export class LightningComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.fetchData();
-    this.lightningService.lightnings$.subscribe((data$: IDataLightning[]) => {
-      this.lightningsBehaviorSubject = data$;
+    this.lightningService.updateStatus$.subscribe((data$: IDataLightning[]) => {
+      this.updateStatusBehaviorSubject = data$;
     });
   }
 
@@ -140,7 +141,7 @@ export class LightningComponent implements OnInit, OnDestroy {
       },
       (_error) => {
         let errorMessage;
-        if (!status) {
+        if (status === false) {
           errorMessage = `Impossible d'allumer l'éclairage en raison d'une erreur!`;
         } else {
           errorMessage = `Impossible d'éteindre l'éclairage en raison d'une erreur!`;
@@ -168,10 +169,22 @@ export class LightningComponent implements OnInit, OnDestroy {
         this.result = dialogResult$;
         if (this.result === true) {
           this.deleteLightningSubscription = this.lightningService.deleteLightning(id)
-          .subscribe(() => {
-            // Delete data locally
-            this.filteredLightnings = this.filteredLightnings.filter(lightning => lightning.id !== id);
-          });
+          .subscribe(
+            (res$: HttpResponse<any>) => {
+              if (res$.status === 204) {
+                const notificationMessage = this.snackbarService.getNotificationMessage();
+                this.snackbarService.showNotification(notificationMessage, 'deleted');
+                // Update data locally
+                this.filteredLightnings = this.filteredLightnings.filter(lightning => lightning.id !== id);
+              }
+            },
+            (_error) => {
+              this.snackbarService.showNotification(
+                `Une erreur s'est produite lors de la suppression!`,
+                'red-alert'
+              );
+            }
+          );
         }
       });
   }
