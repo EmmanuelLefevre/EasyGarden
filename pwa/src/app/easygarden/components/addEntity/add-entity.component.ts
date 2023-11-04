@@ -32,7 +32,7 @@ export class AddEntityComponent implements OnInit, OnDestroy {
 
   // Declaration of subscriptions
   private addDataSubscription!: Subscription;
-  private addDataFormSubscription!: Subscription;
+  private inputChangesSubscription!: Subscription;
   private getAllGardensSubscription: Subscription = new Subscription;
   // Private Subject to handle component destruction
   private destroy$ = new Subject<void>();
@@ -103,7 +103,7 @@ export class AddEntityComponent implements OnInit, OnDestroy {
     this.currentUrl = this.router.url;
     this.updateValidators();
     // Subscribe to form control input changes
-    this.addDataFormSubscription = this.form.valueChanges
+    this.inputChangesSubscription = this.form.valueChanges
       .subscribe(() => {
         this.handleFormChanges();
       });
@@ -233,8 +233,8 @@ export class AddEntityComponent implements OnInit, OnDestroy {
 
   private unsubscribeAll(): void {
     this.getAllGardensSubscription.unsubscribe();
-    if (this.addDataFormSubscription) {
-      this.addDataFormSubscription.unsubscribe();
+    if (this.inputChangesSubscription) {
+      this.inputChangesSubscription.unsubscribe();
     }
     if (this.addDataSubscription) {
       this.addDataSubscription.unsubscribe();
