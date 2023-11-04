@@ -54,7 +54,7 @@ export class GardenFilterService {
         return 1;
       }
     });
-    
+
     return filteredItems;
 
   }
