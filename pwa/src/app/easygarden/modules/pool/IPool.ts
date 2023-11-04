@@ -11,7 +11,8 @@ export interface IPool {
 }
 
 export interface IDataPool {
-  'hydra:member': IPool[]
+  id?: number;
+  'hydra:member': IPool[];
 }
 
 export interface IAddPool {
