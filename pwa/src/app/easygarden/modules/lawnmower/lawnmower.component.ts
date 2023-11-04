@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-// Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip-social in style.scss
 import { HttpResponse } from '@angular/common/http';
+// RXJS
 import { Subject, Subscription, takeUntil } from 'rxjs';
 // Environment
 import { environment } from 'src/environments/environment';
@@ -94,6 +94,7 @@ export class LawnmowerComponent implements OnInit, OnDestroy {
   // Display Lawnmowers
   fetchLawnmowers(): void {
     this.getAllLawnmowersSubscription = this.activatedRoute.data.pipe(
+      // Use takeUntil to automatically unsubscribe
       takeUntil(this.destroy$)
     ).subscribe((res) => {
       if (res && res['data'] && res['data']['lawnmowers'].hasOwnProperty('hydra:member')) {
@@ -106,6 +107,7 @@ export class LawnmowerComponent implements OnInit, OnDestroy {
   // Recover Gardens
   fetchGardens(): void {
     this.getAllGardensSubscription = this.activatedRoute.data.pipe(
+      // Use takeUntil to automatically unsubscribe
       takeUntil(this.destroy$)
     ).subscribe((res) => {
       if (res && res['data'] && res['data']['gardens'].hasOwnProperty('hydra:member')) {
