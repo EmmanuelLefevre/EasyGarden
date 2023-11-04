@@ -17,7 +17,7 @@ const routes: Routes = [
       ogTitle: `Page éclairage de l\'application ${name}`
     },
    resolve: {
-      lightning: LightningResolver
+      data: LightningResolver
     }
   },
   { path: 'edit/:id', component: EditEntityNameComponent,
