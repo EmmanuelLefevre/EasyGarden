@@ -2,17 +2,17 @@
       searchInputReset
       [searchInput]="searchInput">
   <div class="div-wrapper ambiance-bg">
-  
+
     <div class="animate__animated animate__jackInTheBox">
       <h1 class="visually-hidden">{{name}}</h1>
       <h2 class="visually-hidden">{{title}}</h2>
       <div class="icon-container">
         <div class="circle"></div>
-        <fa-icon [icon]="faSeedling" 
+        <fa-icon [icon]="faSeedling"
                  aria-label="Icône d'illustration de la page représentant une graine germée">
         </fa-icon>
       </div>
-  
+
       <div class="table-header">
         <ng-container *ngIf="getGardensWithLawnmowers().length > 1">
           <select [(ngModel)]="selectedGardenId"
@@ -36,8 +36,8 @@
                      spellcheck="false"
                      placeholder="Rechercher...">
                 <fa-icon [icon]="faSearch"></fa-icon>
-                <fa-icon [icon]="faXmark" 
-                        class="icon-right" 
+                <fa-icon [icon]="faXmark"
+                        class="icon-right"
                         *ngIf="searchInput.name"
                         (click)="resetPagination(); searchInput.name=''"
                         aria-label="Fermer">
@@ -46,39 +46,39 @@
           </div>
         </ng-container>
       </div>
-  
+
       <div class="table form-border form-shadow">
         <table class="t-hover" aria-label="Tableau des tondeuses">
-    
-          <thead>             
+
+          <thead>
             <tr>
               <th (click)="sort('status')"
                   class="power order"
-                  aria-label="Trier par statut">On/Off 
+                  aria-label="Trier par statut">On/Off
                 <fa-icon [icon]="faSort"></fa-icon>
               </th>
               <th (click)="sort('name')"
                   class="order"
-                  aria-label="Trier par nom">Nom 
+                  aria-label="Trier par nom">Nom
                 <fa-icon [icon]="faSort"></fa-icon>
               </th>
               <th (click)="sort('batterySensor')"
                   class="order"
-                  aria-label="Trier par niveau de batterie">Batterie 
+                  aria-label="Trier par niveau de batterie">Batterie
                 <fa-icon [icon]="faSort"></fa-icon>
               </th>
-              <th>Action</th>                   
+              <th>Action</th>
             </tr>
           </thead>
-    
+
           <tbody>
-            <tr *ngFor="let lawnmower of filteredLawnmowers  
+            <tr *ngFor="let lawnmower of filteredLawnmowers
                 | orderBy: orderHeader: isDescOrder
                 | filterBy: searchInput
                 | paginate: { itemsPerPage: 5, currentPage: p, totalItems: count }">
               <td class="power">
                 <button (click)="updateStatus(lawnmower.id, lawnmower.status, lawnmower.name)"
-                        type="submit" 
+                        type="submit"
                         [attr.aria-label]="lawnmower.status ? 'Eteindre la tondeuse' : 'Allumer la tondeuse'"
                         [matTooltip]="lawnmower.status ? 'Eteindre' : 'Allumer'"
                         matTooltipPosition="left"
@@ -89,7 +89,7 @@
                 </button>
               </td>
               <td>{{ lawnmower.name }}</td>
-              <td *ngIf="lawnmower.status === true" 
+              <td *ngIf="lawnmower.status === true"
                   [ngClass]="{'alert': lawnmower.batterySensor < '50'}">{{ lawnmower.batterySensor }}</td>
               <td *ngIf="lawnmower.status === false">-</td>
               <td>
@@ -103,7 +103,7 @@
                   <fa-icon [icon]="faPen"></fa-icon>
                 </button>
                 <button (click)="confirmDialog(lawnmower.id, lawnmower.name)"
-                        type="submit" 
+                        type="submit"
                         aria-label="Bouton permettant de supprimer la tondeuse"
                         matTooltip="Supprimer"
                         matTooltipPosition="after"
@@ -115,31 +115,31 @@
               </td>
             </tr>
           </tbody>
-          
+
         </table>
         <ng-container *ngIf="lawnmowers.length > 5">
-          <ng-container class="no-search-match" 
+          <ng-container class="no-search-match"
                         *ngIf="(lawnmowers | filterBy: searchInput).length === 0">
             Aucune correspondance trouvée..
           </ng-container>
         </ng-container>
       </div>
     </div>
-  
+
     <div class="pagination">
-      <pagination-controls (pageChange)="p = $event" 
-                           previousLabel="" 
+      <pagination-controls (pageChange)="p = $event"
+                           previousLabel=""
                            nextLabel=""
                            [autoHide]="true"
                            [responsive]="true"
                            aria-label="Pagination">
       </pagination-controls>
     </div>
-  
+
     <div class="submit">
       <button routerLink="/easygarden/lawnmower/add"
-              type="button" 
-              id="submit" 
+              type="button"
+              id="submit"
               class="button-shadow"
               aria-label="Bouton ajouter une tondeuse">Ajouter
       </button>
