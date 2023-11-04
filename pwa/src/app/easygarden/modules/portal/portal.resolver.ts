@@ -1,8 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Router, Resolve, ActivatedRouteSnapshot } from '@angular/router';
-import { catchError, Observable, throwError, delay } from 'rxjs';
-
+import { Router, Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+// RXJS
+import { catchError, forkJoin, Observable, throwError } from 'rxjs';
+// Service
+import { GardenService } from '../../components/garden/garden.service';
 import { PortalService } from './portal.service';
+// Models
+import { IDataGarden } from '../../components/garden/IGarden';
 import { IDataPortal } from './IPortal';
 
 
@@ -10,20 +14,21 @@ import { IDataPortal } from './IPortal';
   providedIn: 'root'
 })
 
-export class PortalResolver implements Resolve<IDataPortal[]> {
+export class PortalResolver implements Resolve<{ portals: IDataPortal[], gardens: IDataGarden[] }> {
 
-  constructor(private portalService: PortalService,
+  constructor(private gardenService: GardenService,
+              private portalService: PortalService,
               private router: Router) {}
 
-  resolve(_route: ActivatedRouteSnapshot): Observable<IDataPortal[]> {
-    return this.portalService.getAllPortals().pipe(
-      // delay(1000),
-      catchError(
-        () => {
-          this.router.navigate([""]);
-          return throwError(() => ('No portals were found.'))
-        }
-      )
+  resolve(_route: ActivatedRouteSnapshot, _state: RouterStateSnapshot): Observable<{ portals: IDataPortal[], gardens: IDataGarden[] }> {
+    const portals$: Observable<IDataPortal[]> = this.portalService.getAllPortals();
+    const gardens$: Observable<IDataGarden[]> = this.gardenService.getAllGardens();
+
+    return forkJoin({ portals: portals$, gardens: gardens$ }).pipe(
+      catchError(() => {
+        this.router.navigate([""]);
+        return throwError(() => ('Failed to fetch data.'));
+      })
     );
   }
 
