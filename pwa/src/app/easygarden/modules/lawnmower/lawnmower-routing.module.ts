@@ -15,20 +15,20 @@ const routes: Routes = [
   { path: '', component: LawnmowerComponent,
     data: {
       ogTitle: `Page tondeuse de l\'application ${name}`
-    }, 
+    },
     resolve: {
       data: LawnmowerResolver
-    } 
+    }
   },
   { path: 'edit/:id', component: EditEntityNameComponent,
     data: {
       ogTitle: `Page modifier éclairage de l\'application ${name}`
-    } 
+    }
   },
   { path: 'add', component: AddEntityComponent,
     data: {
       ogTitle: `Page ajouter tondeuse de l\'application ${name}`
-    } 
+    }
   }
 ];
 
