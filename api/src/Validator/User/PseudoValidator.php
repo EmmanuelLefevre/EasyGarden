@@ -54,9 +54,9 @@ class PseudoValidator
             case strlen($pseudo) > 25:
                 return $returnJsonResponse ? new JsonResponse(['error' => 'Pseudo cannnot exceed 25 characters!'], 
                                                               Response::HTTP_BAD_REQUEST) : false;
-            
+
             // Authorized character
-            case !preg_match('/^[A-Za-z0-9 -]+$/', $pseudo):
+            case !preg_match('/^[A-Za-z0-9éèàù -]+$/', $pseudo):
                 return $returnJsonResponse ? new JsonResponse(['error' => 'Pseudo can only contain digits, lowercase and uppercase letters (hyphens and spaces are accepted)!'], 
                                                               Response::HTTP_BAD_REQUEST) : false;
 
