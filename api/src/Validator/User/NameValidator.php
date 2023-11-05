@@ -47,17 +47,17 @@ class NameValidator
 
             // Min length
             case strlen($name) < 3:
-                return $returnJsonResponse ? new JsonResponse(['error' => 'Name must contain at least 3 characters!'], 
+                return $returnJsonResponse ? new JsonResponse(['error' => 'Name must contain at least 3 characters!'],
                                                               Response::HTTP_BAD_REQUEST) : false;
 
             // Max lenght
             case strlen($name) > 25:
-                return $returnJsonResponse ? new JsonResponse(['error' => 'Name cannnot exceed 25 characters!'], 
+                return $returnJsonResponse ? new JsonResponse(['error' => 'Name cannnot exceed 25 characters!'],
                                                               Response::HTTP_BAD_REQUEST) : false;
-            
+
             // Authorized character
-            case !preg_match('/^[A-Za-z -]+$/', $name):
-                return $returnJsonResponse ? new JsonResponse(['error' => 'Name can only contain lowercase and uppercase letters (hyphens and spaces are accepted)!'], 
+            case !preg_match('/^[A-Za-zéèàù -]+$/', $name):
+                return $returnJsonResponse ? new JsonResponse(['error' => 'Name can only contain lowercase and uppercase letters (hyphens and spaces are accepted)!'],
                                                               Response::HTTP_BAD_REQUEST) : false;
 
             default:
