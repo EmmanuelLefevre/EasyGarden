@@ -13,12 +13,12 @@ export class SnackbarService {
 
   constructor(private snackbar: MatSnackBar) { }
 
-  showNotification(displayMessage: string, messageType: 'created' 
-                                                        | 'modified' 
-                                                        | 'deleted' 
-                                                        | 'logIn-logOut' 
-                                                        | 'register' 
-                                                        | 'orange-alert' 
+  showNotification(displayMessage: string, messageType: 'created'
+                                                        | 'modified'
+                                                        | 'deleted'
+                                                        | 'logIn-logOut'
+                                                        | 'register'
+                                                        | 'orange-alert'
                                                         | 'red-alert') {
     if (messageType === 'logIn-logOut') {
       this.snackbar.openFromComponent(SnackbarComponent, {
@@ -30,8 +30,8 @@ export class SnackbarService {
         verticalPosition: 'top',
         horizontalPosition: 'end'
       });
-    } else if (messageType === 'register' 
-              || messageType === 'orange-alert' 
+    } else if (messageType === 'register'
+              || messageType === 'orange-alert'
               || messageType === 'red-alert') {
       this.snackbar.openFromComponent(SnackbarComponent, {
         data: {
@@ -42,7 +42,7 @@ export class SnackbarService {
         verticalPosition: 'top',
         horizontalPosition: 'end'
       });
-    } else 
+    } else
       this.snackbar.openFromComponent(SnackbarComponent, {
         data: {
           message: displayMessage
@@ -61,5 +61,5 @@ export class SnackbarService {
   getNotificationMessage(): string {
     return this.notificationMessage;
   }
-  
+
 }
