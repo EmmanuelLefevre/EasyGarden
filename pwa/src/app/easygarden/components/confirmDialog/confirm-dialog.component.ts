@@ -53,7 +53,7 @@ export class ConfirmDialogComponent implements OnInit {
       notificationMessage = `${equipmentString} "${this.value}" a été supprimé`;
       switch (this.router.url) {
         case '/easygarden':
-          notificationMessage += `ainsi que tous ses équipements.`;
+          notificationMessage += ` ainsi que tous ses équipements.`;
           break;
         case '/easygarden/lawnmower':
           notificationMessage += `e`;
