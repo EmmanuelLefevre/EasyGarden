@@ -174,11 +174,11 @@ export class AddEntityComponent implements OnInit, OnDestroy {
           }
           // Equipments case
           else {
-            let notificationMessage = `${equipmentString} "${typedForm.name}" a été ajouté`;
+            notificationMessage = `${equipmentString} "${typedForm.name}" a été ajouté`;
             if (gardenName) {
               switch (true) {
                 case url.includes('/easygarden/lawnmower/add'):
-                  notificationMessage += 'e';
+                  notificationMessage += `e`;
                   break;
                 default:
                   break;
