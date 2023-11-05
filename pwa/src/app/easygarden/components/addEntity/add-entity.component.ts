@@ -158,9 +158,9 @@ export class AddEntityComponent implements OnInit, OnDestroy {
 
         this.addDataSubscription = service.addData(typedForm).subscribe(() => {
           const gardenName = typedForm.garden?.name;
+          const redirectUrl = service.getRedirectUrl();
           // Garden case
           if (url.includes('/easygarden/garden/add')) {
-            const redirectUrl = service.getRedirectUrl();
             if (redirectUrl === null) {
               this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
                 this.router.navigate(['/easygarden']);
@@ -185,7 +185,7 @@ export class AddEntityComponent implements OnInit, OnDestroy {
               }
               notificationMessage += ` au jardin "${gardenName}".`;
             }
-            this.router.navigate([service.getRedirectUrl()]);
+            this.router.navigate([redirectUrl]);
             this.snackbarService.showNotification(notificationMessage, 'created');
           }
         });
