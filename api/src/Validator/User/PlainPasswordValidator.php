@@ -47,37 +47,37 @@ class PlainPasswordValidator
 
             // Min length
             case strlen($plainPassword) < 8:
-                return $returnJsonResponse ? new JsonResponse(['error' => 'Password must contain at least 8 characters!'], 
+                return $returnJsonResponse ? new JsonResponse(['error' => 'Password must contain at least 8 characters!'],
                                                               Response::HTTP_BAD_REQUEST) : false;
 
             // Max lenght
             case strlen($plainPassword) > 50:
-                return $returnJsonResponse ? new JsonResponse(['error' => 'Password cannnot exceed 50 characters!'], 
+                return $returnJsonResponse ? new JsonResponse(['error' => 'Password cannnot exceed 50 characters!'],
                                                               Response::HTTP_BAD_REQUEST) : false;
 
             // Uppercase letter
             case !preg_match('/[A-Z]/', $plainPassword):
-            return $returnJsonResponse ? new JsonResponse(['error' => 'Password must contain at least one capital letter!'], 
+            return $returnJsonResponse ? new JsonResponse(['error' => 'Password must contain at least one capital letter!'],
                                                           Response::HTTP_BAD_REQUEST) : false;
 
             // Lowercase letter
             case !preg_match('/[a-z]/', $plainPassword):
-                return $returnJsonResponse ? new JsonResponse(['error' => 'Password must contain at least one lowercase letter!'], 
+                return $returnJsonResponse ? new JsonResponse(['error' => 'Password must contain at least one lowercase letter!'],
                                                               Response::HTTP_BAD_REQUEST) : false;
-            
+
             // Number
             case !preg_match('/[0-9]/', $plainPassword):
-                return $returnJsonResponse ? new JsonResponse(['error' => 'Password must contain at least one digit!'], 
+                return $returnJsonResponse ? new JsonResponse(['error' => 'Password must contain at least one digit!'],
                                                               Response::HTTP_BAD_REQUEST) : false;
 
             // Special character
             case !preg_match('/[~µ^!@#$%^&*§£¤µ@(),.;?":{}|<>\/]/', $plainPassword):
-                return $returnJsonResponse ? new JsonResponse(['error' => 'Password must contain at least one special character!'], 
+                return $returnJsonResponse ? new JsonResponse(['error' => 'Password must contain at least one special character!'],
                                                               Response::HTTP_BAD_REQUEST) : false;
 
             // No space
             case preg_match('/\s/', $plainPassword):
-                return $returnJsonResponse ? new JsonResponse(['error' => 'Password cannot contain spaces!'], 
+                return $returnJsonResponse ? new JsonResponse(['error' => 'Password cannot contain spaces!'],
                                                       Response::HTTP_BAD_REQUEST) : false;
 
             default:
