@@ -20,7 +20,7 @@ export class FormErrorMessageService {
       if (errorName === 'validEmail') {
         return 'L\'email doit contenir un "." + nom de domaine!';
       }
-    } 
+    }
     // Password
     else if (inputName === 'password') {
       if (errorName === 'required') {
