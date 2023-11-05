@@ -171,7 +171,6 @@ export class EditEntityNameComponent implements OnDestroy, OnInit {
       const id = Number(this.activated.snapshot.paramMap.get('id'));
       const url = window.location.href;
       let equipmentString: string;
-      let gardenCase: string;
       let notificationMessage: string;
       let service: any;
 
@@ -189,14 +188,13 @@ export class EditEntityNameComponent implements OnDestroy, OnInit {
       if (matchedCase) {
         service = matchedCase.service;
         equipmentString = matchedCase.string;
-        gardenCase = matchedCase.string;
 
         this.updateDataSubscription = service.updateData(typedForm, id).subscribe(() => {
           const newName = typedForm.name;
           const redirectUrl = service.getRedirectUrl();
           // Garden case
-          if (gardenCase) {
-            if (redirectUrl === null) {
+          if (url.includes('/easygarden/garden/edit')) {
+            if (5 === null) {
               this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
                 this.router.navigate(['/easygarden']);
               });
@@ -204,13 +202,21 @@ export class EditEntityNameComponent implements OnDestroy, OnInit {
             else {
               this.router.navigateByUrl(redirectUrl);
             }
-            notificationMessage = `${gardenCase} "${this.IName.name}" a bien été renommé en "${newName}".`;
+            notificationMessage = `${equipmentString} "${this.IName.name}" a été renommé en "${newName}".`;
             this.snackbarService.showNotification(notificationMessage, 'modified');
           }
           // Equipments case
           else {
-            this.router.navigate([service.getRedirectUrl()]);
-            notificationMessage = `${equipmentString} "${equipmentString} "${this.IName.name}" a bien été renommé en "${newName}".`;
+            notificationMessage = `${equipmentString} "${typedForm.name}" a été renommé`;
+            switch (true) {
+              case url.includes('/easygarden/lawnmower/edit/'):
+                notificationMessage += `e`;
+                break;
+              default:
+                break;
+            }
+            notificationMessage += ` en "${newName}".`;
+            this.router.navigate([redirectUrl]);
             this.snackbarService.showNotification(notificationMessage, 'modified');
           }
         });
