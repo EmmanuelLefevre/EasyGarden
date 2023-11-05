@@ -15,7 +15,7 @@ export class SnackbarComponent implements OnInit {
   message: ISnackbar;
 
   constructor(@Inject(MAT_SNACK_BAR_DATA) public data: any,
-              public snackBar: MatSnackBar) { 
+              public snackBar: MatSnackBar) {
     this.message = data.message;
   }
 
