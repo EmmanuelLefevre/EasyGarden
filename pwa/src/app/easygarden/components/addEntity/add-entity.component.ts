@@ -161,14 +161,9 @@ export class AddEntityComponent implements OnInit, OnDestroy {
           const redirectUrl = service.getRedirectUrl();
           // Garden case
           if (url.includes('/easygarden/garden/add')) {
-            if (redirectUrl === null) {
-              this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-                this.router.navigate(['/easygarden']);
-              });
-            }
-            else {
-              this.router.navigateByUrl(redirectUrl);
-            }
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+              this.router.navigate(['/easygarden']);
+            });
             notificationMessage = `${equipmentString} "${typedForm.name}" a été ajouté.`;
             this.snackbarService.showNotification(notificationMessage, 'created');
           }

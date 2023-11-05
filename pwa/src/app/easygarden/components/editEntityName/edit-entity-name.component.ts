@@ -194,14 +194,9 @@ export class EditEntityNameComponent implements OnDestroy, OnInit {
           const redirectUrl = service.getRedirectUrl();
           // Garden case
           if (url.includes('/easygarden/garden/edit')) {
-            if (5 === null) {
-              this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-                this.router.navigate(['/easygarden']);
-              });
-            }
-            else {
-              this.router.navigateByUrl(redirectUrl);
-            }
+            this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+              this.router.navigate(['/easygarden']);
+            });
             notificationMessage = `${equipmentString} "${this.IName.name}" a été renommé en "${newName}".`;
             this.snackbarService.showNotification(notificationMessage, 'modified');
           }
