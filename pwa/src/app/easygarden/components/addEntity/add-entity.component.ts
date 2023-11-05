@@ -169,13 +169,21 @@ export class AddEntityComponent implements OnInit, OnDestroy {
             else {
               this.router.navigateByUrl(redirectUrl);
             }
-            notificationMessage = `${equipmentString} "${typedForm.name}" a bien été ajouté.`;
+            notificationMessage = `${equipmentString} "${typedForm.name}" a été ajouté.`;
             this.snackbarService.showNotification(notificationMessage, 'created');
           }
           // Equipments case
           else {
+            let notificationMessage = `${equipmentString} "${typedForm.name}" a été ajouté`;
             if (gardenName) {
-              notificationMessage = `${equipmentString} "${typedForm.name}" a bien été ajouté au jardin "${gardenName}".`;
+              switch (true) {
+                case url.includes('/easygarden/lawnmower/add'):
+                  notificationMessage += 'e';
+                  break;
+                default:
+                  break;
+              }
+              notificationMessage += ` au jardin "${gardenName}".`;
             }
             this.router.navigate([service.getRedirectUrl()]);
             this.snackbarService.showNotification(notificationMessage, 'created');
