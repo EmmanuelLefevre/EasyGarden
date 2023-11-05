@@ -50,12 +50,19 @@ export class ConfirmDialogComponent implements OnInit {
     if (matchedCase) {
       equipmentString = matchedCase.string;
 
-      if (this.router.url === '/easygarden') {
-        notificationMessage = `${equipmentString} "${this.value}" a été supprimé ainsi que tous ses équipements.`;
+      let actionMessage = "";
+      switch (this.router.url) {
+        case '/easygarden':
+          actionMessage = `a été supprimé ainsi que tous ses équipements.`;
+          break;
+        case '/easygarden/lawnmower':
+          actionMessage = `a été supprimée.`;
+          break;
+        default:
+          actionMessage = `a été supprimé.`;
       }
-      else {
-        notificationMessage = `${equipmentString} "${this.value}" a été supprimé.`;
-      }
+
+      notificationMessage = `${equipmentString} "${this.value}" ${actionMessage}`;
       this.snackbarService.setNotificationMessage(notificationMessage);
     }
   }
