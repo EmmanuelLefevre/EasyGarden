@@ -15,18 +15,18 @@ export class FormValidationService {
     return (formGroup: AbstractControl):{ [key: string]: any } | null => {
       const passwordControl = formGroup.get(password);
       const confirmPasswordControl = formGroup.get(confirmPassword);
-      
+
       if (!passwordControl || !confirmPasswordControl) {
         return null;
       }
-      
+
     if (
       confirmPasswordControl.errors &&
       !confirmPasswordControl.errors['passwordMismatch']
       ) {
         return null;
       }
-      
+
       if (passwordControl.value !== confirmPasswordControl.value) {
         confirmPasswordControl.setErrors({ passwordMismatch: true });
         return { passwordMismatch: true }
@@ -76,7 +76,7 @@ export class FormValidationService {
       return errors.strongPassword ? { strongPassword: errors.strongPassword } : null;
     };
   }
-    
+
   validEmail(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: boolean } | null => {
       if (control.value == '') return null;
