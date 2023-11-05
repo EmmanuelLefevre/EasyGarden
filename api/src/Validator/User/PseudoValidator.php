@@ -56,7 +56,7 @@ class PseudoValidator
                                                               Response::HTTP_BAD_REQUEST) : false;
 
             // Authorized character
-            case !preg_match('/^[A-Za-z0-9éèàù -]+$/', $pseudo):
+            case !preg_match('/^[A-Za-z0-9éèàù -\']+$/', $pseudo):
                 return $returnJsonResponse ? new JsonResponse(['error' => 'Pseudo can only contain digits, lowercase and uppercase letters (hyphens and spaces are accepted)!'], 
                                                               Response::HTTP_BAD_REQUEST) : false;
 
