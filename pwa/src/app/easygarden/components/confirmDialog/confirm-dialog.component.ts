@@ -77,7 +77,6 @@ export class ConfirmDialogComponent implements OnInit {
  */
 export class IConfirmDialog {
 
-  constructor(public title: string, public message: string, public value?: string) {
-  }
+  constructor(public title: string, public message: string, public value?: string) { }
 
 }
