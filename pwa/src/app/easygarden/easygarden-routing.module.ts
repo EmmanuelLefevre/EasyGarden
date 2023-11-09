@@ -7,6 +7,8 @@ import { AddEntityComponent } from './components/addEntity/add-entity.component'
 import { EditEntityNameComponent } from './components/editEntityName/edit-entity-name.component';
 import { GardenComponent } from './components/garden/garden.component';
 
+// import { GardenResolver } from './components/garden/garden.resolver';
+
 const name = environment.application.name;
 
 const routes: Routes = [
@@ -15,6 +17,9 @@ const routes: Routes = [
       data: {
         ogTitle: `Page jardin de l'application ${name}`
       },
+      // resolve: {
+      //   data: GardenResolver
+      // },
     children: [
       {
         path: 'profil', loadChildren: () => import('./modules/profil/profil.module')
