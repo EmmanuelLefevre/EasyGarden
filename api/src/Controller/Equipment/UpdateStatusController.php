@@ -71,7 +71,7 @@ class UpdateStatusController extends AbstractController
         // try {
         //     // Validate json data using JsonDataValidatorService, including custom validators
         //     $data = $this->jsonRequestValidator->validateJsonData($request, ['status']);
-        // } 
+        // }
         // catch (JsonValidationException  $e) {
         //     // Handle json validation exception by returning a json response with the error message
         //     return new JsonResponse(['message' => $e->getMessage()], $e->getStatusCode());
@@ -95,7 +95,7 @@ class UpdateStatusController extends AbstractController
             // Return JSON error response if validation fails
             return $xTypeValidationResult;
         }
-        
+
         // Use the service to get the correct repository
         $repository = $this->repositoryService->getCorrectRepositoryForUpdateStatus($xType);
 
@@ -132,7 +132,7 @@ class UpdateStatusController extends AbstractController
         //     // Manage serial connection errors
         //     return new JsonResponse(['message' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         // }
-        
+
         // Message based on the equipment status
         $message = ($status === true) ? 'L\'équipement a été allumé!' : 'L\'équipement a été éteint!';
         return new JsonResponse(['message' => $message], Response::HTTP_OK);
