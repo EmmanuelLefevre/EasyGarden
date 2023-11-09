@@ -36,12 +36,12 @@ final class CurrentUserExtension implements QueryCollectionExtensionInterface, Q
      * @param QueryBuilder $queryBuilder The query builder.
      * @param QueryNameGeneratorInterface $queryNameGenerator The query name generator.
      * @param string $resourceClass The resource class.
-     * @param string|null $operationName The operation name. 
+     * @param string|null $operationName The operation name.
      * @return void
      */
-    public function applyToCollection(QueryBuilder $queryBuilder, 
-                                      QueryNameGeneratorInterface $queryNameGenerator, 
-                                      string $resourceClass, 
+    public function applyToCollection(QueryBuilder $queryBuilder,
+                                      QueryNameGeneratorInterface $queryNameGenerator,
+                                      string $resourceClass,
                                       string $operationName = null): void {
         $this->addWhere($queryBuilder, $resourceClass);
     }
@@ -53,14 +53,14 @@ final class CurrentUserExtension implements QueryCollectionExtensionInterface, Q
      * @param string $resourceClass The resource class.
      * @param array $identifiers The item identifiers.
      * @param string|null $operationName The operation name.
-     * @param array $context The context options. 
+     * @param array $context The context options.
      * @return void
      */
-    public function applyToItem(QueryBuilder $queryBuilder, 
-                                QueryNameGeneratorInterface $queryNameGenerator, 
-                                string $resourceClass, 
-                                array $identifiers, 
-                                string $operationName = null, 
+    public function applyToItem(QueryBuilder $queryBuilder,
+                                QueryNameGeneratorInterface $queryNameGenerator,
+                                string $resourceClass,
+                                array $identifiers,
+                                string $operationName = null,
                                 array $context = []): void {
         $this->addWhere($queryBuilder, $resourceClass);
     }
@@ -68,16 +68,16 @@ final class CurrentUserExtension implements QueryCollectionExtensionInterface, Q
     /**
      * Add the current user filter to the query builder.
      * @param QueryBuilder $queryBuilder The query builder.
-     * @param string $resourceClass The resource class. 
+     * @param string $resourceClass The resource class.
      * @return void
      */
     private function addWhere(QueryBuilder $queryBuilder, string $resourceClass): void {
-        if ($this->security->isGranted('ROLE_ADMIN') 
+        if ($this->security->isGranted('ROLE_ADMIN')
             || null === $user = $this->security->getUser()) {
             return;
         }
         $rootAlias = $queryBuilder->getRootAliases()[0];
-        
+
         switch ($resourceClass) {
             case Garden::class:
                 $queryBuilder->andWhere(sprintf('%s.user = :current_user', $rootAlias))
