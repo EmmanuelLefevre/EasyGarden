@@ -32,7 +32,7 @@ class UserFixture extends Fixture
 
     public const USER1_REFERENCE = 'user1_';
     public const USER2_REFERENCE = 'user2_';
-    
+
     /**
      * Load user fixture data into the database.
      * @param ObjectManager $manager The object manager for interacting with the database.
@@ -60,7 +60,7 @@ class UserFixture extends Fixture
         $admin->setIsVerified(true);
         $admin->setActivationToken(null);
         $manager->persist($admin);
-       
+
         // User Manu
         $user1 = new User();
         $user1->setFirstName('Emmanuel');
@@ -71,7 +71,7 @@ class UserFixture extends Fixture
         $user1->setEmail('emmanuel@protonmail.com');
         $user1->setPhoneNumber('06 45 91 23 07');
         $user1->setCreatedAt(new \DateTimeImmutable('now', $timezone));
-        $user1->setIsVerified(true); 
+        $user1->setIsVerified(true);
         $user1->setActivationToken(null);
         $manager->persist($user1);
         $this->addReference(self::USER1_REFERENCE , $user1);
@@ -86,7 +86,7 @@ class UserFixture extends Fixture
         $user2->setEmail('nico@gmail.com');
         $user2->setPhoneNumber('07 12 45 75 64');
         $user2->setCreatedAt(new \DateTimeImmutable('now', $timezone));
-        $user2->setIsVerified(true); 
+        $user2->setIsVerified(true);
         $user2->setActivationToken(null);
         $manager->persist($user2);
         $this->addReference(self::USER2_REFERENCE , $user2);

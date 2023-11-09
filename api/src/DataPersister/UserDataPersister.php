@@ -13,7 +13,7 @@ use Doctrine\ORM\EntityManagerInterface;
  * This class is responsible for persisting (creating or updating) and removing User entities in the database.
  * @package App\DataPersister
  */
-class UserDataPersister implements DataPersisterInterface 
+class UserDataPersister implements DataPersisterInterface
 {
     private $entityManager;
     private $userPasswordHasher;
@@ -53,20 +53,19 @@ class UserDataPersister implements DataPersisterInterface
                 $this->userPasswordHasher->hashPassword($data, $data->getPlainPassword())
             );
             $data->eraseCredentials();
-        }   
-        $this->entityManager->persist($data);      
-        $this->entityManager->flush();
+        }
+        $this->entityManager->persist($data);
     }
 
     /**
      * Remove the User entity from the database.
      * @param User $data The User entity to remove.
-     * @param array $context The context options. 
+     * @param array $context The context options.
      * @return void
      */
     public function remove($data, array $context = [])
     {
-        $this->entityManager->remove($data);      
+        $this->entityManager->remove($data);
         $this->entityManager->flush();
     }
 }

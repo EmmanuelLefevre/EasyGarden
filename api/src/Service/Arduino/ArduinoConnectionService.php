@@ -40,7 +40,7 @@ class ArduinoConnectionService
 //         // $serial = new PhpSerial();
 //         // $serial->deviceSet($this->serialPort);
 //         // $serial->confBaudRate(9600);
-        
+
 //         // // Open connection and manage serial connection errors
 //         // if (!$serial->deviceOpen()) {
 //         //     throw new \Exception('Impossible d\'ouvrir la connexion!');
@@ -58,7 +58,7 @@ class ArduinoConnectionService
 //         // // Close connection
 //         // $serial->deviceClose();
     }
-    
+
 }
 
 
@@ -92,7 +92,7 @@ class ArduinoConnectionService
 //         $serial = new PhpSerial();
 //         $serial->deviceSet($this->serialDevice);
 //         $serial->confBaudRate(9600);
-        
+
 //         // Open connection and manage serial connection errors
 //         if (!$serial->deviceOpen()) {
 //             throw new \Exception('Impossible d\'ouvrir la connexion!');
@@ -140,5 +140,5 @@ class ArduinoConnectionService
 //             throw $e;
 //         }
 //     }
-    
+
 // }

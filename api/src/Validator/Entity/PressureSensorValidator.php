@@ -44,11 +44,11 @@ class PressureSensorValidator
             // Is a string
             case !is_string($pressureSensor):
                 return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;
-               
+
             // String start by "number + . + number"
             case !preg_match('/^\d+\.\d+/', $pressureSensor):
                 return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;
-                    
+
             // String finish by "bars"
             case !preg_match('/bars$/', $pressureSensor):
                 return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;

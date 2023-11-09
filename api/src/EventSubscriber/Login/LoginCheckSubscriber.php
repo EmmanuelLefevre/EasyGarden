@@ -40,7 +40,7 @@ class LoginCheckSubscriber implements EventSubscriberInterface
      */
     public function __construct(EventDispatcherInterface $eventDispatcher,
                                 JsonRequestValidator $jsonRequestValidator,
-                                UserPasswordHasherInterface $userPasswordHasher, 
+                                UserPasswordHasherInterface $userPasswordHasher,
                                 UserRepository $userRepository)
     {
         $this->eventDispatcher = $eventDispatcher;
@@ -65,7 +65,7 @@ class LoginCheckSubscriber implements EventSubscriberInterface
             try {
                 // Validate json data using JsonDataValidatorService, including custom validators
                 $data = $this->jsonRequestValidator->validateJsonData($request, ['email', 'password']);
-            } 
+            }
             catch (JsonValidationException  $e) {
                 // Handle json validation exception by returning a json response with the error message
                 $response = new JsonResponse(['message' => $e->getMessage()], $e->getStatusCode());
@@ -76,7 +76,7 @@ class LoginCheckSubscriber implements EventSubscriberInterface
                 // Return early to exit the event handling
                 return;
             }
-            
+
             // Check if a user with the provided email already exists
             $existingUser = $this->userRepository->findByEmail($data['email']);
             // Email exists, now check the password
@@ -85,12 +85,12 @@ class LoginCheckSubscriber implements EventSubscriberInterface
                 if ($this->userPasswordHasher->isPasswordValid($existingUser, $plainPassword)) {
                     // Correct password, continue the authentication process
                     return;
-                } 
+                }
                 else {
                     // Incorrect password => set errorMessage
                     $errorMessage = 'Invalid password!';
                 }
-            } 
+            }
             else {
                 // Email does not exist => set errorMessage
                 $errorMessage = 'No existing email!';
@@ -98,7 +98,7 @@ class LoginCheckSubscriber implements EventSubscriberInterface
 
             // Create AuthenticationFailureEvent
             $exception = new AuthenticationException($errorMessage);
-            $failureEvent = new AuthenticationFailureEvent($exception, 
+            $failureEvent = new AuthenticationFailureEvent($exception,
                 new JsonResponse(['message' => $errorMessage], Response::HTTP_UNAUTHORIZED));
 
             // Stop other listeners from being called

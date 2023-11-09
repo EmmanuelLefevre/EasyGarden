@@ -47,17 +47,17 @@ class PhoneNumberValidator
 
             // Min length
             case strlen($phoneNumber) < 8:
-                return $returnJsonResponse ? new JsonResponse(['error' => 'Phone number must contain at least 8 diggits!'], 
+                return $returnJsonResponse ? new JsonResponse(['error' => 'Phone number must contain at least 8 diggits!'],
                                                               Response::HTTP_BAD_REQUEST) : false;
 
             // Max lenght
             case strlen($phoneNumber) > 20:
-                return $returnJsonResponse ? new JsonResponse(['error' => 'Phone number cannnot exceed 20 diggits!'], 
+                return $returnJsonResponse ? new JsonResponse(['error' => 'Phone number cannnot exceed 20 diggits!'],
                                                               Response::HTTP_BAD_REQUEST) : false;
-            
+
             // Authorized character
             case !preg_match('/^[0-9 \-+\/.()]+$/', $phoneNumber):
-                return $returnJsonResponse ? new JsonResponse(['error' => 'Phone number can only contain digits (plus sign, dot, hyphens, slashes, parenthesis and spaces are accepted)!'], 
+                return $returnJsonResponse ? new JsonResponse(['error' => 'Phone number can only contain digits (plus sign, dot, hyphens, slashes, parenthesis and spaces are accepted)!'],
                                                               Response::HTTP_BAD_REQUEST) : false;
 
             default:

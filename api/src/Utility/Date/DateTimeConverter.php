@@ -70,7 +70,7 @@ class DateTimeConverter
 
     /**
      * Set the default time zone to the user's time zone.
-     * @param string $timeZone The user's time zone (e.g., 'America/New_York'). 
+     * @param string $timeZone The user's time zone (e.g., 'America/New_York').
      * @return void
      */
     private static function setDefaultTimeZone(string $timeZone): void

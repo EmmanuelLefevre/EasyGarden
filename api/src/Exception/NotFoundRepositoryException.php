@@ -15,7 +15,7 @@ class NotFoundRepositoryException extends HttpException
 {
     protected $jsonResponse;
     protected $statusCode;
-    
+
     /**
      * NotFoundRepositoryException constructor.
      * @param string $message The error message.

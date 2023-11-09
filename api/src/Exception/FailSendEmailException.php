@@ -15,7 +15,7 @@ class FailSendEmailException extends HttpException
 {
     protected $jsonResponse;
     protected $statusCode;
-    
+
     /**
      * FailSendEmailException constructor.
      * @param string $message The error message.

@@ -46,19 +46,19 @@ class Garden
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'garden')]
     private $user;
 
-    #[ORM\OneToMany(mappedBy: 'garden', targetEntity: Lawnmower::class, orphanRemoval: true)]   
+    #[ORM\OneToMany(mappedBy: 'garden', targetEntity: Lawnmower::class, orphanRemoval: true)]
     private $lawnmower;
 
-    #[ORM\OneToMany(mappedBy: 'garden', targetEntity: Lightning::class, orphanRemoval: true)]   
+    #[ORM\OneToMany(mappedBy: 'garden', targetEntity: Lightning::class, orphanRemoval: true)]
     private $lightning;
 
-    #[ORM\OneToMany(mappedBy: 'garden', targetEntity: Pool::class, orphanRemoval: true)]   
+    #[ORM\OneToMany(mappedBy: 'garden', targetEntity: Pool::class, orphanRemoval: true)]
     private $pool;
 
-    #[ORM\OneToMany(mappedBy: 'garden', targetEntity: Portal::class, orphanRemoval: true)]   
+    #[ORM\OneToMany(mappedBy: 'garden', targetEntity: Portal::class, orphanRemoval: true)]
     private $portal;
 
-    #[ORM\OneToMany(mappedBy: 'garden', targetEntity: Watering::class, orphanRemoval: true)]   
+    #[ORM\OneToMany(mappedBy: 'garden', targetEntity: Watering::class, orphanRemoval: true)]
     private $watering;
 
     public function __construct()
@@ -99,7 +99,7 @@ class Garden
         return $this;
     }
 
-    public function __toString() 
+    public function __toString()
     {
         return $this->user;
     }

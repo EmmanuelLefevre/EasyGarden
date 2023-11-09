@@ -33,7 +33,7 @@ class HttpNotAllowedMethodSubscriber implements EventSubscriberInterface
 
     /**
      * Specifies the subscribed events and their priorities
-     * 
+     *
      * @return array The array of subscribed events
      */
     public static function getSubscribedEvents(): array

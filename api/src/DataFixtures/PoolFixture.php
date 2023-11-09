@@ -77,7 +77,7 @@ class PoolFixture extends Fixture implements DependentFixtureInterface
      * Get the dependencies of the current fixture.
      * @return array An array of dependent fixture classes.
      */
-    public function getDependencies() 
+    public function getDependencies()
     {
         return [
             GardenFixture::class

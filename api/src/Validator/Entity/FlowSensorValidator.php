@@ -44,11 +44,11 @@ class FlowSensorValidator
             // Is a string
             case !is_string($flowSensor):
                 return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;
-               
+
             // String start by "number + . + number"
             case !preg_match('/^\d+\.\d+/', $flowSensor):
                 return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;
-                    
+
             // String finish by "L/H"
             case !preg_match('/L\/H$/', $flowSensor):
                 return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;
