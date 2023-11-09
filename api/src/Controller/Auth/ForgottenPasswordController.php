@@ -54,7 +54,7 @@ class ForgottenPasswordController extends AbstractController
 
     /**
     * Generate new user's password
-    * This method is accessible via GET and POST request to "/forgotten_password/{email}" 
+    * This method is accessible via GET and POST request to "/forgotten_password/{email}"
     * @param Request $request The HTTP request object.
     * @return RedirectResponse A RedirectResponse object that redirects the user to the Angular login page.
     * @Route("/api/forgotten_password/{email}", name="forgotten_password", methods={"GET","POST"})
@@ -63,7 +63,7 @@ class ForgottenPasswordController extends AbstractController
     {
 
         $email = $request->query->get('email');
-        $paramName = 'email'; 
+        $paramName = 'email';
 
         // Validate the email parameter using EmailValidator
         $validationResult = $this->emailValidator->isValidEmail($paramName, true, $request);
@@ -89,7 +89,7 @@ class ForgottenPasswordController extends AbstractController
         $hashedPassword = $this->userPasswordHasher->hashPassword($user, $newPassword);
         // Set new user's password
         $user->setPassword($hashedPassword);
-        
+
         // Convert DateTime string to DateTime object using DateTimeConverter class
         $updatedAt = DateTimeConverter::convertDateTimeStringToDate();
         $user->setUpdatedAt($updatedAt);
