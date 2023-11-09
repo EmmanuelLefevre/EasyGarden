@@ -120,7 +120,7 @@ class AccountCreationController extends AbstractController
 
     /**
      * Activate user account
-     * This method is accessible via GET and POST request to "/account_activation/{token}" 
+     * This method is accessible via GET and POST request to "/account_activation/{token}"
      * @param string $token The activation token received as part of the URL.
      * @return RedirectResponse A RedirectResponse object that redirects the user to the Angular verified account page.
      * @Route("/api/account_activation/{token}", name="account_activation", methods={"GET","POST"})
