@@ -8,9 +8,9 @@ import { GardenService } from './garden.service';
 import { IDataGarden } from './IGarden';
 
 
-@Injectable({
-  providedIn: 'root'
-})
+// @Injectable({
+//   providedIn: 'root'
+// })
 
 export class GardenResolver implements Resolve<IDataGarden[]> {
 
