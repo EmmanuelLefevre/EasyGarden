@@ -7,7 +7,7 @@ import { Directive, ElementRef, HostListener, Renderer2  } from '@angular/core';
 
 export class RemoveNgPristineDirective {
 
-  constructor(private elementRef: ElementRef, 
+  constructor(private elementRef: ElementRef,
               private renderer: Renderer2) {}
 
   @HostListener('change') onChange() {

@@ -11,7 +11,7 @@ import { TokenService } from '../auth/token.service';
 export class DecodedTokenService {
 
   constructor(private tokenService: TokenService) { }
-  
+
   // userId
   idDecoded() {
     const token = this.tokenService.getToken()

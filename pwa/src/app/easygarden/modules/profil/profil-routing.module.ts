@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: '', component: ProfilComponent,
     data: {
       ogTitle: `Page de profil utilisateur de l\'application ${name}`
-    }, 
+    },
   }
 ];
 

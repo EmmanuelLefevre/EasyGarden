@@ -14,7 +14,7 @@ const routes: Routes = [
     path: '', component: GardenComponent,
       data: {
         ogTitle: `Page jardin de l'application ${name}`
-      }, 
+      },
     children: [
       {
         path: 'profil', loadChildren: () => import('./modules/profil/profil.module')
@@ -40,16 +40,16 @@ const routes: Routes = [
         path: 'lawnmower', loadChildren: () => import('./modules/lawnmower/lawnmower.module')
           .then(module => module.LawnmowerModule)
       },
-      
+
       { path: 'garden/edit/:id', component: EditEntityNameComponent,
         data: {
           ogTitle: `Page modifier jardin de l'application ${name}`
-        } 
+        }
       },
       { path: 'garden/add', component: AddEntityComponent,
         data: {
           ogTitle: `Page ajouter jardin de l'application ${name}`
-        } 
+        }
       }
     ]
   }

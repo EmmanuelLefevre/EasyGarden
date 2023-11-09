@@ -33,7 +33,7 @@ export class TokenService {
     try {
       const decodedToken: any = jwt_decode(token);
       // Convert the expiration date to milliseconds
-      const expirationDate = new Date(decodedToken.exp * 1000);  
+      const expirationDate = new Date(decodedToken.exp * 1000);
       // Check if the expiration date is in the past
       return expirationDate.getTime() <= Date.now();
     }

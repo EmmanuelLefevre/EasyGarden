@@ -17,10 +17,10 @@ export class AuthGuardService implements CanActivate {
 
   canActivate(
     _route?: ActivatedRouteSnapshot,
-    _state?: RouterStateSnapshot): 
-      Observable<boolean | UrlTree> 
-      | Promise<boolean | UrlTree> 
-      | boolean 
+    _state?: RouterStateSnapshot):
+      Observable<boolean | UrlTree>
+      | Promise<boolean | UrlTree>
+      | boolean
       | UrlTree {
 
       if (this.tokenService.isToken()) {
@@ -32,5 +32,5 @@ export class AuthGuardService implements CanActivate {
     return this.router.navigate(['/']);
 
   }
-  
+
 }

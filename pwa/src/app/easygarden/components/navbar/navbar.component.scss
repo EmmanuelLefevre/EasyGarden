@@ -36,7 +36,7 @@ nav {
       }
       .active-link > a {
         color: var(--ang-color-green);
-        -webkit-box-shadow: inset 0px -1px 0px 0px var(--ang-color-green); 
+        -webkit-box-shadow: inset 0px -1px 0px 0px var(--ang-color-green);
         box-shadow: inset 0px -1px 0px 0px var(--ang-color-green);
       }
       li {
@@ -54,7 +54,7 @@ nav {
             color: var(--ang-color-green);
             cursor: pointer !important;
           }
-        }        
+        }
       }
       button {
         margin: 1rem 1rem;

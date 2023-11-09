@@ -23,12 +23,12 @@ const routes: Routes = [
   { path: 'edit/:id', component: EditEntityNameComponent,
     data: {
       ogTitle: `Page modifier éclairage de l\'application ${name}`
-    } 
+    }
   },
   { path: 'add', component: AddEntityComponent,
     data: {
       ogTitle: `Page ajouter éclairage de l\'application ${name}`
-    } 
+    }
   }
 ];
 

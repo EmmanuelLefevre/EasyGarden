@@ -14,9 +14,6 @@ export class CancelSearchInputResetDirective {
   /**
    * Cancel search input reset on pagination event
    */
-  @HostListener('document:click', ['$event']) onClick(event: MouseEvent) {
-    
-    
-  }
-  
+  @HostListener('document:click', ['$event']) onClick(event: MouseEvent) { }
+
 }

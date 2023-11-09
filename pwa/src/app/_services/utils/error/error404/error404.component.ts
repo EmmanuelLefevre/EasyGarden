@@ -13,7 +13,7 @@ export class Error404Component implements OnInit {
   time: number = 7;
   timeOut: any;
 
-  constructor(private location: Location) { 
+  constructor(private location: Location) {
     this.timeOut = setTimeout(() => {
       this.location.back();
     }, 7000);

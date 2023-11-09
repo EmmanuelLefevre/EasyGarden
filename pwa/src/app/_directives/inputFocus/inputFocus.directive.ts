@@ -14,6 +14,6 @@ export class InputFocusDirective implements OnInit {
    */
   ngOnInit() {
     this.el.nativeElement.focus();
-  } 
+  }
 
 }

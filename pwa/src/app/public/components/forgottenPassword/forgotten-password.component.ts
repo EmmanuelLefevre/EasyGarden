@@ -48,13 +48,13 @@ export class ForgottenPasswordComponent implements OnDestroy, OnInit {
       ]
     ]
   })
-  
+
   constructor(private authService: AuthService,
-              private customValidator : FormValidationService,              
+              private customValidator : FormValidationService,
               private formBuilder: UntypedFormBuilder,
               private formErrorMessageService: FormErrorMessageService,
               private router: Router,
-              private snackbarService: SnackbarService) { 
+              private snackbarService: SnackbarService) {
 
     this.resetDisabled = true;
     this.submitDisabled = true;
@@ -79,18 +79,18 @@ export class ForgottenPasswordComponent implements OnDestroy, OnInit {
     this.handleFormChanges();
     if (this.form.invalid) {
       return;
-    } 
+    }
     else {
       const email = this.form.value.email;
-  
+
       this.forgottenPasswordSubscription = this.authService.forgottenPassword(email)
         .subscribe(
           (response: any) => {
             if (response && response.message === 'New password generated successfully!') {
               this.snackbarService.showNotification(
-                `Le nouveau mot de passe a bien été envoyé à  ` 
-                + email 
-                + `,` 
+                `Le nouveau mot de passe a bien été envoyé à  `
+                + email
+                + `,`
                 + `\nveuillez vous connecter en utilisant celui-ci.`
                 ,'register'
               );
@@ -98,13 +98,13 @@ export class ForgottenPasswordComponent implements OnDestroy, OnInit {
             }
           },
           (errorResponse) => {
-            if (errorResponse.error 
+            if (errorResponse.error
                 && errorResponse.status === 403
                 && errorResponse.error.message === "No existing email!") {
               this.noExistingEmail = true;
               this.noExistingEmailErrorMessage = "Aucun utilisateur possédant cet email est enregistré!";
             }
-            else if (errorResponse.error 
+            else if (errorResponse.error
                      && errorResponse.status === 403
                      && errorResponse.error.message === "No verified account!") {
               this.snackbarService.showNotification(
@@ -154,7 +154,7 @@ export class ForgottenPasswordComponent implements OnDestroy, OnInit {
     this.submitDisabled = !this.form.valid;
     // Remove/Add 'invalid-feedback' class from email input
     const emailInput = document.getElementById('emailInput');
-    if (this.submittedForm 
+    if (this.submittedForm
         && this.form.get('email')?.dirty
         && this.form.get('email')?.valid) {
         emailInput!.classList.remove('invalid-feedback');

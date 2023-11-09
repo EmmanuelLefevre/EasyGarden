@@ -121,7 +121,7 @@ export class RegisterComponent implements OnDestroy, OnInit {
   {
     validators: [this.customValidator.passwordMatch("password", "confirmPassword")],
   });
-  
+
   constructor(private customValidator : FormValidationService,
               private formBuilder: UntypedFormBuilder,
               private formErrorMessageService: FormErrorMessageService,
@@ -158,16 +158,16 @@ export class RegisterComponent implements OnDestroy, OnInit {
       delete typedForm.confirmPassword;
       this.registerSubscription = this.registerService.registerIn(typedForm)
         .subscribe(
-          (response: any) => { 
-            if (response && response.message === 'Created Account!') { 
+          (response: any) => {
+            if (response && response.message === 'Created Account!') {
               const firstName = typedForm.firstName;
               const lastName = typedForm.lastName;
               this.snackbarService.showNotification(
-                `Bienvenu ` 
-                + firstName 
-                + ` ` 
-                + lastName 
-                + `,` 
+                `Bienvenu `
+                + firstName
+                + ` `
+                + lastName
+                + `,`
                 + `\nveuillez confirmer votre compte dans l\'email qui vous a été envoyé.`
                 ,'register'
               );
@@ -175,12 +175,12 @@ export class RegisterComponent implements OnDestroy, OnInit {
             }
           },
           (errorResponse) => {
-            if (errorResponse.error 
-                && errorResponse.error.message === "Email already exists!" 
+            if (errorResponse.error
+                && errorResponse.error.message === "Email already exists!"
                 && errorResponse.status === 409) {
               this.existingEmail = true;
               this.existingEmailErrorMessage = "Un utilisateur possédant cet email est déjà enregistré!";
-            } 
+            }
             else {
               this.snackbarService.showNotification(
                 `Une erreur s'est produite lors de la création du compte!`
@@ -222,7 +222,7 @@ export class RegisterComponent implements OnDestroy, OnInit {
     this.isPseudoEmpty = this.form.get('password')?.value === '';
     this.isPhoneNumberEmpty = this.form.get('password')?.value === '';
     // Disable reset button based on empty fields
-    this.resetDisabled = this.isEmailEmpty 
+    this.resetDisabled = this.isEmailEmpty
                          && this.isPasswordEmpty
                          && this.isPlainPasswordEmpty
                          && this.isLastNameEmpty
@@ -233,7 +233,7 @@ export class RegisterComponent implements OnDestroy, OnInit {
     this.submitDisabled = !this.form.valid;
     // Remove/Add 'invalid-feedback' class from email input
     const emailInput = document.getElementById('emailInput');
-    if (this.submittedForm 
+    if (this.submittedForm
         && this.form.get('email')?.dirty
         && this.form.get('email')?.valid) {
         emailInput!.classList.remove('invalid-feedback');
@@ -245,7 +245,7 @@ export class RegisterComponent implements OnDestroy, OnInit {
   }
 
   private unsubscribeAll(): void {
-    if (this.registerSubscription) { 
+    if (this.registerSubscription) {
       this.registerSubscription.unsubscribe();
     }
     if (this.registerFormSubscription) {

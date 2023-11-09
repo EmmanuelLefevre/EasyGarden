@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: '', component: WateringComponent,
     data: {
       ogTitle: `Page arrosage de l\'application ${name}`
-    }, 
+    },
     resolve: {
         data: WateringResolver
       }
@@ -23,12 +23,12 @@ const routes: Routes = [
   { path: 'edit/:id', component: EditEntityNameComponent,
     data: {
       ogTitle: `Page modifier arrosage de l\'application ${name}`
-    }, 
+    },
   },
   { path: 'add', component: AddEntityComponent,
     data: {
       ogTitle: `Page ajouter arrosage de l\'application ${name}`
-    }, 
+    },
   }
 ];
 

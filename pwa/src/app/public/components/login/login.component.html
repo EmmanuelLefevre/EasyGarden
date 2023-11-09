@@ -1,26 +1,26 @@
 <main>
-  <div class="div-wrapper ambiance-bg" 
+  <div class="div-wrapper ambiance-bg"
        id="login-component">
     <div class="logo-h1">
       <app-easygarden-logo></app-easygarden-logo>
       <h1 class="form-title title-form-shadow">{{name}}</h1>
       <h2 class="visually-hidden">Formulaire de mot de passe oublié</h2>
     </div>
-    
+
     <div class="animate__animated animate__fadeInDown form-wrapper">
       <app-close-form-button></app-close-form-button>
       <div class="form-content form-border form-shadow">
         <div class="form-title-content">
           <p class="p-form-title-content">Connexion</p>
         </div>
-  
-        <form [formGroup]="form" 
+
+        <form [formGroup]="form"
               #ngForm="ngForm"
               #formDirective="ngForm"
               (ngSubmit)="onSubmit()"
               aria-label="Formulaire de saisie utilisateur">
           <label class="visually-hidden" for="name">Email</label>
-          <input formControlName="email" 
+          <input formControlName="email"
                  name="email"
                  inputFocus
                  inputTrim
@@ -29,10 +29,10 @@
                  spellcheck="false"
                  id="emailInput"
                  class="input-inset-shadow first-input"
-                 [ngClass]="{ 'invalid-feedback': (form.get('email')?.invalid 
+                 [ngClass]="{ 'invalid-feedback': (form.get('email')?.invalid
                                                   && form.get('email')?.dirty )
                                                   || invalidCredentials}">
-          <ng-container *ngIf="form.get('email')?.dirty 
+          <ng-container *ngIf="form.get('email')?.dirty
                               && getErrorMessage('email') !== ''">
             <div class="text-alert">
               {{ getErrorMessage('email') }}
@@ -49,12 +49,12 @@
                    autocomplete="off"
                    id="passwordInput"
                    class="input-inset-shadow"
-                   [ngClass]="{ 'invalid-feedback': (form.get('password')?.invalid 
+                   [ngClass]="{ 'invalid-feedback': (form.get('password')?.invalid
                                                     && form.get('password')?.dirty)
                                                     || invalidPassword
                                                     || invalidCredentials}">
             <fa-icon [icon]="visible ? faEyeSlash : faEye" aria-hidden="true" (click)="toggle()"></fa-icon>
-            <ng-container *ngIf="form.get('password')?.dirty 
+            <ng-container *ngIf="form.get('password')?.dirty
                                 && getErrorMessage('password') !== ''">
               <div class="text-alert">
                 {{ getErrorMessage('password') }}
