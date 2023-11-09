@@ -44,7 +44,7 @@ class LoginController extends AbstractController
     public function checkAccountActivation(Request $request): JsonResponse
     {
         $email = $request->query->get('email');
-        $paramName = 'email'; 
+        $paramName = 'email';
 
         // Validate the email parameter using EmailValidator
         $validationResult = $this->emailValidator->isValidEmail($paramName, true, $request);
@@ -55,7 +55,7 @@ class LoginController extends AbstractController
 
         $isVerified = $this->userRepository->isUserVerified($email);
         $message = $isVerified ? 'Account is verified!' : 'Account not verified!';
-        
+
         return new JsonResponse(['message' => $message], Response::HTTP_OK);
     }
 
@@ -69,7 +69,7 @@ class LoginController extends AbstractController
     public function checkIfEmailExist(Request $request): JsonResponse
     {
         $email = $request->query->get('email');
-        $paramName = 'email'; 
+        $paramName = 'email';
 
         // Validate the email parameter using EmailValidator
         $validationResult = $this->emailValidator->isValidEmail($paramName, true, $request);
