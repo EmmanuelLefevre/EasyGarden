@@ -18,7 +18,7 @@ class FunctionsFixture {
     public static function stringWithoutParenthesis($str): string {
         return substr($str, ($p = strpos($str, '(')+1), strrpos($str, ')')-$p);
     }
-    
+
     /**
      * Extracts a string surrounded by parentheses from the input string and adds parentheses around it.
      * @param string $str The input string containing parentheses.
@@ -28,7 +28,7 @@ class FunctionsFixture {
         $pseudo = substr($str, ($p = strpos($str, '(')+1), strrpos($str, ')')-$p);
         return (' ('.$pseudo.')');
     }
-    
+
     /**
      * Generates a random floating-point number within a specified range and appends "bars".
      * @param float $min The minimum value of the range.
@@ -39,7 +39,7 @@ class FunctionsFixture {
         $value = ($min+lcg_value()*(abs($max-$min)));
         return (sprintf("%01.2f",$value)."bars");
     }
-    
+
     /**
      * Generates a random email domain from a predefined list.
      * @return string A randomly selected email domain.
@@ -49,7 +49,7 @@ class FunctionsFixture {
         $value = array_rand(array_flip($data), 1);
         return $value;
     }
-    
+
     /**
      * Generates a random lightning equipment from a predefined list.
      * @return string A randomly selected lightning equipment.
@@ -65,7 +65,7 @@ class FunctionsFixture {
         $value = array_rand(array_flip($data), 1);
         return $value;
     }
-    
+
     /**
      * Generates a random pool equipment from a predefined list.
      * @return string A randomly selected pool equipment.
@@ -77,7 +77,7 @@ class FunctionsFixture {
         $value = array_rand(array_flip($data), 1);
         return $value;
     }
-    
+
     /**
      * Generates a random watering equipment from a predefined list.
      * @return string A randomly selected watering equipment.
@@ -90,7 +90,7 @@ class FunctionsFixture {
         $value = array_rand(array_flip($data), 1);
         return $value;
     }
-    
+
     /**
      * Generates a hexadecimal token with a prefix.
      * @return string A generated token with a prefix.
@@ -100,7 +100,7 @@ class FunctionsFixture {
         $token = bin2hex(random_bytes(32));
         return $salt . $token;
     }
-    
+
     /**
      * Generates an activation key with 20 random digits.
      * @return string A randomly generated activation key.
@@ -108,12 +108,12 @@ class FunctionsFixture {
     public static function generateActivationKey(): string {
         // Add first number
         $random_number = '1' . mt_rand(0, 9);
-    
+
         // Add the following 19 numbers
         for ($i = 0; $i < 19; $i++) {
             $random_number .= mt_rand(0, 9);
         }
-    
+
         return $random_number;
     }
 
