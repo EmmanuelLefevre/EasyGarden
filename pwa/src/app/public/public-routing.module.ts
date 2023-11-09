@@ -14,22 +14,22 @@ const routes: Routes = [
       { path: '', component: HomeComponent, pathMatch: 'full',
         data: {
           ogTitle: `Page d\'accueil de l'application ${name}`
-        } 
+        }
       },
       { path: 'login', component: LoginComponent,
         data: {
           ogTitle: `Page de connexion de l\'application ${name}`
-        }  
+        }
       },
       { path: 'register', component: RegisterComponent,
         data: {
           ogTitle: `Page de création de compte de l\'application ${name}`
-        }  
+        }
       },
       { path: 'forgottenPassword', component: ForgottenPasswordComponent,
         data: {
           ogTitle: `Page de mot de passe oublié de l\'application ${name}`
-        }  
+        }
       }
 ];
 

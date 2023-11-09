@@ -13,7 +13,7 @@ import { SearchInputResetDirective } from './searchInputReset/search-input-reset
 
 
 @NgModule({
-  declarations: [	
+  declarations: [
     CancelSearchInputResetDirective,
     InputTrimDirective,
     InputFocusDirective,

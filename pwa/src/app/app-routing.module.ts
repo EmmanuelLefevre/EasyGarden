@@ -21,12 +21,12 @@ const routes: Routes = [
   { path: '404', component: Error404Component,
     data: {
       ogTitle: `Page d'erreur 404 de l\'application ${name}`
-    }, 
+    },
   },
   { path: 'activated-account', component: ActivatedAccountComponent,
     data: {
       ogTitle: `Page de confirmation de validation de compte utilisateur de l\'application ${name}`
-    }, 
+    },
   },
   { path: '**', component: Error404Component }
 ];

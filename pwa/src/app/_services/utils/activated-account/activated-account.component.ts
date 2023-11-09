@@ -12,7 +12,7 @@ export class ActivatedAccountComponent implements OnInit {
   time: number = 10;
   timeOut: any;
 
-  constructor() { 
+  constructor() {
     this.timeOut = setTimeout(() => {
       window.close();
     }, 10000);

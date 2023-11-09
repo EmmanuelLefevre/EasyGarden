@@ -14,7 +14,7 @@ export class SeoService {
   colorTheme = environment.application.colorTheme;
   keywords = environment.application.keywords;
   mainDescription = environment.application.mainDescription;
-  
+
   constructor(private metaService: Meta,
               private titleService: Title) {}
 

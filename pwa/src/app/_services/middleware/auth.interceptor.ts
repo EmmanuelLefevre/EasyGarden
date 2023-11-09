@@ -22,7 +22,7 @@ export class AuthInterceptor implements HttpInterceptor {
               private tokenService: TokenService) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    
+
     const token = this.tokenService.getToken();
 
     // IF token to insert in the header
@@ -54,7 +54,7 @@ export class AuthInterceptor implements HttpInterceptor {
       //   catchError(error => {
       //     // Check access permission
       //     if (error instanceof HttpErrorResponse &&
-      //         error.status === 401 
+      //         error.status === 401
       //         && this.authGuardService.canActivate()
       //         && !request.url.endsWith('/login_check')) {
       //       // Access denied so we display notification
@@ -69,7 +69,7 @@ export class AuthInterceptor implements HttpInterceptor {
       //   })
       // );
     }
-    
+
     return next.handle(request)
   }
 }

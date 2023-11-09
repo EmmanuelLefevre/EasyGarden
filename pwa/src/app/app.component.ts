@@ -42,19 +42,19 @@ export class AppComponent implements OnInit {
     // SEO  Meta/Title + Dynamic og:title
     this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(
       () => {
-        var rt = this.getChild(this.activatedRoute) 
-        rt.data.subscribe((data: { ogDescription: any; 
+        var rt = this.getChild(this.activatedRoute)
+        rt.data.subscribe((data: { ogDescription: any;
                                    ogTitle: any; }) => {
 
           this.seoService.setTitle();
           this.seoService.addTags();
- 
+
           if (data.ogTitle) {
             this.metaService.updateTag({ property: 'og:title', content: data.ogTitle })
           } else {
             this.metaService.removeTag("property='og:title'")
           }
- 
+
         })
       }
     )

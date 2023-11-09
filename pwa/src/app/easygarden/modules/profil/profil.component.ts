@@ -224,7 +224,7 @@ export class ProfilComponent implements OnInit, OnDestroy {
     this.pseudoValue = false;
     this.submitted = false;
     this.pseudoForm.reset();
-  }  
+  }
   // PhoneNumber Input
   public phoneNumberValue = false;
   phoneNumberInput(){
@@ -261,7 +261,7 @@ export class ProfilComponent implements OnInit, OnDestroy {
                 this.router.navigate(['/']);
               }
             )
-        }   
+        }
       })
   }
   // LastName
@@ -276,7 +276,7 @@ export class ProfilComponent implements OnInit, OnDestroy {
       .subscribe(
         () => {}
       )
-  }  
+  }
   // FirstName
   firstNameSubmit(id: number): void {
     this.submitted = true;
@@ -289,7 +289,7 @@ export class ProfilComponent implements OnInit, OnDestroy {
       .subscribe(
         () => {}
       )
-  }  
+  }
   // Pseudo
   pseudoSubmit(id: number): void {
     this.submitted = true;
@@ -302,7 +302,7 @@ export class ProfilComponent implements OnInit, OnDestroy {
       .subscribe(
         () => {}
       )
-  }  
+  }
   // Phone Number
   phoneNumberSubmit(id: number): void {
     this.submitted = true;
@@ -326,7 +326,7 @@ export class ProfilComponent implements OnInit, OnDestroy {
       maxWidth: "400px",
       data: dialogData
     })
-    
+
     this.dialogRefSubscription = dialogRef.afterClosed()
       .subscribe(dialogResult => {
         this.result = dialogResult;
@@ -338,7 +338,7 @@ export class ProfilComponent implements OnInit, OnDestroy {
                 this.router.navigate(['/']);
               }
             )
-        }   
+        }
       })
   }
 

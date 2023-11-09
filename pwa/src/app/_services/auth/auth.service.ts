@@ -37,7 +37,7 @@ export class AuthService {
   }
 
   forgottenPassword(email: string): Observable<boolean> {
-    return this.httpClient.get<boolean>(environment.apis.forgottenPassword.url, {params:{email}}); 
+    return this.httpClient.get<boolean>(environment.apis.forgottenPassword.url, {params:{email}});
   }
 
   isUserLogged() {

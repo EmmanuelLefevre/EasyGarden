@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: '', component: PortalComponent,
     data: {
       ogTitle: `Page portail de l\'application ${name}`
-    }, 
+    },
     resolve: {
       data: PortalResolver
       }
@@ -23,12 +23,12 @@ const routes: Routes = [
   { path: 'edit/:id', component: EditEntityNameComponent,
     data: {
       ogTitle: `Page modifier portail de l\'application ${name}`
-    }, 
+    },
   },
   { path: 'add', component: AddEntityComponent,
     data: {
       ogTitle: `Page ajouter portail de l\'application ${name}`
-    }, 
+    },
   }
 ];
 

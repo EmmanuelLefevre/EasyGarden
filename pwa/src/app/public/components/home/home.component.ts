@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
   name = environment.application.name;
 
   constructor() {}
-  
+
   ngOnInit(): void {}
 
 }

@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: '', component: PoolComponent,
     data: {
       ogTitle: `Page équipement de bassin de l\'application ${name}`
-    }, 
+    },
     resolve: {
       data: PoolResolver
     }
@@ -23,12 +23,12 @@ const routes: Routes = [
   { path: 'edit/:id', component: EditEntityNameComponent,
     data: {
       ogTitle: `Page modifier équipement de bassin de l\'application ${name}`
-    }, 
+    },
   },
   { path: 'add', component: AddEntityComponent,
     data: {
       ogTitle: `Page ajouter équipement de bassin de l\'application ${name}`
-    }, 
+    },
   }
 ];
 
