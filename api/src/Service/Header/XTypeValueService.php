@@ -30,7 +30,7 @@ class XTypeValueService
     public function getXTypeValue(): string
     {
         $request = $this->requestStack->getCurrentRequest();
-        
+
         if ($request) {
             $xType = $request->headers->get('X-Type');
             if ($xType !== null) {

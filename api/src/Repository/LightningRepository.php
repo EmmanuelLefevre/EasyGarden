@@ -49,5 +49,5 @@ class LightningRepository extends ServiceEntityRepository
         $this->_em->persist($lightning);
         $this->_em->flush();
     }
-    
+
 }

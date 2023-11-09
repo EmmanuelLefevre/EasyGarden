@@ -15,7 +15,7 @@ class JsonValidationException extends HttpException
 {
     protected $jsonResponse;
     protected $statusCode;
-    
+
     /**
      * JsonValidationException constructor.
      * @param string $message The error message.

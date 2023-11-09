@@ -21,8 +21,8 @@ class EmailValidator
      * @param Request|null $request The HTTP request object or null if not provided.
      * @return bool True if the email is valid; otherwise, false or JsonResponse with/no error message.
      */
-    public function isValidEmail(string $paramName, 
-                                 bool $returnJsonResponse = false, 
+    public function isValidEmail(string $paramName,
+                                 bool $returnJsonResponse = false,
                                  ?Request $request = null): JsonResponse|bool
     {
         // If the $request is null, validate the $paramName directly
@@ -45,10 +45,10 @@ class EmailValidator
             // Is a string
             case !is_string($email):
                 return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;
-                
+
             // Max lenght
             case strlen($email) > 45:
-                return $returnJsonResponse ? new JsonResponse(['error' => 'Email cannot exceed 45 characters!'], 
+                return $returnJsonResponse ? new JsonResponse(['error' => 'Email cannot exceed 45 characters!'],
                                                               Response::HTTP_BAD_REQUEST) : false;
 
             // Valid format

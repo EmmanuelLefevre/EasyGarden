@@ -47,17 +47,17 @@ class PseudoValidator
 
             // Min length
             case strlen($pseudo) < 3:
-                return $returnJsonResponse ? new JsonResponse(['error' => 'Pseudo must contain at least 3 characters!'], 
+                return $returnJsonResponse ? new JsonResponse(['error' => 'Pseudo must contain at least 3 characters!'],
                                                               Response::HTTP_BAD_REQUEST) : false;
 
             // Max lenght
             case strlen($pseudo) > 25:
-                return $returnJsonResponse ? new JsonResponse(['error' => 'Pseudo cannnot exceed 25 characters!'], 
+                return $returnJsonResponse ? new JsonResponse(['error' => 'Pseudo cannnot exceed 25 characters!'],
                                                               Response::HTTP_BAD_REQUEST) : false;
 
             // Authorized character
             case !preg_match('/^[A-Za-z0-9éèàù -\']+$/', $pseudo):
-                return $returnJsonResponse ? new JsonResponse(['error' => 'Pseudo can only contain digits, lowercase and uppercase letters (hyphens and spaces are accepted)!'], 
+                return $returnJsonResponse ? new JsonResponse(['error' => 'Pseudo can only contain digits, lowercase and uppercase letters (hyphens and spaces are accepted)!'],
                                                               Response::HTTP_BAD_REQUEST) : false;
 
             default:

@@ -44,7 +44,7 @@ class BatterySensorValidator
             // Is a string
             case !is_string($batterySensor):
                 return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;
-            
+
             // Contains "%" at the end of the string
             case !preg_match('/%$/', $batterySensor):
                 return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;

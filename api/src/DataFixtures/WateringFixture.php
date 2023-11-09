@@ -19,7 +19,7 @@ class WateringFixture extends Fixture implements DependentFixtureInterface
         $faker = Factory::create('fr_FR');
 
         // Create Waterings for Manu
-        // WATERINGS Saint-Savin     
+        // WATERINGS Saint-Savin
         for ($nbrWaterings=0; $nbrWaterings < 12; $nbrWaterings++) {
             $gardenUser1 = $this->getReference(gardenFixture::GARDEN1_REFERENCE);
             $watering = new \App\Entity\Watering();
@@ -70,7 +70,7 @@ class WateringFixture extends Fixture implements DependentFixtureInterface
         $manager->flush();
     }
 
-    public function getDependencies() 
+    public function getDependencies()
     {
         return [
             GardenFixture::class

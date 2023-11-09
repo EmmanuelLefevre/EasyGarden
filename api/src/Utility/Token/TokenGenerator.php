@@ -18,5 +18,5 @@ class TokenGenerator
         $token = bin2hex(random_bytes(32));
         return $salt . $token;
     }
-    
+
 }

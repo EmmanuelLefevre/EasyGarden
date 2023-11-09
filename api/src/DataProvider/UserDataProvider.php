@@ -19,7 +19,7 @@ final class UserDataProvider implements DenormalizedIdentifiersAwareItemDataProv
 {
     private $userRepository;
     private $tokenStorage;
-    
+
     /**
      * UserDataProvider constructor.
      * @param UserRepository $userRepository The UserRepository instance.
@@ -35,19 +35,19 @@ final class UserDataProvider implements DenormalizedIdentifiersAwareItemDataProv
      * Check if the data provider supports the given resource class.
      * @param string $resourceClass The resource class.
      * @param string|null $operationName The operation name.
-     * @param array $context The context options. 
+     * @param array $context The context options.
      * @return bool True if the resource class is supported, false otherwise.
      */
     public function supports(string $resourceClass, string $operationName = null, array $context = []): bool
     {
         return User::class === $resourceClass;
     }
-    
+
     /**
      * Get a collection of User entities.
      * @param string $resourceClass The resource class.
      * @param string|null $operationName The operation name.
-     * @param array $context The context options. 
+     * @param array $context The context options.
      * @return iterable|null A collection of User entities or null.
      */
     public function getCollection(string $resourceClass, string $operationName = null, array $context = []): iterable
@@ -80,7 +80,7 @@ final class UserDataProvider implements DenormalizedIdentifiersAwareItemDataProv
      * @param string $resourceClass The resource class.
      * @param mixed $id The identifier.
      * @param string|null $operationName The operation name.
-     * @param array $context The context options. 
+     * @param array $context The context options.
      * @return User|null The User entity or null if not found.
      */
     public function getItem(string $resourceClass, $id, string $operationName = null, array $context = []): ?User

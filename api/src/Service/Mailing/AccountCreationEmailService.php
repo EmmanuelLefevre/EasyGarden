@@ -22,7 +22,7 @@ class AccountCreationEmailService
      * @param MailerInterface $mailer The MailerInterface instance used for sending emails.
      * @param UrlGeneratorInterface $urlGenerator The UrlGeneratorInterface instance used for generating URLs.
      */
-    public function __construct(MailerInterface $mailer, 
+    public function __construct(MailerInterface $mailer,
                                 UrlGeneratorInterface $urlGenerator)
     {
         $this->mailer = $mailer;
@@ -33,10 +33,10 @@ class AccountCreationEmailService
      * Send an activation email to the user.
      * @param User $user The User object representing the user to whom the email will be sent.
      * @param string $recipientEmail The recipient's email address.
-     * @param string $activationToken The activation token generated for the user's account activation. 
+     * @param string $activationToken The activation token generated for the user's account activation.
      * @return void
      */
-    public function sendActivationEmail(User $user, 
+    public function sendActivationEmail(User $user,
                                         string $recipientEmail,
                                         string $activationToken): void
     {
@@ -56,13 +56,13 @@ class AccountCreationEmailService
 
         // Activation button
         $activationButton = sprintf(
-            '<a href="%s" style="display: inline-block; 
-                                background-color: #95cb11; 
-                                color: #ffffff; 
-                                border: 2px solid #C4F253; 
-                                padding: 6px 10px; 
-                                text-decoration: none; 
-                                border-radius: 4px; 
+            '<a href="%s" style="display: inline-block;
+                                background-color: #95cb11;
+                                color: #ffffff;
+                                border: 2px solid #C4F253;
+                                padding: 6px 10px;
+                                text-decoration: none;
+                                border-radius: 4px;
                                 transition: background-color 0.3s, color 0.3s;
                                 height: 20px;
                                 line-height: 20px;"

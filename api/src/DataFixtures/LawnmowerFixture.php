@@ -28,7 +28,7 @@ class LawnmowerFixture extends Fixture implements DependentFixtureInterface
         $fileLocator->locate('FunctionsFixture.php', null, false);
 
         $faker = Factory::create('fr_FR');
-        
+
         // Create Lawnmowers for Manu
         //LAWNMOWER Saint-Savin
         $gardenUser1 = $this->getReference(gardenFixture::GARDEN1_REFERENCE);
@@ -75,7 +75,7 @@ class LawnmowerFixture extends Fixture implements DependentFixtureInterface
      * Get the dependencies of the current fixture.
      * @return array An array of dependent fixture classes.
      */
-    public function getDependencies() 
+    public function getDependencies()
     {
         return [
             GardenFixture::class

@@ -22,7 +22,7 @@ class PortalFixture extends Fixture implements DependentFixtureInterface
      * @param ObjectManager $manager The object manager for interacting with the database.
      */
     public function load(ObjectManager $manager): void
-    {   
+    {
         $configDirectories = [__DIR__.''];
         $fileLocator = new FileLocator($configDirectories);
         $fileLocator->locate('FunctionsFixture.php', null, false);
@@ -38,7 +38,7 @@ class PortalFixture extends Fixture implements DependentFixtureInterface
         $portal1->setStatus(mt_rand(0, 1));
         $portal1->setGarden($gardenUser1);
         $manager->persist($portal1);
-    
+
         // PORTAL Cazaux
         $gardenUser2 = $this->getReference(gardenFixture::GARDEN2_REFERENCE);
         $portal2 = new \App\Entity\Portal();
@@ -47,7 +47,7 @@ class PortalFixture extends Fixture implements DependentFixtureInterface
         $portal2->setStatus(mt_rand(0, 1));
         $portal2->setGarden($gardenUser2);
         $manager->persist($portal2);
-    
+
         // Create Portal for Nicolas
         // PORTAL Angoulême
         $gardenUser3 = $this->getReference(gardenFixture::GARDEN3_REFERENCE);
@@ -55,7 +55,7 @@ class PortalFixture extends Fixture implements DependentFixtureInterface
         $portal3->setName('Portail');
         $portal3->setPresenceSensor(mt_rand(0, 1));
         $portal3->setStatus(mt_rand(0, 1));
-        $portal3->setGarden($gardenUser3); 
+        $portal3->setGarden($gardenUser3);
         $manager->persist($portal3);
 
         // Create Other Portals
@@ -75,7 +75,7 @@ class PortalFixture extends Fixture implements DependentFixtureInterface
      * Get the dependencies of the current fixture.
      * @return array An array of dependent fixture classes.
      */
-    public function getDependencies() 
+    public function getDependencies()
     {
         return [
             GardenFixture::class
