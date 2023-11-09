@@ -53,7 +53,7 @@ class AccountCreationController extends AbstractController
     /**
      * Create user account
      * This method is accessible via POST request to "/account_creation"
-     * @param string Request $request The HTTP request object. 
+     * @param string Request $request The HTTP request object.
      * @return JsonResponse
      * @throws FailSendEmailException If there is an issue sending the confirmation email.
      * @Route("/account_creation", name="account_creation", methods={"POST"})
@@ -65,13 +65,13 @@ class AccountCreationController extends AbstractController
         // Check the presence of required keys and if their fields are valid
         try {
             // Validate json data using JsonDataValidatorService, including custom validators
-            $data = $this->jsonRequestValidator->validateJsonData($request, ['email', 
-                                                                          'plainPassword', 
-                                                                          'pseudo', 
-                                                                          'lastName', 
-                                                                          'firstName', 
+            $data = $this->jsonRequestValidator->validateJsonData($request, ['email',
+                                                                          'plainPassword',
+                                                                          'pseudo',
+                                                                          'lastName',
+                                                                          'firstName',
                                                                           'phoneNumber']);
-        } 
+        }
         catch (JsonValidationException  $e) {
             // Handle json validation exception by returning a json response with the error message
             return new JsonResponse(['message' => $e->getMessage()], $e->getStatusCode());
@@ -110,7 +110,7 @@ class AccountCreationController extends AbstractController
         } catch (\Exception $e) {
             throw new FailSendEmailException('Failed to send email!');
         }
-        
+
         // Persist User
         $this->userDataPersister->persist($user);
 
@@ -141,7 +141,7 @@ class AccountCreationController extends AbstractController
 
         // Activate the user's account
         $user->setIsVerified(true);
-        
+
         // Convert DateTime string to DateTime object using DateTimeConverter class
         $updatedAt = DateTimeConverter::convertDateTimeStringToDate();
         $user->setUpdatedAt($updatedAt);
