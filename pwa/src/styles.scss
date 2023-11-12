@@ -44,7 +44,7 @@ $easygardenAngular-theme: mat.define-light-theme((
   --ang-color-alert2: #eb8100;
   --ang-color-focus: #2fa6ff;
   --ang-color-background: #e5e5e5;
-  
+
   /*------Background------*/
   --bg-cancel-button: #f6f6f6;
   --bg-color: var(--ang-color-background);
@@ -73,7 +73,7 @@ $easygardenAngular-theme: mat.define-light-theme((
   --ang-color-title-form-shadow: #858585;
   --ang-color-button-shadow-rgba: rgba(0,0,0,0.4);
   --ang-color-form-shadow-rgba: rgba(0,0,0,0.3);
-  
+
   /*------Borders------*/
   --color-border: var(--ang-color-border-button);
 
@@ -134,7 +134,7 @@ body {
   background: var(--color-background);
   transition: color 0.5s, background-color 0.5s;
   text-rendering: optimizeLegibility;
-  overflow-x: hidden; 
+  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   .container-custom {
@@ -249,7 +249,7 @@ body {
     position: relative;
     display: flex;
     align-items: center;
-    flex-direction: column; 
+    flex-direction: column;
     justify-content: center;
     width: 350px;
     z-index: 1;
@@ -290,7 +290,7 @@ body {
   .div-wrapper {
     display: flex;
     align-items: center;
-    flex-direction: column; 
+    flex-direction: column;
     justify-content: flex-start;
     width: 100%;
     padding: 10vh 20px 20px 20px;
@@ -325,14 +325,14 @@ body {
       color: var(--ang-color-green);
       font-size: 1.5rem;
       position: absolute;
-      top: 28px; 
-      right: 50px; 
+      top: 28px;
+      right: 50px;
       cursor: pointer;
     }
   }
-  input[type=email], 
-  input[type=password], 
-  input[type=text], 
+  input[type=email],
+  input[type=password],
+  input[type=text],
   input[type=tel],
   input[type=search] {
     background-color: var(--ang-color-white);
@@ -350,16 +350,16 @@ body {
     -webkit-border-radius: 5px;
     border-radius: 5px;
   }
-  input[type=email]:hover, 
-  input[type=password]:hover, 
-  input[type=text]:hover, 
+  input[type=email]:hover,
+  input[type=password]:hover,
+  input[type=text]:hover,
   input[type=tel]:hover,
   input[type=search]:hover {
     background-color: var(--ang-color-input-hover);
   }
-  input[type=email]:focus, 
-  input[type=password]:focus, 
-  input[type=text]:focus, 
+  input[type=email]:focus,
+  input[type=password]:focus,
+  input[type=text]:focus,
   input[type=tel]:focus,
   input[type=search]:focus {
     background-color: var(--ang-color-white);
@@ -369,11 +369,11 @@ body {
   input:placeholder {
     color: var(--ang-color-text-ligh);
   }
-  ::-webkit-input-placeholder { 
-    text-align:center; 
+  ::-webkit-input-placeholder {
+    text-align:center;
   }
-  ::-moz-placeholder { 
-    text-align:center; 
+  ::-moz-placeholder {
+    text-align:center;
   }
   /*------Invalid-Input------*/
   .invalid-feedback {
