@@ -21,8 +21,8 @@ void loop() {
     // Presence of an incoming message
     if (Serial.available() > 0 ) {
       // Read incoming message
-      incomingMessage=Serial.readString();   
-      if(incomingMessage=="1"){   
+      incomingMessage=Serial.readString();
+      if(incomingMessage=="1"){
         // Turn on LED by turning on relay
         digitalWrite(relay, HIGH);
         // Apply time delay
