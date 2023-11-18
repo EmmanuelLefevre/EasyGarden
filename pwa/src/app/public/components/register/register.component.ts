@@ -10,7 +10,7 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 // Services
 import { FormErrorMessageService } from 'src/app/_services/miscellaneous/form-error-message.service';
 import { FormValidationService } from '../../../_services/miscellaneous/form-validation.service';
-import { RegisterService } from 'src/app/_services/register/register.service';
+import { RegisterService } from 'src/app/_services/auth/register.service';
 import { SnackbarService } from 'src/app/_services/miscellaneous/snackbar.service';
 // Modeles
 import { IUser } from '../../../_interfaces/IUser';

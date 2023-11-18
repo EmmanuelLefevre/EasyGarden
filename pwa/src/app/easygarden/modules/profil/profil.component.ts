@@ -11,7 +11,7 @@ import { ProfilService } from './profil.service';
 import { TokenService } from '../../../_services/auth/token.service';
 // Components
 import { MatDialog } from '@angular/material/dialog';
-import { IConfirmDialog, ConfirmDialogComponent } from 'src/app/easygarden/components/confirmDialog/confirm-dialog.component';
+import { IConfirmDialog, ConfirmDialogComponent } from 'src/app/easygarden/components/modals/confirm-dialog.component';
 // Modeles
 import { IUser } from '../../../_interfaces/IUser';
 
