@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 // Icons
 import { faPowerOff, faPen, faTrash, faSort, faSearch, faFish, faXmark } from '@fortawesome/free-solid-svg-icons';
 // Components
-import { IConfirmDialog, ConfirmDialogComponent } from 'src/app/easygarden/components/confirmDialog/confirm-dialog.component';
+import { IConfirmDialog, ConfirmDialogComponent } from 'src/app/easygarden/components/modals/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 // Services
 import { GardenFilterService } from '../../_services/garden-filter.service';
