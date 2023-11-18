@@ -10,7 +10,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { OrderModule } from 'ngx-order-pipe';
 import { FilterPipeModule } from 'ngx-filter-pipe';
-import { MainPipeModule } from '../../pipe/pipe.module';
+import { MainPipeModule } from '../../pipes/pipe.module';
 // Components
 import { PortalComponent } from './portal.component';
 
