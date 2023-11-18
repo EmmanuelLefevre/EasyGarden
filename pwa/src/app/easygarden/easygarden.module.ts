@@ -6,12 +6,12 @@ import { DirectivesModule } from '../_directives/directives.module';
 import { EasygardenRoutingModule } from './easygarden-routing.module';
 // Modules
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { ConfirmDialogModule } from './components/confirmDialog/confirm-dialog.module';
+import { ConfirmDialogModule } from './components/modals/confirm-dialog.module';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { OrderModule } from 'ngx-order-pipe';
 import { FilterPipeModule } from 'ngx-filter-pipe';
-import { MainPipeModule } from './pipe/pipe.module';
+import { MainPipeModule } from './pipes/pipe.module';
 import { EditEntityNameModule } from './components/editEntityName/edit-entity-name.module';
 import { AddEntityModule } from './components/addEntity/add-entity.module';
 // Components
