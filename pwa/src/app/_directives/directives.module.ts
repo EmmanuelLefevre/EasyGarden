@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 
-import { CancelSearchInputResetDirective } from './cancelSearchInputReset/cancel-search-input-reset.directive';
-import { InputFocusDirective } from './inputFocus/inputFocus.directive';
-import { InputTrimDirective } from './inputTrim/inputTrim.directive';
-import { InputTitleCaseDirective } from './inputTitleCase/inputTitleCase.directive';
-import { InputUpperCaseDirective } from './inputUppercase/inputUppercase.directive';
-import { RemoveNgPristineDirective } from './removeNgPristine/removeNgPristine.directive';
-import { RemoveNgTouchedDirective } from './removeNgTouched/removeNgTouched.directive';
-import { RemoveNgUntouchedDirective } from './removeNgUntouched/removeNgUntouched.directive';
-import { RemoveNgValidDirective } from './removeNgValid/removeNgValid.directive';
-import { SearchInputResetDirective } from './searchInputReset/search-input-reset.directive';
+import { CancelSearchInputResetDirective } from './cancel-search-input-reset.directive';
+import { InputFocusDirective } from './inputFocus.directive';
+import { InputTrimDirective } from './inputTrim.directive';
+import { InputTitleCaseDirective } from './inputTitleCase.directive';
+import { InputUpperCaseDirective } from './inputUppercase.directive';
+import { RemoveNgPristineDirective } from './removeNgPristine.directive';
+import { RemoveNgTouchedDirective } from './removeNgTouched.directive';
+import { RemoveNgUntouchedDirective } from './removeNgUntouched.directive';
+import { RemoveNgValidDirective } from './removeNgValid.directive';
+import { SearchInputResetDirective } from './search-input-reset.directive';
 
 
 @NgModule({
