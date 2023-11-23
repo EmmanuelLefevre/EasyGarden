@@ -64,8 +64,6 @@ export class EditEntityNameComponent implements OnDestroy, OnInit {
   // Input form value
   receivedFieldValue = new FormControl("");
 
-  IName!: IName;
-
   constructor(private activated: ActivatedRoute,
               private customValidator : FormValidationService,
               private formBuilder: UntypedFormBuilder,
@@ -154,12 +152,12 @@ export class EditEntityNameComponent implements OnDestroy, OnInit {
             this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
               this.router.navigate(['/easygarden']);
             });
-            notificationMessage = `${equipmentString} "${this.IName.name}" a été renommé en "${newName}".`;
+            notificationMessage = `${equipmentString} "${this.receivedFieldValue.value}" a été renommé en "${newName}".`;
             this.snackbarService.showNotification(notificationMessage, 'modified');
           }
           // Equipments case
           else {
-            notificationMessage = `${equipmentString} "${typedForm.name}" a été renommé`;
+            notificationMessage = `${equipmentString} "${this.receivedFieldValue.value}" a été renommé`;
             switch (true) {
               case url.includes('/easygarden/lawnmower/edit/'):
                 notificationMessage += `e`;
