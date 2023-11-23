@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable, share, tap } from 'rxjs';
 // Environment
 import { environment } from 'src/environments/environment';
 // Modeles
-import { IWatering, IDataWatering } from './IWatering';
+import { IDataWatering } from './IWatering';
 import { IName } from '../../_interfaces/IName';
 import { IAdd } from '../../_interfaces/IAdd';
 
@@ -39,11 +39,6 @@ export class WateringService {
       garden: 'api/gardens/'+watering.garden?.id
     };
     return this.httpClient.post(environment.apis.watering.url, json);
-  }
-
-  // Get Watering
-  getData(id: number | null): Observable<IWatering>{
-    return this.httpClient.get<IWatering>(environment.apis.watering.url+'/'+id);
   }
 
   // Update Status
