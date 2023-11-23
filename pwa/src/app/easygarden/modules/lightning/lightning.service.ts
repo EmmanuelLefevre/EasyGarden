@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable, share, tap } from 'rxjs';
 // Environment
 import { environment } from 'src/environments/environment';
 // Modeles
-import { ILightning, IDataLightning } from './ILightning';
+import { IDataLightning } from './ILightning';
 import { IName } from '../../_interfaces/IName';
 import { IAdd } from '../../_interfaces/IAdd';
 
@@ -37,11 +37,6 @@ export class LightningService {
       garden: 'api/gardens/'+lightning.garden?.id
     };
     return this.httpClient.post(environment.apis.lightning.url, json);
-  }
-
-  // Get Lightning
-  getData(id: number | null): Observable<ILightning>{
-    return this.httpClient.get<ILightning>(environment.apis.lightning.url+'/'+id);
   }
 
   // Update Status
