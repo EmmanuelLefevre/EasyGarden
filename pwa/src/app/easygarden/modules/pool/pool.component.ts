@@ -13,6 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
 // Services
 import { GardenFilterService } from '../../_services/garden-filter.service';
 import { PoolService } from './pool.service';
+import { SharedFormInputValueService } from '../../_services/shared-form-input-value.service';
 import { SnackbarService } from 'src/app/_services/miscellaneous/snackbar.service';
 // Modeles
 import { IDataPool, IPool, IPoolFilter } from './IPool';
@@ -44,6 +45,9 @@ export class PoolComponent implements OnInit, OnDestroy {
   private updateStatusSubscription!: Subscription;
   private dialogRefSubscription!: Subscription;
 
+  // Share form input value with edit-entity-name-component
+  equipmentNameValue: string = '';
+
   // Confirm Dialog this.result = boolean
   result: boolean | undefined;
   // updateStatus()
@@ -73,6 +77,7 @@ export class PoolComponent implements OnInit, OnDestroy {
               private dialog: MatDialog,
               private gardenFilterService: GardenFilterService,
               private poolService: PoolService,
+              private sharedFormInputValueService: SharedFormInputValueService,
               private snackbarService: SnackbarService) {}
 
 
@@ -148,6 +153,11 @@ export class PoolComponent implements OnInit, OnDestroy {
         }
         this.snackbarService.showNotification(errorMessage,'red-alert');
     });
+  }
+
+  // Share entity name
+  editName(value: string) {
+    this.sharedFormInputValueService.setFieldValue(value);
   }
 
   // Delete Pool
