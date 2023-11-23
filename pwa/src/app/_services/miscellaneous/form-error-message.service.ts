@@ -105,7 +105,7 @@ export class FormErrorMessageService {
     return '';
   }
 
-  getInvalidInitialValueErrorMessage(currentName: string, initialValue: string): { isModified: boolean; errorMessage: string } {
+  getInvalidInitialValueErrorMessage(currentName: string | null, initialValue: string | null): { isModified: boolean; errorMessage: string } {
     const isModified = currentName !== initialValue;
     let errorMessage = '';
     if (!isModified) {
