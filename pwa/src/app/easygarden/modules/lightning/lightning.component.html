@@ -85,7 +85,8 @@
               </td>
               <td>{{ lightning.name }}</td>
               <td>
-                <button routerLink="/easygarden/lightning/edit/{{lightning.id}}"
+                <button (click)="editName(ligthning.name)"
+                        routerLink="/easygarden/lightning/edit/{{lightning.id}}"
                         type="button"
                         aria-label="Bouton permettant de modifier le nom de l'éclairage"
                         matTooltip="Modifier"
