@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { UntypedFormBuilder, Validators } from '@angular/forms';
+import { FormControl, UntypedFormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Subject, Subscription, takeUntil } from 'rxjs';
+// RXJS
+import { Subject, Subscription } from 'rxjs';
 // Environment
 import { environment } from 'src/environments/environment';
 // Services
@@ -12,6 +13,7 @@ import { LawnmowerService } from '../../modules/lawnmower/lawnmower.service';
 import { LightningService } from '../../modules/lightning/lightning.service';
 import { PoolService } from '../../modules/pool/pool.service';
 import { PortalService } from '../../modules/portal/portal.service';
+import { SharedFormInputValueService } from '../../_services/shared-form-input-value.service';
 import { SnackbarService } from 'src/app/_services/miscellaneous/snackbar.service';
 import { WateringService } from '../../modules/watering/watering.service';
 // Modeles
@@ -59,8 +61,9 @@ export class EditEntityNameComponent implements OnDestroy, OnInit {
       ],
       nonNullable: true
   });
+  // Input form value
+  receivedFieldValue = new FormControl("");
 
-  value = '';
   IName!: IName;
 
   constructor(private activated: ActivatedRoute,
@@ -73,10 +76,9 @@ export class EditEntityNameComponent implements OnDestroy, OnInit {
               private poolService: PoolService,
               private portalService: PortalService,
               private router: Router,
+              private sharedFormInputValueService: SharedFormInputValueService,
               private snackbarService: SnackbarService,
-              private wateringService: WateringService,) {
-
-    const id = Number(this.activated.snapshot.paramMap.get('id'));
+              private wateringService: WateringService) {
 
     let service: any;
     let type: string = '';
@@ -118,16 +120,6 @@ export class EditEntityNameComponent implements OnDestroy, OnInit {
         break;
     }
 
-    if (service) {
-      this.getDataSubscription = service.getData(id)
-      // Use takeUntil to automatically unsubscribe
-      .pipe(takeUntil(this.destroy$))
-        .subscribe((data: IName) => {
-          this.IName = data;
-          this.value = this.IName.name;
-        });
-    }
-
     this.resetDisabled = true;
     this.submitDisabled = true;
   }
@@ -149,6 +141,12 @@ export class EditEntityNameComponent implements OnDestroy, OnInit {
         this.customValidator.validEquipmentName()
       ]);
     }
+    // Fill input value
+    this.sharedFormInputValueService.getFieldValue().subscribe((value$) => {
+      this.receivedFieldValue.setValue(value$);
+      this.handleFormChanges();
+      this.checkIfInputValueHasChanged();
+    });
   }
 
   ngOnDestroy(): void {
@@ -250,13 +248,14 @@ export class EditEntityNameComponent implements OnDestroy, OnInit {
     // Disable reset button based on empty field
     this.resetDisabled = this.isNameEmpty;
     // Disable submit button if form is invalid
-    this.submitDisabled = !this.form.valid;
+    this.submitDisabled = !this.form.valid|| this.invalidInitialValue;
   }
 
   // Check if input value has changed from its initial value
   private checkIfInputValueHasChanged(): void {
     const currentName = this.form.get('name')?.value;
-    const { isModified, errorMessage } = this.formErrorMessageService.getInvalidInitialValueErrorMessage(currentName, this.value);
+    const value = this.receivedFieldValue.value;
+    const { isModified, errorMessage } = this.formErrorMessageService.getInvalidInitialValueErrorMessage(currentName, value);
     this.invalidInitialValue = !isModified;
     this.submitDisabled = this.invalidInitialValue;
     this.invalidInitialValueErrorMessage = errorMessage;
