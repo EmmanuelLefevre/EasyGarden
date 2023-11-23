@@ -13,6 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
 // Services
 import { GardenFilterService } from '../../_services/garden-filter.service';
 import { PortalService } from './portal.service';
+import { SharedFormInputValueService } from '../../_services/shared-form-input-value.service';
 import { SnackbarService } from 'src/app/_services/miscellaneous/snackbar.service';
 // Modeles
 import { IDataPortal, IPortal, IPortalFilter } from './IPortal';
@@ -45,6 +46,9 @@ export class PortalComponent implements OnInit, OnDestroy {
   private updateStatusSubscription!: Subscription;
   private dialogRefSubscription!: Subscription;
 
+  // Share form input value with edit-entity-name-component
+  equipmentNameValue: string = '';
+
   // Confirm Dialog this.result = boolean
   result: boolean | undefined;
   // updateStatus()
@@ -74,6 +78,7 @@ export class PortalComponent implements OnInit, OnDestroy {
               private dialog: MatDialog,
               private gardenFilterService: GardenFilterService,
               private portalService: PortalService,
+              private sharedFormInputValueService: SharedFormInputValueService,
               private snackbarService: SnackbarService) {}
 
   ngOnInit(): void {
@@ -148,6 +153,11 @@ export class PortalComponent implements OnInit, OnDestroy {
         }
         this.snackbarService.showNotification(errorMessage,'red-alert');
       });
+  }
+
+  // Share entity name
+  editName(value: string) {
+    this.sharedFormInputValueService.setFieldValue(value);
   }
 
   // Delete Portal
