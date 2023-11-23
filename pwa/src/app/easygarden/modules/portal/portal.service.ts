@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable, share, tap } from 'rxjs';
 // Environment
 import { environment } from 'src/environments/environment';
 // Modeles
-import { IPortal, IDataPortal } from './IPortal';
+import { IDataPortal } from './IPortal';
 import { IName } from '../../_interfaces/IName';
 import { IAdd } from '../../_interfaces/IAdd';
 
@@ -38,11 +38,6 @@ export class PortalService {
       garden: 'api/gardens/'+portal.garden?.id
     };
     return this.httpClient.post(environment.apis.portal.url, json);
-  }
-
-  // Get Portal
-  getData(id: number | null): Observable<IPortal>{
-    return this.httpClient.get<IPortal>(environment.apis.portal.url+'/'+id);
   }
 
   // Update Status
