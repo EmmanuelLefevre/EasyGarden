@@ -13,6 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
 // Services
 import { GardenFilterService } from '../../_services/garden-filter.service';
 import { LightningService } from './lightning.service';
+import { SharedFormInputValueService } from '../../_services/shared-form-input-value.service';
 import { SnackbarService } from 'src/app/_services/miscellaneous/snackbar.service';
 // Modeles
 import { IDataLightning, ILightning, ILightningFilter } from './ILightning';
@@ -44,6 +45,9 @@ export class LightningComponent implements OnInit, OnDestroy {
   private dialogRefSubscription!: Subscription;
   private updateStatusSubscription!: Subscription;
 
+  // Share form input value with edit-entity-name-component
+  equipmentNameValue: string = '';
+
   // Confirm Dialog this.result = boolean
   result: boolean | undefined;
   // updateStatus()
@@ -73,6 +77,7 @@ export class LightningComponent implements OnInit, OnDestroy {
               private dialog: MatDialog,
               private gardenFilterService: GardenFilterService,
               private lightningService: LightningService,
+              private sharedFormInputValueService: SharedFormInputValueService,
               private snackbarService: SnackbarService) {}
 
   ngOnInit(): void {
@@ -148,6 +153,11 @@ export class LightningComponent implements OnInit, OnDestroy {
         }
         this.snackbarService.showNotification(errorMessage,'red-alert');
       });
+  }
+
+  // Share entity name
+  editName(value: string) {
+    this.sharedFormInputValueService.setFieldValue(value);
   }
 
   // Delete Lightning
