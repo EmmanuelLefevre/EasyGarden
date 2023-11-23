@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable, share, tap } from 'rxjs';
 // Environment
 import { environment } from 'src/environments/environment';
 // Modeles
-import { IPool, IDataPool } from './IPool';
+import { IDataPool } from './IPool';
 import { IName } from '../../_interfaces/IName';
 import { IAdd } from '../../_interfaces/IAdd';
 
@@ -36,11 +36,6 @@ export class PoolService {
       garden: 'api/gardens/'+pool.garden?.id
     };
     return this.httpClient.post(environment.apis.pool.url, json);
-  }
-
-  // Get Pool
-  getData(id: number | null): Observable<IPool>{
-    return this.httpClient.get<IPool>(environment.apis.pool.url+'/'+id);
   }
 
   // Update Status
