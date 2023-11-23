@@ -93,7 +93,8 @@
                   [ngClass]="{'alert': lawnmower.batterySensor < '50'}">{{ lawnmower.batterySensor }}</td>
               <td *ngIf="lawnmower.status === false">-</td>
               <td>
-                <button routerLink="/easygarden/lawnmower/edit/{{lawnmower.id}}"
+                <button (click)="editName(lawnmower.name)"
+                        routerLink="/easygarden/lawnmower/edit/{{lawnmower.id}}"
                         type="button"
                         aria-label="Bouton permettant de modifier le nom de la tondeuse"
                         matTooltip="Modifier"
