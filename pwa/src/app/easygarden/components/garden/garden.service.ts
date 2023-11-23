@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
 // Services
 import { DecodedTokenService } from 'src/app/_services/miscellaneous/decoded-token.service';
 // Modeles
-import { IGarden, IDataGarden } from './IGarden';
+import { IDataGarden } from './IGarden';
 import { IName } from '../../_interfaces/IName';
 import { IAdd } from '../../_interfaces/IAdd';
 
@@ -35,11 +35,6 @@ export class GardenService {
       user: 'api/users/'+id
     };
     return this.httpClient.post(environment.apis.garden.url, json);
-  }
-
-  // Get Garden
-  getData(id: number | null): Observable<IGarden>{
-    return this.httpClient.get<IGarden>(environment.apis.garden.url+'/'+id);
   }
 
   // Update Garden
