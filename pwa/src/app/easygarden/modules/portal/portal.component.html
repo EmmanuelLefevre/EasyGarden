@@ -92,7 +92,8 @@
               <td *ngIf="portal.status === true" [ngClass]="portal.presenceSensor ? 'alert' : ''">{{ portal.presenceSensor | presenceSensor }}</td>
               <td *ngIf="portal.status === false">-</td>
               <td>
-                <button routerLink="/easygarden/portal/edit/{{portal.id}}"
+                <button (click)="editName(portal.name)"
+                        routerLink="/easygarden/portal/edit/{{portal.id}}"
                         type="button"
                         aria-label="Bouton permettant de modifier le nom du portail"
                         matTooltip="Modifier"
