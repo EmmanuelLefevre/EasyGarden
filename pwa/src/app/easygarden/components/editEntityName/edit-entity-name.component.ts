@@ -31,7 +31,6 @@ export class EditEntityNameComponent implements OnDestroy, OnInit {
   name = environment.application.name;
 
   // Declaration of subscriptions
-  private getDataSubscription: Subscription = new Subscription();
   private updateDataSubscription!: Subscription;
   private inputChangesSubscription!: Subscription;
   // Private Subject to handle component destruction
@@ -219,7 +218,6 @@ export class EditEntityNameComponent implements OnDestroy, OnInit {
   }
 
   private unsubscribeAll(): void {
-    this.getDataSubscription.unsubscribe();
     if (this.updateDataSubscription) {
       this.updateDataSubscription.unsubscribe();
     }
