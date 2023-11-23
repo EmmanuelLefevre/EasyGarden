@@ -19,6 +19,7 @@
               aria-label="Formulaire de saisie utilisateur">
           <label class="visually-hidden" for="name">Nom</label>
           <input formControlName="name"
+                 [formControl]="receivedFieldValue"
                  name="name"
                  inputFocus
                  inputTrim
@@ -28,14 +29,13 @@
                  spellcheck="false"
                  autocomplete="off"
                  class="input-inset-shadow first-input"
-                 value={{value}}
-                 [ngClass]="{ 'invalid-feedback': (form.get('name')?.invalid
-                                                   && form.get('name')?.dirty)
-                                                   || invalidName
-                                                   || invalidInitialValue}">
+                 [ngClass]="{'invalid-feedback': (form.get('name')?.invalid
+                             && form.get('name')?.dirty)
+                             || invalidName
+                             || invalidInitialValue}">
           <ng-container *ngIf="form.get('name')?.dirty
                                && (getErrorMessage('name') !== ''
-                                  || invalidInitialValue)">
+                               || invalidInitialValue)">
             <div class="text-alert">
               <div *ngIf="invalidInitialValue">{{ invalidInitialValueErrorMessage }}</div>
               <div *ngIf="getErrorMessage('name')">{{ getErrorMessage('name') }}</div>
