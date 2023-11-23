@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-
+//Modeles
 import { ILawnmower } from '../modules/lawnmower/ILawnmower';
 import { ILightning } from '../modules/lightning/ILightning';
 import { IPool } from '../modules/pool/IPool';
