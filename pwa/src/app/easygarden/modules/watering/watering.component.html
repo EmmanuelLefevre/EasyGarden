@@ -99,7 +99,8 @@
               <td *ngIf="watering.status === true" [ngClass]="{'alert': watering.pressureSensor < '2bars'}">{{ watering.pressureSensor }}</td>
               <td *ngIf="watering.status === false">-</td>
               <td>
-                <button routerLink="/easygarden/watering/edit/{{watering.id}}"
+                <button (click)="editName(watering.name)"
+                        routerLink="/easygarden/watering/edit/{{watering.id}}"
                         type="button"
                         aria-label="Bouton permettant de modifier le nom de l'arrosage"
                         matTooltip="Modifier"
