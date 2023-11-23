@@ -13,6 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
 // Services
 import { DecodedTokenService } from 'src/app/_services/miscellaneous/decoded-token.service';
 import { GardenService } from './garden.service';
+import { SharedFormInputValueService } from '../../_services/shared-form-input-value.service';
 import { SnackbarService } from 'src/app/_services/miscellaneous/snackbar.service';
 // Modeles
 import { IGarden, IGardenFilter } from './IGarden';
@@ -44,6 +45,9 @@ export class GardenComponent implements OnInit, OnDestroy {
   // Private Subject to handle component destruction
   private destroy$ = new Subject<void>();
 
+  // Share form input value with edit-entity-name-component
+  equipmentNameValue: string = '';
+
   // Get user id from DecodedTokenService
   id: String = '';
   // Confirm Dialog this.result = boolean
@@ -68,6 +72,7 @@ export class GardenComponent implements OnInit, OnDestroy {
               private decodedTokenService: DecodedTokenService,
               private dialog: MatDialog,
               private gardenService: GardenService,
+              private sharedFormInputValueService: SharedFormInputValueService,
               private snackbarService: SnackbarService) {}
 
   ngOnInit(): void {
@@ -100,6 +105,11 @@ export class GardenComponent implements OnInit, OnDestroy {
         }
         this.id = this.decodedTokenService.idDecoded();
       });
+  }
+
+  // Share entity name
+  editName(value: string) {
+    this.sharedFormInputValueService.setFieldValue(value);
   }
 
   // Delete Garden
