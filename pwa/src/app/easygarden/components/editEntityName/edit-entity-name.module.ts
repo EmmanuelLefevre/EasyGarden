@@ -14,8 +14,8 @@ import { EditEntityNameComponent } from './edit-entity-name.component';
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule,
     FormsModule,
+    ReactiveFormsModule,
     DirectivesModule,
     PublicComponentsModule
   ],
