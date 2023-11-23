@@ -80,46 +80,6 @@ export class EditEntityNameComponent implements OnDestroy, OnInit {
               private snackbarService: SnackbarService,
               private wateringService: WateringService) {
 
-    let service: any;
-    let type: string = '';
-
-    if (this.url.includes('/easygarden/garden/edit/')) {
-      type = 'garden';
-    } else if (this.url.includes('/easygarden/lawnmower/edit/')) {
-      type = 'lawnmower';
-    } else if (this.url.includes('/easygarden/lightning/edit/')) {
-      type = 'lightning';
-    } else if (this.url.includes('/easygarden/pool/edit/')) {
-      type = 'pool';
-    } else if (this.url.includes('/easygarden/portal/edit/')) {
-      type = 'portal';
-    } else if (this.url.includes('/easygarden/watering/edit/')) {
-      type = 'watering';
-    }
-
-    switch (type) {
-      case 'garden':
-        service = this.gardenService;
-        break;
-      case 'lawnmower':
-        service = this.lawnmowerService;
-        break;
-      case 'lightning':
-        service = this.lightningService;
-        break;
-      case 'pool':
-        service = this.poolService;
-        break;
-      case 'portal':
-        service = this.portalService;
-        break;
-      case 'watering':
-        service = this.wateringService;
-        break;
-      default:
-        break;
-    }
-
     this.resetDisabled = true;
     this.submitDisabled = true;
   }
