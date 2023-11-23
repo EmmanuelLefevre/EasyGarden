@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable, share, tap } from 'rxjs';
 // Environment
 import { environment } from 'src/environments/environment';
 // Modeles
-import { ILawnmower, IDataLawnmower } from './ILawnmower';
+import { IDataLawnmower } from './ILawnmower';
 import { IName } from '../../_interfaces/IName';
 import { IAdd } from '../../_interfaces/IAdd';
 
@@ -38,11 +38,6 @@ export class LawnmowerService {
       garden: 'api/gardens/'+lawnmower.garden?.id
     };
     return this.httpClient.post(environment.apis.lawnmower.url, json);
-  }
-
-  // Get Lawnmower
-  getData(id: number | null): Observable<ILawnmower>{
-    return this.httpClient.get<ILawnmower>(environment.apis.lawnmower.url+'/'+id);
   }
 
   // Update Status
