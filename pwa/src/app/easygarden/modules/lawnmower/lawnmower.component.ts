@@ -13,6 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
 // Services
 import { GardenFilterService } from '../../_services/garden-filter.service';
 import { LawnmowerService } from './lawnmower.service';
+import { SharedFormInputValueService } from '../../_services/shared-form-input-value.service';
 import { SnackbarService } from 'src/app/_services/miscellaneous/snackbar.service';
 // Modeles
 import { IDataLawnmower, ILawnmower, ILawnmowerFilter } from './ILawnmower';
@@ -45,6 +46,9 @@ export class LawnmowerComponent implements OnInit, OnDestroy {
   private dialogRefSubscription!: Subscription;
   private updateStatusSubscription!: Subscription;
 
+  // Shared form input value
+  equipmentNameValue: string = '';
+
   // Confirm Dialog this.result = boolean
   result: boolean | undefined;
   // updateStatus()
@@ -74,6 +78,7 @@ export class LawnmowerComponent implements OnInit, OnDestroy {
               private dialog: MatDialog,
               private gardenFilterService: GardenFilterService,
               private lawnmowerService: LawnmowerService,
+              private sharedFormInputValueService: SharedFormInputValueService,
               private snackbarService: SnackbarService) {}
 
   ngOnInit(): void {
@@ -148,6 +153,11 @@ export class LawnmowerComponent implements OnInit, OnDestroy {
         }
         this.snackbarService.showNotification(errorMessage,'red-alert');
       });
+  }
+
+  // Edit entity name
+  editName(value: string) {
+    this.sharedFormInputValueService.setFieldValue(value);
   }
 
   // Delete Lawnmower
