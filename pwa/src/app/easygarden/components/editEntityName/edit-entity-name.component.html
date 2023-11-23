@@ -19,7 +19,6 @@
               aria-label="Formulaire de saisie utilisateur">
           <label class="visually-hidden" for="name">Nom</label>
           <input formControlName="name"
-                 [formControl]="receivedFieldValue"
                  name="name"
                  inputFocus
                  inputTrim
@@ -28,11 +27,11 @@
                  type="text"
                  spellcheck="false"
                  autocomplete="off"
-                 class="input-inset-shadow first-input"
                  [ngClass]="{'invalid-feedback': (form.get('name')?.invalid
-                             && form.get('name')?.dirty)
+                                && form.get('name')?.dirty)
                              || invalidName
-                             || invalidInitialValue}">
+                             || form.get('name')?.dirty
+                                && invalidInitialValue}">
           <ng-container *ngIf="form.get('name')?.dirty
                                && (getErrorMessage('name') !== ''
                                || invalidInitialValue)">
