@@ -46,7 +46,7 @@ export class LawnmowerComponent implements OnInit, OnDestroy {
   private dialogRefSubscription!: Subscription;
   private updateStatusSubscription!: Subscription;
 
-  // Shared form input value
+  // Share form input value with edit-entity-name-component
   equipmentNameValue: string = '';
 
   // Confirm Dialog this.result = boolean
@@ -155,7 +155,7 @@ export class LawnmowerComponent implements OnInit, OnDestroy {
       });
   }
 
-  // Edit entity name
+  // Share entity name
   editName(value: string) {
     this.sharedFormInputValueService.setFieldValue(value);
   }
