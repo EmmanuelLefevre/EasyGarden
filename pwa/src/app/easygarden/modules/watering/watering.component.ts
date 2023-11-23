@@ -12,8 +12,9 @@ import { IConfirmDialog, ConfirmDialogComponent } from 'src/app/easygarden/compo
 import { MatDialog } from '@angular/material/dialog';
 // Services
 import { GardenFilterService } from '../../_services/garden-filter.service';
-import { WateringService } from './watering.service';
+import { SharedFormInputValueService } from '../../_services/shared-form-input-value.service';
 import { SnackbarService } from 'src/app/_services/miscellaneous/snackbar.service';
+import { WateringService } from './watering.service';
 // Modeles
 import { IDataWatering, IWatering, IWateringFilter } from './IWatering';
 import { IGarden } from '../../components/garden/IGarden';
@@ -45,6 +46,9 @@ export class WateringComponent implements OnInit, OnDestroy {
   private updateStatusSubscription!: Subscription;
   private dialogRefSubscription!: Subscription;
 
+  // Share form input value with edit-entity-name-component
+  equipmentNameValue: string = '';
+
   // Confirm Dialog this.result = boolean
   result: boolean | undefined;
   // updateStatus()
@@ -73,6 +77,7 @@ export class WateringComponent implements OnInit, OnDestroy {
   constructor(private activatedRoute: ActivatedRoute,
               private dialog: MatDialog,
               private gardenFilterService: GardenFilterService,
+              private sharedFormInputValueService: SharedFormInputValueService,
               private snackbarService: SnackbarService,
               private wateringService: WateringService) {}
 
@@ -148,6 +153,11 @@ export class WateringComponent implements OnInit, OnDestroy {
         }
         this.snackbarService.showNotification(errorMessage,'red-alert');
       });
+  }
+
+  // Share entity name
+  editName(value: string) {
+    this.sharedFormInputValueService.setFieldValue(value);
   }
 
   // Delete Watering
