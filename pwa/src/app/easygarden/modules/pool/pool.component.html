@@ -85,7 +85,8 @@
               </td>
               <td>{{ pool.name }}</td>
               <td>
-                <button routerLink="/easygarden/pool/edit/{{pool.id}}"
+                <button (click)="editName(lawnmower.name)"
+                        routerLink="/easygarden/pool/edit/{{pool.id}}"
                         type="button"
                         aria-label="Bouton permettant de modifier le nom de l'équipement de bassin"
                         matTooltip="Modifier"
