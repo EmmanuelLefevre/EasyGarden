@@ -144,8 +144,7 @@ export class EditEntityNameComponent implements OnDestroy, OnInit {
     // Fill input value
     this.sharedFormInputValueService.getFieldValue().subscribe((value$) => {
       this.receivedFieldValue.setValue(value$);
-      this.handleFormChanges();
-      this.checkIfInputValueHasChanged();
+      this.form.get('name')?.setValue(value$);
     });
   }
 
@@ -247,8 +246,8 @@ export class EditEntityNameComponent implements OnDestroy, OnInit {
     this.isNameEmpty = this.form.get('name')?.value === '';
     // Disable reset button based on empty field
     this.resetDisabled = this.isNameEmpty;
-    // Disable submit button if form is invalid
-    this.submitDisabled = !this.form.valid|| this.invalidInitialValue;
+    // Disable submit button if form is invalid, value is empty or same to inital value
+    this.submitDisabled = !this.form.valid || this.isNameEmpty || this.invalidInitialValue;
   }
 
   // Check if input value has changed from its initial value
