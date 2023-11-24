@@ -41,21 +41,3 @@ lf: ## Load Symfony new fixtures
 cc: ## Symfony clear cache
 	php bin/console cache:clear
 .PHONY: cc
-
-
-## ============ INSTALL ============
-install: ## Install all composants and dependencies after a clone repository
-	composer install
-	composer update
-	composer req api
-	composer require symfony/orm-pack
-	composer require symfony/maker-bundle --dev
-	composer require sensio/framework-extra-bundle
-	composer require orm-fixtures --dev
-	composer require fakerphp/faker
-	composer require symfony/rate-limiter
-	$(MAKE) lf
-	composer require lexik/jwt-authentication-bundle
-	openssl genrsa -out config/jwt/private.pem 4096
-	openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout
-.PHONY: install
