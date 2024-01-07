@@ -84,6 +84,10 @@
         <tbody>
 
 
+            <tr>
+                <td class="col-md-3">encapsulation</td>
+                <td class="col-md-9"><code>ViewEncapsulation.None</code></td>
+            </tr>
 
 
 
@@ -180,7 +184,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/components/footer/footer.component.ts:16</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/components/footer/footer.component.ts:19</a></div>
                             </td>
                         </tr>
 
@@ -217,8 +221,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="20"
-                            class="link-to-prism">src/app/components/footer/footer.component.ts:20</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="23"
+                            class="link-to-prism">src/app/components/footer/footer.component.ts:23</a></div>
                 </td>
             </tr>
 
@@ -258,7 +262,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/components/footer/footer.component.ts:14</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/components/footer/footer.component.ts:17</a></div>
                         </td>
                     </tr>
 
@@ -283,7 +287,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/components/footer/footer.component.ts:16</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/components/footer/footer.component.ts:19</a></div>
                         </td>
                     </tr>
 
@@ -308,7 +312,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/components/footer/footer.component.ts:15</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/components/footer/footer.component.ts:18</a></div>
                         </td>
                     </tr>
 
@@ -321,15 +325,18 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
-
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, ViewEncapsulation } from &#x27;@angular/core&#x27;;
+// Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip in style.scss
+// Icons
 import { faEnvelope } from &#x27;@fortawesome/free-solid-svg-icons&#x27;;
 import { faLinkedin, faGithub } from &#x27;@fortawesome/free-brands-svg-icons&#x27;;
+
 
 @Component({
   selector: &#x27;app-footer&#x27;,
   templateUrl: &#x27;./footer.component.html&#x27;,
-  styleUrls: [&#x27;./footer.component.scss&#x27;]
+  styleUrls: [&#x27;./footer.component.scss&#x27;],
+  encapsulation: ViewEncapsulation.None
 })
 
 export class FooterComponent implements OnInit {
@@ -340,8 +347,7 @@ export class FooterComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
 }
 </code></pre>
@@ -353,18 +359,66 @@ export class FooterComponent implements OnInit {
     &lt;div class&#x3D;&quot;border-custom&quot;&gt;
       &lt;ul&gt;
         &lt;li&gt;
-          &lt;a href&#x3D;&#x27;https://www.linkedin.com/in/emmanuel-l-06350b167/&#x27; target&#x3D;&quot;new&quot;&gt;&lt;fa-icon [icon]&#x3D;&quot;faLinkedin&quot;&gt;&lt;/fa-icon&gt;&lt;/a&gt;
+          &lt;a href&#x3D;&#x27;https://www.linkedin.com/in/emmanuel-l-06350b167/&#x27;
+             type&#x3D;&quot;button&quot;
+             target&#x3D;&quot;new&quot;
+             rel&#x3D;&quot;noopener noreferrer&quot;
+             aria-label&#x3D;&quot;Lien vers le profil Linkedin de Emmanuel Lefevre&quot;
+             matTooltip&#x3D;&quot;Lien Linkedin&quot;
+             matTooltipPosition&#x3D;&quot;above&quot;
+             matTooltipShowDelay&#x3D;&quot;600&quot;
+             matTooltipClass&#x3D;&quot;&#x27;mat-tooltip&#x27;&quot;
+             rel&#x3D;&quot;noopener noreferrer&quot;&gt;
+            &lt;fa-icon [icon]&#x3D;&quot;faLinkedin&quot;
+                     alt&#x3D;&quot;Icône vers le profil Linkedin de Emmanuel Lefevre&quot;&gt;
+            &lt;/fa-icon&gt;
+          &lt;/a&gt;
         &lt;/li&gt;
         &lt;li&gt;
-          &lt;a href&#x3D;&#x27;https://github.com/EmmanuelLefevre&#x27; target&#x3D;&quot;new&quot;&gt;&lt;fa-icon [icon]&#x3D;&quot;faGithub&quot;&gt;&lt;/fa-icon&gt;&lt;/a&gt;
+          &lt;a href&#x3D;&#x27;https://github.com/EmmanuelLefevre&#x27;
+             type&#x3D;&quot;button&quot;
+             target&#x3D;&quot;new&quot;
+             rel&#x3D;&quot;noopener noreferrer&quot;
+             aria-label&#x3D;&quot;Lien vers le Github de Emmanuel Lefevre&quot;
+             matTooltip&#x3D;&quot;Lien Github&quot;
+             matTooltipPosition&#x3D;&quot;above&quot;
+             matTooltipShowDelay&#x3D;&quot;600&quot;
+             matTooltipClass&#x3D;&quot;&#x27;mat-tooltip&#x27;&quot;
+             rel&#x3D;&quot;noopener noreferrer&quot;&gt;
+            &lt;fa-icon [icon]&#x3D;&quot;faGithub&quot;
+                     alt&#x3D;&quot;Icône vers le Github de Emmanuel Lefevre&quot;&gt;
+            &lt;/fa-icon&gt;
+          &lt;/a&gt;
         &lt;/li&gt;
         &lt;li&gt;
-          &lt;a href&#x3D;&#x27;&#x27; target&#x3D;&quot;new&quot;&gt;&lt;fa-icon [icon]&#x3D;&quot;faEnvelope&quot;&gt;&lt;/fa-icon&gt;&lt;/a&gt;
+          &lt;a [routerLink]&#x3D;&quot;&quot;
+             type&#x3D;&quot;button&quot;
+             aria-label&#x3D;&quot;Lien vers le formulaire de contact du site&quot;
+             matTooltip&#x3D;&quot;Formulaire de contact&quot;
+             matTooltipPosition&#x3D;&quot;above&quot;
+             matTooltipShowDelay&#x3D;&quot;600&quot;
+             matTooltipClass&#x3D;&quot;&#x27;mat-tooltip&#x27;&quot;&gt;
+            &lt;fa-icon [icon]&#x3D;&quot;faEnvelope&quot;
+                     alt&#x3D;&quot;Icône vers le formulaire de contact du site&quot;&gt;
+            &lt;/fa-icon&gt;
+          &lt;/a&gt;
         &lt;/li&gt;
       &lt;/ul&gt;
     &lt;/div&gt;
   &lt;/div&gt;
-  &lt;a&gt;©2022 &lt;a class&#x3D;&quot;owner&quot;&gt;LEFEVRE Emmanuel&lt;/a&gt; - All rights reserved.&lt;/a&gt;
+  &lt;p&gt;©2022
+    &lt;a href&#x3D;&quot;https://www.emmanuellefevre.com/&quot;
+       type&#x3D;&quot;button&quot;
+       target&#x3D;&quot;new&quot;
+       rel&#x3D;&quot;noopener noreferrer&quot;
+       aria-label&#x3D;&quot;Lien vers le portfolio du développeur du site&quot;
+       matTooltip&#x3D;&quot;Portfolio Emmanuel Lefevre&quot;
+       matTooltipPosition&#x3D;&quot;left&quot;
+       matTooltipShowDelay&#x3D;&quot;600&quot;
+       matTooltipClass&#x3D;&quot;&#x27;mat-tooltip&#x27;&quot;
+       rel&#x3D;&quot;noopener noreferrer&quot;
+       class&#x3D;&quot;owner&quot;&gt;LEFEVRE Emmanuel&lt;/a&gt; - All rights reserved.
+  &lt;/p&gt;
 &lt;/footer&gt;
 </code></pre>
     </div>
@@ -375,14 +429,14 @@ export class FooterComponent implements OnInit {
                 </p>
                 <pre class="line-numbers"><code class="language-scss">footer {
   width: 100%;
-  height: 13vh;
+  height: 10vh;
   background-color: var(--bg-color);
-  padding: 1rem 0rem;
   text-align: center;
   color: var(--ang-color-grey);
   .owner {
     color: var(--ang-color-green);
     font-size: 16px;
+    text-decoration: none;
   }
   div .border-custom {
     margin-top: 1vh;
@@ -390,7 +444,8 @@ export class FooterComponent implements OnInit {
       display: inline;
       margin-right: 0.5rem;
       margin-left: 0.5rem;
-      font-size:25px;
+      font-size: 25px;
+      cursor: pointer;
       fa-icon {
         color: var(--ang-color-green);
         &amp;:hover {
@@ -427,9 +482,9 @@ export class FooterComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><footer>  <div class="container-custom">    <div class="border-custom">      <ul>        <li>          <a href=\'https://www.linkedin.com/in/emmanuel-l-06350b167/\' target="new"><fa-icon [icon]="faLinkedin"></fa-icon></a>        </li>        <li>          <a href=\'https://github.com/EmmanuelLefevre\' target="new"><fa-icon [icon]="faGithub"></fa-icon></a>        </li>        <li>          <a href=\'\' target="new"><fa-icon [icon]="faEnvelope"></fa-icon></a>        </li>      </ul>    </div>  </div>  <a>©2022 <a class="owner">LEFEVRE Emmanuel</a> - All rights reserved.</a></footer></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ErrorComponent', 'selector': 'app-error'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LawnmowerComponent', 'selector': 'app-lawnmower'},{'name': 'LayoutComponent', 'selector': 'app-layout'},{'name': 'LightningComponent', 'selector': 'app-lightning'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'PoolComponent', 'selector': 'app-pool'},{'name': 'PortalComponent', 'selector': 'app-portal'},{'name': 'ProfilComponent', 'selector': 'app-profil'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'WateringComponent', 'selector': 'app-watering'}];
-    var DIRECTIVES = [];
+        var COMPONENT_TEMPLATE = '<div><footer>  <div class="container-custom">    <div class="border-custom">      <ul>        <li>          <a href=\'https://www.linkedin.com/in/emmanuel-l-06350b167/\'             type="button"             target="new"             rel="noopener noreferrer"             aria-label="Lien vers le profil Linkedin de Emmanuel Lefevre"             matTooltip="Lien Linkedin"             matTooltipPosition="above"             matTooltipShowDelay="600"             matTooltipClass="\'mat-tooltip\'"             rel="noopener noreferrer">            <fa-icon [icon]="faLinkedin"                     alt="Icône vers le profil Linkedin de Emmanuel Lefevre">            </fa-icon>          </a>        </li>        <li>          <a href=\'https://github.com/EmmanuelLefevre\'             type="button"             target="new"             rel="noopener noreferrer"             aria-label="Lien vers le Github de Emmanuel Lefevre"             matTooltip="Lien Github"             matTooltipPosition="above"             matTooltipShowDelay="600"             matTooltipClass="\'mat-tooltip\'"             rel="noopener noreferrer">            <fa-icon [icon]="faGithub"                     alt="Icône vers le Github de Emmanuel Lefevre">            </fa-icon>          </a>        </li>        <li>          <a [routerLink]=""             type="button"             aria-label="Lien vers le formulaire de contact du site"             matTooltip="Formulaire de contact"             matTooltipPosition="above"             matTooltipShowDelay="600"             matTooltipClass="\'mat-tooltip\'">            <fa-icon [icon]="faEnvelope"                     alt="Icône vers le formulaire de contact du site">            </fa-icon>          </a>        </li>      </ul>    </div>  </div>  <p>©2022    <a href="https://www.emmanuellefevre.com/"       type="button"       target="new"       rel="noopener noreferrer"       aria-label="Lien vers le portfolio du développeur du site"       matTooltip="Portfolio Emmanuel Lefevre"       matTooltipPosition="left"       matTooltipShowDelay="600"       matTooltipClass="\'mat-tooltip\'"       rel="noopener noreferrer"       class="owner">LEFEVRE Emmanuel</a> - All rights reserved.  </p></footer></div>'
+    var COMPONENTS = [{'name': 'ActivatedAccountComponent', 'selector': 'app-activated-account'},{'name': 'AddEntityComponent', 'selector': 'app-add-entity'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CloseFormButtonComponent', 'selector': 'app-close-form-button'},{'name': 'ConfirmDialogComponent', 'selector': 'app-confirm-dialog'},{'name': 'EasygardenLogoComponent', 'selector': 'app-easygarden-logo'},{'name': 'EditEntityNameComponent', 'selector': 'app-edit-entity-name'},{'name': 'Error404Component', 'selector': 'app-error'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'ForgottenPasswordComponent', 'selector': 'app-forgotten-password'},{'name': 'GardenComponent', 'selector': 'app-garden'},{'name': 'HomeComponent', 'selector': ''},{'name': 'LawnmowerComponent', 'selector': 'app-lawnmower'},{'name': 'LightningComponent', 'selector': 'app-lightning'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'PoolComponent', 'selector': 'app-pool'},{'name': 'PortalComponent', 'selector': 'app-portal'},{'name': 'ProfilComponent', 'selector': 'app-profil'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'SnackbarComponent', 'selector': 'app-snackbar'},{'name': 'WateringComponent', 'selector': 'app-watering'}];
+    var DIRECTIVES = [{'name': 'CancelSearchInputResetDirective', 'selector': '[cancelSearchInputReset]'},{'name': 'InputFocusDirective', 'selector': '[inputFocus]'},{'name': 'InputTitleCaseDirective', 'selector': '[inputTitleCase]'},{'name': 'InputTrimDirective', 'selector': '[inputTrim]'},{'name': 'InputUpperCaseDirective', 'selector': '[inputUpperCase]'},{'name': 'RemoveNgPristineDirective', 'selector': '[removeNgPristine]'},{'name': 'RemoveNgTouchedDirective', 'selector': '[removeNgTouched]'},{'name': 'RemoveNgUntouchedDirective', 'selector': '[removeNgUntouched]'},{'name': 'RemoveNgValidDirective', 'selector': '[removeNgValid]'},{'name': 'SearchInputResetDirective', 'selector': '[searchInputReset]'}];
     var ACTUAL_COMPONENT = {'name': 'FooterComponent'};
 </script>
 <script src="../js/tree.js"></script>

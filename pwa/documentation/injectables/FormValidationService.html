@@ -58,7 +58,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/app/_services/service/form-validation.service.ts</code>
+            <code>src/app/_services/miscellaneous/form-validation.service.ts</code>
         </p>
 
 
@@ -86,6 +86,9 @@
                             </li>
                             <li>
                                 <a href="#validEmail" >validEmail</a>
+                            </li>
+                            <li>
+                                <a href="#validEquipmentName" >validEquipmentName</a>
                             </li>
                             <li>
                                 <a href="#validName" >validName</a>
@@ -134,8 +137,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="10"
-                            class="link-to-prism">src/app/_services/service/form-validation.service.ts:10</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="14"
+                            class="link-to-prism">src/app/_services/miscellaneous/form-validation.service.ts:14</a></div>
                 </td>
             </tr>
 
@@ -215,8 +218,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="36"
-                            class="link-to-prism">src/app/_services/service/form-validation.service.ts:36</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="40"
+                            class="link-to-prism">src/app/_services/miscellaneous/form-validation.service.ts:40</a></div>
                 </td>
             </tr>
 
@@ -252,8 +255,45 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="49"
-                            class="link-to-prism">src/app/_services/service/form-validation.service.ts:49</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="80"
+                            class="link-to-prism">src/app/_services/miscellaneous/form-validation.service.ts:80</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://angular.io/api/forms/ValidatorFn" target="_blank" >ValidatorFn</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="validEquipmentName"></a>
+                    <span class="name">
+                        <span ><b>validEquipmentName</b></span>
+                        <a href="#validEquipmentName"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>validEquipmentName()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="132"
+                            class="link-to-prism">src/app/_services/miscellaneous/form-validation.service.ts:132</a></div>
                 </td>
             </tr>
 
@@ -289,8 +329,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="75"
-                            class="link-to-prism">src/app/_services/service/form-validation.service.ts:75</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="106"
+                            class="link-to-prism">src/app/_services/miscellaneous/form-validation.service.ts:106</a></div>
                 </td>
             </tr>
 
@@ -326,8 +366,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="62"
-                            class="link-to-prism">src/app/_services/service/form-validation.service.ts:62</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="93"
+                            class="link-to-prism">src/app/_services/miscellaneous/form-validation.service.ts:93</a></div>
                 </td>
             </tr>
 
@@ -363,8 +403,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="88"
-                            class="link-to-prism">src/app/_services/service/form-validation.service.ts:88</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="119"
+                            class="link-to-prism">src/app/_services/miscellaneous/form-validation.service.ts:119</a></div>
                 </td>
             </tr>
 
@@ -389,6 +429,10 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
 import { AbstractControl, ValidatorFn } from &#x27;@angular/forms&#x27;;
 
+// Modele
+import { IPasswordErrors } from &#x27;./../../_interfaces/IPasswordErrors&#x27;;
+
+
 @Injectable({
   providedIn: &#x27;root&#x27;
 })
@@ -399,18 +443,18 @@ export class FormValidationService {
     return (formGroup: AbstractControl):{ [key: string]: any } | null &#x3D;&gt; {
       const passwordControl &#x3D; formGroup.get(password);
       const confirmPasswordControl &#x3D; formGroup.get(confirmPassword);
-      
+
       if (!passwordControl || !confirmPasswordControl) {
         return null;
       }
-      
+
     if (
       confirmPasswordControl.errors &amp;&amp;
       !confirmPasswordControl.errors[&#x27;passwordMismatch&#x27;]
       ) {
         return null;
       }
-      
+
       if (passwordControl.value !&#x3D;&#x3D; confirmPasswordControl.value) {
         confirmPasswordControl.setErrors({ passwordMismatch: true });
         return { passwordMismatch: true }
@@ -422,23 +466,50 @@ export class FormValidationService {
   }
 
   strongPassword(): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: boolean } | null &#x3D;&gt; {
+    return (control: AbstractControl): IPasswordErrors | null &#x3D;&gt; {
       if (control.value &#x3D;&#x3D; &#x27;&#x27;) return null;
 
-      let re &#x3D; new RegExp(&#x27;(?&#x3D;.*[a-z])(?&#x3D;.*[A-Z])(?&#x3D;.*[0-9])(?&#x3D;.*[:;.~µ!?§@#$%^&amp;*])[A-Za-z\d:;.~µ!?§@#$%^&amp;*].{8,40}&#x27;);
-      if (re.test(control.value)) {
-        return null;
-      } else {
-        return { strongPassword: true };
+      const hasUpperCase &#x3D; /[A-Z]/.test(control.value);
+      const hasLowerCase &#x3D; /[a-z]/.test(control.value);
+      const hasNumber &#x3D; /[0-9]/.test(control.value);
+      const hasSpecialChar &#x3D; /[:;.~µ!?§@#$%^&amp;*]/.test(control.value);
+
+      const errors: IPasswordErrors &#x3D; {};
+
+      if (!hasUpperCase) {
+        errors.strongPassword &#x3D; {
+          ...errors.strongPassword,
+          missingUpperCase: true
+        };
       }
+      if (!hasLowerCase) {
+        errors.strongPassword &#x3D; {
+          ...errors.strongPassword,
+          missingLowerCase: true
+        };
+      }
+      if (!hasNumber) {
+        errors.strongPassword &#x3D; {
+          ...errors.strongPassword,
+          missingNumber: true
+        };
+      }
+      if (!hasSpecialChar) {
+        errors.strongPassword &#x3D; {
+          ...errors.strongPassword,
+          missingSpecialChar: true
+        };
+      }
+
+      return errors.strongPassword ? { strongPassword: errors.strongPassword } : null;
     };
   }
-    
+
   validEmail(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: boolean } | null &#x3D;&gt; {
       if (control.value &#x3D;&#x3D; &#x27;&#x27;) return null;
 
-      let re &#x3D; new RegExp(&#x27;^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$&#x27;);
+      let re &#x3D; new RegExp(&#x27;^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$&#x27;);
       if (re.test(control.value)) {
         return null;
       } else {
@@ -451,7 +522,7 @@ export class FormValidationService {
     return (control: AbstractControl): { [key: string]: boolean } | null &#x3D;&gt; {
       if (control.value &#x3D;&#x3D; &#x27;&#x27;) return null;
 
-      let re &#x3D; new RegExp(&#x27;[- +()0-9]{8,12}&#x27;);
+      let re &#x3D; new RegExp(&#x27;[- +()0-9]{8,20}&#x27;);
       if (re.test(control.value)) {
         return null;
       } else {
@@ -464,7 +535,7 @@ export class FormValidationService {
     return (control: AbstractControl): { [key: string]: boolean } | null &#x3D;&gt; {
       if (control.value &#x3D;&#x3D; &#x27;&#x27;) return null;
 
-      let re &#x3D; new RegExp(&#x27;^([a-zA-Z]){3,20}$&#x27;);
+      let re &#x3D; new RegExp(&#x27;^([a-zA-Zéèàù \&#x27;-]){3,25}$&#x27;);
       if (re.test(control.value)) {
         return null;
       } else {
@@ -477,11 +548,24 @@ export class FormValidationService {
     return (control: AbstractControl): { [key: string]: boolean } | null &#x3D;&gt; {
       if (control.value &#x3D;&#x3D; &#x27;&#x27;) return null;
 
-      let re &#x3D; new RegExp(&#x27;^([0-9a-zA-Z]){3,10}$&#x27;);
+      let re &#x3D; new RegExp(&#x27;^([0-9a-zA-Zéèàù \&#x27;-]){3,25}$&#x27;);
       if (re.test(control.value)) {
         return null;
       } else {
         return { validPseudo: true };
+      }
+    };
+  }
+
+  validEquipmentName(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: boolean } | null &#x3D;&gt; {
+      if (control.value &#x3D;&#x3D; &#x27;&#x27;) return null;
+
+      let re &#x3D; new RegExp(&#x27;^([a-zA-Z0-9éèàù ()\&#x27;-]){3,25}$&#x27;);
+      if (re.test(control.value)) {
+        return null;
+      } else {
+        return { validEquipmentName: true };
       }
     };
   }

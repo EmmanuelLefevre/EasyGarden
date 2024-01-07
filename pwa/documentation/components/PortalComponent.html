@@ -52,9 +52,6 @@
             <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
         </li>
         <li >
-            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
-        </li>
-        <li >
             <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
         </li>
 </ul>
@@ -64,7 +61,7 @@
     <h3>File</h3>
 </p>
 <p class="comment">
-    <code>src/app/easygarden/modules/portal/component/portal/portal.component.ts</code>
+    <code>src/app/easygarden/modules/portal/portal.component.ts</code>
 </p>
 
 
@@ -75,6 +72,7 @@
     </p>
     <p class="comment">
                     <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+                    <code><a href="https://angular.io/api/core/OnDestroy" target="_blank" >OnDestroy</a></code>
     </p>
 
 
@@ -84,6 +82,10 @@
         <tbody>
 
 
+            <tr>
+                <td class="col-md-3">encapsulation</td>
+                <td class="col-md-9"><code>ViewEncapsulation.None</code></td>
+            </tr>
 
 
 
@@ -98,10 +100,6 @@
                 <td class="col-md-9"><code>app-portal</code></td>
             </tr>
 
-            <tr>
-                <td class="col-md-3">styleUrls</td>
-                <td class="col-md-9"><code>./portal.component.scss</code></td>
-            </tr>
 
 
 
@@ -125,6 +123,99 @@
     <h3 id="index">Index</h3>
     <table class="table table-sm table-bordered index-table">
         <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#count" >count</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#deletePortalSubscription" >deletePortalSubscription</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#dialogRefSubscription" >dialogRefSubscription</a>
+                            </li>
+                            <li>
+                                <a href="#equipmentNameValue" >equipmentNameValue</a>
+                            </li>
+                            <li>
+                                <a href="#faDoorOpen" >faDoorOpen</a>
+                            </li>
+                            <li>
+                                <a href="#faPen" >faPen</a>
+                            </li>
+                            <li>
+                                <a href="#faPowerOff" >faPowerOff</a>
+                            </li>
+                            <li>
+                                <a href="#faSearch" >faSearch</a>
+                            </li>
+                            <li>
+                                <a href="#faSort" >faSort</a>
+                            </li>
+                            <li>
+                                <a href="#faTrash" >faTrash</a>
+                            </li>
+                            <li>
+                                <a href="#faXmark" >faXmark</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#fetchDataSubscription" >fetchDataSubscription</a>
+                            </li>
+                            <li>
+                                <a href="#filteredPortals" >filteredPortals</a>
+                            </li>
+                            <li>
+                                <a href="#gardens" >gardens</a>
+                            </li>
+                            <li>
+                                <a href="#isDescOrder" >isDescOrder</a>
+                            </li>
+                            <li>
+                                <a href="#name" >name</a>
+                            </li>
+                            <li>
+                                <a href="#orderHeader" >orderHeader</a>
+                            </li>
+                            <li>
+                                <a href="#p" >p</a>
+                            </li>
+                            <li>
+                                <a href="#portals" >portals</a>
+                            </li>
+                            <li>
+                                <a href="#result" >result</a>
+                            </li>
+                            <li>
+                                <a href="#searchInput" >searchInput</a>
+                            </li>
+                            <li>
+                                <a href="#selectedGardenId" >selectedGardenId</a>
+                            </li>
+                            <li>
+                                <a href="#status" >status</a>
+                            </li>
+                            <li>
+                                <a href="#title" >title</a>
+                            </li>
+                            <li>
+                                <a href="#updateStatusBehaviorSubject" >updateStatusBehaviorSubject</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#updateStatusSubscription" >updateStatusSubscription</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
 
                 <tr>
                     <td class="col-md-4">
@@ -135,7 +226,38 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                <a href="#confirmDialog" >confirmDialog</a>
+                            </li>
+                            <li>
+                                <a href="#editName" >editName</a>
+                            </li>
+                            <li>
+                                <a href="#fetchData" >fetchData</a>
+                            </li>
+                            <li>
+                                <a href="#filterByGarden" >filterByGarden</a>
+                            </li>
+                            <li>
+                                <a href="#getGardensWithPortals" >getGardensWithPortals</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy" >ngOnDestroy</a>
+                            </li>
+                            <li>
                                 <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#resetPagination" >resetPagination</a>
+                            </li>
+                            <li>
+                                <a href="#sort" >sort</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#unsubscribeAll" >unsubscribeAll</a>
+                            </li>
+                            <li>
+                                <a href="#updateStatus" >updateStatus</a>
                             </li>
                         </ul>
                     </td>
@@ -155,12 +277,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(portal: <a href="../injectables/PortalService.html" target="_self">PortalService</a>)</code>
+<code>constructor(activatedRoute: <a href="https://angular.io/api/router/ActivatedRoute" target="_blank">ActivatedRoute</a>, dialog: MatDialog, gardenFilterService: <a href="../injectables/GardenFilterService.html" target="_self">GardenFilterService</a>, portalService: <a href="../injectables/PortalService.html" target="_self">PortalService</a>, sharedFormInputValueService: <a href="../injectables/SharedFormInputValueService.html" target="_self">SharedFormInputValueService</a>, snackbarService: <a href="../injectables/SnackbarService.html" target="_self">SnackbarService</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/easygarden/modules/portal/component/portal/portal.component.ts:11</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="75" class="link-to-prism">src/app/easygarden/modules/portal/portal.component.ts:75</a></div>
                             </td>
                         </tr>
 
@@ -178,10 +300,70 @@
                                         </thead>
                                         <tbody>
                                                 <tr>
-                                                        <td>portal</td>
+                                                        <td>activatedRoute</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/ActivatedRoute" target="_blank" >ActivatedRoute</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>dialog</td>
+                                                  
+                                                        <td>
+                                                                    <code>MatDialog</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>gardenFilterService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/GardenFilterService.html" target="_self" >GardenFilterService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>portalService</td>
                                                   
                                                         <td>
                                                                         <code><a href="../injectables/PortalService.html" target="_self" >PortalService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>sharedFormInputValueService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/SharedFormInputValueService.html" target="_self" >SharedFormInputValueService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>snackbarService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/SnackbarService.html" target="_self" >SnackbarService</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -211,6 +393,304 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="confirmDialog"></a>
+                    <span class="name">
+                        <span ><b>confirmDialog</b></span>
+                        <a href="#confirmDialog"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>confirmDialog(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, name: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="164"
+                            class="link-to-prism">src/app/easygarden/modules/portal/portal.component.ts:164</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>name</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editName"></a>
+                    <span class="name">
+                        <span ><b>editName</b></span>
+                        <a href="#editName"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>editName(value: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="159"
+                            class="link-to-prism">src/app/easygarden/modules/portal/portal.component.ts:159</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>value</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="fetchData"></a>
+                    <span class="name">
+                        <span ><b>fetchData</b></span>
+                        <a href="#fetchData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>fetchData()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="96"
+                            class="link-to-prism">src/app/easygarden/modules/portal/portal.component.ts:96</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filterByGarden"></a>
+                    <span class="name">
+                        <span ><b>filterByGarden</b></span>
+                        <a href="#filterByGarden"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>filterByGarden()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="112"
+                            class="link-to-prism">src/app/easygarden/modules/portal/portal.component.ts:112</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getGardensWithPortals"></a>
+                    <span class="name">
+                        <span ><b>getGardensWithPortals</b></span>
+                        <a href="#getGardensWithPortals"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getGardensWithPortals()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="124"
+                            class="link-to-prism">src/app/easygarden/modules/portal/portal.component.ts:124</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../interfaces/IGarden.html" target="_self" >IGarden[]</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <span ><b>ngOnDestroy</b></span>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="91"
+                            class="link-to-prism">src/app/easygarden/modules/portal/portal.component.ts:91</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="ngOnInit"></a>
                     <span class="name">
                         <span ><b>ngOnInit</b></span>
@@ -227,8 +707,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="15"
-                            class="link-to-prism">src/app/easygarden/modules/portal/component/portal/portal.component.ts:15</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="84"
+                            class="link-to-prism">src/app/easygarden/modules/portal/portal.component.ts:84</a></div>
                 </td>
             </tr>
 
@@ -244,27 +724,1205 @@
             </tr>
         </tbody>
     </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resetPagination"></a>
+                    <span class="name">
+                        <span ><b>resetPagination</b></span>
+                        <a href="#resetPagination"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>resetPagination()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="198"
+                            class="link-to-prism">src/app/easygarden/modules/portal/portal.component.ts:198</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sort"></a>
+                    <span class="name">
+                        <span ><b>sort</b></span>
+                        <a href="#sort"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>sort(headerName: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" target="_blank">String</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="62"
+                            class="link-to-prism">src/app/easygarden/modules/portal/portal.component.ts:62</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>headerName</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" target="_blank" >String</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="unsubscribeAll"></a>
+                    <span class="name">
+                        <span class="modifier">Private</span>
+                        <span ><b>unsubscribeAll</b></span>
+                        <a href="#unsubscribeAll"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>unsubscribeAll()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="202"
+                            class="link-to-prism">src/app/easygarden/modules/portal/portal.component.ts:202</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateStatus"></a>
+                    <span class="name">
+                        <span ><b>updateStatus</b></span>
+                        <a href="#updateStatus"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateStatus(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, status: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>, name: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="131"
+                            class="link-to-prism">src/app/easygarden/modules/portal/portal.component.ts:131</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>status</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>name</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="count"></a>
+                    <span class="name">
+                        <span ><b>count</b></span>
+                        <a href="#count"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">src/app/easygarden/modules/portal/portal.component.ts:58</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deletePortalSubscription"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>deletePortalSubscription</b></span>
+                        <a href="#deletePortalSubscription"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subscription</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/easygarden/modules/portal/portal.component.ts:45</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dialogRefSubscription"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>dialogRefSubscription</b></span>
+                        <a href="#dialogRefSubscription"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subscription</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/easygarden/modules/portal/portal.component.ts:47</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="equipmentNameValue"></a>
+                    <span class="name">
+                        <span ><b>equipmentNameValue</b></span>
+                        <a href="#equipmentNameValue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/easygarden/modules/portal/portal.component.ts:50</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="faDoorOpen"></a>
+                    <span class="name">
+                        <span ><b>faDoorOpen</b></span>
+                        <a href="#faDoorOpen"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>faDoorOpen</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/easygarden/modules/portal/portal.component.ts:37</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="faPen"></a>
+                    <span class="name">
+                        <span ><b>faPen</b></span>
+                        <a href="#faPen"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>faPen</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/easygarden/modules/portal/portal.component.ts:33</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="faPowerOff"></a>
+                    <span class="name">
+                        <span ><b>faPowerOff</b></span>
+                        <a href="#faPowerOff"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>faPowerOff</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/easygarden/modules/portal/portal.component.ts:32</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="faSearch"></a>
+                    <span class="name">
+                        <span ><b>faSearch</b></span>
+                        <a href="#faSearch"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>faSearch</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/easygarden/modules/portal/portal.component.ts:36</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="faSort"></a>
+                    <span class="name">
+                        <span ><b>faSort</b></span>
+                        <a href="#faSort"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>faSort</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/easygarden/modules/portal/portal.component.ts:35</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="faTrash"></a>
+                    <span class="name">
+                        <span ><b>faTrash</b></span>
+                        <a href="#faTrash"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>faTrash</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/easygarden/modules/portal/portal.component.ts:34</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="faXmark"></a>
+                    <span class="name">
+                        <span ><b>faXmark</b></span>
+                        <a href="#faXmark"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>faXmark</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/easygarden/modules/portal/portal.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="fetchDataSubscription"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>fetchDataSubscription</b></span>
+                        <a href="#fetchDataSubscription"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subscription</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Subscription</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/easygarden/modules/portal/portal.component.ts:44</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filteredPortals"></a>
+                    <span class="name">
+                        <span ><b>filteredPortals</b></span>
+                        <a href="#filteredPortals"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/IPortal.html" target="_self" >IPortal[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="74" class="link-to-prism">src/app/easygarden/modules/portal/portal.component.ts:74</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="gardens"></a>
+                    <span class="name">
+                        <span ><b>gardens</b></span>
+                        <a href="#gardens"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/IName.html" target="_self" >IName[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">src/app/easygarden/modules/portal/portal.component.ts:71</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isDescOrder"></a>
+                    <span class="name">
+                        <span ><b>isDescOrder</b></span>
+                        <a href="#isDescOrder"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">src/app/easygarden/modules/portal/portal.component.ts:61</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="name"></a>
+                    <span class="name">
+                        <span ><b>name</b></span>
+                        <a href="#name"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>environment.application.name</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/easygarden/modules/portal/portal.component.ts:40</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="orderHeader"></a>
+                    <span class="name">
+                        <span ><b>orderHeader</b></span>
+                        <a href="#orderHeader"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" target="_blank" >String</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/app/easygarden/modules/portal/portal.component.ts:60</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="p"></a>
+                    <span class="name">
+                        <span ><b>p</b></span>
+                        <a href="#p"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>1</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">src/app/easygarden/modules/portal/portal.component.ts:57</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="portals"></a>
+                    <span class="name">
+                        <span ><b>portals</b></span>
+                        <a href="#portals"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/IPortal.html" target="_self" >IPortal[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="73" class="link-to-prism">src/app/easygarden/modules/portal/portal.component.ts:73</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="result"></a>
+                    <span class="name">
+                        <span ><b>result</b></span>
+                        <a href="#result"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>boolean | undefined</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">src/app/easygarden/modules/portal/portal.component.ts:53</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="searchInput"></a>
+                    <span class="name">
+                        <span ><b>searchInput</b></span>
+                        <a href="#searchInput"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/IPortalFilter.html" target="_self" >IPortalFilter</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{ name: &#x27;&#x27;}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="68" class="link-to-prism">src/app/easygarden/modules/portal/portal.component.ts:68</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedGardenId"></a>
+                    <span class="name">
+                        <span ><b>selectedGardenId</b></span>
+                        <a href="#selectedGardenId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>number | string</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="70" class="link-to-prism">src/app/easygarden/modules/portal/portal.component.ts:70</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="status"></a>
+                    <span class="name">
+                        <span ><b>status</b></span>
+                        <a href="#status"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>boolean | undefined</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/app/easygarden/modules/portal/portal.component.ts:55</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="title"></a>
+                    <span class="name">
+                        <span ><b>title</b></span>
+                        <a href="#title"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&quot;Tableau portail&quot;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/easygarden/modules/portal/portal.component.ts:41</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateStatusBehaviorSubject"></a>
+                    <span class="name">
+                        <span ><b>updateStatusBehaviorSubject</b></span>
+                        <a href="#updateStatusBehaviorSubject"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/IDataPortal.html" target="_self" >IDataPortal[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="75" class="link-to-prism">src/app/easygarden/modules/portal/portal.component.ts:75</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateStatusSubscription"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>updateStatusSubscription</b></span>
+                        <a href="#updateStatusSubscription"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subscription</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/easygarden/modules/portal/portal.component.ts:46</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
 </section>
 
 </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, OnDestroy, ViewEncapsulation } from &#x27;@angular/core&#x27;;
+import { ActivatedRoute } from &#x27;@angular/router&#x27;;
+import { HttpResponse } from &#x27;@angular/common/http&#x27;;
+// RXJS
+import { Subscription } from &#x27;rxjs&#x27;;
+// Environment
+import { environment } from &#x27;src/environments/environment&#x27;;
+// Icons
+import { faPowerOff, faPen, faTrash, faSort, faSearch, faDoorOpen, faXmark } from &#x27;@fortawesome/free-solid-svg-icons&#x27;;
+// Components
+import { IConfirmDialog, ConfirmDialogComponent } from &#x27;src/app/easygarden/components/modals/confirm-dialog.component&#x27;;
+import { MatDialog } from &#x27;@angular/material/dialog&#x27;;
+// Services
+import { GardenFilterService } from &#x27;../../_services/garden-filter.service&#x27;;
+import { PortalService } from &#x27;./portal.service&#x27;;
+import { SharedFormInputValueService } from &#x27;../../_services/shared-form-input-value.service&#x27;;
+import { SnackbarService } from &#x27;src/app/_services/miscellaneous/snackbar.service&#x27;;
+// Modeles
+import { IDataPortal, IPortal, IPortalFilter } from &#x27;./IPortal&#x27;;
+import { IGarden } from &#x27;../../components/garden/IGarden&#x27;;
+import { IName } from &#x27;../../_interfaces/IName&#x27;;
 
-import { PortalService } from &#x27;../../portal.service&#x27;;
 
 @Component({
   selector: &#x27;app-portal&#x27;,
   templateUrl: &#x27;./portal.component.html&#x27;,
-  styleUrls: [&#x27;./portal.component.scss&#x27;]
+  encapsulation: ViewEncapsulation.None
 })
 
-export class PortalComponent implements OnInit {
+export class PortalComponent implements OnInit, OnDestroy {
 
-  constructor(private portal: PortalService) { }
+  faPowerOff &#x3D; faPowerOff;
+  faPen &#x3D; faPen;
+  faTrash &#x3D; faTrash;
+  faSort &#x3D; faSort;
+  faSearch &#x3D; faSearch;
+  faDoorOpen &#x3D; faDoorOpen;
+  faXmark &#x3D; faXmark;
+
+  name &#x3D; environment.application.name;
+  title &#x3D; &quot;Tableau portail&quot;;
+
+  // Declaration of subscriptions
+  private fetchDataSubscription: Subscription &#x3D; new Subscription;
+  private deletePortalSubscription!: Subscription;
+  private updateStatusSubscription!: Subscription;
+  private dialogRefSubscription!: Subscription;
+
+  // Share form input value with edit-entity-name-component
+  equipmentNameValue: string &#x3D; &#x27;&#x27;;
+
+  // Confirm Dialog this.result &#x3D; boolean
+  result: boolean | undefined;
+  // updateStatus()
+  status: boolean | undefined;
+  // Ngx-pagination
+  p: number &#x3D; 1;
+  count: number &#x3D; 0;
+  // Ngx-order
+  orderHeader: String &#x3D; &#x27;&#x27;;
+  isDescOrder: boolean &#x3D; true;
+  sort(headerName:String) {
+    this.isDescOrder &#x3D; !this.isDescOrder;
+    this.orderHeader &#x3D; headerName;
+    this.resetPagination();
+  }
+  // Ngx-filter
+  searchInput: IPortalFilter &#x3D; { name: &#x27;&#x27;};
+  // Filter by garden
+  selectedGardenId: number | &#x27;&#x27; &#x3D; &#x27;&#x27;;
+  gardens: IName[] &#x3D; [];
+
+  portals: IPortal[] &#x3D; [];
+  filteredPortals: IPortal[] &#x3D; [];
+  updateStatusBehaviorSubject: IDataPortal[] &#x3D; [];
+
+  constructor(private activatedRoute: ActivatedRoute,
+              private dialog: MatDialog,
+              private gardenFilterService: GardenFilterService,
+              private portalService: PortalService,
+              private sharedFormInputValueService: SharedFormInputValueService,
+              private snackbarService: SnackbarService) {}
 
   ngOnInit(): void {
+    this.fetchData();
+    this.portalService.updateStatus$.subscribe((data$: IDataPortal[]) &#x3D;&gt; {
+      this.updateStatusBehaviorSubject &#x3D; data$;
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribeAll();
+  }
+
+  // Fetch gardens and portals
+  fetchData(): void {
+    this.fetchDataSubscription &#x3D; this.activatedRoute.data
+    .subscribe((data$) &#x3D;&gt; {
+      const portalData &#x3D; data$[&#x27;data&#x27;][&#x27;portals&#x27;];
+      const gardenData &#x3D; data$[&#x27;data&#x27;][&#x27;gardens&#x27;];
+      if (portalData &amp;&amp; portalData.hasOwnProperty(&#x27;hydra:member&#x27;)) {
+        this.portals &#x3D; portalData[&#x27;hydra:member&#x27;];
+        this.filterByGarden();
+      }
+      if (gardenData &amp;&amp; gardenData.hasOwnProperty(&#x27;hydra:member&#x27;)) {
+        this.gardens &#x3D; gardenData[&#x27;hydra:member&#x27;];
+      }
+    });
+  }
+
+  // Filter by garden
+  filterByGarden(): void {
+    const selectedGardenId &#x3D; this.gardenFilterService.convertSelectedGardenId(this.selectedGardenId);
+    this.filteredPortals &#x3D; this.gardenFilterService.filterByGarden(
+      this.portals,
+      selectedGardenId,
+      &#x27;id&#x27;
+    );
+    // Reset pagination
+    this.resetPagination();
+  }
+
+  // Get list of gardens with portals
+  getGardensWithPortals(): IGarden[] {
+    return this.gardens.filter(garden &#x3D;&gt;
+      this.portals.some(portal &#x3D;&gt; portal.garden.id &#x3D;&#x3D;&#x3D; garden.id)
+    );
+  }
+
+  // Update Status
+  updateStatus(id: number, status: boolean, name: string): void {
+    status &#x3D; !status;
+    this.updateStatusSubscription &#x3D; this.portalService.updateStatus(status, id)
+      .subscribe(() &#x3D;&gt; {
+        // Snackbar
+        const action &#x3D; status ? &#x27;ouvert&#x27; : &#x27;fermé&#x27;;
+        const notificationMessage &#x3D; &#x60;Le portail &quot;${name}&quot; a été ${action}.&#x60;;
+        this.snackbarService.showNotification(notificationMessage, &#x27;modified&#x27;);
+        // Display modified data locally
+        this.filteredPortals &#x3D; this.filteredPortals.map(portal &#x3D;&gt; {
+          if (portal.id &#x3D;&#x3D;&#x3D; id) {
+            return { ...portal, status: status };
+          }
+          return portal;
+        });
+      },
+      (_error) &#x3D;&gt; {
+        let errorMessage;
+        if (status &#x3D;&#x3D;&#x3D; false) {
+          errorMessage &#x3D; &#x60;Impossible d&#x27;ouvrir le portail en raison d&#x27;une erreur!&#x60;;
+        } else {
+          errorMessage &#x3D; &#x60;Impossible de fermer le portail en raison d&#x27;une erreur!&#x60;;
+        }
+        this.snackbarService.showNotification(errorMessage,&#x27;red-alert&#x27;);
+      });
+  }
+
+  // Share entity name
+  editName(value: string) {
+    this.sharedFormInputValueService.setFieldValue(value);
+  }
+
+  // Delete Portal
+  confirmDialog(id: number, name: string): void {
+    const value &#x3D; name;
+    const message &#x3D; &#x60;Êtes-vous certain de vouloir supprimer le portail &quot;${name}&quot;?&#x60;;
+    const dialogData &#x3D; new IConfirmDialog(&quot;Confirmer l&#x27;action!&quot;, message, value);
+    const dialogRef &#x3D; this.dialog.open(ConfirmDialogComponent, {
+      maxWidth: &quot;400px&quot;,
+      data: dialogData
+    })
+
+    this.dialogRefSubscription &#x3D; dialogRef.afterClosed()
+      .subscribe((dialogResult$) &#x3D;&gt; {
+        this.result &#x3D; dialogResult$;
+        if (this.result &#x3D;&#x3D;&#x3D; true) {
+          this.deletePortalSubscription &#x3D; this.portalService.deletePortal(id)
+          .subscribe(
+            (res$: HttpResponse&lt;any&gt;) &#x3D;&gt; {
+              if (res$.status &#x3D;&#x3D;&#x3D; 204) {
+                const notificationMessage &#x3D; this.snackbarService.getNotificationMessage();
+                this.snackbarService.showNotification(notificationMessage, &#x27;deleted&#x27;);
+                // Update data locally
+                this.filteredPortals &#x3D; this.filteredPortals.filter(portal &#x3D;&gt; portal.id !&#x3D;&#x3D; id);
+              }
+            },
+            (_error) &#x3D;&gt; {
+              this.snackbarService.showNotification(
+                &#x60;Une erreur s&#x27;est produite lors de la suppression!&#x60;,
+                &#x27;red-alert&#x27;
+              );
+            }
+          );
+        }
+      })
+  }
+
+  resetPagination(): void {
+    this.p &#x3D; 1;
+  }
+
+  private unsubscribeAll(): void {
+    this.fetchDataSubscription.unsubscribe();
+    if (this.updateStatusSubscription) {
+      this.updateStatusSubscription.unsubscribe();
+    }
+    if (this.dialogRefSubscription) {
+      this.dialogRefSubscription.unsubscribe();
+    }
+    if (this.deletePortalSubscription) {
+      this.deletePortalSubscription.unsubscribe();
+    }
   }
 
 }
@@ -272,16 +1930,156 @@ export class PortalComponent implements OnInit {
     </div>
 
     <div class="tab-pane fade " id="c-templateData">
-        <pre class="line-numbers"><code class="language-html">&lt;p&gt;portal works!&lt;/p&gt;
+        <pre class="line-numbers"><code class="language-html">&lt;main aria-label&#x3D;&quot;Contenu principal de la page&quot;
+      searchInputReset
+      [searchInput]&#x3D;&quot;searchInput&quot;&gt;
+  &lt;div class&#x3D;&quot;div-wrapper ambiance-bg&quot;&gt;
+
+    &lt;div class&#x3D;&quot;animate__animated animate__jackInTheBox&quot;&gt;
+      &lt;h1 class&#x3D;&quot;visually-hidden&quot;&gt;{{name}}&lt;/h1&gt;
+      &lt;h2 class&#x3D;&quot;visually-hidden&quot;&gt;{{title}}&lt;/h2&gt;
+      &lt;div class&#x3D;&quot;icon-container&quot;&gt;
+        &lt;div class&#x3D;&quot;circle&quot;&gt;&lt;/div&gt;
+        &lt;fa-icon [icon]&#x3D;&quot;faDoorOpen&quot;
+                 aria-label&#x3D;&quot;Icône d&#x27;illustration de la page représentant un portail&quot;&gt;
+        &lt;/fa-icon&gt;
+      &lt;/div&gt;
+
+      &lt;div class&#x3D;&quot;table-header&quot;&gt;
+        &lt;ng-container *ngIf&#x3D;&quot;getGardensWithPortals().length &gt; 1&quot;&gt;
+          &lt;select [(ngModel)]&#x3D;&quot;selectedGardenId&quot;
+                  (change)&#x3D;&quot;filterByGarden()&quot;
+                  class&#x3D;&quot;filter-select-garden&quot;
+                  removeNgTouched&gt;
+            &lt;option value&#x3D;&quot;&quot;&gt;Jardins&lt;/option&gt;
+            &lt;option *ngFor&#x3D;&quot;let garden of getGardensWithPortals()&quot; [value]&#x3D;&quot;garden.id&quot;&gt;{{ garden.name }}&lt;/option&gt;
+          &lt;/select&gt;
+        &lt;/ng-container&gt;
+        &lt;ng-container *ngIf&#x3D;&quot;portals.length &gt; 5&quot;&gt;
+          &lt;div class&#x3D;&quot;search-div&quot;&gt;
+            &lt;div class&#x3D;&quot;search-input&quot;&gt;
+              &lt;label class&#x3D;&quot;visually-hidden&quot; for&#x3D;&quot;name&quot;&gt;Barre de recherche&lt;/label&gt;
+              &lt;input id&#x3D;&quot;search-input&quot;
+                     type&#x3D;&quot;search&quot;
+                     aria-label&#x3D;&quot;Champ de saisie afin de rechercher dans le tableau&quot;
+                     [(ngModel)]&#x3D;&quot;searchInput.name&quot;
+                     (input)&#x3D;&quot;resetPagination()&quot;
+                     autocomplete&#x3D;&quot;off&quot;
+                     spellcheck&#x3D;&quot;false&quot;
+                     placeholder&#x3D;&quot;Rechercher...&quot;&gt;
+              &lt;fa-icon [icon]&#x3D;&quot;faSearch&quot;&gt;&lt;/fa-icon&gt;
+              &lt;fa-icon [icon]&#x3D;&quot;faXmark&quot;
+                        class&#x3D;&quot;icon-right&quot;
+                        *ngIf&#x3D;&quot;searchInput.name&quot;
+                        (click)&#x3D;&quot;resetPagination(); searchInput.name&#x3D;&#x27;&#x27;&quot;
+                        aria-label&#x3D;&quot;Fermer&quot;&gt;
+              &lt;/fa-icon&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/ng-container&gt;
+      &lt;/div&gt;
+
+      &lt;div class&#x3D;&quot;table form-border form-shadow&quot;&gt;
+        &lt;table class&#x3D;&quot;t-hover&quot; aria-label&#x3D;&quot;Tableau des portails&quot;&gt;
+
+          &lt;thead&gt;
+            &lt;tr&gt;
+              &lt;th (click)&#x3D;&quot;sort(&#x27;status&#x27;)&quot;
+                  class&#x3D;&quot;power order&quot;
+                  aria-label&#x3D;&quot;Trier par statut&quot;&gt;On/Off
+                &lt;fa-icon [icon]&#x3D;&quot;faSort&quot;&gt;&lt;/fa-icon&gt;
+              &lt;/th&gt;
+              &lt;th (click)&#x3D;&quot;sort(&#x27;name&#x27;)&quot;
+                  class&#x3D;&quot;order&quot;
+                  aria-label&#x3D;&quot;Trier par nom&quot;&gt;Nom
+                &lt;fa-icon [icon]&#x3D;&quot;faSort&quot;&gt;&lt;/fa-icon&gt;
+              &lt;/th&gt;
+              &lt;th (click)&#x3D;&quot;sort(&#x27;presenceSensor&#x27;)&quot;
+                  class&#x3D;&quot;power order&quot;
+                  aria-label&#x3D;&quot;Trier par capteur&quot;&gt;Obstacle
+                &lt;fa-icon [icon]&#x3D;&quot;faSort&quot;&gt;&lt;/fa-icon&gt;
+              &lt;/th&gt;
+              &lt;th&gt;Action&lt;/th&gt;
+            &lt;/tr&gt;
+          &lt;/thead&gt;
+
+          &lt;tbody&gt;
+            &lt;tr *ngFor&#x3D;&quot;let portal of filteredPortals
+                | orderBy: orderHeader: isDescOrder
+                | filterBy: searchInput
+                | paginate: { itemsPerPage: 5, currentPage: p, totalItems: count }&quot;&gt;
+              &lt;td class&#x3D;&quot;power&quot;&gt;
+                &lt;button (click)&#x3D;&quot;updateStatus(portal.id, portal.status, portal.name)&quot;
+                        type&#x3D;&quot;submit&quot;
+                        [attr.aria-label]&#x3D;&quot;portal.status ? &#x27;Fermer le portail&#x27; : &#x27;Ouvrir le portail&#x27;&quot;
+                        [matTooltip]&#x3D;&quot;portal.status ? &#x27;Fermer&#x27; : &#x27;Ouvrir&#x27;&quot;
+                        matTooltipPosition&#x3D;&quot;left&quot;
+                        matTooltipShowDelay&#x3D;&quot;1000&quot;
+                        matTooltipClass&#x3D;&quot;&#x27;mat-tooltip&#x27;&quot;
+                        [class.btn-off]&#x3D;&quot;!portal.status&quot;&gt;
+                  &lt;fa-icon [icon]&#x3D;&quot;faPowerOff&quot;&gt;&lt;/fa-icon&gt;
+                &lt;/button&gt;
+              &lt;/td&gt;
+              &lt;td&gt;{{ portal.name }}&lt;/td&gt;
+              &lt;td *ngIf&#x3D;&quot;portal.status &#x3D;&#x3D;&#x3D; true&quot; [ngClass]&#x3D;&quot;portal.presenceSensor ? &#x27;alert&#x27; : &#x27;&#x27;&quot;&gt;{{ portal.presenceSensor | presenceSensor }}&lt;/td&gt;
+              &lt;td *ngIf&#x3D;&quot;portal.status &#x3D;&#x3D;&#x3D; false&quot;&gt;-&lt;/td&gt;
+              &lt;td&gt;
+                &lt;button (click)&#x3D;&quot;editName(portal.name)&quot;
+                        routerLink&#x3D;&quot;/easygarden/portal/edit/{{portal.id}}&quot;
+                        type&#x3D;&quot;button&quot;
+                        aria-label&#x3D;&quot;Bouton permettant de modifier le nom du portail&quot;
+                        matTooltip&#x3D;&quot;Modifier&quot;
+                        matTooltipPosition&#x3D;&quot;before&quot;
+                        matTooltipShowDelay&#x3D;&quot;500&quot;
+                        matTooltipClass&#x3D;&quot;&#x27;mat-tooltip&#x27;&quot;&gt;
+                  &lt;fa-icon [icon]&#x3D;&quot;faPen&quot;&gt;&lt;/fa-icon&gt;
+                &lt;/button&gt;
+                &lt;button (click)&#x3D;&quot;confirmDialog(portal.id, portal.name)&quot;
+                        type&#x3D;&quot;submit&quot;
+                        aria-label&#x3D;&quot;Bouton permettant de supprimer le portail&quot;
+                        matTooltip&#x3D;&quot;Supprimer&quot;
+                        matTooltipPosition&#x3D;&quot;after&quot;
+                        matTooltipShowDelay&#x3D;&quot;500&quot;
+                        matTooltipClass&#x3D;&quot;&#x27;mat-tooltip&#x27;&quot;
+                        class&#x3D;&quot;trash&quot;&gt;
+                  &lt;fa-icon [icon]&#x3D;&quot;faTrash&quot;&gt;&lt;/fa-icon&gt;
+                &lt;/button&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/tbody&gt;
+
+        &lt;/table&gt;
+        &lt;ng-container *ngIf&#x3D;&quot;portals.length &gt; 5&quot;&gt;
+          &lt;ng-container class&#x3D;&quot;no-search-match&quot;
+                        *ngIf&#x3D;&quot;(portals | filterBy: searchInput).length &#x3D;&#x3D;&#x3D; 0&quot;&gt;
+            Aucune correspondance trouvée..
+          &lt;/ng-container&gt;
+        &lt;/ng-container&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;pagination&quot;&gt;
+      &lt;pagination-controls (pageChange)&#x3D;&quot;p &#x3D; $event&quot;
+                           previousLabel&#x3D;&quot;&quot;
+                           nextLabel&#x3D;&quot;&quot;
+                           [autoHide]&#x3D;&quot;true&quot;
+                           [responsive]&#x3D;&quot;true&quot;
+                           aria-label&#x3D;&quot;Pagination&quot;&gt;
+      &lt;/pagination-controls&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;submit&quot;&gt;
+      &lt;button routerLink&#x3D;&quot;/easygarden/portal/add&quot;
+              type&#x3D;&quot;button&quot;
+              id&#x3D;&quot;submit&quot;
+              class&#x3D;&quot;button-shadow&quot;&gt;Ajouter
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/main&gt;
 </code></pre>
     </div>
 
-    <div class="tab-pane fade " id="c-styleData">
-                <p class="comment">
-                    <code>./portal.component.scss</code>
-                </p>
-                <pre class="line-numbers"><code class="language-scss"></code></pre>
-    </div>
 
     <div class="tab-pane fade " id="c-tree">
         <div id="tree-container"></div>
@@ -308,9 +2106,9 @@ export class PortalComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><p>portal works!</p></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ErrorComponent', 'selector': 'app-error'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LawnmowerComponent', 'selector': 'app-lawnmower'},{'name': 'LayoutComponent', 'selector': 'app-layout'},{'name': 'LightningComponent', 'selector': 'app-lightning'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'PoolComponent', 'selector': 'app-pool'},{'name': 'PortalComponent', 'selector': 'app-portal'},{'name': 'ProfilComponent', 'selector': 'app-profil'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'WateringComponent', 'selector': 'app-watering'}];
-    var DIRECTIVES = [];
+        var COMPONENT_TEMPLATE = '<div><main aria-label="Contenu principal de la page"      searchInputReset      [searchInput]="searchInput">  <div class="div-wrapper ambiance-bg">    <div class="animate__animated animate__jackInTheBox">      <h1 class="visually-hidden">{{name}}</h1>      <h2 class="visually-hidden">{{title}}</h2>      <div class="icon-container">        <div class="circle"></div>        <fa-icon [icon]="faDoorOpen"                 aria-label="Icône d\'illustration de la page représentant un portail">        </fa-icon>      </div>      <div class="table-header">        <ng-container *ngIf="getGardensWithPortals().length > 1">          <select [(ngModel)]="selectedGardenId"                  (change)="filterByGarden()"                  class="filter-select-garden"                  removeNgTouched>            <option value="">Jardins</option>            <option *ngFor="let garden of getGardensWithPortals()" [value]="garden.id">{{ garden.name }}</option>          </select>        </ng-container>        <ng-container *ngIf="portals.length > 5">          <div class="search-div">            <div class="search-input">              <label class="visually-hidden" for="name">Barre de recherche</label>              <input id="search-input"                     type="search"                     aria-label="Champ de saisie afin de rechercher dans le tableau"                     [(ngModel)]="searchInput.name"                     (input)="resetPagination()"                     autocomplete="off"                     spellcheck="false"                     placeholder="Rechercher...">              <fa-icon [icon]="faSearch"></fa-icon>              <fa-icon [icon]="faXmark"                        class="icon-right"                        *ngIf="searchInput.name"                        (click)="resetPagination(); searchInput.name=\'\'"                        aria-label="Fermer">              </fa-icon>            </div>          </div>        </ng-container>      </div>      <div class="table form-border form-shadow">        <table class="t-hover" aria-label="Tableau des portails">          <thead>            <tr>              <th (click)="sort(\'status\')"                  class="power order"                  aria-label="Trier par statut">On/Off                <fa-icon [icon]="faSort"></fa-icon>              </th>              <th (click)="sort(\'name\')"                  class="order"                  aria-label="Trier par nom">Nom                <fa-icon [icon]="faSort"></fa-icon>              </th>              <th (click)="sort(\'presenceSensor\')"                  class="power order"                  aria-label="Trier par capteur">Obstacle                <fa-icon [icon]="faSort"></fa-icon>              </th>              <th>Action</th>            </tr>          </thead>          <tbody>            <tr *ngFor="let portal of filteredPortals                | orderBy: orderHeader: isDescOrder                | filterBy: searchInput                | paginate: { itemsPerPage: 5, currentPage: p, totalItems: count }">              <td class="power">                <button (click)="updateStatus(portal.id, portal.status, portal.name)"                        type="submit"                        [attr.aria-label]="portal.status ? \'Fermer le portail\' : \'Ouvrir le portail\'"                        [matTooltip]="portal.status ? \'Fermer\' : \'Ouvrir\'"                        matTooltipPosition="left"                        matTooltipShowDelay="1000"                        matTooltipClass="\'mat-tooltip\'"                        [class.btn-off]="!portal.status">                  <fa-icon [icon]="faPowerOff"></fa-icon>                </button>              </td>              <td>{{ portal.name }}</td>              <td *ngIf="portal.status === true" [ngClass]="portal.presenceSensor ? \'alert\' : \'\'">{{ portal.presenceSensor | presenceSensor }}</td>              <td *ngIf="portal.status === false">-</td>              <td>                <button (click)="editName(portal.name)"                        routerLink="/easygarden/portal/edit/{{portal.id}}"                        type="button"                        aria-label="Bouton permettant de modifier le nom du portail"                        matTooltip="Modifier"                        matTooltipPosition="before"                        matTooltipShowDelay="500"                        matTooltipClass="\'mat-tooltip\'">                  <fa-icon [icon]="faPen"></fa-icon>                </button>                <button (click)="confirmDialog(portal.id, portal.name)"                        type="submit"                        aria-label="Bouton permettant de supprimer le portail"                        matTooltip="Supprimer"                        matTooltipPosition="after"                        matTooltipShowDelay="500"                        matTooltipClass="\'mat-tooltip\'"                        class="trash">                  <fa-icon [icon]="faTrash"></fa-icon>                </button>              </td>            </tr>          </tbody>        </table>        <ng-container *ngIf="portals.length > 5">          <ng-container class="no-search-match"                        *ngIf="(portals | filterBy: searchInput).length === 0">            Aucune correspondance trouvée..          </ng-container>        </ng-container>      </div>    </div>    <div class="pagination">      <pagination-controls (pageChange)="p = $event"                           previousLabel=""                           nextLabel=""                           [autoHide]="true"                           [responsive]="true"                           aria-label="Pagination">      </pagination-controls>    </div>    <div class="submit">      <button routerLink="/easygarden/portal/add"              type="button"              id="submit"              class="button-shadow">Ajouter      </button>    </div>  </div></main></div>'
+    var COMPONENTS = [{'name': 'ActivatedAccountComponent', 'selector': 'app-activated-account'},{'name': 'AddEntityComponent', 'selector': 'app-add-entity'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CloseFormButtonComponent', 'selector': 'app-close-form-button'},{'name': 'ConfirmDialogComponent', 'selector': 'app-confirm-dialog'},{'name': 'EasygardenLogoComponent', 'selector': 'app-easygarden-logo'},{'name': 'EditEntityNameComponent', 'selector': 'app-edit-entity-name'},{'name': 'Error404Component', 'selector': 'app-error'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'ForgottenPasswordComponent', 'selector': 'app-forgotten-password'},{'name': 'GardenComponent', 'selector': 'app-garden'},{'name': 'HomeComponent', 'selector': ''},{'name': 'LawnmowerComponent', 'selector': 'app-lawnmower'},{'name': 'LightningComponent', 'selector': 'app-lightning'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'PoolComponent', 'selector': 'app-pool'},{'name': 'PortalComponent', 'selector': 'app-portal'},{'name': 'ProfilComponent', 'selector': 'app-profil'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'SnackbarComponent', 'selector': 'app-snackbar'},{'name': 'WateringComponent', 'selector': 'app-watering'}];
+    var DIRECTIVES = [{'name': 'CancelSearchInputResetDirective', 'selector': '[cancelSearchInputReset]'},{'name': 'InputFocusDirective', 'selector': '[inputFocus]'},{'name': 'InputTitleCaseDirective', 'selector': '[inputTitleCase]'},{'name': 'InputTrimDirective', 'selector': '[inputTrim]'},{'name': 'InputUpperCaseDirective', 'selector': '[inputUpperCase]'},{'name': 'RemoveNgPristineDirective', 'selector': '[removeNgPristine]'},{'name': 'RemoveNgTouchedDirective', 'selector': '[removeNgTouched]'},{'name': 'RemoveNgUntouchedDirective', 'selector': '[removeNgUntouched]'},{'name': 'RemoveNgValidDirective', 'selector': '[removeNgValid]'},{'name': 'SearchInputResetDirective', 'selector': '[searchInputReset]'}];
     var ACTUAL_COMPONENT = {'name': 'PortalComponent'};
 </script>
 <script src="../js/tree.js"></script>

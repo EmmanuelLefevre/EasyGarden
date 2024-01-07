@@ -61,13 +61,40 @@
                 <td class="col-md-4">
                     <ul class="index-list">
                         <li>
-                            <a href="#environment" title="src/environments/environment.prod.ts" ><b>environment</b>&nbsp;&nbsp;&nbsp;(src/.../environment.prod.ts)</a>
+                            <a href="#AUTHInterceptorProvider" title="src/app/_services/middleware/auth.interceptor.ts" ><b>AUTHInterceptorProvider</b>&nbsp;&nbsp;&nbsp;(src/.../auth.interceptor.ts)</a>
                         </li>
                         <li>
                             <a href="#environment" title="src/environments/environment.ts" ><b>environment</b>&nbsp;&nbsp;&nbsp;(src/.../environment.ts)</a>
                         </li>
                         <li>
-                            <a href="#JWTInterceptorProvider" title="src/app/_services/utils/jwt.interceptor.ts" ><b>JWTInterceptorProvider</b>&nbsp;&nbsp;&nbsp;(src/.../jwt.interceptor.ts)</a>
+                            <a href="#environment" title="src/environments/environment.prod.ts" ><b>environment</b>&nbsp;&nbsp;&nbsp;(src/.../environment.prod.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#name" title="src/app/app-routing.module.ts" ><b>name</b>&nbsp;&nbsp;&nbsp;(src/.../app-routing.module.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#name" title="src/app/easygarden/easygarden-routing.module.ts" ><b>name</b>&nbsp;&nbsp;&nbsp;(src/.../easygarden-routing.module.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#name" title="src/app/public/public-routing.module.ts" ><b>name</b>&nbsp;&nbsp;&nbsp;(src/.../public-routing.module.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#name" title="src/app/easygarden/modules/lawnmower/lawnmower-routing.module.ts" ><b>name</b>&nbsp;&nbsp;&nbsp;(src/.../lawnmower-routing.module.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#name" title="src/app/easygarden/modules/lightning/lightning-routing.module.ts" ><b>name</b>&nbsp;&nbsp;&nbsp;(src/.../lightning-routing.module.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#name" title="src/app/easygarden/modules/pool/pool-routing.module.ts" ><b>name</b>&nbsp;&nbsp;&nbsp;(src/.../pool-routing.module.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#name" title="src/app/easygarden/modules/portal/portal-routing.module.ts" ><b>name</b>&nbsp;&nbsp;&nbsp;(src/.../portal-routing.module.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#name" title="src/app/easygarden/modules/profil/profil-routing.module.ts" ><b>name</b>&nbsp;&nbsp;&nbsp;(src/.../profil-routing.module.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#name" title="src/app/easygarden/modules/watering/watering-routing.module.ts" ><b>name</b>&nbsp;&nbsp;&nbsp;(src/.../watering-routing.module.ts)</a>
                         </li>
                     </ul>
                 </td>
@@ -76,16 +103,16 @@
     </table>
 </section>
 
-    <h3>src/environments/environment.prod.ts</h3>
+    <h3>src/app/_services/middleware/auth.interceptor.ts</h3>
     <section>
     <h3></h3>    <table class="table table-sm table-bordered">
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="environment"></a>
+                    <a name="AUTHInterceptorProvider"></a>
                     <span class="name">
-                        <span ><b>environment</b></span>
-                        <a href="#environment"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>AUTHInterceptorProvider</b></span>
+                        <a href="#AUTHInterceptorProvider"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
@@ -98,7 +125,9 @@
                 <tr>
                     <td class="col-md-4">
                         <i>Default value : </i><code>{
-  production: true
+  provide: HTTP_INTERCEPTORS,
+  useClass: AuthInterceptor,
+  multi: true
 }</code>
                     </td>
                 </tr>
@@ -130,31 +159,65 @@
                     <td class="col-md-4">
                         <i>Default value : </i><code>{
   production: false,
+  // API
   apis: {
+    // Login
     login: {
-      url: &#x27;http://localhost:8000/api/login_check&#x27;
+      url: &#x27;/api/login_check&#x27;
     },
+    checkIfEmailExist: {
+      url: &#x27;/api/check_if_email_exist&#x27;
+    },
+    checkAccountActivation: {
+      url: &#x27;/api/check_account_activation&#x27;
+    },
+    forgottenPassword: {
+      url: &#x27;/api/forgotten_password&#x27;
+    },
+    // Register
+    register: {
+      url: &#x27;/api/account_creation&#x27;
+    },
+    // User
     user: {
-      url: &#x27;http://localhost:8000/api/users&#x27;
+      url: &#x27;/api/users&#x27;
     },
+    // Garden
     garden: {
-      url: &#x27;http://localhost:8000/api/gardens&#x27;
+      url: &#x27;/api/gardens&#x27;
     },
+    // Lawnmower
     lawnmower: {
-      url: &#x27;http://localhost:8000/api/lawnmowers&#x27;
+      url: &#x27;/api/lawnmowers&#x27;
     },
+    // Lightning
     lightning: {
-      url: &#x27;http://localhost:8000/api/lightnings&#x27;
+      url: &#x27;/api/lightnings&#x27;
     },
+    // Pool
     pool: {
-      url: &#x27;http://localhost:8000/api/pools&#x27;
+      url: &#x27;/api/pools&#x27;
     },
+    // Portal
     portal: {
-      url: &#x27;http://localhost:8000/api/portals&#x27;
+      url: &#x27;/api/portals&#x27;
     },
+    // Watering
     watering: {
-      url: &#x27;http://localhost:8000/api/waterings&#x27;
+      url: &#x27;/api/waterings&#x27;
+    },
+    // Status
+    status: {
+      url: &#x27;/api/update_status&#x27;
     }
+  },
+  // Application
+  application: {
+    name: &#x27;Easy Garden&#x27;,
+    colorTheme: &#x27;#95cb11&#x27;,
+    mainDescription: &quot;Easy Garden Application de Gestion d&#x27;Equipements de Parcs et Jardins&quot;,
+    keywords: &quot;Application Arrosage Eclairage Bassin Tondeuse Portail&quot;,
+    author: &quot;LEFEVRE Emmanuel&quot;
   }
 }</code>
                     </td>
@@ -164,16 +227,16 @@
         </tbody>
     </table>
 </section>
-    <h3>src/app/_services/utils/jwt.interceptor.ts</h3>
+    <h3>src/environments/environment.prod.ts</h3>
     <section>
     <h3></h3>    <table class="table table-sm table-bordered">
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="JWTInterceptorProvider"></a>
+                    <a name="environment"></a>
                     <span class="name">
-                        <span ><b>JWTInterceptorProvider</b></span>
-                        <a href="#JWTInterceptorProvider"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>environment</b></span>
+                        <a href="#environment"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
@@ -186,10 +249,275 @@
                 <tr>
                     <td class="col-md-4">
                         <i>Default value : </i><code>{
-  provide: HTTP_INTERCEPTORS,
-  useClass: JwtInterceptor,
-  multi: true
+  production: true,
+  // API
+  apis: {
+    // Login
+    login: {
+      url: &#x27;/api/login_check&#x27;
+    },
+    checkIfEmailExist: {
+      url: &#x27;/api/check_if_email_exist&#x27;
+    },
+    checkAccountActivation: {
+      url: &#x27;/api/check_account_activation&#x27;
+    },
+    forgottenPassword: {
+      url: &#x27;/api/forgotten_password&#x27;
+    },
+    // Register
+    register: {
+      url: &#x27;/api/account_creation&#x27;
+    },
+    // User
+    user: {
+      url: &#x27;/api/users&#x27;
+    },
+    // Garden
+    garden: {
+      url: &#x27;/api/gardens&#x27;
+    },
+    // Lawnmower
+    lawnmower: {
+      url: &#x27;/api/lawnmowers&#x27;
+    },
+    // Lightning
+    lightning: {
+      url: &#x27;/api/lightnings&#x27;
+    },
+    // Pool
+    pool: {
+      url: &#x27;/api/pools&#x27;
+    },
+    // Portal
+    portal: {
+      url: &#x27;/api/portals&#x27;
+    },
+    // Watering
+    watering: {
+      url: &#x27;/api/waterings&#x27;
+    },
+    // Status
+    status: {
+      url: &#x27;/api/update_status&#x27;
+    }
+  },
+  // Application
+  application: {
+    name: &#x27;Easy Garden&#x27;,
+    colorTheme: &#x27;#95cb11&#x27;,
+    mainDescription: &quot;Easy Garden Application de Gestion d&#x27;Equipements de Parcs et Jardins&quot;,
+    keywords: &quot;Application Arrosage Eclairage Bassin Tondeuse Portail&quot;,
+    author: &quot;LEFEVRE Emmanuel&quot;
+  }
 }</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/app-routing.module.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="name"></a>
+                    <span class="name">
+                        <span ><b>name</b></span>
+                        <a href="#name"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>environment.application.name</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/easygarden/easygarden-routing.module.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="name"></a>
+                    <span class="name">
+                        <span ><b>name</b></span>
+                        <a href="#name"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>environment.application.name</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/public/public-routing.module.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="name"></a>
+                    <span class="name">
+                        <span ><b>name</b></span>
+                        <a href="#name"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>environment.application.name</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/easygarden/modules/lawnmower/lawnmower-routing.module.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="name"></a>
+                    <span class="name">
+                        <span ><b>name</b></span>
+                        <a href="#name"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>environment.application.name</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/easygarden/modules/lightning/lightning-routing.module.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="name"></a>
+                    <span class="name">
+                        <span ><b>name</b></span>
+                        <a href="#name"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>environment.application.name</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/easygarden/modules/pool/pool-routing.module.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="name"></a>
+                    <span class="name">
+                        <span ><b>name</b></span>
+                        <a href="#name"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>environment.application.name</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/easygarden/modules/portal/portal-routing.module.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="name"></a>
+                    <span class="name">
+                        <span ><b>name</b></span>
+                        <a href="#name"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>environment.application.name</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/easygarden/modules/profil/profil-routing.module.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="name"></a>
+                    <span class="name">
+                        <span ><b>name</b></span>
+                        <a href="#name"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>environment.application.name</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/easygarden/modules/watering/watering-routing.module.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="name"></a>
+                    <span class="name">
+                        <span ><b>name</b></span>
+                        <a href="#name"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>environment.application.name</code>
                     </td>
                 </tr>
 

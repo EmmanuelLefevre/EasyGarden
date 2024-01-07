@@ -74,11 +74,36 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { NgModule } from &#x27;@angular/core&#x27;;
 import { RouterModule, Routes } from &#x27;@angular/router&#x27;;
+import { environment } from &#x27;src/environments/environment&#x27;;
 
-import { PoolComponent } from &#x27;./component/pool/pool.component&#x27;;
+import { PoolComponent } from &#x27;./pool.component&#x27;;
+import { EditEntityNameComponent } from &#x27;../../components/editEntityName/edit-entity-name.component&#x27;;
+import { AddEntityComponent } from &#x27;../../components/addEntity/add-entity.component&#x27;;
+
+import { PoolResolver } from &#x27;./pool.resolver&#x27;;
+
+
+const name &#x3D; environment.application.name;
 
 const routes: Routes &#x3D; [
-  { path: &#x27;&#x27;, component: PoolComponent }
+  { path: &#x27;&#x27;, component: PoolComponent,
+    data: {
+      ogTitle: &#x60;Page équipement de bassin de l\&#x27;application ${name}&#x60;
+    },
+    resolve: {
+      data: PoolResolver
+    }
+  },
+  { path: &#x27;edit/:id&#x27;, component: EditEntityNameComponent,
+    data: {
+      ogTitle: &#x60;Page modifier équipement de bassin de l\&#x27;application ${name}&#x60;
+    },
+  },
+  { path: &#x27;add&#x27;, component: AddEntityComponent,
+    data: {
+      ogTitle: &#x60;Page ajouter équipement de bassin de l\&#x27;application ${name}&#x60;
+    },
+  }
 ];
 
 @NgModule({

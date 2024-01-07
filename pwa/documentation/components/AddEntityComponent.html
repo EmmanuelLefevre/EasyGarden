@@ -1,0 +1,1727 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>easygarden-angular documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">easygarden-angular documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li
+  >
+  AddEntityComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/easygarden/components/addEntity/add-entity.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+                    <code><a href="https://angular.io/api/core/OnDestroy" target="_blank" >OnDestroy</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-add-entity</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./add-entity.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./add-entity.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#addDataSubscription" >addDataSubscription</a>
+                            </li>
+                            <li>
+                                <a href="#currentUrl" >currentUrl</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#destroy$" >destroy$</a>
+                            </li>
+                            <li>
+                                <a href="#form" >form</a>
+                            </li>
+                            <li>
+                                <a href="#gardens" >gardens</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#getAllGardensSubscription" >getAllGardensSubscription</a>
+                            </li>
+                            <li>
+                                <a href="#IAdd" >IAdd</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#inputChangesSubscription" >inputChangesSubscription</a>
+                            </li>
+                            <li>
+                                <a href="#invalidName" >invalidName</a>
+                            </li>
+                            <li>
+                                <a href="#invalidSelect" >invalidSelect</a>
+                            </li>
+                            <li>
+                                <a href="#isGardenNotSelect" >isGardenNotSelect</a>
+                            </li>
+                            <li>
+                                <a href="#isNameEmpty" >isNameEmpty</a>
+                            </li>
+                            <li>
+                                <a href="#name" >name</a>
+                            </li>
+                            <li>
+                                <a href="#resetDisabled" >resetDisabled</a>
+                            </li>
+                            <li>
+                                <a href="#submitDisabled" >submitDisabled</a>
+                            </li>
+                            <li>
+                                <a href="#submittedForm" >submittedForm</a>
+                            </li>
+                            <li>
+                                <a href="#url" >url</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#getErrorMessage" >getErrorMessage</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#handleFormChanges" >handleFormChanges</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy" >ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onReset" >onReset</a>
+                            </li>
+                            <li>
+                                <a href="#onSubmit" >onSubmit</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#unsubscribeAll" >unsubscribeAll</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#updateValidators" >updateValidators</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(customValidator: <a href="../injectables/FormValidationService.html" target="_self">FormValidationService</a>, formBuilder: NonNullableFormBuilder, formErrorMessageService: <a href="../injectables/FormErrorMessageService.html" target="_self">FormErrorMessageService</a>, gardenService: <a href="../injectables/GardenService.html" target="_self">GardenService</a>, lawnmowerService: <a href="../injectables/LawnmowerService.html" target="_self">LawnmowerService</a>, lightningService: <a href="../injectables/LightningService.html" target="_self">LightningService</a>, poolService: <a href="../injectables/PoolService.html" target="_self">PoolService</a>, portalService: <a href="../injectables/PortalService.html" target="_self">PortalService</a>, router: <a href="https://angular.io/api/router/Router" target="_blank">Router</a>, snackbarService: <a href="../injectables/SnackbarService.html" target="_self">SnackbarService</a>, wateringService: <a href="../injectables/WateringService.html" target="_self">WateringService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">src/app/easygarden/components/addEntity/add-entity.component.ts:71</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>customValidator</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/FormValidationService.html" target="_self" >FormValidationService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>formBuilder</td>
+                                                  
+                                                        <td>
+                                                                    <code>NonNullableFormBuilder</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>formErrorMessageService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/FormErrorMessageService.html" target="_self" >FormErrorMessageService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>gardenService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/GardenService.html" target="_self" >GardenService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>lawnmowerService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/LawnmowerService.html" target="_self" >LawnmowerService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>lightningService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/LightningService.html" target="_self" >LightningService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>poolService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PoolService.html" target="_self" >PoolService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>portalService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PortalService.html" target="_self" >PortalService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/Router" target="_blank" >Router</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>snackbarService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/SnackbarService.html" target="_self" >SnackbarService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>wateringService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/WateringService.html" target="_self" >WateringService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getErrorMessage"></a>
+                    <span class="name">
+                        <span ><b>getErrorMessage</b></span>
+                        <a href="#getErrorMessage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getErrorMessage(inputName: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="207"
+                            class="link-to-prism">src/app/easygarden/components/addEntity/add-entity.component.ts:207</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>inputName</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleFormChanges"></a>
+                    <span class="name">
+                        <span class="modifier">Private</span>
+                        <span ><b>handleFormChanges</b></span>
+                        <a href="#handleFormChanges"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>handleFormChanges()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="214"
+                            class="link-to-prism">src/app/easygarden/components/addEntity/add-entity.component.ts:214</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <span ><b>ngOnDestroy</b></span>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="122"
+                            class="link-to-prism">src/app/easygarden/components/addEntity/add-entity.component.ts:122</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="102"
+                            class="link-to-prism">src/app/easygarden/components/addEntity/add-entity.component.ts:102</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onReset"></a>
+                    <span class="name">
+                        <span ><b>onReset</b></span>
+                        <a href="#onReset"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onReset(formDirective: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="199"
+                            class="link-to-prism">src/app/easygarden/components/addEntity/add-entity.component.ts:199</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>formDirective</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onSubmit"></a>
+                    <span class="name">
+                        <span ><b>onSubmit</b></span>
+                        <a href="#onSubmit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onSubmit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="131"
+                            class="link-to-prism">src/app/easygarden/components/addEntity/add-entity.component.ts:131</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="unsubscribeAll"></a>
+                    <span class="name">
+                        <span class="modifier">Private</span>
+                        <span ><b>unsubscribeAll</b></span>
+                        <a href="#unsubscribeAll"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>unsubscribeAll()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="237"
+                            class="link-to-prism">src/app/easygarden/components/addEntity/add-entity.component.ts:237</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateValidators"></a>
+                    <span class="name">
+                        <span class="modifier">Private</span>
+                        <span ><b>updateValidators</b></span>
+                        <a href="#updateValidators"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>updateValidators()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="228"
+                            class="link-to-prism">src/app/easygarden/components/addEntity/add-entity.component.ts:228</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addDataSubscription"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>addDataSubscription</b></span>
+                        <a href="#addDataSubscription"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subscription</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/easygarden/components/addEntity/add-entity.component.ts:34</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentUrl"></a>
+                    <span class="name">
+                        <span ><b>currentUrl</b></span>
+                        <a href="#currentUrl"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/easygarden/components/addEntity/add-entity.component.ts:41</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="destroy$"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>destroy$</b></span>
+                        <a href="#destroy$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Subject&lt;void&gt;()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/easygarden/components/addEntity/add-entity.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="form"></a>
+                    <span class="name">
+                        <span ><b>form</b></span>
+                        <a href="#form"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.formBuilder.group({
+    name:[
+      &#x27;&#x27;,
+      [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(25)
+      ]
+    ],
+    garden:
+      this.formBuilder.control&lt;IGarden | null&gt;(null, Validators.required)
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">src/app/easygarden/components/addEntity/add-entity.component.ts:57</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="gardens"></a>
+                    <span class="name">
+                        <span ><b>gardens</b></span>
+                        <a href="#gardens"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/IGarden.html" target="_self" >IGarden[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="70" class="link-to-prism">src/app/easygarden/components/addEntity/add-entity.component.ts:70</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getAllGardensSubscription"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>getAllGardensSubscription</b></span>
+                        <a href="#getAllGardensSubscription"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subscription</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Subscription</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/easygarden/components/addEntity/add-entity.component.ts:36</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="IAdd"></a>
+                    <span class="name">
+                        <span ><b>IAdd</b></span>
+                        <a href="#IAdd"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/IAdd.html" target="_self" >IAdd</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">src/app/easygarden/components/addEntity/add-entity.component.ts:71</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="inputChangesSubscription"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>inputChangesSubscription</b></span>
+                        <a href="#inputChangesSubscription"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subscription</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/easygarden/components/addEntity/add-entity.component.ts:35</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="invalidName"></a>
+                    <span class="name">
+                        <span ><b>invalidName</b></span>
+                        <a href="#invalidName"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/app/easygarden/components/addEntity/add-entity.component.ts:54</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="invalidSelect"></a>
+                    <span class="name">
+                        <span ><b>invalidSelect</b></span>
+                        <a href="#invalidSelect"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">src/app/easygarden/components/addEntity/add-entity.component.ts:53</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isGardenNotSelect"></a>
+                    <span class="name">
+                        <span ><b>isGardenNotSelect</b></span>
+                        <a href="#isGardenNotSelect"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/easygarden/components/addEntity/add-entity.component.ts:47</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isNameEmpty"></a>
+                    <span class="name">
+                        <span ><b>isNameEmpty</b></span>
+                        <a href="#isNameEmpty"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/easygarden/components/addEntity/add-entity.component.ts:46</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="name"></a>
+                    <span class="name">
+                        <span ><b>name</b></span>
+                        <a href="#name"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>environment.application.name</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/easygarden/components/addEntity/add-entity.component.ts:31</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resetDisabled"></a>
+                    <span class="name">
+                        <span ><b>resetDisabled</b></span>
+                        <a href="#resetDisabled"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/easygarden/components/addEntity/add-entity.component.ts:44</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="submitDisabled"></a>
+                    <span class="name">
+                        <span ><b>submitDisabled</b></span>
+                        <a href="#submitDisabled"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/easygarden/components/addEntity/add-entity.component.ts:45</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="submittedForm"></a>
+                    <span class="name">
+                        <span ><b>submittedForm</b></span>
+                        <a href="#submittedForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">src/app/easygarden/components/addEntity/add-entity.component.ts:56</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="url"></a>
+                    <span class="name">
+                        <span ><b>url</b></span>
+                        <a href="#url"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>window.location.href</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/easygarden/components/addEntity/add-entity.component.ts:50</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, OnDestroy } from &#x27;@angular/core&#x27;;
+// Add ViewEncapsulation for resolve problems with loading custom scss .mat-tooltip in style.scss
+import { NonNullableFormBuilder, Validators } from &#x27;@angular/forms&#x27;;
+import { Router } from &#x27;@angular/router&#x27;;
+import { Subject, Subscription, takeUntil } from &#x27;rxjs&#x27;;
+// Environment
+import { environment } from &#x27;src/environments/environment&#x27;;
+// Services
+import { FormErrorMessageService } from &#x27;src/app/_services/miscellaneous/form-error-message.service&#x27;;
+import { FormValidationService } from &#x27;../../../_services/miscellaneous/form-validation.service&#x27;;
+import { GardenService } from &#x27;../garden/garden.service&#x27;;
+import { LawnmowerService } from &#x27;../../modules/lawnmower/lawnmower.service&#x27;;
+import { LightningService } from &#x27;../../modules/lightning/lightning.service&#x27;;
+import { PoolService } from &#x27;../../modules/pool/pool.service&#x27;;
+import { PortalService } from &#x27;../../modules/portal/portal.service&#x27;;
+import { SnackbarService } from &#x27;src/app/_services/miscellaneous/snackbar.service&#x27;;
+import { WateringService } from &#x27;../../modules/watering/watering.service&#x27;;
+// Modeles
+import { IAdd } from &#x27;../../_interfaces/IAdd&#x27;;
+import { IGarden } from &#x27;../garden/IGarden&#x27;;
+
+
+@Component({
+  selector: &#x27;app-add-entity&#x27;,
+  templateUrl: &#x27;./add-entity.component.html&#x27;,
+  styleUrls: [&#x27;./add-entity.component.scss&#x27;]
+})
+
+export class AddEntityComponent implements OnInit, OnDestroy {
+
+  name &#x3D; environment.application.name;
+
+  // Declaration of subscriptions
+  private addDataSubscription!: Subscription;
+  private inputChangesSubscription!: Subscription;
+  private getAllGardensSubscription: Subscription &#x3D; new Subscription;
+  // Private Subject to handle component destruction
+  private destroy$ &#x3D; new Subject&lt;void&gt;();
+
+  // Current URL
+  currentUrl!: string;
+
+  // Buttons
+  resetDisabled: boolean;
+  submitDisabled: boolean;
+  isNameEmpty!: boolean;
+  isGardenNotSelect!: boolean;
+
+  // Get entire url
+  url &#x3D; window.location.href;
+
+  // Form alerts
+  invalidSelect: boolean &#x3D; false;
+  invalidName: boolean &#x3D; false;
+  // Form group
+  submittedForm: boolean  &#x3D; false;
+  form &#x3D; this.formBuilder.group({
+    name:[
+      &#x27;&#x27;,
+      [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(25)
+      ]
+    ],
+    garden:
+      this.formBuilder.control&lt;IGarden | null&gt;(null, Validators.required)
+  })
+
+  gardens: IGarden[] &#x3D; [];
+  IAdd!: IAdd;
+
+  constructor(private customValidator : FormValidationService,
+              private formBuilder: NonNullableFormBuilder,
+              private formErrorMessageService: FormErrorMessageService,
+              private gardenService: GardenService,
+              private lawnmowerService: LawnmowerService,
+              private lightningService: LightningService,
+              private poolService: PoolService,
+              private portalService: PortalService,
+              private router: Router,
+              private snackbarService: SnackbarService,
+              private wateringService: WateringService,) {
+
+    this.getAllGardensSubscription &#x3D; this.gardenService.getAllGardens()
+    // Use takeUntil to automatically unsubscribe
+    .pipe(takeUntil(this.destroy$))
+      .subscribe(
+        (res:any) &#x3D;&gt; {
+          if (res.hasOwnProperty(&#x27;hydra:member&#x27;))
+          this.gardens &#x3D; res[&#x27;hydra:member&#x27;];
+          if (this.gardens.length &lt; 2) {
+            this.form.controls.garden.setValue(this.gardens[0]);
+          }
+        }
+      );
+
+      this.resetDisabled &#x3D; true;
+      this.submitDisabled &#x3D; true;
+  }
+
+  ngOnInit(): void {
+    this.currentUrl &#x3D; this.router.url;
+    this.updateValidators();
+    // Subscribe to form control input changes
+    this.inputChangesSubscription &#x3D; this.form.valueChanges
+      .subscribe(() &#x3D;&gt; {
+        this.handleFormChanges();
+      });
+    // Add the appropriate custom validator based on the route
+    if (this.url.includes(&#x27;/easygarden/garden/add&#x27;)) {
+      this.form.get(&#x27;name&#x27;)?.addValidators([
+        this.customValidator.validName()
+      ]);
+    } else {
+      this.form.get(&#x27;name&#x27;)?.addValidators([
+        this.customValidator.validEquipmentName()
+      ]);
+    }
+  }
+
+  ngOnDestroy(): void {
+    // Destroy Subject
+    this.destroy$.next();
+    this.destroy$.complete();
+    // Clean up subscriptions
+    this.unsubscribeAll();
+  }
+
+  // Submit form
+  onSubmit() {
+    // Handle changes to the form before submitting it
+    this.handleFormChanges();
+    if (!this.form.valid) {
+      return;
+    }
+    else {
+      const typedForm: IAdd &#x3D; this.form.getRawValue();
+      const url &#x3D; window.location.href;
+      let service: any;
+      let notificationMessage: string;
+      let equipmentString: string;
+
+      const cases &#x3D; [
+        { urlPart: &#x27;/easygarden/garden/add&#x27;, service: this.gardenService, string: &#x60;Le jardin&#x60; },
+        { urlPart: &#x27;/easygarden/lawnmower/add&#x27;, service: this.lawnmowerService, string: &#x60;La tondeuse&#x60; },
+        { urlPart: &#x27;/easygarden/lightning/add&#x27;, service: this.lightningService, string: &#x60;L&#x27;éclairage&#x60; },
+        { urlPart: &#x27;/easygarden/pool/add&#x27;, service: this.poolService, string: &#x60;L&#x27;équipement de bassin&#x60; },
+        { urlPart: &#x27;/easygarden/portal/add&#x27;, service: this.portalService, string: &#x60;Le portail&#x60; },
+        { urlPart: &#x27;/easygarden/watering/add&#x27;, service: this.wateringService, string: &#x60;L&#x27;arrosage&#x60; }
+      ];
+
+      const matchedCase &#x3D; cases.find(item &#x3D;&gt; url.includes(item.urlPart));
+
+      if (matchedCase) {
+        service &#x3D; matchedCase.service;
+        equipmentString &#x3D; matchedCase.string;
+
+        this.addDataSubscription &#x3D; service.addData(typedForm).subscribe(() &#x3D;&gt; {
+          const gardenName &#x3D; typedForm.garden?.name;
+          const redirectUrl &#x3D; service.getRedirectUrl();
+          // Garden case
+          if (url.includes(&#x27;/easygarden/garden/add&#x27;)) {
+            this.router.navigateByUrl(&#x27;/&#x27;, { skipLocationChange: true }).then(() &#x3D;&gt; {
+              this.router.navigate([&#x27;/easygarden&#x27;]);
+            });
+            notificationMessage &#x3D; &#x60;${equipmentString} &quot;${typedForm.name}&quot; a été ajouté.&#x60;;
+            this.snackbarService.showNotification(notificationMessage, &#x27;created&#x27;);
+          }
+          // Equipments case
+          else {
+            notificationMessage &#x3D; &#x60;${equipmentString} &quot;${typedForm.name}&quot; a été ajouté&#x60;;
+            if (gardenName) {
+              switch (true) {
+                case url.includes(&#x27;/easygarden/lawnmower/add&#x27;):
+                  notificationMessage +&#x3D; &#x60;e&#x60;;
+                  break;
+                default:
+                  break;
+              }
+              notificationMessage +&#x3D; &#x60; au jardin &quot;${gardenName}&quot;.&#x60;;
+            }
+            this.router.navigate([redirectUrl]);
+            this.snackbarService.showNotification(notificationMessage, &#x27;created&#x27;);
+          }
+        });
+      }
+      else {
+        this.snackbarService.showNotification(
+          &#x60;Une erreur s&#x27;est produite!&#x60;,
+          &#x27;red-alert&#x27;
+        );
+        this.submitDisabled &#x3D; false;
+      }
+    }
+  }
+
+  // Reset form
+  onReset(formDirective: any): void {
+    this.form.reset();
+    formDirective.resetForm();
+    this.handleFormChanges();
+    this.resetDisabled &#x3D; true;
+  }
+
+  // Get the error message associated with a specific form field
+  getErrorMessage(inputName: string): string {
+    const control &#x3D; this.form.get(inputName);
+    const errorKey &#x3D; control?.errors &amp;&amp; Object.keys(control.errors)[0];
+    return errorKey ? this.formErrorMessageService.getErrorMessage(inputName, errorKey) : &#x27;&#x27;;
+  }
+
+  // Manage changes in form
+  private handleFormChanges(): void {
+    this.invalidSelect &#x3D; false;
+    this.invalidName &#x3D; false;
+    // Check if name field is empty
+    this.isNameEmpty &#x3D; this.form.get(&#x27;name&#x27;)?.value &#x3D;&#x3D;&#x3D; &#x27;&#x27;;
+    // Check if garden is select
+    const selectedGarden &#x3D; this.form.get(&#x27;garden&#x27;)?.value;
+    this.isGardenNotSelect &#x3D; selectedGarden &#x3D;&#x3D;&#x3D; null || selectedGarden &#x3D;&#x3D;&#x3D; undefined;
+    // Disable reset button based on empty/not selected fields
+    this.resetDisabled &#x3D; this.isNameEmpty &amp;&amp; this.isGardenNotSelect;
+    // Disable submit button if form is invalid
+    this.submitDisabled &#x3D; !this.form.valid;
+  }
+
+  private updateValidators() {
+    const url &#x3D; this.currentUrl;
+    const isAddRoute &#x3D; url.includes(&#x27;easygarden/garden/add&#x27;);
+    const gardenValidators &#x3D; isAddRoute ? [] : [Validators.required];
+
+    this.form.get(&#x27;garden&#x27;)?.setValidators(gardenValidators);
+    this.form.get(&#x27;garden&#x27;)?.updateValueAndValidity();
+  }
+
+  private unsubscribeAll(): void {
+    this.getAllGardensSubscription.unsubscribe();
+    if (this.inputChangesSubscription) {
+      this.inputChangesSubscription.unsubscribe();
+    }
+    if (this.addDataSubscription) {
+      this.addDataSubscription.unsubscribe();
+    }
+  }
+
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;main&gt;
+  &lt;div class&#x3D;&quot;div-wrapper ambiance-bg&quot;&gt;
+    &lt;div class&#x3D;&quot;logo-h1&quot;&gt;
+      &lt;app-easygarden-logo&gt;&lt;/app-easygarden-logo&gt;
+      &lt;h1 class&#x3D;&quot;form-title title-form-shadow&quot;&gt;{{name}}&lt;/h1&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;animate__animated animate__fadeInDown form-wrapper&quot;&gt;
+      &lt;app-close-form-button&gt;&lt;/app-close-form-button&gt;
+      &lt;div class&#x3D;&quot;form-content form-border form-shadow&quot;&gt;
+        &lt;div class&#x3D;&quot;form-title-content&quot;&gt;
+          &lt;p class&#x3D;&quot;p-form-title-content&quot;&gt;AJOUTER&lt;/p&gt;
+        &lt;/div&gt;
+
+        &lt;form [formGroup]&#x3D;&quot;form&quot;
+              #ngForm&#x3D;&quot;ngForm&quot;
+              #formDirective&#x3D;&quot;ngForm&quot;
+              (ngSubmit)&#x3D;&quot;onSubmit()&quot;
+              aria-label&#x3D;&quot;Formulaire de saisie utilisateur&quot;&gt;
+          &lt;ng-container *ngIf&#x3D;&quot;!currentUrl.includes(&#x27;easygarden/garden/add&#x27;)&quot;&gt;
+            &lt;mat-form-field appearance&#x3D;&quot;fill&quot;
+                            class&#x3D;&quot;input-inset-shadow first-input&quot;
+                            [ngClass]&#x3D;&quot;{ &#x27;invalid-feedback&#x27;: (form.get(&#x27;garden&#x27;)?.invalid
+                                                              &amp;&amp; form.get(&#x27;garden&#x27;)?.dirty)
+                                                              || invalidSelect }&quot;&gt;
+              &lt;mat-label&gt;Jardin&lt;/mat-label&gt;
+              &lt;mat-select formControlName&#x3D;&quot;garden&quot;&gt;
+                &lt;mat-option *ngFor&#x3D;&quot;let garden of gardens&quot; [value]&#x3D;&quot;garden&quot;&gt;
+                  {{ garden.name }}
+                &lt;/mat-option&gt;
+              &lt;/mat-select&gt;
+            &lt;/mat-form-field&gt;
+            &lt;ng-container *ngIf&#x3D;&quot;form.get(&#x27;garden&#x27;)?.pristine
+                                 &amp;&amp; getErrorMessage(&#x27;garden&#x27;) !&#x3D;&#x3D; &#x27;&#x27;&quot;&gt;
+              &lt;div class&#x3D;&quot;text-alert&quot;&gt;
+                {{ getErrorMessage(&#x27;garden&#x27;) }}
+              &lt;/div&gt;
+            &lt;/ng-container&gt;
+          &lt;/ng-container&gt;
+          &lt;label class&#x3D;&quot;visually-hidden&quot; for&#x3D;&quot;name&quot;&gt;Name&lt;/label&gt;
+          &lt;input formControlName&#x3D;&quot;name&quot;
+                 name&#x3D;&quot;name&quot;
+                 inputTrim
+                 inputFocus
+                 inputTitleCase
+                 id&#x3D;&quot;name&quot;
+                 type&#x3D;&quot;text&quot;
+                 placeholder&#x3D;&quot;Nom&quot;
+                 spellcheck&#x3D;&quot;false&quot;
+                 autocomplete&#x3D;&quot;off&quot;
+                 class&#x3D;&quot;input-inset-shadow first-input&quot;
+                 [ngClass]&#x3D;&quot;{ &#x27;invalid-feedback&#x27;: (form.get(&#x27;name&#x27;)?.invalid
+                                                   &amp;&amp; form.get(&#x27;name&#x27;)?.dirty)
+                                                   || invalidName }&quot;&gt;
+          &lt;ng-container *ngIf&#x3D;&quot;form.get(&#x27;name&#x27;)?.dirty
+                               &amp;&amp; getErrorMessage(&#x27;name&#x27;) !&#x3D;&#x3D; &#x27;&#x27;&quot;&gt;
+            &lt;div class&#x3D;&quot;text-alert&quot;&gt;
+              {{ getErrorMessage(&#x27;name&#x27;) }}
+            &lt;/div&gt;
+          &lt;/ng-container&gt;
+          &lt;div class&#x3D;&quot;div-form-button&quot;&gt;
+            &lt;button type&#x3D;&quot;submit&quot;
+                    class&#x3D;&quot;button-shadow&quot;
+                    aria-label&#x3D;&quot;Bouton ajouter un équipement ou un jardin&quot;
+                    [ngClass]&#x3D;&quot;{&#x27;disabled-submit-button&#x27;: submitDisabled}&quot;
+                    [disabled]&#x3D;&quot;submitDisabled&quot;&gt;Ajouter
+            &lt;/button&gt;
+            &lt;button (click)&#x3D;&quot;onReset(formDirective)&quot;
+                    type&#x3D;&quot;button&quot;
+                    aria-label&#x3D;&quot;Bouton effacer le formulaire&quot;
+                    class&#x3D;&quot;button-shadow cancel&quot;
+                    [ngClass]&#x3D;&quot;{&#x27;disabled-reset-button&#x27;: resetDisabled}&quot;
+                    [disabled]&#x3D;&quot;resetDisabled&quot;&gt;Annuler
+            &lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/form&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+  &lt;/div&gt;
+&lt;/main&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./add-entity.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">.div-wrapper {
+  padding-top: 6vh;
+}</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><main>  <div class="div-wrapper ambiance-bg">    <div class="logo-h1">      <app-easygarden-logo></app-easygarden-logo>      <h1 class="form-title title-form-shadow">{{name}}</h1>    </div>    <div class="animate__animated animate__fadeInDown form-wrapper">      <app-close-form-button></app-close-form-button>      <div class="form-content form-border form-shadow">        <div class="form-title-content">          <p class="p-form-title-content">AJOUTER</p>        </div>        <form [formGroup]="form"              #ngForm="ngForm"              #formDirective="ngForm"              (ngSubmit)="onSubmit()"              aria-label="Formulaire de saisie utilisateur">          <ng-container *ngIf="!currentUrl.includes(\'easygarden/garden/add\')">            <mat-form-field appearance="fill"                            class="input-inset-shadow first-input"                            [ngClass]="{ \'invalid-feedback\': (form.get(\'garden\')?.invalid                                                              && form.get(\'garden\')?.dirty)                                                              || invalidSelect }">              <mat-label>Jardin</mat-label>              <mat-select formControlName="garden">                <mat-option *ngFor="let garden of gardens" [value]="garden">                  {{ garden.name }}                </mat-option>              </mat-select>            </mat-form-field>            <ng-container *ngIf="form.get(\'garden\')?.pristine                                 && getErrorMessage(\'garden\') !== \'\'">              <div class="text-alert">                {{ getErrorMessage(\'garden\') }}              </div>            </ng-container>          </ng-container>          <label class="visually-hidden" for="name">Name</label>          <input formControlName="name"                 name="name"                 inputTrim                 inputFocus                 inputTitleCase                 id="name"                 type="text"                 placeholder="Nom"                 spellcheck="false"                 autocomplete="off"                 class="input-inset-shadow first-input"                 [ngClass]="{ \'invalid-feedback\': (form.get(\'name\')?.invalid                                                   && form.get(\'name\')?.dirty)                                                   || invalidName }">          <ng-container *ngIf="form.get(\'name\')?.dirty                               && getErrorMessage(\'name\') !== \'\'">            <div class="text-alert">              {{ getErrorMessage(\'name\') }}            </div>          </ng-container>          <div class="div-form-button">            <button type="submit"                    class="button-shadow"                    aria-label="Bouton ajouter un équipement ou un jardin"                    [ngClass]="{\'disabled-submit-button\': submitDisabled}"                    [disabled]="submitDisabled">Ajouter            </button>            <button (click)="onReset(formDirective)"                    type="button"                    aria-label="Bouton effacer le formulaire"                    class="button-shadow cancel"                    [ngClass]="{\'disabled-reset-button\': resetDisabled}"                    [disabled]="resetDisabled">Annuler            </button>          </div>        </form>      </div>    </div>  </div></main></div>'
+    var COMPONENTS = [{'name': 'ActivatedAccountComponent', 'selector': 'app-activated-account'},{'name': 'AddEntityComponent', 'selector': 'app-add-entity'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CloseFormButtonComponent', 'selector': 'app-close-form-button'},{'name': 'ConfirmDialogComponent', 'selector': 'app-confirm-dialog'},{'name': 'EasygardenLogoComponent', 'selector': 'app-easygarden-logo'},{'name': 'EditEntityNameComponent', 'selector': 'app-edit-entity-name'},{'name': 'Error404Component', 'selector': 'app-error'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'ForgottenPasswordComponent', 'selector': 'app-forgotten-password'},{'name': 'GardenComponent', 'selector': 'app-garden'},{'name': 'HomeComponent', 'selector': ''},{'name': 'LawnmowerComponent', 'selector': 'app-lawnmower'},{'name': 'LightningComponent', 'selector': 'app-lightning'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'PoolComponent', 'selector': 'app-pool'},{'name': 'PortalComponent', 'selector': 'app-portal'},{'name': 'ProfilComponent', 'selector': 'app-profil'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'SnackbarComponent', 'selector': 'app-snackbar'},{'name': 'WateringComponent', 'selector': 'app-watering'}];
+    var DIRECTIVES = [{'name': 'CancelSearchInputResetDirective', 'selector': '[cancelSearchInputReset]'},{'name': 'InputFocusDirective', 'selector': '[inputFocus]'},{'name': 'InputTitleCaseDirective', 'selector': '[inputTitleCase]'},{'name': 'InputTrimDirective', 'selector': '[inputTrim]'},{'name': 'InputUpperCaseDirective', 'selector': '[inputUpperCase]'},{'name': 'RemoveNgPristineDirective', 'selector': '[removeNgPristine]'},{'name': 'RemoveNgTouchedDirective', 'selector': '[removeNgTouched]'},{'name': 'RemoveNgUntouchedDirective', 'selector': '[removeNgUntouched]'},{'name': 'RemoveNgValidDirective', 'selector': '[removeNgValid]'},{'name': 'SearchInputResetDirective', 'selector': '[searchInputReset]'}];
+    var ACTUAL_COMPONENT = {'name': 'AddEntityComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'AddEntityComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -74,21 +74,37 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { NgModule } from &#x27;@angular/core&#x27;;
 import { RouterModule, Routes } from &#x27;@angular/router&#x27;;
-
+import { environment } from &#x27;src/environments/environment&#x27;;
+// Components
+import { ForgottenPasswordComponent } from &#x27;./components/forgottenPassword/forgotten-password.component&#x27;;
 import { HomeComponent } from &#x27;./components/home/home.component&#x27;;
 import { LoginComponent } from &#x27;./components/login/login.component&#x27;;
 import { RegisterComponent } from &#x27;./components/register/register.component&#x27;;
 
-const routes: Routes &#x3D; [
-  {
-    path: &#x27;&#x27;, component: HomeComponent, children: [
-      { path: &#x27;&#x27;, redirectTo: &#x27;home&#x27;, pathMatch: &#x27;full&#x27; },
 
-      { path: &#x27;home&#x27;, component: HomeComponent },
-      { path: &#x27;login&#x27;, component: LoginComponent },
-      { path: &#x27;register&#x27;, component: RegisterComponent }
-    ]
-  }
+const name &#x3D; environment.application.name;
+
+const routes: Routes &#x3D; [
+      { path: &#x27;&#x27;, component: HomeComponent, pathMatch: &#x27;full&#x27;,
+        data: {
+          ogTitle: &#x60;Page d\&#x27;accueil de l&#x27;application ${name}&#x60;
+        }
+      },
+      { path: &#x27;login&#x27;, component: LoginComponent,
+        data: {
+          ogTitle: &#x60;Page de connexion de l\&#x27;application ${name}&#x60;
+        }
+      },
+      { path: &#x27;register&#x27;, component: RegisterComponent,
+        data: {
+          ogTitle: &#x60;Page de création de compte de l\&#x27;application ${name}&#x60;
+        }
+      },
+      { path: &#x27;forgottenPassword&#x27;, component: ForgottenPasswordComponent,
+        data: {
+          ogTitle: &#x60;Page de mot de passe oublié de l\&#x27;application ${name}&#x60;
+        }
+      }
 ];
 
 @NgModule({

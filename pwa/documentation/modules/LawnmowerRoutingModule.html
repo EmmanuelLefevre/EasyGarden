@@ -74,11 +74,36 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { NgModule } from &#x27;@angular/core&#x27;;
 import { RouterModule, Routes } from &#x27;@angular/router&#x27;;
+import { environment } from &#x27;src/environments/environment&#x27;;
 
-import { LawnmowerComponent } from &#x27;./component/lawnmower.component&#x27;;
+import { LawnmowerComponent } from &#x27;./lawnmower.component&#x27;;
+import { AddEntityComponent } from &#x27;../../components/addEntity/add-entity.component&#x27;;
+import { EditEntityNameComponent } from &#x27;../../components/editEntityName/edit-entity-name.component&#x27;;
+
+import { LawnmowerResolver } from &#x27;./lawnmower.resolver&#x27;;
+
+
+const name &#x3D; environment.application.name;
 
 const routes: Routes &#x3D; [
-  { path: &#x27;&#x27;, component: LawnmowerComponent }
+  { path: &#x27;&#x27;, component: LawnmowerComponent,
+    data: {
+      ogTitle: &#x60;Page tondeuse de l\&#x27;application ${name}&#x60;
+    },
+    resolve: {
+      data: LawnmowerResolver
+    }
+  },
+  { path: &#x27;edit/:id&#x27;, component: EditEntityNameComponent,
+    data: {
+      ogTitle: &#x60;Page modifier éclairage de l\&#x27;application ${name}&#x60;
+    }
+  },
+  { path: &#x27;add&#x27;, component: AddEntityComponent,
+    data: {
+      ogTitle: &#x60;Page ajouter tondeuse de l\&#x27;application ${name}&#x60;
+    }
+  }
 ];
 
 @NgModule({
