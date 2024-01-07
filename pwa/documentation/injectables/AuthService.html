@@ -79,10 +79,19 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#logIn" >logIn</a>
+                                <a href="#checkIfEmailExist" >checkIfEmailExist</a>
                             </li>
                             <li>
-                                <a href="#registerIn" >registerIn</a>
+                                <a href="#forgottenPassword" >forgottenPassword</a>
+                            </li>
+                            <li>
+                                <a href="#isAccountVerified" >isAccountVerified</a>
+                            </li>
+                            <li>
+                                <a href="#isUserLogged" >isUserLogged</a>
+                            </li>
+                            <li>
+                                <a href="#logIn" >logIn</a>
                             </li>
                         </ul>
                     </td>
@@ -102,12 +111,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(httpClient: <a href="https://angular.io/api/common/http/HttpClient" target="_blank">HttpClient</a>)</code>
+<code>constructor(httpClient: <a href="https://angular.io/api/common/http/HttpClient" target="_blank">HttpClient</a>, tokenService: <a href="../injectables/TokenService.html" target="_self">TokenService</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/_services/auth/auth.service.ts:15</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/_services/auth/auth.service.ts:17</a></div>
                             </td>
                         </tr>
 
@@ -136,6 +145,18 @@
                                                     </td>
                                                     
                                                 </tr>
+                                                <tr>
+                                                        <td>tokenService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/TokenService.html" target="_self" >TokenService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
                                         </tbody>
                                     </table>
                             </div>
@@ -154,6 +175,250 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="checkIfEmailExist"></a>
+                    <span class="name">
+                        <span ><b>checkIfEmailExist</b></span>
+                        <a href="#checkIfEmailExist"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>checkIfEmailExist(email: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="35"
+                            class="link-to-prism">src/app/_services/auth/auth.service.ts:35</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>email</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Observable&lt;boolean&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="forgottenPassword"></a>
+                    <span class="name">
+                        <span ><b>forgottenPassword</b></span>
+                        <a href="#forgottenPassword"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>forgottenPassword(email: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="39"
+                            class="link-to-prism">src/app/_services/auth/auth.service.ts:39</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>email</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Observable&lt;boolean&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isAccountVerified"></a>
+                    <span class="name">
+                        <span ><b>isAccountVerified</b></span>
+                        <a href="#isAccountVerified"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isAccountVerified(email: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="31"
+                            class="link-to-prism">src/app/_services/auth/auth.service.ts:31</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>email</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Observable&lt;boolean&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isUserLogged"></a>
+                    <span class="name">
+                        <span ><b>isUserLogged</b></span>
+                        <a href="#isUserLogged"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isUserLogged()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="43"
+                            class="link-to-prism">src/app/_services/auth/auth.service.ts:43</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="logIn"></a>
                     <span class="name">
                         <span ><b>logIn</b></span>
@@ -163,15 +428,15 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>logIn(credentials: <a href="../interfaces/CredentialsModel.html" target="_self">CredentialsModel</a>)</code>
+<code>logIn(credentials: <a href="../interfaces/ICredentials.html" target="_self">ICredentials</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="19"
-                            class="link-to-prism">src/app/_services/auth/auth.service.ts:19</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="22"
+                            class="link-to-prism">src/app/_services/auth/auth.service.ts:22</a></div>
                 </td>
             </tr>
 
@@ -194,7 +459,7 @@
                                 <tr>
                                     <td>credentials</td>
                                     <td>
-                                                <code><a href="../interfaces/CredentialsModel.html" target="_self" >CredentialsModel</a></code>
+                                                <code><a href="../interfaces/ICredentials.html" target="_self" >ICredentials</a></code>
                                     </td>
 
                                     <td>
@@ -209,76 +474,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="../interfaces/TokenModel.html" target="_self" >Observable&lt;TokenModel&gt;</a></code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="registerIn"></a>
-                    <span class="name">
-                        <span ><b>registerIn</b></span>
-                        <a href="#registerIn"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>registerIn(user: <a href="../interfaces/UserModel.html" target="_self">UserModel</a>)</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="23"
-                            class="link-to-prism">src/app/_services/auth/auth.service.ts:23</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>user</td>
-                                    <td>
-                                                <code><a href="../interfaces/UserModel.html" target="_self" >UserModel</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                        <b>Returns : </b>        <code><a href="../interfaces/IToken.html" target="_self" >Observable&lt;IToken&gt;</a></code>
 
                     </div>
                     <div class="io-description">
@@ -296,42 +492,50 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
 import { HttpClient } from &#x27;@angular/common/http&#x27;;
-import { Observable, of } from &#x27;rxjs&#x27;;
+import { Observable, of, throwError } from &#x27;rxjs&#x27;;
 import { environment } from &#x27;src/environments/environment&#x27;;
-
-import { CredentialsModel } from &#x27;../../_models/credentialsModel&#x27;;
-import { UserModel } from &#x27;../../_models/userModel&#x27;;
-import { TokenModel } from &#x27;../../_models/tokenModel&#x27;;
+// Services
+import { TokenService } from &#x27;./token.service&#x27;;
+// Modele
+import { ICredentials } from &#x27;../../_interfaces/ICredentials&#x27;;
+import { IToken } from &#x27;../../_interfaces/IToken&#x27;;
 
 
 @Injectable({
   providedIn: &#x27;root&#x27;
 })
 
+
 export class AuthService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient,
+              private tokenService: TokenService) { }
 
-  logIn(credentials: CredentialsModel): Observable&lt;TokenModel&gt;{
-    return this.httpClient.post&lt;TokenModel&gt;(environment.apis.login.url, credentials)
+  logIn(credentials: ICredentials): Observable&lt;IToken&gt;{
+    // Check if token is present and expired
+    const token &#x3D; this.tokenService.getToken();
+    if (token !&#x3D;&#x3D; null &amp;&amp; this.tokenService.isTokenExpired(token)) {
+      this.tokenService.clearToken();
+    }
+    return this.httpClient.post&lt;IToken&gt;(environment.apis.login.url, credentials);
   }
 
-  registerIn(user: UserModel) {
-    const profile &#x3D; {
-      email: user.email,
-      password: user.password,
-      plainPassword: user.password,
-      lastName: user.lastName,
-      firstName: user.firstName,
-      pseudo: user.pseudo,
-      phoneNumber: user.phoneNumber,
-      createdAt: &quot;2022-05-17 01:31:36&quot;,
-      isVerified: true,
-      roles:[&quot;ROLE_USER&quot;]
-    };
-    return this.httpClient.post(environment.apis.user.url, profile)
+  isAccountVerified(email: string): Observable&lt;boolean&gt; {
+    return this.httpClient.get&lt;boolean&gt;(environment.apis.checkAccountActivation.url, {params:{email}});
   }
-  
+
+  checkIfEmailExist(email: string): Observable&lt;boolean&gt; {
+    return this.httpClient.get&lt;boolean&gt;(environment.apis.checkIfEmailExist.url, {params:{email}});
+  }
+
+  forgottenPassword(email: string): Observable&lt;boolean&gt; {
+    return this.httpClient.get&lt;boolean&gt;(environment.apis.forgottenPassword.url, {params:{email}});
+  }
+
+  isUserLogged() {
+    return of(true);
+  }
+
 }
 </code></pre>
     </div>

@@ -74,10 +74,14 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { NgModule } from &#x27;@angular/core&#x27;;
 import { RouterModule, Routes } from &#x27;@angular/router&#x27;;
+import { environment } from &#x27;src/environments/environment&#x27;;
+// Service
+import { AuthGuardService } from &#x27;./_services/guard/auth.guard&#x27;;
+// Component
+import { Error404Component } from &#x27;./_services/utils/error/error404/error404.component&#x27;;
+import { ActivatedAccountComponent } from &#x27;./_services/utils/activated-account/activated-account.component&#x27;;
 
-import { AuthGuard } from &#x27;./_services/guard/auth.guard&#x27;;
-
-import { ErrorComponent } from &#x27;./_services/utils/components/error/error.component&#x27;;
+const name &#x3D; environment.application.name;
 
 const routes: Routes &#x3D; [
   {
@@ -86,9 +90,19 @@ const routes: Routes &#x3D; [
   },
   {
     path: &#x27;easygarden&#x27;, loadChildren: () &#x3D;&gt; &quot;import(&#x27;./easygarden/easygarden.module&#x27;)\
-      .then(module &#x3D;&gt; module.EasygardenModule)&quot;, canActivate:[AuthGuard]
+      .then(module &#x3D;&gt; module.EasygardenModule)&quot;, canActivate:[AuthGuardService]
   },
-  { path: &#x27;**&#x27;, component: ErrorComponent}
+  { path: &#x27;404&#x27;, component: Error404Component,
+    data: {
+      ogTitle: &#x60;Page d&#x27;erreur 404 de l\&#x27;application ${name}&#x60;
+    },
+  },
+  { path: &#x27;activated-account&#x27;, component: ActivatedAccountComponent,
+    data: {
+      ogTitle: &#x60;Page de confirmation de validation de compte utilisateur de l\&#x27;application ${name}&#x60;
+    },
+  },
+  { path: &#x27;**&#x27;, component: Error404Component }
 ];
 
 @NgModule({

@@ -74,13 +74,27 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { NgModule } from &#x27;@angular/core&#x27;;
 import { RouterModule, Routes } from &#x27;@angular/router&#x27;;
+// Environment
+import { environment } from &#x27;src/environments/environment&#x27;;
+// Components
+import { AddEntityComponent } from &#x27;./components/addEntity/add-entity.component&#x27;;
+import { EditEntityNameComponent } from &#x27;./components/editEntityName/edit-entity-name.component&#x27;;
+import { GardenComponent } from &#x27;./components/garden/garden.component&#x27;;
 
-import { LayoutComponent } from &#x27;./components/layout/layout.component&#x27;;
+// import { GardenResolver } from &#x27;./components/garden/garden.resolver&#x27;;
+
+const name &#x3D; environment.application.name;
 
 const routes: Routes &#x3D; [
   {
-    path: &#x27;&#x27;, component: LayoutComponent, children: [
-      { path: &#x27;easygarden&#x27;, component: LayoutComponent },
+    path: &#x27;&#x27;, component: GardenComponent,
+      data: {
+        ogTitle: &#x60;Page jardin de l&#x27;application ${name}&#x60;
+      },
+      // resolve: {
+      //   data: GardenResolver
+      // },
+    children: [
       {
         path: &#x27;profil&#x27;, loadChildren: () &#x3D;&gt; &quot;import(&#x27;./modules/profil/profil.module&#x27;)\
           .then(module &#x3D;&gt; module.ProfilModule)&quot;
@@ -104,6 +118,17 @@ const routes: Routes &#x3D; [
       {
         path: &#x27;lawnmower&#x27;, loadChildren: () &#x3D;&gt; &quot;import(&#x27;./modules/lawnmower/lawnmower.module&#x27;)\
           .then(module &#x3D;&gt; module.LawnmowerModule)&quot;
+      },
+
+      { path: &#x27;garden/edit/:id&#x27;, component: EditEntityNameComponent,
+        data: {
+          ogTitle: &#x60;Page modifier jardin de l&#x27;application ${name}&#x60;
+        }
+      },
+      { path: &#x27;garden/add&#x27;, component: AddEntityComponent,
+        data: {
+          ogTitle: &#x60;Page ajouter jardin de l&#x27;application ${name}&#x60;
+        }
       }
     ]
   }
