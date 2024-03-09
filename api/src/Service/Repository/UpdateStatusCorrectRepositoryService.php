@@ -34,7 +34,7 @@ class UpdateStatusCorrectRepositoryService
                                 LightningRepository $lightningRepository,
                                 PoolRepository $poolRepository,
                                 PortalRepository $portalRepository,
-                                WateringRepository $wateringRepository) 
+                                WateringRepository $wateringRepository)
     {
         $this->lawnmowerRepository = $lawnmowerRepository;
         $this->lightningRepository = $lightningRepository;
