@@ -26,7 +26,7 @@ export class SnackbarComponent implements OnInit {
 /**
  * Class to represent snackbar model.
  */
- export class ISnackbar {
+export class ISnackbar {
 
   constructor(public message: string) {}
 
