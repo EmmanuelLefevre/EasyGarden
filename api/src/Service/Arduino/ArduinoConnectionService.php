@@ -27,7 +27,7 @@ class ArduinoConnectionService
 
             // Open connection and manage serial connection errors
             if (!$this->serial->deviceOpen()) {
-                throw new \Exception('Impossible d\'ouvrir la connexion serial avec l\'arduino!');
+                throw new \Exception('Impossible d\'ouvrir la connexion serial avec l\'Arduino!');
             }
         }
         finally {
