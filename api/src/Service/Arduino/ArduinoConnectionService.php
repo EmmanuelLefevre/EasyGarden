@@ -7,11 +7,13 @@ use lib\PHPSerial\PhpSerial;
 class ArduinoConnectionService
 {
     private PhpSerial $serial;
+    private string $device;
 
     public function __construct()
     {
         $this->serial = new PhpSerial();
-        $this->serial->deviceSet("COM3");
+        $this->device = "COM3";
+        $this->serial->deviceSet($this->device);
     }
 
     public function openSerialConnection(): void
@@ -23,19 +25,15 @@ class ArduinoConnectionService
             $this->serial->confStopBits(1);
             $this->serial->confFlowControl("none");
 
-            // $this->serial->deviceOpen();
-
             // Open connection and manage serial connection errors
             if (!$this->serial->deviceOpen()) {
                 throw new \Exception('Impossible d\'ouvrir la connexion serial avec l\'Arduino!');
             }
+
+            echo "Connexion série sur `$this->device` ouverte avec succès!";
         }
         catch (\Exception $e) {
             echo "Erreur : " . $e->getMessage();
-        }
-        finally {
-            // Ensures that the serial port is closed even in the event of an exception
-            $this->closeSerialConnection();
         }
     }
 
