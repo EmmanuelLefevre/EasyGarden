@@ -66,7 +66,7 @@ class ArduinoConnectionService
                 throw new \Exception("No response (or empty one) received from Arduino!");
             }
 
-            $connectionMessage = "Serial connection has been successfully established on `$this->port`. " . PHP_EOL;
+            $connectionMessage = "Serial connection has been successfully established on `$this->port`.";
             return $connectionMessage . "Arduino response: " . $arduinoResponse;
         }
         // Finally block => ensures that fclose($serial) is always called, even in the event of an exception.
