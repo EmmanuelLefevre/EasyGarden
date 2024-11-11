@@ -1,6 +1,6 @@
-const int ledPin = 13; // Pin to which the LED is connected
+const int ledPin = 5; // Pin to which the LED is connected
 String incomingMessage = ""; // Variable to store incoming message
-int timeDelay = 1000;
+int timeDelay = 500;
 
 void setup()
 {
@@ -18,19 +18,18 @@ void loop() {
     if (incomingMessage == "1") {
       digitalWrite(ledPin, HIGH); // Turn on LED by setting pin HIGH
       delay(timeDelay); // Apply time delay
-      sendMessage("L'éclairage a été allumé.");
+      sendMessage("Eclairage allumé!");
     }
 
     // If the message is "0", turn off the LED
     if (incomingMessage == "0") {
       digitalWrite(ledPin, LOW); // Turn off LED by setting pin LOW
       delay(timeDelay); // Apply time delay
-      sendMessage("L'éclairage a été éteint.");
+      sendMessage("Eclairage éteint!");
     }
   }
 }
 
-// Function to simulate sending a message through the serial port
 void sendMessage(String message) {
   Serial.println(message); // Send the message to the serial monitor
 }
