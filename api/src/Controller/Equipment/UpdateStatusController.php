@@ -48,11 +48,11 @@ class UpdateStatusController extends AbstractController
                                 XTypeValueValidator $xTypeValueValidator)
     {
         $this->arduinoConnectionService = $arduinoConnectionService;
-        $this->idParameterValidator = $idParameterValidator;
-        $this->jsonRequestValidator = $jsonRequestValidator;
-        $this->repositoryService = $repositoryService;
-        $this->xTypeValueService = $xTypeValueService;
-        $this->xTypeValueValidator = $xTypeValueValidator;
+        $this->idParameterValidator     = $idParameterValidator;
+        $this->jsonRequestValidator     = $jsonRequestValidator;
+        $this->repositoryService        = $repositoryService;
+        $this->xTypeValueService        = $xTypeValueService;
+        $this->xTypeValueValidator      = $xTypeValueValidator;
     }
 
     /**
@@ -67,15 +67,15 @@ class UpdateStatusController extends AbstractController
         // Get JSON request data
         $data = json_decode($request->getContent(), true);
 
-        // Check the presence of required keys and if their fields are valid
-        try {
-            // Validate json data using JsonDataValidatorService, including custom validators
-            $data = $this->jsonRequestValidator->validateJsonData($request, ['status']);
-        }
-        catch (JsonValidationException  $e) {
-            // Handle json validation exception by returning a json response with the error message
-            return new JsonResponse(['message' => $e->getMessage()], $e->getStatusCode());
-        }
+        // // Check the presence of required keys and if their fields are valid
+        // try {
+        //     // Validate json data using JsonDataValidatorService, including custom validators
+        //     $data = $this->jsonRequestValidator->validateJsonData($request, ['status']);
+        // }
+        // catch (JsonValidationException  $e) {
+        //     // Handle json validation exception by returning a json response with the error message
+        //     return new JsonResponse(['message' => $e->getMessage()], $e->getStatusCode());
+        // }
 
         // Extract the value of {id} from the route
         $idValue = $request->attributes->get('id');
@@ -113,14 +113,18 @@ class UpdateStatusController extends AbstractController
 
         // Open serial connection with Arduino
         try {
-            $this->arduinoConnectionService->openSerialConnection($status);
-        } catch (\Exception $e) {
+            $resultMessage = $this->arduinoConnectionService->openSerialConnection($status ? '1' : '0');
+        }
+        catch (\Exception $e) {
             // Manage serial connection errors
-            return new JsonResponse(['message' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return new JsonResponse([
+                'message' => 'Erreur dans la communication avec l\'Arduino.',
+                'message' => $e->getMessage()
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        // Message based on the equipment status
-        $message = ($status === true) ? 'L\'équipement a été allumé!' : 'L\'équipement a été éteint!';
-        return new JsonResponse(['message' => $message], Response::HTTP_OK);
+        return new JsonResponse([
+            'arduino_response' => $resultMessage
+        ], Response::HTTP_OK);
     }
 }
