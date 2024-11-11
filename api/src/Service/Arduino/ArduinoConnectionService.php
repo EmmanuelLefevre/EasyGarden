@@ -11,7 +11,7 @@ class ArduinoConnectionService
     public function __construct()
     {
         $this->serial = new PhpSerial();
-        $this->serial->deviceSet("COM4");
+        $this->serial->deviceSet("COM3");
     }
 
     public function openSerialConnection(): void
@@ -23,12 +23,15 @@ class ArduinoConnectionService
             $this->serial->confStopBits(1);
             $this->serial->confFlowControl("none");
 
-            $this->serial->deviceOpen();
+            // $this->serial->deviceOpen();
 
             // Open connection and manage serial connection errors
             if (!$this->serial->deviceOpen()) {
                 throw new \Exception('Impossible d\'ouvrir la connexion serial avec l\'Arduino!');
             }
+        }
+        catch (\Exception $e) {
+            echo "Erreur : " . $e->getMessage();
         }
         finally {
             // Ensures that the serial port is closed even in the event of an exception
