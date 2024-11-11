@@ -67,15 +67,15 @@ class UpdateStatusController extends AbstractController
         // Get JSON request data
         $data = json_decode($request->getContent(), true);
 
-        // // Check the presence of required keys and if their fields are valid
-        // try {
-        //     // Validate json data using JsonDataValidatorService, including custom validators
-        //     $data = $this->jsonRequestValidator->validateJsonData($request, ['status']);
-        // }
-        // catch (JsonValidationException  $e) {
-        //     // Handle json validation exception by returning a json response with the error message
-        //     return new JsonResponse(['message' => $e->getMessage()], $e->getStatusCode());
-        // }
+        // Check the presence of required keys and if their fields are valid
+        try {
+            // Validate json data using JsonDataValidatorService, including custom validators
+            $data = $this->jsonRequestValidator->validateJsonData($request, ['status']);
+        }
+        catch (JsonValidationException  $e) {
+            // Handle json validation exception by returning a json response with the error message
+            return new JsonResponse(['message' => $e->getMessage()], $e->getStatusCode());
+        }
 
         // Extract the value of {id} from the route
         $idValue = $request->attributes->get('id');
@@ -111,27 +111,13 @@ class UpdateStatusController extends AbstractController
         // Call the correct repository based on $xType and persist the status
         $repository->updateStatus($equipment, $status);
 
-        // Create an instance of ArduinoConnectionService and pass the values
-        // $arduinoService = new ArduinoConnectionService($bluetoothDevice, $serialDevice);
-        // Open bluetooth connection with Arduino
-        // try {
-        //     $arduinoService->openBluetoothConnection($status);
-        // OR
-            // $this->arduinoConnectionService->openBluetoothConnection($status);
-        // } catch (\Exception $e) {
-        //     // Manage Bluetooth connection errors
-        //     return new JsonResponse(['message' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
-        // }
-
-        // // Open serial connection with Arduino
-        // try {
-        //     $arduinoService->openSerialConnection($status);
-        // OR
-            // $this->arduinoConnectionService->openSerialConnection($status);
-        // } catch (\Exception $e) {
-        //     // Manage serial connection errors
-        //     return new JsonResponse(['message' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
-        // }
+        // Open serial connection with Arduino
+        try {
+            $this->arduinoConnectionService->openSerialConnection($status);
+        } catch (\Exception $e) {
+            // Manage serial connection errors
+            return new JsonResponse(['message' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
 
         // Message based on the equipment status
         $message = ($status === true) ? 'L\'équipement a été allumé!' : 'L\'équipement a été éteint!';
