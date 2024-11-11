@@ -2,46 +2,51 @@
 
 namespace App\Service\Arduino;
 
-use lib\PHPSerial\PhpSerial;
-
 class ArduinoConnectionService
 {
-    private PhpSerial $serial;
-    private string $device;
+    private int $baud; // Transmission speed
+    private string $port; // Serial port
 
     public function __construct()
     {
-        $this->serial = new PhpSerial();
-        $this->device = "COM3";
-        $this->serial->deviceSet($this->device);
+        $this->baud = 9600;
+        $this->port = "COM3";
     }
 
-    public function openSerialConnection(): void
+    /**
+     * Opens a serial connection and sends a command to the Arduino.
+     *
+     * @param string $status The status to send ("1" or "0").
+     * @return string Message indicating the result of the operation.
+     * @throws \Exception
+     */
+    public function openSerialConnection($status)
     {
-        try {
-            $this->serial->confBaudRate(9600);
-            $this->serial->confParity("none");
-            $this->serial->confCharacterLength(8);
-            $this->serial->confStopBits(1);
-            $this->serial->confFlowControl("none");
-
-            // Open connection and manage serial connection errors
-            if (!$this->serial->deviceOpen()) {
-                throw new \Exception('Impossible d\'ouvrir la connexion serial avec l\'Arduino!');
-            }
-
-            echo "Connexion série sur `$this->device` ouverte avec succès!";
+        // Check if status is correct
+        if ($status !== '1' && $status !== '0') {
+            throw new \Exception('Invalid status format!');
         }
-        catch (\Exception $e) {
-            echo "Erreur : " . $e->getMessage();
-        }
-    }
 
-    public function closeSerialConnection(): void
-    {
-        // Close serial port if connection is open
-        if ($this->serial->deviceIsOpen()) {
-            $this->serial->deviceClose();
+        // Configure serial port
+        $command = "mode {$this->port}: baud={$this->baud} parity=N data=8 stop=1";
+        exec($command, $output, $statusCode);
+
+        if ($statusCode !== 0) {
+            throw new \Exception("Unable to configure serial port on `$this->port`!");
         }
+
+        // Open serial connection
+        $serial = fopen($this->port, "w+");
+
+        if (!$serial) {
+            throw new \Exception("Unable to open serial port on `$this->port`!");
+        }
+
+        fwrite($serial, $status);
+
+        // Close serial connection
+        fclose($serial);
+
+        return "Serial connection has been successfully established on `$this->port` (command has been sent).";
     }
 }
