@@ -132,6 +132,9 @@ export class FormErrorMessageService {
   }
 
   private getStrongPasswordErrorMessage(errors: any): string {
+    if (!errors) {
+      return 'Une erreur s\'est produite!';
+    }
     if (errors.missingUpperCase) {
       return 'Le mot de passe doit contenir une majuscule.';
     }
