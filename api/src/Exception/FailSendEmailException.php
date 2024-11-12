@@ -7,8 +7,8 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 
 
 /**
- * Represents a custom exception for not found repository.
- * This exception is thrown when there is an issue with not found repository.
+ * Custom exception to indicate an email sending failure.
+ * This exception is thrown when there is a problem sending an email.
  * @package App\Exception
  */
 class FailSendEmailException extends HttpException
@@ -19,9 +19,10 @@ class FailSendEmailException extends HttpException
     /**
      * FailSendEmailException constructor.
      * @param string $message The error message.
+     * @param \Exception|null $previous Previous exception for error traceability (optional).
      */
-    public function __construct(string $message)
+    public function __construct(string $message, \Exception $previous = null)
     {
-        parent::__construct(Response::HTTP_INTERNAL_SERVER_ERROR, $message);
+        parent::__construct(Response::HTTP_INTERNAL_SERVER_ERROR, $message, $previous);
     }
 }
