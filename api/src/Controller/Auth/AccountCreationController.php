@@ -11,6 +11,7 @@ use App\Validator\Json\JsonRequestValidator;
 use App\Service\Mailing\AccountCreationEmailService;
 use App\Utility\Date\DateTimeConverter;
 use App\Utility\Token\TokenGenerator;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -29,6 +30,7 @@ class AccountCreationController extends AbstractController
 {
     private $emailService;
     private $jsonRequestValidator;
+    private $logger;
     private $userDataPersister;
     private $userRepository;
 
@@ -36,16 +38,19 @@ class AccountCreationController extends AbstractController
      * AccountCreationController constructor.
      * @param AccountCreationEmailService $emailService The service responsible for sending account creation emails.
      * @param JsonRequestValidator $jsonRequestValidator The validator responsible for validating the json format of the request.
+     * @param LoggerInterface $logger Take logs.
      * @param UserDataPersister $userDataPersister The service responsible for persisting user data.
      * @param UserRepository $userRepository The repository responsible for retrieving User data.
      */
     public function __construct(AccountCreationEmailService $emailService,
                                 JsonRequestValidator $jsonRequestValidator,
+                                LoggerInterface $logger,
                                 UserDataPersister $userDataPersister,
                                 UserRepository $userRepository)
     {
         $this->emailService = $emailService;
         $this->jsonRequestValidator = $jsonRequestValidator;
+        $this->logger = $logger;
         $this->userDataPersister = $userDataPersister;
         $this->userRepository = $userRepository;
     }
@@ -108,7 +113,11 @@ class AccountCreationController extends AbstractController
         try {
             $this->emailService->sendActivationEmail($user, $user->getEmail(), $activationToken);
         } catch (\Exception $e) {
-            throw new FailSendEmailException('Failed to send email!');
+            // throw new FailSendEmailException('Failed to send email!');
+            $this->logger->error('Erreur lors de l\'envoi de l\'email d\'activation : ' . $e->getMessage(), [
+                'exception' => $e,
+            ]);
+            throw new FailSendEmailException('Failed to send email! : ' . $e->getMessage(), $e);
         }
 
         // Persist User
@@ -131,12 +140,14 @@ class AccountCreationController extends AbstractController
         // Check if token is not null and not an empty string
         if (!$token || !is_string($token)) {
             return new JsonResponse(['message' => 'Null or invalid activation token!'], Response::HTTP_FORBIDDEN);
+            // return new RedirectResponse('http://localhost:4201/error?message=Token d\'activation nul ou invalide !');
         }
         // Find the user with the given activation token
         $user = $this->userRepository->findByActivationToken($token);
 
         if (!$user) {
             return new JsonResponse(['message' => 'Invalid activation token!'], Response::HTTP_FORBIDDEN);
+            // return new RedirectResponse('http://localhost:4201/error?message=Token d\'activation nul ou invalide !');
         }
 
         // Activate the user's account
