@@ -11,7 +11,7 @@ void loop() {
   // Check if data is available in the serial buffer
   if (Serial.available() > 0) {
     // Read incoming message from serial
-    char received = Serial.readStringUntil('\n');
+    string received = Serial.readStringUntil('\n');
 
     // If message is '1', turn on the LED
     if (received == '1') {
