@@ -33,7 +33,7 @@ class UpdateStatusController extends AbstractController
 
     /**
      * UpdateStatusController constructor.
-     * @param ArduinoConnectionService $arduinoConnectionService The service responsible for open the bluetooth connection with Arduinos.
+     * @param ArduinoConnectionService $arduinoConnectionService The service responsible for open the connection with Arduinos.
      * @param IdParameterValidator $idParameterValidator The validator responsible for validating the id parameter.
      * @param JsonRequestValidator $jsonRequestValidator The validator responsible for validating the json format of the request.
      * @param UpdateStatusCorrectRepositoryService $repositoryService The service responsible for interacting with the repository for updating status.
