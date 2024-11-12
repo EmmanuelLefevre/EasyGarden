@@ -67,15 +67,15 @@ class UpdateStatusController extends AbstractController
         // Get JSON request data
         $data = json_decode($request->getContent(), true);
 
-        // // Check the presence of required keys and if their fields are valid
-        // try {
-        //     // Validate json data using JsonDataValidatorService, including custom validators
-        //     $data = $this->jsonRequestValidator->validateJsonData($request, ['status']);
-        // }
-        // catch (JsonValidationException  $e) {
-        //     // Handle json validation exception by returning a json response with the error message
-        //     return new JsonResponse(['message' => $e->getMessage()], $e->getStatusCode());
-        // }
+        // Check the presence of required keys and if their fields are valid
+        try {
+            // Validate json data using JsonDataValidatorService, including custom validators
+            $data = $this->jsonRequestValidator->validateJsonData($request, ['status']);
+        }
+        catch (JsonValidationException  $e) {
+            // Handle json validation exception by returning a json response with the error message
+            return new JsonResponse(['message' => $e->getMessage()], $e->getStatusCode());
+        }
 
         // Extract the value of {id} from the route
         $idValue = $request->attributes->get('id');
