@@ -98,9 +98,17 @@ class JsonRequestValidator
 
 		// Check the presence of required keys and if their fields are empty
         foreach ($requiredKeys as $field) {
-            if (!isset($data[$field]) || empty($data[$field])) {
-				throw new JsonValidationException('Missing required key or empty field!');
-			}
+            // For 'status', check only the presence of the key without using empty()
+            if ($field === 'status') {
+                if (!isset($data[$field])) {
+                    throw new JsonValidationException("Missing required key!");
+                }
+            }
+            else {
+                if (!isset($data[$field]) || empty($data[$field])) {
+                    throw new JsonValidationException('Missing required key or empty field!');
+                }
+            }
         }
 
 		// Validate email if present
