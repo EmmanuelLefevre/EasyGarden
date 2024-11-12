@@ -4,12 +4,12 @@ namespace App\Service\Arduino;
 
 class ArduinoConnectionService
 {
-    private int $baud; // Transmission speed
+    private int $baud; // Transmission speed and bandwidth
     private string $port; // Serial port
 
     public function __construct()
     {
-        $this->baud = 9600;
+        $this->baud = 115200;
         $this->port = "COM3";
     }
 
@@ -44,9 +44,15 @@ class ArduinoConnectionService
             // Send command to Arduino
             fwrite($serial, $status);
 
+            // Flush the output buffer to ensure immediate transmission
+            fflush($serial);
+
+            // Non-blocking mode
+            stream_set_blocking($serial, false);
+
             // Waiting for the response from the Arduino with a controlled loop
             $attempt = 0;
-            $maxAttempts = 10;
+            $maxAttempts = 3;
             $arduinoResponse = "";
 
             while ($attempt < $maxAttempts) {
@@ -59,14 +65,17 @@ class ArduinoConnectionService
                 }
 
                 $attempt++;
+
+                // 100 ms pause between attempts to avoid CPU overload
+                usleep(100000);
             }
 
             // Verify if response was actually received
-            if (empty($arduinoResponse || $arduinoResponse === false)) {
+            if (empty($arduinoResponse) || $arduinoResponse === false) {
                 throw new \Exception("No response (or empty one) received from Arduino!");
             }
 
-            $connectionMessage = "Serial connection has been successfully established on `$this->port`.";
+            $connectionMessage = "Serial connection has been successfully established on `$this->port`. ";
             return $connectionMessage . "Arduino response: " . $arduinoResponse;
         }
         // Finally block => ensures that fclose($serial) is always called, even in the event of an exception.

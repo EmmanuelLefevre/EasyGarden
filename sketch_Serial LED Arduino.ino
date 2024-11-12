@@ -5,14 +5,14 @@ int timeDelay = 20;
 void setup()
 {
   pinMode(ledPin, OUTPUT);  // Initializing LED pin as an output
-  Serial.begin(19200);   // Initializing serial connection on  9600 port
+  Serial.begin(115200);   // Initializing serial connection
 }
 
 void loop() {
   // Check if data is available in the serial buffer
   if (Serial.available() > 0) {
     // Read incoming message from serial
-    incomingMessage = Serial.readString();
+    incomingMessage = Serial.readStringUntil('\n');
 
     // If the message is "1", turn on the LED
     if (incomingMessage == "1") {
