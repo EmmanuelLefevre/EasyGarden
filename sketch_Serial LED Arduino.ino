@@ -14,14 +14,14 @@ void loop() {
     char received = Serial.readStringUntil('\n');
 
     // If message is '1', turn on the LED
-    if (incomingMessage == '1') {
+    if (received == '1') {
       digitalWrite(ledPin, HIGH); // Turn on LED by setting pin HIGH
       delay(timeDelay); // Apply time delay
       Serial.println("Eclairage allumé!");
     }
 
     // If message is '0', turn off the LED
-    if (incomingMessage == '0') {
+    if (received == '0') {
       digitalWrite(ledPin, LOW); // Turn off LED by setting pin LOW
       delay(timeDelay); // Apply time delay
       Serial.println("Eclairage éteint!");
