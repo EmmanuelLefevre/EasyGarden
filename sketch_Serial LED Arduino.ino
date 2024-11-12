@@ -1,11 +1,11 @@
 const int ledPin = 5; // Pin to which the LED is connected
 String incomingMessage = ""; // Variable to store incoming message
-int timeDelay = 500;
+int timeDelay = 20;
 
 void setup()
 {
   pinMode(ledPin, OUTPUT);  // Initializing LED pin as an output
-  Serial.begin(9600);   // Initializing serial connection on  9600 port
+  Serial.begin(19200);   // Initializing serial connection on  9600 port
 }
 
 void loop() {
