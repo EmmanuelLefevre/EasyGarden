@@ -20,7 +20,7 @@ class StatusValidator
      * @param Request|null $request The HTTP request object or null if not provided.
      * @return bool|JsonResponse True if the status is valid; otherwise, false or JsonResponse with/no error message.
      */
-    public function isValidStatus(string $paramName,
+    public function isValidStatus(mixed $paramName,
                                   bool $returnJsonResponse = false,
                                   ?Request $request = null): JsonResponse|bool
     {
@@ -37,18 +37,21 @@ class StatusValidator
         }
 
         switch (true) {
-            // Not null
-            case trim($status) === '':
+            // If $status is null or an empty string, it's invalid
+            case $status === null || (is_string($status) && trim($status) === ''):
                 return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;
 
-            // Is a boolean
+            // If $status is a strict boolean (true or false)
             case !is_bool($status):
                 return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;
 
             // Check if the value is either true or false
-            if ($status !== true && $status !== false) {
-                return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;
-            }
+            case is_string($status) && ($status === 'true' || $status === 'false'):
+                $status = filter_var($status, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+                if ($status === null) {
+                    return $returnJsonResponse ? new JsonResponse('string', Response::HTTP_BAD_REQUEST) : false;
+                }
+                break;
 
             default:
                 return true;
