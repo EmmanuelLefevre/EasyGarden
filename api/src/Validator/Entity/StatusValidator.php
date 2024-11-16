@@ -49,7 +49,7 @@ class StatusValidator
             case is_string($status) && ($status === 'true' || $status === 'false'):
                 $status = filter_var($status, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
                 if ($status === null) {
-                    return $returnJsonResponse ? new JsonResponse('string', Response::HTTP_BAD_REQUEST) : false;
+                    return $returnJsonResponse ? new JsonResponse('', Response::HTTP_BAD_REQUEST) : false;
                 }
                 break;
 
