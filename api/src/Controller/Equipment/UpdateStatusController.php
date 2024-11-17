@@ -108,23 +108,33 @@ class UpdateStatusController extends AbstractController
 
         // Get the status from $data
         $status = $data['status'];
-        // Call the correct repository based on $xType and persist the status
-        $repository->updateStatus($equipment, $status);
 
         // Open serial connection with Arduino
         try {
-            $resultMessage = $this->arduinoConnectionService->openSerialConnection($status ? '1' : '0');
+            $resultMessage = $this->arduinoConnectionService->openSerialConnection($status ? '1' : '0', $idValue);
+
+            // Check Arduino' response to ensure command was succesful
+            if (strpos($resultMessage, 'Eclairage') !== false &&
+                (strpos($resultMessage, 'allumé!') !== false || strpos($resultMessage, 'éteint!') !== false)) {
+                // Call correct repository based on $xType and persist status if Arduino confirms that light has been turned ON/OFF
+                $repository->updateStatus($equipment, $status);
+
+                return new JsonResponse([
+                    'arduino_response' => $resultMessage
+                ], Response::HTTP_OK);
+            }
+
+            return new JsonResponse([
+                'message' => 'Command error with Arduino: ' . $resultMessage
+            ], Response::HTTP_BAD_REQUEST);
+
         }
         catch (\Exception $e) {
             // Manage serial connection errors
             return new JsonResponse([
-                'message' => 'Erreur dans la communication avec l\'Arduino.',
-                'message' => $e->getMessage()
+                'message' => 'Connection failure with arduino!',
+                'error_details' => $e->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
-
-        return new JsonResponse([
-            'arduino_response' => $resultMessage
-        ], Response::HTTP_OK);
     }
 }
