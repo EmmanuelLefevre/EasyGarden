@@ -108,8 +108,6 @@ class UpdateStatusController extends AbstractController
 
         // Get the status from $data
         $status = $data['status'];
-        // Call the correct repository based on $xType and persist the status
-        $repository->updateStatus($equipment, $status);
 
         // Open serial connection with Arduino
         try {
@@ -122,6 +120,9 @@ class UpdateStatusController extends AbstractController
                 'message' => $e->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
+
+        // Call correct repository based on $xType and persist status if Arduino communication was successful
+        $repository->updateStatus($equipment, $status);
 
         return new JsonResponse([
             'arduino_response' => $resultMessage
