@@ -4,8 +4,8 @@ namespace App\Service\Arduino;
 
 class ArduinoConnectionService
 {
-    private int $baud; // Transmission speed and bandwidth
-    private string $port; // Serial port
+    private int $baud;              // Transmission speed and bandwidth
+    private string $port;           // Serial port
 
     public function __construct()
     {
