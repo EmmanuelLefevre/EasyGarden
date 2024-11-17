@@ -22,3 +22,7 @@
 /phpunit.xml
 .phpunit.result.cache
 ###< phpunit/phpunit ###
+
+###> serial port dotfile ###
+public/COM3
+###> serial port dotfile ###
