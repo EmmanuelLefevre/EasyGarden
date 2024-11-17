@@ -22,25 +22,39 @@ void loop() {
     received = Serial.readStringUntil('\n');
 
     // Parse the received message (Format: id-status, "6-1" or "5-0")
-    int separatorIndex = received.indexOf('-');
-    if (separatorIndex != -1) {
-      String idString = received.substring(0, separatorIndex);
-      String statusString = received.substring(separatorIndex + 1);
+    // Find the position of the delimiter '-'
+    int delimiterIndex = received.indexOf('-');
 
-      int id = idString.toInt();               // Extract ID
-      int status = statusString.toInt();       // Extract status (1 or 0)
+    // Check command format
+    if (delimiterIndex == -1) {
+      sendMessage("Invalid command format! Expected format: id-status");
+      return;
+    }
 
-      // Handle the light equipement based on the ID and status
-      handleLight(id, status);
+    String idString = received.substring(0, delimiterIndex);           // Extract ID
+    String statusString = received.substring(delimiterIndex + 1);      // Extract status (1 or 0)
+
+    int id = idString.toInt();               // Convert ID to integer
+    int status = statusString.toInt();       // Convert status to integer
+
+    // Validate if the ID and status are correctly parsed
+    if (id == 0) {
+      sendMessage("Invalid id received! Id should be a positive integer.");
+      return;
     }
-    else {
-      sendMessage("Invalid command format!");
+    if (status != 0 && status != 1) {
+      sendMessage("Invalid status received! Status should be 0 or 1.");
+      return;
     }
+
+    // Handle the light equipement based on the ID and status
+    handleLight(id, status);
   }
 }
 
 void handleLight(int id, int status)
 {
+  // Initialize ledPin to -1 => indicate that no LED is selected yet
   int ledPin = -1;
 
   // Map the ID to the corresponding light pin
@@ -55,19 +69,21 @@ void handleLight(int id, int status)
       ledPin = ledPin3;
       break;
     default:
-      sendMessage("Invalid light id, no equipement found!");
+      sendMessage("Light id mismatch. Command ignored!");
       return;
   }
 
   // Set the light status (ON or OFF)
   if (status == 1) {
-    digitalWrite(ledPin, HIGH);
-    delay(timeDelay);
+    digitalWrite(ledPin, HIGH);      // Turn ON light by setting pin HIGH
+    delay(timeDelay);                // Apply time delay
+
     sendMessage("Eclairage " + String(id) + " allumé!");
   }
   else if (status == 0) {
-    digitalWrite(ledPin, LOW);
-    delay(timeDelay);
+    digitalWrite(ledPin, LOW);       // Turn OFF light by setting pin LOW
+    delay(timeDelay);                // Apply time delay
+
     sendMessage("Eclairage " + String(id) + " éteint!");
   }
   else {
