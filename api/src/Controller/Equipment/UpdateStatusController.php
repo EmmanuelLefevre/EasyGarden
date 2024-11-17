@@ -113,7 +113,7 @@ class UpdateStatusController extends AbstractController
 
         // Open serial connection with Arduino
         try {
-            $resultMessage = $this->arduinoConnectionService->openSerialConnection($status ? '1' : '0');
+            $resultMessage = $this->arduinoConnectionService->openSerialConnection($status ? '1' : '0', $idValue);
         }
         catch (\Exception $e) {
             // Manage serial connection errors
