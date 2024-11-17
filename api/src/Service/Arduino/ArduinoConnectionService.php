@@ -17,15 +17,24 @@ class ArduinoConnectionService
      * Opens a serial connection and sends a command to the Arduino.
      *
      * @param string $status The status to send ("1" or "0").
-     * @return string Message  Message from the Arduino.
+     * @param int|null $lightId The ID of the light equipment being updated.
+     * @return string Response message from the Arduino.
      * @throws \Exception
      */
-    public function openSerialConnection($status)
+    public function openSerialConnection(string $status, ?int $lightId): string
     {
         // Check if status is correct
         if ($status !== '1' && $status !== '0') {
             throw new \Exception('Invalid status format!');
         }
+
+        // Check if a light equipment ID is provided
+        if ($lightId === null) {
+            throw new \Exception('Equipment ID is required!');
+        }
+
+        // Prepare the message to send
+        $message = $lightId . '-' . $status;
 
         // Configure serial port
         $command = "mode {$this->port}: baud={$this->baud} parity=N data=8 stop=1";
@@ -42,7 +51,7 @@ class ArduinoConnectionService
 
         try {
             // Send command to Arduino
-            fwrite($serial, $status);
+            fwrite($serial, $message . "\n");
 
             // Flush the output buffer to ensure immediate transmission
             fflush($serial);
