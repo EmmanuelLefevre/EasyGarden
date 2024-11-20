@@ -209,11 +209,11 @@ firewalls:
                 check_path: /authentication_token
                 username_path: email
                 success_handler: lexik_jwt_authentication.handler.authentication_success
-                failure_handler: lexik_jwt_authentication.handler.authentication_failure        
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
         api:
             pattern:   ^/api
             stateless: true
-            jwt: ~ 
+            jwt: ~
 
 access_control:
         - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
@@ -248,7 +248,7 @@ final class UserDataProvider implements DenormalizedIdentifiersAwareItemDataProv
 {
     private $userRepository;
     private $tokenStorage;
-    
+
     public function __construct(UserRepository $userRepository, TokenStorageInterface $tokenStorage)
     {
         $this->userRepository = $userRepository;
@@ -259,7 +259,7 @@ final class UserDataProvider implements DenormalizedIdentifiersAwareItemDataProv
     {
         return User::class === $resourceClass;
     }
-    
+
     public function getCollection(string $resourceClass, string $operationName = null, array $context = []): iterable
     {
         $token = $this->tokenStorage->getToken();
@@ -306,7 +306,7 @@ use ApiPlatform\Core\DataPersister\DataPersisterInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
-class UserDataPersister implements DataPersisterInterface 
+class UserDataPersister implements DataPersisterInterface
 {
     private $entityManager;
     private $userPasswordEncoder;
@@ -332,14 +332,14 @@ class UserDataPersister implements DataPersisterInterface
                 $this->userPasswordEncoder->hashPassword($data, $data->getPlainPassword())
             );
             $data->eraseCredentials();
-        }   
-        $this->entityManager->persist($data);      
+        }
+        $this->entityManager->persist($data);
         $this->entityManager->flush();
     }
 
     public function remove($data, array $context = [])
     {
-        $this->entityManager->remove($data);      
+        $this->entityManager->remove($data);
         $this->entityManager->flush();
     }
 }
