@@ -24,7 +24,7 @@ import { SearchInputResetDirective } from './search-input-reset.directive';
     RemoveNgUntouchedDirective,
     RemoveNgValidDirective,
     SearchInputResetDirective
-   ],
+  ],
   exports: [
     CancelSearchInputResetDirective,
     InputTrimDirective,
