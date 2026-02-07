@@ -344,4 +344,3 @@ class UserDataPersister implements DataPersisterInterface
     }
 }
 ```
-
